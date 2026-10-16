@@ -572,3 +572,15 @@ test('B3-238: a non-output file whose content holds a scrub token is refused; th
   const r = await tokenCase(w("process.cwd() + '/y'"));
   assert.match(r.files['__sandbox__/changes.txt'], /side\.txt/);
 });
+
+test('repo files are materialised with strictly increasing mtimes in manifest order (no same-tick ties on any filesystem)', () => {
+  const m = JSON.parse(readFileSync(join(seed, 'replay.json'), 'utf8'));
+  const names = ['z.json', 'a/report.json', 'm/n/report.json', 'b.txt'];
+  m.repo.files = Object.fromEntries(names.map((n) => [n, '{}']));
+  const sb = buildSandbox(seed, m);
+  try {
+    const t = names.map((n) => statSync(join(sb.repo, n)).mtimeMs);
+    for (let i = 1; i < t.length; i++) assert.ok(t[i] - t[i - 1] >= 1, `${names[i]} (${t[i]}) is at least 1 ms newer than ${names[i - 1]} (${t[i - 1]})`);
+    assert.ok(t[t.length - 1] <= Date.now(), 'never in the future');
+  } finally { rmSync(sb.root, { recursive: true, force: true }); }
+});

@@ -83,10 +83,16 @@ function buildInto(root, caseDir, m) {
   g('init', '-q', '-b', m.repo.branch);
   g('config', 'user.name', m.identity.gitUser);
   g('config', 'user.email', m.identity.gitEmail);
-  for (const [rel, content] of Object.entries(m.repo.files ?? {})) {
+  // Manifest order is mtime order, 1 ms apart and in the recent past: a writer that orders files by mtime (the
+  // reference's receipt loader) then sees the same order on every filesystem, never a same-tick tie (coarse on Linux).
+  const files = Object.entries(m.repo.files ?? {});
+  const t0 = Date.now() - files.length;
+  files.forEach(([rel, content], i) => {
     mkdirSync(dirname(join(repo, rel)), { recursive: true });
     writeFileSync(join(repo, rel), content);
-  }
+    const t = new Date(t0 + i);
+    utimesSync(join(repo, rel), t, t);
+  });
   writeFileSync(join(repo, '.keep'), '');
   g('add', '-A');
   g('commit', '-q', '-m', 'seed');
