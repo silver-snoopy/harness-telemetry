@@ -10,9 +10,10 @@ spent against what was delivered.
 It works in any repository. It doesn't need sdlc-skills, has no npm dependencies, and runs on Node ≥ 18.19.
 
 > **Status:** release candidate (`v0.4.0`, milestones R0–B3 of [`docs/spec.md`](docs/spec.md) §12).
-> - **Claude Code** capture is verified in a real session.
-> - **Copilot CLI** and **VS Code** capture are wired and tested against fake hosts. Verification against the real
->   hosts is milestone C2.
+> - **Claude Code** and **Copilot CLI** capture are verified in real sessions: hooks fired, the ledger line and the
+>   billed cost landed, and a real Copilot task was captured live with no commit needed.
+> - **VS Code** sidebar capture is wired and tested against a fake host; verification against the real sidebar is
+>   milestone C2.
 > - The first production release follows the shadow run (B4).
 
 ## What you get
@@ -48,16 +49,46 @@ It works in any repository. It doesn't need sdlc-skills, has no npm dependencies
 
 ## Setup
 
-Run every command from the **root of the project you want to track** (`<project>`). The examples assume this
-repository is cloned next to it.
+### Quick setup (one command)
 
-### 1. Get harness-telemetry
+From the root of the project you want to track:
 
 ```sh
-git clone https://github.com/silver-snoopy/harness-telemetry ../harness-telemetry
+npx github:silver-snoopy/harness-telemetry setup
 ```
 
-### 2. Copy the engine into the project
+From a clone of this repository, the same command is
+`node ../harness-telemetry/bin/harness-telemetry.mjs setup`.
+
+`setup` does everything in the manual steps below, in one run:
+1. It **detects your hosts**: Claude Code (`claude` on the PATH, or a `.claude/` folder) and Copilot CLI (`copilot` on
+   the PATH, or `.github/copilot-instructions.md`, `agents/`, `prompts/`, `hooks/` or `skills/`). It prints what it
+   found and why.
+2. It **copies the engine** for each host into the project.
+3. It **activates** each host with the git post-commit fallback. Copilot CLI hooks are wired at user level
+   (`~/.copilot/hooks/`), because Copilot CLI did not run repository hooks in our trial.
+4. It runs **`doctor`**.
+5. It **prints the `git add` / `git commit`** that shares the setup with your team, or makes that commit itself with
+   `--commit`. `--commit` includes only these files and leaves anything else you have staged alone.
+
+Re-running is safe: an up-to-date project reports `unchanged` and `already active`, and nothing is rewritten. Each
+teammate runs the same command once on their own machine, which wires their Copilot hooks.
+
+| option | effect |
+|---|---|
+| `--host claude,copilot-cli,vscode` | Choose the hosts instead of detecting them. `vscode` is never guessed. |
+| `--commit` | Commit the shared files (only those) as `chore: add tokenomics telemetry`. |
+| `--probe` | Also run one short real session per host, to prove the hooks fire. It uses a little of your quota. |
+| `--no-git-hook` | Skip the post-commit fallback sweep. |
+| `--repo-hooks` | Wire Copilot CLI in `.github/hooks/` instead of at user level. |
+| `--repo <dir>` | Run on another directory instead of the current one. |
+
+### Manual setup (what `setup` runs)
+
+Run every command from the **root of the project you want to track**. The examples assume this repository is cloned
+next to it (`git clone https://github.com/silver-snoopy/harness-telemetry ../harness-telemetry`).
+
+**1. Copy the engine into the project.**
 
 ```sh
 # Claude Code  → .claude/skills/tokenomics
@@ -70,22 +101,18 @@ node ../harness-telemetry/bin/harness-telemetry.mjs install tokenomics --target 
 This step copies files only. It changes no host settings and starts no hook. Install both targets if the team uses
 both hosts. `--force` replaces whatever directory is at the destination, so check it first.
 
-### 3. Activate for each host you use
+**2. Activate for each host you use.**
 
 ```sh
 # Claude Code
 node .claude/skills/tokenomics/scripts/install-hooks.mjs --host claude --git-hook
 
-# Copilot CLI
-node .github/skills/tokenomics/scripts/install-hooks.mjs --host copilot-cli --git-hook
+# Copilot CLI: hooks at user level (recommended; see below)
+node .github/skills/tokenomics/scripts/install-hooks.mjs --host copilot-cli --git-hook --user-hooks
 
 # VS Code Copilot Chat: only for repos where nobody uses Claude Code or Copilot CLI (see below)
 node .github/skills/tokenomics/scripts/install-hooks.mjs --host vscode
 ```
-
-The VS Code sidebar has no hooks. Every sweep, whichever host starts it, already reads the sidebar's sessions too. So
-`--host vscode` is needed only in a repository where nobody runs Claude Code or Copilot CLI. It adds a folder-open
-task to `.vscode/tasks.json`, and VS Code asks each teammate once per folder to allow automatic tasks.
 
 Activation runs these steps in order:
 1. It creates or verifies the `telemetry` submodule at `.agents/telemetry`.
@@ -102,19 +129,37 @@ prints `already active`. Useful flags:
 - `--plain-folder` is a fallback, used only when the submodule form fails.
 - `--local` writes Claude's `settings.local.json` instead of `settings.json`.
 
-### 4. Check it
+**Copilot CLI: why user-level hooks.** In our trial, Copilot CLI 1.0.96 ran user-level hooks
+(`~/.copilot/hooks/*.json`) but never ran a repository's `.github/hooks/*.json`. So `--user-hooks` installs:
+- `~/.copilot/hooks/tokenomics.json`;
+- a small dispatcher beside it, `~/.copilot/hooks/tokenomics/dispatch.mjs`. On each hook it finds the session's
+  repository and that repository's installed copy. It does nothing in a repository that has not activated
+  tokenomics for `copilot-cli`.
+
+Copilot writes a session's final usage after its `sessionEnd` hook runs. The dispatcher therefore captures the
+session a moment later, once Copilot has written the shutdown, without delaying Copilot. One file serves every
+repository on the machine. Two commands remove it:
+- `install-hooks.mjs --remove --host copilot-cli` keeps it;
+- `--remove --host copilot-cli --user-hooks` removes it.
+
+**VS Code.** The sidebar has no hooks, but every sweep, whichever host starts it, also reads the sidebar's sessions.
+So `--host vscode` is needed only in a repository where nobody runs Claude Code or Copilot CLI. It adds a folder-open
+task to `.vscode/tasks.json`, and VS Code asks each teammate once per folder to allow automatic tasks.
+
+**3. Check it.**
 
 ```sh
 node .claude/skills/tokenomics/scripts/doctor.mjs                         # integrity, activation, substrate, settings, hooks
 node .claude/skills/tokenomics/scripts/doctor.mjs --probe --host claude   # one short real session: do the hooks fire?
 ```
 
-`doctor` only reads, and it exits 1 on any `fail`. `--probe` runs one isolated host session (`claude -p …` or
-`copilot -p …`) whose telemetry goes to a temporary directory, so your ledger is untouched. It reports `fired`,
-`not-fired`, `partial` (captured by the git sweep only) or `unavailable`. VS Code always reads `unavailable` here;
-verify it with a real sidebar session followed by a sweep.
+`doctor` only reads, and it exits 1 on any `fail`. `--probe` runs one isolated host session whose telemetry goes to
+a temporary directory, so your ledger is untouched: `claude -p …`, or `copilot -p … --allow-tool 'shell(node)'`,
+which approves only the one `node` command the probe asks for. It reports `fired`, `not-fired`, `partial` (captured
+by the git sweep only) or `unavailable`. VS Code always reads `unavailable` here; verify it with a real sidebar
+session followed by a sweep.
 
-### 5. Commit what your teammates need
+**4. Commit what your teammates need.**
 
 ```sh
 git add .claude/skills/tokenomics .github/skills/tokenomics \
@@ -124,8 +169,8 @@ git commit -m "chore: add tokenomics telemetry"
 ```
 
 Add only the paths that exist for your hosts. Teammates who clone with `--recurse-submodules` are ready. Anyone else
-runs `git submodule update --init .agents/telemetry` once. Each teammate also needs Node on the `PATH` their host
-uses.
+runs `git submodule update --init .agents/telemetry` once. Each teammate needs Node on the `PATH` their host uses,
+and with user-level Copilot hooks, runs step 2 for `copilot-cli` (or `setup`) once on their machine.
 
 ## Configure (optional)
 
@@ -146,6 +191,7 @@ The full settings contract, the host registries and what each field means are in
 
 Capture is automatic once activation is done:
 - **Session hooks:** Claude Code and Copilot CLI capture through their hooks at session start and session end.
+  A Copilot session lands in the ledger a few seconds after it ends.
 - **Session-start sweep:** each new session first sweeps up any session that was missed.
 - **Git post-commit fallback:** with `--git-hook`, a background sweep also runs after every commit.
 
@@ -172,8 +218,12 @@ node .claude/skills/tokenomics/scripts/work-scope.mjs close   --session <id>
 
 ## Upgrade and remove
 
-- **Upgrade.** Pull this repository, re-run step 2 with `--force` for every target, then re-run step 3. Until step 3
-  runs, the new copy is **inert**: its hooks exit 0 and do nothing. The next sweep captures the sessions it missed.
+- **Upgrade.** Re-run `setup`, using the newer package (pull your clone, or the npx command fetches the latest).
+  It upgrades each engine copy and re-runs activation. A copy you changed locally is refused, never overwritten. By
+  hand: copy every target (step 1), then re-run step 2. Until step 2 runs, the new copy is **inert**: its hooks exit 0
+  and do nothing, and the next sweep captures the sessions it missed.
+- **Remove the Copilot user-level hooks.** `node <skill>/scripts/install-hooks.mjs --remove --host copilot-cli --user-hooks`.
+  They serve every repository on the machine, so they go only when named.
 - **Remove the git hook.** `node <skill>/scripts/install-hooks.mjs --git-hook --remove`. Any original
   `post-commit` hook is restored byte for byte.
 - **Roll back.** Every activation leaves the tag `pre-engine-<version>` and a verified bundle under
@@ -183,12 +233,13 @@ node .claude/skills/tokenomics/scripts/work-scope.mjs close   --session <id>
 
 ```
 harness-telemetry/
-├── bin/harness-telemetry.mjs   CLI: install, check, aggregate, replay
+├── bin/harness-telemetry.mjs   CLI: setup, install, check, aggregate, replay
+├── bin/setup.mjs               the one-command setup (detect hosts, copy, activate, doctor, commit)
 ├── tokenomics/                 the installable skill — the only part copied into a project
 │   ├── SKILL.md                operator reference (commands, activation, states)
 │   ├── ENGINE.json             engine version + hash baseline of every installed file
 │   ├── engine/                 capture, sweep, scope, join, config, activation, substrate, checkpoint, probe
-│   ├── hooks/                  host hook entry points (telemetry-capture, scope-hook, otel-sink)
+│   ├── hooks/                  host hook entry points (telemetry-capture, scope-hook, otel-sink, copilot-user-hook)
 │   ├── scripts/                install-hooks, doctor, work-scope, team-report, batch-cost, exports, otel-report
 │   ├── kit/                    check + aggregate: validate and roll up ledgers against the port contract
 │   ├── spec/                   contract docs (SUBSTRATE, TOKENOMICS, READING-PROFILE, REGISTRY) + schemas

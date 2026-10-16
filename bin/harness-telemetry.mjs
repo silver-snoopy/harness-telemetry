@@ -76,6 +76,12 @@ COMMANDS.install = async (args, io) => {
   }
 };
 
+COMMANDS.setup = async (args) => {
+  const { runSetup } = await import('./setup.mjs');
+  const packageRoot = fileURLToPath(new URL('..', import.meta.url));
+  return runSetup(args, { packageRoot, from: gitDescribe(packageRoot) });
+};
+
 function gitDescribe(packageRoot) {
   const git = (...a) => spawnSync('git', ['-C', packageRoot, ...a], { encoding: 'utf8' });
   try {
