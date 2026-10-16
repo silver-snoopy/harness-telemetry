@@ -38,7 +38,7 @@ import { join, dirname, relative, resolve, isAbsolute } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { loadSettings, telemetryDir, TA_DEFAULTS } from '../engine/config.mjs';
 import { isMain, exitAfterDrain } from '../engine/entry.mjs';
-import { ensureSubstrate, INNER_GITIGNORE, SUBSTRATE_PATH } from '../engine/substrate.mjs';
+import { ensureSubstrate, INNER_GITIGNORE, stageStorePointer, SUBSTRATE_PATH } from '../engine/substrate.mjs';
 import { takeCheckpoint } from '../engine/checkpoint.mjs';
 import { ensureModuleManifest } from '../engine/module-manifest.mjs';
 import { activationState, engineRootOf, entryPointsOn, explain } from '../engine/activation.mjs';
@@ -698,7 +698,7 @@ function gitHookBlocked(repo) {
 }
 
 /** Stage the store pointer in the main repository, so it names the telemetry branch head. */
-const stagePointer = (repo) => execFileSync('git', ['add', '--', SUBSTRATE_PATH], { cwd: repo, stdio: ['ignore', 'pipe', 'pipe'] });
+const stagePointer = (repo) => stageStorePointer(repo);
 
 /**
  * M12: one local store commit (`tokenomics: activate <v>`, no push) of the files activation writes into the store —

@@ -54,6 +54,15 @@ const isRepo = (git) => tryGit(git, ['rev-parse', '--git-dir']) !== null;
 const gitmodules = (git, key) => tryGit(git, ['config', '-f', '.gitmodules', '--get', `${KEY}.${key}`]);
 const registered = (git) => gitmodules(git, 'path') !== null || gitmodules(git, 'url') !== null;
 
+/** Stage the store pointer: the main repo's gitlink names the store checkout's HEAD. Written with update-index, never
+ * `git add`, because newer git (t2206) skips a `submodule.<name>.ignore = all` path in `git add` unless forced, which
+ * would leave the pointer at the clone-time commit. */
+export function stageStorePointer(repo, { env = process.env } = {}) {
+  const git = gitIn(repo, env);
+  const head = git(['rev-parse', 'HEAD'], { cwd: join(repo, ...SUBSTRATE_PATH.split('/')) });
+  git(['update-index', '--add', '--cacheinfo', `160000,${head},${SUBSTRATE_PATH}`]);
+}
+
 /**
  * Check the substrate through git. Submodule form: url `./`, branch `telemetry` (in `.gitmodules`
  * and in the checkout; a detached pointer on the telemetry history is fine), `ignore = all`,
@@ -216,9 +225,9 @@ export function ensureSubstrate(repo, settings = {}, { plainFolder = false, env 
       }
       git([...ID, 'commit', '-q', '-m', 'telemetry: seed'], { cwd: dir });
       tryGit(git, ['push', 'origin', `HEAD:${SUBSTRATE_BRANCH}`], { cwd: dir }); // best-effort
-      git(['add', '--', SUBSTRATE_PATH]);
+      stageStorePointer(repo, { env });
     } else if (fresh) {
-      git(['add', '--', SUBSTRATE_PATH]);
+      stageStorePointer(repo, { env });
     }
   } catch (err) {
     try {
