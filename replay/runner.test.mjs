@@ -580,7 +580,7 @@ test('repo files are materialised with strictly increasing mtimes in manifest or
   const sb = buildSandbox(seed, m);
   try {
     const t = names.map((n) => statSync(join(sb.repo, n)).mtimeMs);
-    for (let i = 1; i < t.length; i++) assert.ok(t[i] - t[i - 1] >= 1, `${names[i]} (${t[i]}) is at least 1 ms newer than ${names[i - 1]} (${t[i - 1]})`);
+    for (let i = 1; i < t.length; i++) assert.ok(t[i] - t[i - 1] > 0.5, `${names[i]} (${t[i]}) is ~1 ms newer than ${names[i - 1]} (${t[i - 1]})`); // Node 18 stores 1 ms as 0.999
     assert.ok(t[t.length - 1] <= Date.now(), 'never in the future');
   } finally { rmSync(sb.root, { recursive: true, force: true }); }
 });
