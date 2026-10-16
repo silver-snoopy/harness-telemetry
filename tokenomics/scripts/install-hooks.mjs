@@ -42,6 +42,7 @@ import { ensureSubstrate, INNER_GITIGNORE, stageStorePointer, SUBSTRATE_PATH } f
 import { takeCheckpoint } from '../engine/checkpoint.mjs';
 import { ensureModuleManifest } from '../engine/module-manifest.mjs';
 import { activationState, engineRootOf, entryPointsOn, explain } from '../engine/activation.mjs';
+import { installUserHooks, userHooksFile } from '../engine/copilot-user-hooks.mjs';
 
 export const MARKER = '_tokenomics';
 export const TASK_LABEL = 'tokenomics: telemetry sweep';
@@ -742,7 +743,7 @@ function ensureInnerIgnore(repo) {
  * The activation flow, steps 2–9 (step 1, --host, is parsed by main). Throws on the first failing step; the
  * activation record (step 9) is only reached when every earlier step succeeded.
  */
-function activate(repo, skillRoot, rel, { host, local, plainFolder, dir, updateManifest, gitHook }) {
+function activate(repo, skillRoot, rel, { host, local, plainFolder, dir, updateManifest, gitHook, userHooks = false }) {
   const say = (s) => process.stderr.write(s);
   let step = 'settings';
   const at = (name) => { step = name; };
@@ -824,9 +825,18 @@ function activate(repo, skillRoot, rel, { host, local, plainFolder, dir, updateM
     const hostFile = join(repo, ...plannedWrappers(host, { local })[0].split('/'));
     watch(hostFile, relative(repo, hostFile), () => {
       if (host === 'claude') touched.push(installClaude(repo, rel, { local, stopGate }));
-      if (host === 'copilot-cli') touched.push(installCopilot(repo, rel, { stopGate }));
+      if (host === 'copilot-cli' && !userHooks) touched.push(installCopilot(repo, rel, { stopGate }));
+      // --user-hooks: the machine-wide wiring replaces this repository's file, so a session is never captured twice.
+      if (host === 'copilot-cli' && userHooks && existsSync(hostFile)) touched.push(installCopilot(repo, rel, { remove: true }));
       if (host === 'vscode') touched.push(installVsCode(repo, rel));
     });
+    if (host === 'copilot-cli' && userHooks) {
+      const user = userHooksFile();
+      if (installUserHooks({ skillRoot }).length) {
+        wrote.push('Copilot user-level hooks');
+        say(`tokenomics: Copilot CLI hooks wired at user level (${user}); they serve every repository on this machine that activates copilot-cli\n`);
+      }
+    }
 
     // 7. the ignore lines (the transient state would otherwise dirty the tree and block a gate)
     at('ignore lines');
@@ -926,6 +936,9 @@ export async function main(argv = process.argv.slice(2)) {
     if (all || host === 'claude') touched.push(installClaude(repo, rel, { local, remove }));
     if (all || host === 'copilot-cli') touched.push(installCopilot(repo, rel, { remove }));
     if (all || host === 'vscode') touched.push(installVsCode(repo, rel, { remove }));
+    // The user-level Copilot wiring serves every repository on this machine: it goes only when asked by name.
+    if (argv.includes('--user-hooks')) touched.push(...installUserHooks({ remove: true }));
+    else if (existsSync(userHooksFile())) process.stderr.write(`tokenomics: the Copilot user-level hooks (${userHooksFile()}) are kept — they serve every repository on this machine; remove them with --remove --user-hooks\n`);
     touched.push(installGitignore(repo, { remove }, settings));
     if (all || argv.includes('--git-hook')) {
       const g = installGitHook(repo, rel, { remove: true });
@@ -961,7 +974,8 @@ export async function main(argv = process.argv.slice(2)) {
     process.stderr.write(`tokenomics: --dir needs a folder name (letters, digits, '.', '_', '-'; no path), got ${JSON.stringify(dir)}\n`);
     return 2;
   }
-  return activate(repo, skillRoot, rel, { host, local, plainFolder: argv.includes('--plain-folder'), dir, updateManifest: argv.includes('--update-manifest'), gitHook: argv.includes('--git-hook') });
+  if (argv.includes('--user-hooks') && host !== 'copilot-cli') { process.stderr.write('tokenomics: --user-hooks applies to --host copilot-cli only\n'); return 2; }
+  return activate(repo, skillRoot, rel, { host, local, plainFolder: argv.includes('--plain-folder'), dir, updateManifest: argv.includes('--update-manifest'), gitHook: argv.includes('--git-hook'), userHooks: argv.includes('--user-hooks') });
 }
 
 // items 12/13: realpath main guard, exit after stdio drains. In an installed copy run with TOKENOMICS_MIGRATIONS set,

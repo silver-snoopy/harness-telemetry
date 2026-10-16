@@ -24,6 +24,8 @@ import { join, relative, resolve } from 'node:path';
 import { activationState, explain } from '../engine/activation.mjs';
 import { loadSettings, telemetryDir } from '../engine/config.mjs';
 import { verifySubstrate } from '../engine/substrate.mjs';
+import { readUserHooks, userHooksFile } from '../engine/copilot-user-hooks.mjs';
+import { resolveCopy } from '../hooks/copilot-user-hook.mjs';
 import { isMain } from '../engine/entry.mjs';
 import { DEFAULT_TIMEOUT_MS, PARTIAL, PROBE_HOSTS, RECURSION_MESSAGE, normalizeHost, runProbe } from '../engine/probe.mjs';
 import { loadSchemas, validate } from '../kit/schema.mjs';
@@ -145,11 +147,18 @@ function wiredClaude(repo) {
   }
   return { any, rels, stop };
 }
-function wiredCopilot(repo) {
+function wiredCopilot(repo, settings) {
   const rels = new Set();
   const doc = readJson(join(repo, '.github', 'hooks', 'tokenomics.json'));
   const hooks = isObj(doc?.hooks) ? doc.hooks : null;
-  if (!hooks) return { any: false, rels, stop: false };
+  if (!hooks) {
+    // The user-level wiring (--user-hooks): its dispatcher picks the copy at run time, the way this resolves it; its
+    // Stop gate entry runs only where enforcement.stopGate is "on", so it is wired exactly when the setting says so.
+    if (!readUserHooks()) return { any: false, rels, stop: false };
+    const hit = resolveCopy(repo);
+    if (hit) rels.add(relative(repo, hit.copy));
+    return { any: true, rels, stop: settings?.enforcement?.stopGate === 'on' };
+  }
   for (const list of Object.values(hooks)) for (const h of Array.isArray(list) ? list : []) { const m = /\.\/(.+?)\/hooks\//.exec(h?.bash ?? ''); if (m) rels.add(m[1]); }
   return { any: true, rels, stop: Array.isArray(hooks.agentStop) && hooks.agentStop.length > 0 };
 }
@@ -173,7 +182,7 @@ function checkTargets(repo, settings) {
     const host = TARGET_ALIASES[name] ?? name;
     if (!TARGETS.includes(host)) { problems.push(`target ${JSON.stringify(name)}: unknown (use ${TARGETS.join(', ')})`); continue; }
     names.push(host);
-    const w = WIRED[host](repo);
+    const w = WIRED[host](repo, settings);
     if (!w.any) { problems.push(`${host}: hooks not wired (run install-hooks.mjs --host ${host})`); continue; }
     if (!w.rels.size) problems.push(`${host}: wired hooks name no engine copy`);
     for (const rel of w.rels) {
@@ -231,6 +240,9 @@ async function legacyChecks(repo, settings, env, { fix = false } = {}) {
     add('claude-hooks', 'warn', 'not wired (run install-hooks.mjs)');
   }
   const copFile = join(repo, '.github', 'hooks', 'tokenomics.json');
+  if (existsSync(copFile) && readUserHooks()) {
+    add('copilot-hooks', 'warn', `wired twice — ${relative(repo, copFile)} and the user-level ${userHooksFile()}; re-run install-hooks.mjs --host copilot-cli --user-hooks to keep only the user-level wiring`);
+  }
   if (existsSync(copFile)) {
     const h = readJson(copFile)?.hooks ?? {};
     warnIf(!!(h.subagentStart && h.sessionEnd), 'copilot-scope-contract', 're-run install-hooks.mjs (older install; old CLIs ignore unknown events, safe to write)');

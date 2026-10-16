@@ -29,10 +29,12 @@ import { accessSync, appendFileSync, chmodSync, constants, cpSync, existsSync, m
 import { spawn, spawnSync } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
 import { tmpdir } from 'node:os';
-import { delimiter, join } from 'node:path';
+import { delimiter, join, relative } from 'node:path';
 import { activationState, explain } from './activation.mjs';
 import { TA_DEFAULTS, loadSettings } from './config.mjs';
 import { hostFromEnv } from './scopes.mjs';
+import { readUserHooks } from './copilot-user-hooks.mjs';
+import { resolveCopy } from '../hooks/copilot-user-hook.mjs';
 
 export const NONCE_RE = /^[0-9a-f]{32}$/;
 /** The probe session's first prompt (`probePrompt`): the capture skips such a session outside a probe (R17). */
@@ -49,7 +51,9 @@ const MODES = ['--announce', '--mark-dispatch', '--gate', '--dispatch', '--sweep
 const ALIASES = { copilot: 'copilot-cli' };
 const CLI = {
   claude: { name: 'claude', override: 'TOKENOMICS_PROBE_CLAUDE_BIN', ledgerHost: 'claude', args: (prompt) => ['-p', prompt, '--model', CHEAP_MODEL] },
-  'copilot-cli': { name: 'copilot', override: 'TOKENOMICS_PROBE_COPILOT_BIN', ledgerHost: 'copilot', args: (prompt) => ['-p', prompt] },
+  // shell(node) approves exactly the one command the prompt asks for (work-scope.mjs open): `-p` denies shell tools
+  // unless they are allowed, and without it the scope stamp could never be written.
+  'copilot-cli': { name: 'copilot', override: 'TOKENOMICS_PROBE_COPILOT_BIN', ledgerHost: 'copilot', args: (prompt) => ['-p', prompt, '--allow-tool', 'shell(node)'] },
 };
 // The events that end a session (or a turn) on each host: when none of the wired ones fired, the git fallback decides
 // between `not-fired` and `sweep-only (partial)`.
@@ -59,6 +63,10 @@ const TRUST_RE = /not trusted|untrusted|trust (?:this|the) (?:folder|directory|w
 const SETTLE_MS = 300;
 const SETTLE_CAP_MS = 3000;
 const MIN_SWEEP_MS = 500;
+// A session-end hook may capture after the host exits (the Copilot user-level dispatcher sweeps once the session has
+// shut down, which the host writes after the hook): the expected result is re-read for up to this long.
+const LATE_CAPTURE_MS = 15000;
+const LATE_POLL_MS = 500;
 
 const isObj = (v) => v && typeof v === 'object' && !Array.isArray(v);
 const readJson = (p) => { try { return JSON.parse(readFileSync(p, 'utf8')); } catch { return null; } };
@@ -156,6 +164,18 @@ export function wiredEvents(repo, host, marker) {
   } else if (host === 'copilot-cli') {
     const hooks = readJson(join(repo, '.github', 'hooks', 'tokenomics.json'))?.hooks;
     if (isObj(hooks)) for (const [event, cmds] of Object.entries(hooks)) for (const c of Array.isArray(cmds) ? cmds : []) add(event, c?.bash);
+    else {
+      // The user-level wiring (--user-hooks): the dispatcher runs the copy it resolves for this repository, and runs
+      // the Stop gate only where enforcement.stopGate is "on", so an off gate is not a wired event here.
+      const hit = resolveCopy(repo);
+      const gateOn = readJson(join(repo, '.agents', 'tokenomics', 'settings.json'))?.enforcement?.stopGate === 'on';
+      for (const u of readUserHooks() ?? []) {
+        if (u.event === 'agentStop' && !gateOn) continue;
+        if (hit) rels.add(relative(repo, hit.copy));
+        if (!events.has(u.event)) events.set(u.event, []);
+        events.get(u.event).push(entryKey(u.script, u.args));
+      }
+    }
   }
   return { events: [...events].map(([event, keys]) => ({ event, keys })), rels: [...rels] };
 }
@@ -366,6 +386,12 @@ export async function runProbe(repo, { host, timeoutMs = DEFAULT_TIMEOUT_MS, env
       lines = all.filter((l) => ids.has(l.id));
     };
     await findLines();
+    const endFired = (SESSION_END[host] ?? []).some((e) => events[e] === 'fired');
+    if (!lines.length && endFired && !run.timedOut) {
+      const late = Number(env.TOKENOMICS_PROBE_LATE_MS) >= 0 && env.TOKENOMICS_PROBE_LATE_MS !== undefined ? Number(env.TOKENOMICS_PROBE_LATE_MS) : LATE_CAPTURE_MS;
+      const until = Math.min(started + timeoutMs, Date.now() + late);
+      while (!lines.length && Date.now() < until) { await new Promise((r) => setTimeout(r, LATE_POLL_MS)); await findLines(); }
+    }
     const expected = () => ({ ledgerLine: lines.length ? 'present' : 'missing', scopeStamp: lines.some((l) => isObj(l.scope) && l.scope.intent === 'probe') ? 'present' : 'missing' });
     const engineRoot = join(repo, rel);
     const st = activationState(engineRoot, repo, env);

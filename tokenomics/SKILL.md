@@ -44,7 +44,8 @@ Each is described below.
    `node <installed copy>/scripts/install-hooks.mjs --host <claude|copilot-cli|vscode>`
 
    `--host` is required (`copilot` is accepted for `copilot-cli`). Add `--git-hook` to install the post-commit
-   fallback in the same run (see "Git fallback"). See **Activation** below for what it does, in
+   fallback in the same run (see "Git fallback"). For Copilot CLI add `--user-hooks` to wire it at user level (see
+   "Copilot CLI user-level hooks"); `harness-telemetry setup` does that by default. See **Activation** below for what it does, in
    order. Re-running it on an active repository that needs no change writes nothing and reports `already active`; if
    the re-run had to write something (a missing hook, a store file), the line reads
    `activated ... (was active; this run updated: ...)` and names it.
@@ -138,7 +139,8 @@ re-run it.
    record.
 5. **Module manifest.** `<store>/<dir>/module.json` and `manifests/1.json` are written once. A later difference from
    settings is reported and never rewritten; `install-hooks.mjs --update-manifest` writes the next revision.
-6. **Host hooks.** These are wired to this installed copy. The Stop gate is wired only when
+6. **Host hooks.** These are wired to this installed copy (with `--user-hooks`, Copilot CLI through the user-level
+   dispatcher instead, and this repository's `.github/hooks/tokenomics.json` is removed). The Stop gate is wired only when
    `enforcement.stopGate` is `"on"`. It is installed off; set it on and re-run to wire it.
 7. **Ignore lines.** These keep the transient working state out of the main tree. An existing store's inner
    `.gitignore` also gets the working-state patterns (scope markers, `live/`) appended if they are missing, and the
@@ -162,6 +164,25 @@ copy left on the old version becomes inert.
 
 After an upgrade copy, the new version is inert until activation is re-run. Sessions it missed stay in the host's
 store, and the next sweep captures them.
+
+## Copilot CLI user-level hooks
+
+`install-hooks.mjs --host copilot-cli --user-hooks` installs `<COPILOT_HOME|~/.copilot>/hooks/tokenomics.json` and the
+dispatcher `hooks/tokenomics/dispatch.mjs` beside it, instead of the repository's `.github/hooks/tokenomics.json`.
+In the readiness trial, Copilot CLI 1.0.96 ran user-level hooks in every session and never ran a repository's.
+
+- **What the dispatcher runs.** For each hook it resolves the session's repository: `git rev-parse --show-toplevel`
+  from the hook's directory, else the primary worktree. It then runs that repository's installed copy (the one
+  matching the activation record), with Copilot's payload, output and environment.
+- **Repositories it ignores.** A repository that has not activated `copilot-cli` is left alone: exit 0, no output.
+- **The Stop gate.** It runs only where `enforcement.stopGate` is `"on"`.
+- **Session end.** Copilot runs `sessionEnd` hooks before it writes the session's final usage and `session.shutdown`.
+  So after the immediate capture, a detached waiter sweeps the session once its `events.jsonl` records the shutdown,
+  within 60 s. Copilot is never kept waiting.
+- **One wiring per machine.** One file serves every repository, so each teammate wires it once on their machine
+  (`setup` does). `doctor` accepts either wiring and warns when both exist (`copilot-hooks`).
+- **Removal.** `--remove --host copilot-cli` keeps the user-level files; `--remove --host copilot-cli --user-hooks`
+  removes them.
 
 ## Git fallback
 

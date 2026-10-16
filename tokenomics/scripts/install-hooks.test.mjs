@@ -175,7 +175,7 @@ test('installVsCode: folderOpen sweep task, preserves other tasks, idempotent, c
 test('vscode task is opt-in: activation wires only the named --host; --remove without one strips every host', () => {
   const src = readFileSync(new URL('./install-hooks.mjs', import.meta.url), 'utf8');
   assert.match(src, /if \(host === 'claude'\) touched\.push\(installClaude/);
-  assert.match(src, /if \(host === 'copilot-cli'\) touched\.push\(installCopilot/);
+  assert.match(src, /if \(host === 'copilot-cli'(?: && !userHooks)?\) touched\.push\(installCopilot/);
   assert.match(src, /if \(host === 'vscode'\) touched\.push\(installVsCode/);
   assert.match(src, /if \(all \|\| host === 'vscode'\) touched\.push\(installVsCode\(repo, rel, \{ remove \}\)\)/);
   assert.doesNotMatch(src, /host === 'all' \|\| host === 'vscode'/, 'vscode must not ride a default install');
@@ -1110,4 +1110,49 @@ test('git fallback (R23): the generated hook names no repo or copy path (it reso
   assert.ok(!text.includes(ctx.repo), 'no absolute repo path baked in');
   assert.ok(!text.includes(realpathSync(ctx.repo)), 'no resolved repo path baked in');
   assert.match(text, /show-toplevel/);
+});
+
+test('activation --user-hooks: Copilot CLI wired at user level through the dispatcher, no repo file; doctor ok; re-run already active; removal keeps it unless named', (t) => {
+  const ctx = consumerRepo(t);
+  const userFile = join(ctx.env.HOME, '.copilot', 'hooks', 'tokenomics.json');
+  const disp = join(ctx.env.HOME, '.copilot', 'hooks', 'tokenomics', 'dispatch.mjs');
+  // a repo-level wiring from an earlier activation is replaced, never doubled
+  assert.equal(activateCli(ctx, ['--host', 'copilot-cli']).status, 0);
+  assert.ok(existsSync(join(ctx.repo, '.github', 'hooks', 'tokenomics.json')));
+  const r = activateCli(ctx, ['--host', 'copilot-cli', '--user-hooks']);
+  assert.equal(r.status, 0, r.stderr);
+  assert.match(r.stderr, /Copilot CLI hooks wired at user level/);
+  assert.ok(existsSync(userFile) && existsSync(disp), 'user-level file and dispatcher written under the (sandboxed) home');
+  assert.ok(!existsSync(join(ctx.repo, '.github', 'hooks', 'tokenomics.json')), 'the repo-level file is gone');
+  assert.deepEqual(settingsOf(ctx.repo).targets, ['copilot-cli']);
+
+  const d = run(ctx.skill, 'scripts/doctor.mjs', [], ctx);
+  assert.equal(d.status, 0, d.stdout + d.stderr);
+  assert.match(d.stdout, /ok\s+targets\s+— copilot-cli wired to engine/);
+  assert.doesNotMatch(d.stdout, /wired twice/);
+
+  // the real engine answers through the dispatcher, from a subdirectory: the announce returns Copilot's JSON shape
+  mkdirSync(join(ctx.repo, 'src'));
+  const a = spawnSync(process.execPath, [disp, 'scope-hook', '--announce', '--json'], { cwd: join(ctx.repo, 'src'), env: { ...ctx.env, COPILOT_CLI: '1' }, input: JSON.stringify({ sessionId: 'user-hook-1', cwd: ctx.repo }), encoding: 'utf8' });
+  assert.equal(a.status, 0, a.stderr);
+  assert.ok(JSON.parse(a.stdout).additionalContext, `announce JSON from the installed copy: ${a.stdout}`);
+
+  assert.match(activateCli(ctx, ['--host', 'copilot-cli', '--user-hooks']).stderr, /already active/);
+  assert.equal(activateCli(ctx, ['--host', 'claude', '--user-hooks']).status, 2, '--user-hooks is copilot-cli only');
+
+  const keep = activateCli(ctx, ['--remove', '--host', 'copilot-cli']);
+  assert.equal(keep.status, 0);
+  assert.match(keep.stderr, /user-level hooks .* are kept/);
+  assert.ok(existsSync(userFile));
+  assert.equal(activateCli(ctx, ['--remove', '--host', 'copilot-cli', '--user-hooks']).status, 0);
+  assert.ok(!existsSync(userFile) && !existsSync(disp), 'removed when named');
+});
+
+test('doctor: a repo-level Copilot file next to the user-level wiring is reported as wired twice (warn)', (t) => {
+  const ctx = consumerRepo(t);
+  assert.equal(activateCli(ctx, ['--host', 'copilot-cli', '--user-hooks']).status, 0);
+  mkdirSync(join(ctx.repo, '.github', 'hooks'), { recursive: true });
+  writeFileSync(join(ctx.repo, '.github', 'hooks', 'tokenomics.json'), readFileSync(join(ctx.env.HOME, '.copilot', 'hooks', 'tokenomics.json')));
+  const d = run(ctx.skill, 'scripts/doctor.mjs', [], ctx);
+  assert.match(d.stdout, /warn\s+copilot-hooks\s+— wired twice/);
 });

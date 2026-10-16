@@ -10,6 +10,7 @@ import { tmpdir } from 'node:os';
 import { delimiter, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { installCopy } from './install-copy.mjs';
+import { installUserHooks } from './copilot-user-hooks.mjs';
 import { installClaude, installCopilot, installGitHook } from '../scripts/install-hooks.mjs';
 
 const ROOT = join(fileURLToPath(new URL('.', import.meta.url)), '..', '..');
@@ -39,10 +40,11 @@ for (const d of SYSTEM_PATH) for (const n of ['claude', 'copilot']) assert.ok(!e
 const ID = ['-c', 'user.name=Probe Tester', '-c', 'user.email=probe@example.invalid'];
 function baseEnv(home, extra = {}) {
   return {
-    PATH: [bin, ...SYSTEM_PATH].join(delimiter), HOME: home, TMPDIR: process.env.TMPDIR ?? tmpdir(),
+    PATH: [bin, ...SYSTEM_PATH].join(delimiter), HOME: home, COPILOT_HOME: join(home, '.copilot'), TMPDIR: process.env.TMPDIR ?? tmpdir(),
     GIT_CONFIG_GLOBAL: gitconfig, GIT_CONFIG_NOSYSTEM: '1', GIT_ALLOW_PROTOCOL: 'file', GIT_TERMINAL_PROMPT: '0',
     GIT_AUTHOR_NAME: 'Probe Tester', GIT_AUTHOR_EMAIL: 'probe@example.invalid', GIT_COMMITTER_NAME: 'Probe Tester', GIT_COMMITTER_EMAIL: 'probe@example.invalid',
     TOKENOMICS_CLAUDE_ROOT: join(home, 'claude-project'), TOKENOMICS_COPILOT_ROOT: join(home, 'copilot-state'), TOKENOMICS_VSCODE_ROOT: join(home, 'vscode'),
+    TOKENOMICS_PROBE_LATE_MS: '0', // a capture that never lands is not waited for; the late-capture test sets its own
     ...(process.env.NODE_V8_COVERAGE ? { NODE_V8_COVERAGE: process.env.NODE_V8_COVERAGE } : {}),
     ...extra,
   };
@@ -59,7 +61,7 @@ const MODULE = { module: 'tokenomics', schema_version: '1', domain: 'tokenomics'
   ratioIntents: ['automation'] };
 
 /** An activated consumer repo wired for `hosts` (the first one's copy), its telemetry store committed. */
-function fixture({ hosts = ['claude'], stopGate = false, gitHook = false, engine = VERSION, targets = hosts } = {}) {
+function fixture({ hosts = ['claude'], stopGate = false, gitHook = false, engine = VERSION, targets = hosts, userHooks = false } = {}) {
   const repo = mkdtempSync(join(sandbox, 'repo-'));
   const home = mkdtempSync(join(sandbox, 'home-'));
   const env = baseEnv(home);
@@ -68,6 +70,7 @@ function fixture({ hosts = ['claude'], stopGate = false, gitHook = false, engine
   for (const host of hosts) {
     installCopy({ packageRoot: ROOT, repo, target: host === 'claude' ? 'claude' : 'copilot' });
     if (host === 'claude') installClaude(repo, REL.claude, { stopGate });
+    else if (userHooks) installUserHooks({ skillRoot: join(repo, REL['copilot-cli']), env });
     else installCopilot(repo, REL['copilot-cli'], { stopGate });
   }
   writeJson(join(repo, '.agents', 'tokenomics', 'settings.json'),
@@ -497,4 +500,16 @@ test('I3 copilot: after a probe, an ordinary sweep in the repo appends nothing f
   const ids = ledgerIds(join(fx.repo, TEL));
   assert.ok(ids.includes('real-c1'), `the sweep ran: ${ids}`);
   assert.ok(!ids.includes(probeIds[0]), `probe session captured into the repo ledger: ${ids}`);
+});
+
+test('copilot-cli user-level wiring, in the order CLI 1.0.96 runs it (sessionEnd hooks before session.shutdown): every event fired, the deferred sweep lands the ledger line and scope stamp, result fired', () => {
+  const fx = fixture({ hosts: ['copilot-cli'], userHooks: true });
+  assert.ok(!existsSync(join(fx.repo, '.github', 'hooks', 'tokenomics.json')), 'no repo-level file: only the user-level wiring');
+  const d = spawnSync(process.execPath, [join(fx.repo, REL['copilot-cli'], 'scripts', 'doctor.mjs'), '--probe', '--repo', fx.repo, '--json', '--host', 'copilot-cli'],
+    { cwd: fx.repo, env: { ...fx.env, FAKE_PROBE_MODE: 'late-shutdown', TOKENOMICS_PROBE_LATE_MS: '15000' }, encoding: 'utf8', timeout: 90000 });
+  const p = JSON.parse(d.stdout).probes[0];
+  assert.deepEqual(p.events, { sessionStart: 'fired', sessionEnd: 'fired', subagentStart: 'fired', subagentStop: 'fired' }, d.stdout + d.stderr);
+  assert.deepEqual(p.expected, { ledgerLine: 'present', scopeStamp: 'present' }, d.stdout);
+  assert.equal(p.result, 'fired');
+  assert.equal(d.status, 0);
 });

@@ -6,8 +6,11 @@
 // it. FAKE_PROBE_MODE as in fake-claude.mjs (session-end events here: agentStop, sessionEnd), plus repeat-start (the
 // session starts again instead of ending: sessionStart fires twice, sessionEnd never — Codex B3-04). The payloads carry
 // no event name, as the CLI's do (the event is the config key); FAKE_PROBE_NO_SESSION_ID=1 drops `sessionId` too.
+// The user-level file (<COPILOT_HOME|~/.copilot>/hooks/tokenomics.json, --user-hooks) is read as well, as the CLI does.
+// late-shutdown: the order CLI 1.0.96 was seen to use — the sessionEnd hooks run, THEN the session's final
+// usage_checkpoint and session.shutdown are written.
 import { randomUUID } from 'node:crypto';
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -19,6 +22,10 @@ async function main() {
   const repo = process.cwd();
   let hooks = {};
   try { hooks = JSON.parse(readFileSync(join(repo, '.github', 'hooks', 'tokenomics.json'), 'utf8')).hooks ?? {}; } catch { /* nothing wired */ }
+  const userFile = join(process.env.COPILOT_HOME || join(homedir(), '.copilot'), 'hooks', 'tokenomics.json');
+  let user = {};
+  try { user = JSON.parse(readFileSync(userFile, 'utf8')).hooks ?? {}; } catch { /* no user-level wiring */ }
+  for (const [event, list] of Object.entries(user)) hooks[event] = [...(hooks[event] ?? []), ...(Array.isArray(list) ? list : [])];
   const session = randomUUID();
   const fire = (event, extra = {}) => {
     for (const cmd of hooks[event] ?? []) {
@@ -27,7 +34,9 @@ async function main() {
         payload: { ...(process.env.FAKE_PROBE_NO_SESSION_ID ? {} : { sessionId: session }), cwd: repo, timestamp: Date.now(), ...extra } });
     }
   };
-  const rel = Object.values(hooks).flat().map((c) => relOf(c?.bash ?? '')).find(Boolean);
+  // the copy the model runs work-scope from: the one a repo-level command names, else (user-level wiring) the installed one
+  const rel = Object.values(hooks).flat().map((c) => relOf(c?.bash ?? '')).find(Boolean)
+    ?? ['.github/skills/tokenomics', '.claude/skills/tokenomics'].find((r) => existsSync(join(repo, r, 'scripts', 'work-scope.mjs')));
   const env = { ...process.env, COPILOT_CLI: '1' };
 
   const t0 = new Date();
@@ -39,13 +48,14 @@ async function main() {
   const at = (s) => new Date(t0.getTime() + s * 1000).toISOString();
   const dir = join(env.TOKENOMICS_COPILOT_ROOT || join(homedir(), '.copilot', 'session-state'), session);
   mkdirSync(dir, { recursive: true });
+  const shutdown = { type: 'session.shutdown', timestamp: at(5), data: { totalNanoAiu: 1000000, modelMetrics: { 'gpt-5-mini': { usage: { inputTokens: 100, outputTokens: 5, cacheReadTokens: 0, cacheWriteTokens: 0 } } } } };
   writeFileSync(join(dir, 'events.jsonl'), `${[
     { type: 'session.start', timestamp: at(0), data: { context: { cwd: repo, branch: 'main' } } },
     { type: 'user.message', timestamp: at(1), data: { content: prompt } },
     { type: 'subagent.started', timestamp: at(2), agentId: 'tc1', data: { toolCallId: 'tc1', agentName: 'probe' } },
     { type: 'subagent.completed', timestamp: at(3), agentId: 'tc1', data: { toolCallId: 'tc1', agentName: 'probe', totalTokens: 50, totalToolCalls: 0, durationMs: 1000 } },
     { type: 'assistant.message', timestamp: at(4), data: {} },
-    { type: 'session.shutdown', timestamp: at(5), data: { totalNanoAiu: 1000000, modelMetrics: { 'gpt-5-mini': { usage: { inputTokens: 100, outputTokens: 5, cacheReadTokens: 0, cacheWriteTokens: 0 } } } } },
+    ...(MODE === 'late-shutdown' ? [] : [shutdown]),
   ].map((r) => JSON.stringify(r)).join('\n')}\n`);
   fire('subagentStop', { agentName: 'probe' });
   if (MODE !== 'no-session-end') {
@@ -54,6 +64,7 @@ async function main() {
     if (MODE === 'repeat-start') fire('sessionStart', { source: 'resume' });
     else fire('sessionEnd', { reason: 'complete' });
   }
+  if (MODE === 'late-shutdown') appendFileSync(join(dir, 'events.jsonl'), `${JSON.stringify({ type: 'session.usage_checkpoint', timestamp: at(5) })}\n${JSON.stringify(shutdown)}\n`);
   process.stdout.write('done\n');
 }
 

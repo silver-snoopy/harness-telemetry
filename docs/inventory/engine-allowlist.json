@@ -407,10 +407,6 @@
     "kind": "env-var",
     "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): TOKENOMICS_PROBE_CLAUDE_BIN, the engine's own override of the claude CLI path (tests use a fake host; owner decision 2026-10-14)"
   },
-  "engine/probe.mjs:env-var:797fd59873": {
-    "kind": "env-var",
-    "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): TOKENOMICS_PROBE_COPILOT_BIN, the engine's own override of the copilot CLI path (tests use a fake host; owner decision 2026-10-14)"
-  },
   "engine/probe.mjs:env-var:4d8de11b62": {
     "kind": "env-var",
     "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): recursion guard: a probe never triggers another probe while TOKENOMICS_PROBE is set"
@@ -462,5 +458,33 @@
   "scripts/doctor.mjs:env-var:4972208a92": {
     "kind": "env-var",
     "reason": "doctor (Plan 5 Task 9, spec §14.2, rulings R11/R12; B3 final review M1/M2): the `switches` check names the engine's own TOKENOMICS_MIGRATIONS knob (an installed copy must not have it set; empty or whitespace-only counts as unset); the fail line when the variable is set for an installed copy"
+  },
+  "engine/copilot-user-hooks.mjs:env-var:8867e0b17d": {
+    "kind": "env-var",
+    "reason": "the Copilot CLI user-level hook file (--user-hooks) sets the same two env keys per command as the repo-level file (installCopilot): COPILOT_CLI=1 for host detection and TOKENOMICS_HOOK_EVENT for the probe's fired record (R25); the hook environment, not a TA assumption"
+  },
+  "engine/probe.mjs:env-var:e4a40855ec": {
+    "kind": "env-var",
+    "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): TOKENOMICS_PROBE_COPILOT_BIN, the engine's own override of the copilot CLI path (tests use a fake host; owner decision 2026-10-14); the Copilot argv also approves exactly shell(node) for the prompt's one work-scope command (readiness trial 2026-10-16)"
+  },
+  "engine/probe.mjs:env-var:505f05cf43": {
+    "kind": "env-var",
+    "reason": "probe: TOKENOMICS_PROBE_LATE_MS, the engine's own test lever bounding the wait for a capture that lands after the host exits (default 15 s; probe tests set 0 where no capture is expected)"
+  },
+  "hooks/copilot-user-hook.mjs:env-var:6eceee326c": {
+    "kind": "env-var",
+    "reason": "the Copilot CLI user-level dispatcher (--user-hooks, readiness trial 2026-10-16): TOKENOMICS_COPILOT_ROOT, the same session-state override the capture reads (copilotRoots), so the waiter watches the store the sweep reads"
+  },
+  "hooks/copilot-user-hook.mjs:env-var:6de90b680e": {
+    "kind": "env-var",
+    "reason": "the Copilot CLI user-level dispatcher (--user-hooks, readiness trial 2026-10-16): TOKENOMICS_HOOK_EVENT (R25) names the sessionEnd firing, the one that schedules the deferred sweep"
+  },
+  "hooks/copilot-user-hook.mjs:env-var:53bdcee5d9": {
+    "kind": "env-var",
+    "reason": "the Copilot CLI user-level dispatcher (--user-hooks, readiness trial 2026-10-16): the deferred sweep runs without TOKENOMICS_HOOK_EVENT, so it is never recorded as a hook firing"
+  },
+  "hooks/copilot-user-hook.mjs:env-var:5d68734145": {
+    "kind": "env-var",
+    "reason": "the Copilot CLI user-level dispatcher (--user-hooks, readiness trial 2026-10-16): TOKENOMICS_AWAIT_MS, the engine's own test lever for the waiter's bound (default 60 s)"
   }
 }
