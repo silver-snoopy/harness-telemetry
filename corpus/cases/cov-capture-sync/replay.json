@@ -1,0 +1,93 @@
+{
+ "id": "cov-capture-sync",
+ "seed": 1,
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/384-seed",
+  "files": {
+   "alt/.keep": ""
+  }
+ },
+ "stores": [
+  {
+   "from": "inputs/git/tgit/HEAD",
+   "to": "repo/tgit/HEAD",
+   "mtime": "2026-10-01T10:00:00.000Z",
+   "template": false
+  },
+  {
+   "from": "inputs/git/tgit/objects/keep",
+   "to": "repo/tgit/objects/.keep",
+   "mtime": "2026-10-01T10:00:00.000Z",
+   "template": false
+  },
+  {
+   "from": "inputs/git/tgit/refs/heads/keep",
+   "to": "repo/tgit/refs/heads/.keep",
+   "mtime": "2026-10-01T10:00:00.000Z",
+   "template": false
+  },
+  {
+   "from": "inputs/git/dotgit",
+   "to": "repo/.agents/telemetry/.git",
+   "mtime": "2026-10-01T10:00:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/y1.jsonl",
+   "to": "home/stage/y1.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/y2.jsonl",
+   "to": "home/stage/y2.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  }
+ ],
+ "outputs": [
+  ".agents/telemetry",
+  "tgit/COMMIT_EDITMSG",
+  "tgit/HEAD",
+  "alt/.agents/telemetry"
+ ],
+ "events": [
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "TOKENOMICS_NO_SYNC": "0"
+   },
+   "at": "2026-10-01T10:30:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/y1.jsonl",
+    "--session",
+    "y1"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "TOKENOMICS_NO_SYNC": "0"
+   },
+   "at": "2026-10-01T10:31:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/y2.jsonl",
+    "--session",
+    "y2",
+    "--cwd",
+    "{repo}/alt"
+   ]
+  }
+ ]
+}

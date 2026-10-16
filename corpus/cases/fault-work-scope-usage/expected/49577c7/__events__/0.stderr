@@ -1,0 +1,1 @@
+work-scope: a session id is required — --session <id> (the SessionStart hook prints it), or --session auto on hosts without one

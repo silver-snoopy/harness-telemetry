@@ -1,0 +1,297 @@
+{
+ "id": "cov-capture-vscode-edges",
+ "seed": 1,
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/384-seed",
+  "files": {
+   ".agents/telemetry/automation/config.json": "{\n  \"capturePrompts\": true,\n  \"maxSweep\": 2,\n  \"vscodeUserDataDirs\": [\n    \"../roots/ud1/workspaceStorage\",\n    \"../roots/ud2\",\n    \"../roots/ud3\"\n  ]\n}\n",
+   ".agents/telemetry/automation/scopes/pending-v1.json": "{\n  \"session\": \"pending-v1\",\n  \"intent\": \"automation\",\n  \"cases\": [\n    \"QA-1\"\n  ],\n  \"declaredAt\": \"2026-10-01T10:00:00.000Z\"\n}\n",
+   ".agents/telemetry/automation/scopes/pending-v2.json": "{\n  \"session\": \"pending-v2\",\n  \"intent\": \"automation\",\n  \"cases\": [\n    \"QA-2\"\n  ],\n  \"declaredAt\": \"2026-10-01T10:03:00.000Z\"\n}\n",
+   ".agents/telemetry/automation/scopes/pending-v3.json": "{\n  \"session\": \"pending-v3\",\n  \"intent\": \"automation\",\n  \"cases\": [\n    \"QA-3\"\n  ]\n}\n",
+   ".agents/telemetry/automation/scopes/pending-v4.json": "{\n  \"session\": \"pending-v4\",\n  \"intent\": \"automation\",\n  \"cases\": [\n    \"QA-4\"\n  ],\n  \"declaredAt\": \"2026-10-01T09:00:00.000Z\"\n}\n",
+   "alt/.keep": ""
+  }
+ },
+ "stores": [
+  {
+   "from": "inputs/vscode/hA/workspace.json",
+   "to": "home/.config/Code/User/workspaceStorage/hA/workspace.json",
+   "mtime": "2026-10-01T10:00:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hA/a.jsonl",
+   "to": "home/.config/Code/User/workspaceStorage/hA/chatSessions/a.jsonl",
+   "mtime": "2026-10-01T10:03:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hA/b.json",
+   "to": "home/.config/Code/User/workspaceStorage/hA/chatSessions/b.json",
+   "mtime": "2026-10-02T10:00:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hA/c.jsonl",
+   "to": "home/.config/Code/User/workspaceStorage/hA/chatSessions/c.jsonl",
+   "mtime": "2026-10-02T10:00:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hA/d.jsonl",
+   "to": "home/.config/Code/User/workspaceStorage/hA/chatSessions/d.jsonl",
+   "mtime": "2026-10-03T11:59:30.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hA/g.jsonl",
+   "to": "home/.config/Code/User/workspaceStorage/hA/chatSessions/g.jsonl",
+   "mtime": "2026-10-02T10:00:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hA/z.jsonl",
+   "to": "home/.config/Code/User/workspaceStorage/hA/chatSessions/z.jsonl",
+   "mtime": "2026-10-02T10:00:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hA/notes.txt",
+   "to": "home/.config/Code/User/workspaceStorage/hA/chatSessions/notes.txt",
+   "mtime": "2026-10-02T10:00:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hC/workspace.json",
+   "to": "home/.config/Code/User/workspaceStorage/hC/workspace.json",
+   "mtime": "2026-10-02T10:00:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hD/x.jsonl",
+   "to": "home/.config/Code/User/workspaceStorage/hD/chatSessions/x.jsonl",
+   "mtime": "2026-10-02T10:00:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hE/workspace.json",
+   "to": "home/.config/Code/User/workspaceStorage/hE/workspace.json",
+   "mtime": "2026-10-02T10:00:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hF/workspace.json",
+   "to": "home/.config/Code/User/workspaceStorage/hF/workspace.json",
+   "mtime": "2026-10-02T10:00:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hG/workspace.json",
+   "to": "home/.config/Code/User/workspaceStorage/hG/workspace.json",
+   "mtime": "2026-10-02T10:00:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hS/workspace.json",
+   "to": "home/.vscode-server/data/User/workspaceStorage/hS/workspace.json",
+   "mtime": "2026-10-02T10:10:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hS/s.jsonl",
+   "to": "home/.vscode-server/data/User/workspaceStorage/hS/chatSessions/s.jsonl",
+   "mtime": "2026-10-02T10:11:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hI/workspace.json",
+   "to": "roots/appdata/Code - Insiders/User/workspaceStorage/hI/workspace.json",
+   "mtime": "2026-10-02T10:20:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hI/i.jsonl",
+   "to": "roots/appdata/Code - Insiders/User/workspaceStorage/hI/chatSessions/i.jsonl",
+   "mtime": "2026-10-02T10:21:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/h1/workspace.json",
+   "to": "roots/ud1/workspaceStorage/h1/workspace.json",
+   "mtime": "2026-10-02T10:30:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/h1/u1.jsonl",
+   "to": "roots/ud1/workspaceStorage/h1/chatSessions/u1.jsonl",
+   "mtime": "2026-10-02T10:31:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/h2/workspace.json",
+   "to": "roots/ud2/User/workspaceStorage/h2/workspace.json",
+   "mtime": "2026-10-02T10:40:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/h2/u2.jsonl",
+   "to": "roots/ud2/User/workspaceStorage/h2/chatSessions/u2.jsonl",
+   "mtime": "2026-10-02T10:41:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/h3/workspace.json",
+   "to": "roots/ud3/workspaceStorage/h3/workspace.json",
+   "mtime": "2026-10-02T10:50:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/h3/u3.jsonl",
+   "to": "roots/ud3/workspaceStorage/h3/chatSessions/u3.jsonl",
+   "mtime": "2026-10-02T10:51:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hV/workspace.json",
+   "to": "roots/vroot/hV/workspace.json",
+   "mtime": "2026-10-02T11:00:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/hV/v.jsonl",
+   "to": "roots/vroot/hV/chatSessions/v.jsonl",
+   "mtime": "2026-10-02T11:01:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/vfile",
+   "to": "roots/vfile",
+   "mtime": "2026-10-02T10:00:00.000Z",
+   "template": true
+  }
+ ],
+ "symlinks": [
+  {
+   "path": "home/.config/Code/User/workspaceStorage/hA/chatSessions/e.jsonl",
+   "target": "missing.jsonl"
+  }
+ ],
+ "outputs": [
+  ".agents/telemetry",
+  "alt/.agents/telemetry"
+ ],
+ "events": [
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "APPDATA": "../roots/appdata",
+    "HT_PLATFORM": "darwin",
+    "TOKENOMICS_VSCODE_ROOT": "../roots/nowhere"
+   },
+   "at": "2026-10-03T11:59:50Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "APPDATA": "../roots/appdata",
+    "HT_PLATFORM": "darwin"
+   },
+   "at": "2026-10-03T12:00:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "APPDATA": "../roots/appdata",
+    "HT_PLATFORM": "darwin"
+   },
+   "at": "2026-10-03T12:00:10Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "APPDATA": "../roots/appdata",
+    "HT_PLATFORM": "darwin"
+   },
+   "at": "2026-10-03T12:00:20Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "APPDATA": "../roots/appdata",
+    "HT_PLATFORM": "darwin"
+   },
+   "at": "2026-10-03T12:00:30Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all",
+    "--cwd",
+    "{repo}/alt"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "APPDATA": "../roots/appdata",
+    "HT_PLATFORM": "darwin",
+    "TOKENOMICS_VSCODE_ROOT": "../roots/vroot"
+   },
+   "at": "2026-10-03T12:00:40Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "APPDATA": "../roots/appdata",
+    "HT_PLATFORM": "darwin",
+    "TOKENOMICS_VSCODE_ROOT": "../roots/vfile"
+   },
+   "at": "2026-10-03T12:00:50Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all"
+   ],
+   "captureStderr": true
+  }
+ ]
+}

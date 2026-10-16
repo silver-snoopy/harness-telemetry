@@ -1,0 +1,22 @@
+{
+  "id": "entry-points",
+  "item": 12,
+  "items": [
+    12,
+    13
+  ],
+  "spec": "§14.8 (owner Q1b group: items 12 entry-guard, 13 stdout-drain)",
+  "summary": "Entry points run through a symlinked path (main guard compares realpaths, map R8), and exit only after large stdout writes drain to a pipe (map R17). Item 13 has no corpus diff (the replay preload makes stdio blocking); its evidence is an unpreloaded child-process unit test.",
+  "beforeCases": [
+    "before-entry-symlink"
+  ],
+  "declared": {
+    "before-entry-symlink": {
+      "reason": "The main guard now compares realpaths (map R8), so the capture run through the symlinked telemetry-capture.mjs executes and appends its session line instead of exiting silently with nothing captured.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl",
+        "__events__/0.stderr"
+      ]
+    }
+  }
+}

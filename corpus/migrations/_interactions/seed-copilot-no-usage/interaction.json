@@ -1,0 +1,12 @@
+{
+  "case": "seed-copilot-no-usage",
+  "migrations": [
+    "null-unobservable",
+    "copilot-inclusive",
+    "writer"
+  ],
+  "reason": "null-unobservable makes the usage-less shutdown's tokens null and sets a tokensAttribution flag; copilot-inclusive adds tokensBasis inclusive and nulls the dispatch tokens, which also removes the dispatch from the attribution count. Together tokens is null with tokensBasis inclusive and tokensAttribution none (not partial). With writer, writer stamps every appended line with writer tokenomics-engine@0.0.0-replay and manifestRevision 1 right after v (map D4); the ledger carries all of these effects.",
+  "changed": [
+    ".agents/telemetry/automation/usage-corpus.jsonl"
+  ]
+}

@@ -1,0 +1,285 @@
+{
+  "id": "real-coach-workflow",
+  "seed": 1,
+  "identity": {
+    "gitUser": "corpus",
+    "gitEmail": "corpus@example.invalid"
+  },
+  "repo": {
+    "path": "repo",
+    "branch": "feat/bookmark-polish-m1-t4",
+    "files": {}
+  },
+  "stores": [
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3.jsonl",
+      "mtime": "2026-10-06T18:23:42.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a1b692ba931d38aec.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a1b692ba931d38aec.jsonl",
+      "mtime": "2026-10-06T05:13:00.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a1b692ba931d38aec.meta.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a1b692ba931d38aec.meta.json",
+      "mtime": "2026-10-06T05:12:13.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a1d4a967f1445b2e7.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a1d4a967f1445b2e7.jsonl",
+      "mtime": "2026-10-06T05:12:44.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a1d4a967f1445b2e7.meta.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a1d4a967f1445b2e7.meta.json",
+      "mtime": "2026-10-06T05:12:07.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a2a2b8a6d89987576.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a2a2b8a6d89987576.jsonl",
+      "mtime": "2026-10-06T05:13:35.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a2a2b8a6d89987576.meta.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a2a2b8a6d89987576.meta.json",
+      "mtime": "2026-10-06T05:12:52.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a2d2dd0494e074583.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a2d2dd0494e074583.jsonl",
+      "mtime": "2026-10-06T05:13:29.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a2d2dd0494e074583.meta.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a2d2dd0494e074583.meta.json",
+      "mtime": "2026-10-06T05:12:44.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a34fb0e49327dd9a3.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a34fb0e49327dd9a3.jsonl",
+      "mtime": "2026-10-06T05:12:52.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a34fb0e49327dd9a3.meta.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a34fb0e49327dd9a3.meta.json",
+      "mtime": "2026-10-06T05:12:13.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a7f928e8825cd8763.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a7f928e8825cd8763.jsonl",
+      "mtime": "2026-10-06T05:17:22.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a7f928e8825cd8763.meta.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a7f928e8825cd8763.meta.json",
+      "mtime": "2026-10-06T05:15:41.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a92413ea5789926dd.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a92413ea5789926dd.jsonl",
+      "mtime": "2026-10-06T05:12:54.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a92413ea5789926dd.meta.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-a92413ea5789926dd.meta.json",
+      "mtime": "2026-10-06T05:12:13.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-aa09aa34fb6498029.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-aa09aa34fb6498029.jsonl",
+      "mtime": "2026-10-06T05:12:56.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-aa09aa34fb6498029.meta.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-aa09aa34fb6498029.meta.json",
+      "mtime": "2026-10-06T05:12:13.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-aa340f08148ff81b7.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-aa340f08148ff81b7.jsonl",
+      "mtime": "2026-10-06T05:13:04.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-aa340f08148ff81b7.meta.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-aa340f08148ff81b7.meta.json",
+      "mtime": "2026-10-06T05:12:13.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-ab571c34eb32806bb.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-ab571c34eb32806bb.jsonl",
+      "mtime": "2026-10-06T05:12:58.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-ab571c34eb32806bb.meta.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-ab571c34eb32806bb.meta.json",
+      "mtime": "2026-10-06T05:12:13.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-abbe86ac60477a854.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-abbe86ac60477a854.jsonl",
+      "mtime": "2026-10-06T05:12:53.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-abbe86ac60477a854.meta.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-abbe86ac60477a854.meta.json",
+      "mtime": "2026-10-06T05:12:13.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-aefd2188ed3fcc3b2.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-aefd2188ed3fcc3b2.jsonl",
+      "mtime": "2026-10-06T05:12:52.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-aefd2188ed3fcc3b2.meta.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-aefd2188ed3fcc3b2.meta.json",
+      "mtime": "2026-10-06T05:12:13.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-af30c9f81db7b3e27.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-af30c9f81db7b3e27.jsonl",
+      "mtime": "2026-10-06T05:12:59.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-af30c9f81db7b3e27.meta.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/agent-af30c9f81db7b3e27.meta.json",
+      "mtime": "2026-10-06T05:12:13.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/journal.jsonl",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/subagents/workflows/wf_aa318084-620/journal.jsonl",
+      "mtime": "2026-10-06T05:17:22.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/b0l980fxl.txt",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/b0l980fxl.txt",
+      "mtime": "2026-10-06T05:05:54.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/b2og5qqp7.txt",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/b2og5qqp7.txt",
+      "mtime": "2026-10-06T05:05:49.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/b6222flvu.txt",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/b6222flvu.txt",
+      "mtime": "2026-10-06T05:04:06.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/b7rmcto4y.txt",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/b7rmcto4y.txt",
+      "mtime": "2026-10-06T06:06:20.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/bfzi8ye8z.txt",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/bfzi8ye8z.txt",
+      "mtime": "2026-10-06T05:05:55.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/bog7t18mq.txt",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/bog7t18mq.txt",
+      "mtime": "2026-10-06T06:04:02.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/bzo4w6bqr.txt",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/bzo4w6bqr.txt",
+      "mtime": "2026-10-06T05:05:53.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/hook-2911a1f1-d85b-4a85-9548-e8d7ff6656af-1-additionalContext.txt",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/hook-2911a1f1-d85b-4a85-9548-e8d7ff6656af-1-additionalContext.txt",
+      "mtime": "2026-10-06T06:24:13.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/hook-3a411aeb-28b8-44b1-8edb-0f2225e94d93-6-additionalContext.txt",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/hook-3a411aeb-28b8-44b1-8edb-0f2225e94d93-6-additionalContext.txt",
+      "mtime": "2026-10-06T04:55:45.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/hook-541a28ba-ca36-4e5a-9914-e446c8353715-1-additionalContext.txt",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/hook-541a28ba-ca36-4e5a-9914-e446c8353715-1-additionalContext.txt",
+      "mtime": "2026-10-06T06:06:07.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/hook-8484bb58-a310-4a1d-ace6-6359f09cd2f3-1-additionalContext.txt",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/hook-8484bb58-a310-4a1d-ace6-6359f09cd2f3-1-additionalContext.txt",
+      "mtime": "2026-10-06T06:18:51.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/toolu_01Ho8spbcavetQK2X7y6tzrb.txt",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/tool-results/toolu_01Ho8spbcavetQK2X7y6tzrb.txt",
+      "mtime": "2026-10-06T05:08:29.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/workflows/scripts/n1f171efb.js",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/workflows/scripts/n1f171efb.js",
+      "mtime": "2026-10-06T05:05:40.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/e199df71-fb25-4903-909c-eeeac5d881e3/workflows/wf_aa318084-620.json",
+      "to": "home/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3/workflows/wf_aa318084-620.json",
+      "mtime": "2026-10-06T05:17:22.000Z",
+      "template": true
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-10-06T18:53:42.000Z",
+      "run": "hooks/telemetry-capture.mjs",
+      "args": [
+        "--transcript",
+        "{home}/.claude/projects/{repoKey}/e199df71-fb25-4903-909c-eeeac5d881e3.jsonl",
+        "--session",
+        "e199df71-fb25-4903-909c-eeeac5d881e3"
+      ],
+      "stdin": null,
+      "env": {}
+    }
+  ],
+  "outputs": [
+    ".agents/telemetry",
+    ".agents/automation"
+  ]
+}

@@ -1,0 +1,1 @@
+{"v":1,"host":"claude","user":"dana","capturedAt":"2026-10-02T00:00:00.000Z","id":"f1","branch":"main","tokens":{"input":10,"output":20,"cacheRead":0,"cacheWrite":0},"cases":["F-1"],"subagents":[],"skills":[]}

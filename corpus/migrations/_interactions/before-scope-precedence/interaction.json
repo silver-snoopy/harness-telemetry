@@ -1,0 +1,20 @@
+{
+  "case": "before-scope-precedence",
+  "migrations": [
+    "copilot-inclusive",
+    "scope-resolution",
+    "writer"
+  ],
+  "reason": "copilot-inclusive records the Copilot session sp on the inclusive token basis; scope-resolution stamps scope.role lead on the Claude line and drops the Claude hand-off record from the Copilot line (host-qualified; the claude-stamped pending record is not Copilot's to claim); writer stamps every appended line with writer tokenomics-engine@0.0.0-replay and manifestRevision 1 right after v (map D4). With writer the Claude winner is a writer line, so the restamp event (4) succeeds (exit 0, map O7): it appends the winner again with its original writer and manifestRevision 1, restampedBy tokenomics-engine@0.0.0-replay, capturedAt now and the scope re-read from scopes/claude/sp.json, and reports the restamp on stderr instead of the reference-era rejection.",
+  "changed": [
+    ".agents/telemetry/automation/usage-corpus.jsonl",
+    "__events__/4.stderr"
+  ],
+  "exits": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ]
+}

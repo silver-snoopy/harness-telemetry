@@ -1,0 +1,171 @@
+{
+ "v": 1,
+ "manifestRevision": 1,
+ "batch": "fb",
+ "generatedAt": "2026-10-01T10:33:00.000Z",
+ "sources": {
+  "sessions": 1,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "live"
+  ],
+  "costSources": [],
+  "models": [],
+  "liveSessions": 1,
+  "liveNote": "PROVISIONAL — a session is still running: its finished dispatches are counted, its own lead thread is not yet measured, so these totals are a floor. Re-run once it ends."
+ },
+ "totals": {
+  "costUsd": null,
+  "tokens": 2412,
+  "tokensSplit": {
+   "input": 12,
+   "output": 300,
+   "cacheRead": 2000,
+   "cacheWrite": 100
+  },
+  "tokensByModel": {
+   "claude-sonnet-5": {
+    "input": 12,
+    "output": 300,
+    "cacheRead": 2000,
+    "cacheWrite": 100
+   }
+  },
+  "activeMin": 1,
+  "dispatches": 1,
+  "sessions": 1,
+  "turns": 0,
+  "toolCalls": 1,
+  "toolErrors": 0,
+  "skills": []
+ },
+ "byRole": {
+  "implementer": {
+   "costUsd": null,
+   "tokens": 2412,
+   "tok": {
+    "input": 12,
+    "output": 300,
+    "cacheRead": 2000,
+    "cacheWrite": 100
+   },
+   "activeMin": 1,
+   "dispatches": 1,
+   "toolCalls": 1,
+   "toolErrors": 0
+  },
+  "session": {
+   "costUsd": null,
+   "tokens": 0,
+   "tok": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 0,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  }
+ },
+ "overhead": {
+  "note": "batch-level work (lead thread) — shown once, never smeared into per-case rows",
+  "costUsd": null,
+  "sharePct": null,
+  "lead": {
+   "costUsd": null,
+   "tokens": 0,
+   "tok": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 0,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "stages": {
+   "costUsd": null,
+   "tokens": 0,
+   "tok": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 0,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  }
+ },
+ "outcomes": {
+  "delivered": 1
+ },
+ "delivered": 1,
+ "cases": [
+  {
+   "id": "FX-1",
+   "outcome": "delivered",
+   "direct": {
+    "costUsd": null,
+    "tokens": 2412,
+    "tok": {
+     "input": 12,
+     "output": 300,
+     "cacheRead": 2000,
+     "cacheWrite": 100
+    },
+    "activeMin": 1,
+    "dispatches": 1,
+    "toolCalls": 1,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": null,
+    "tokens": 2412,
+    "activeMin": 1
+   }
+  }
+ ],
+ "stats": {
+  "note": "direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": null,
+  "directTokens": {
+   "avg": 2412,
+   "median": 2412,
+   "min": 2412,
+   "max": 2412,
+   "n": 1
+  },
+  "directActiveMin": {
+   "avg": 1,
+   "median": 1,
+   "min": 1,
+   "max": 1,
+   "n": 1
+  },
+  "loadedCostUsd": null,
+  "loadedActiveMin": {
+   "avg": 1,
+   "median": 1,
+   "min": 1,
+   "max": 1,
+   "n": 1
+  }
+ },
+ "averages": {
+  "totalPerDelivered": null,
+  "directPerCase": null
+ },
+ "coverage": {
+  "casesAttributed": 1,
+  "casesUnattributed": [],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

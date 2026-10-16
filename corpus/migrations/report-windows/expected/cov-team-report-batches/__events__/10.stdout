@@ -1,0 +1,550 @@
+{
+  "generated": "2026-10-05T09:10:00.000Z",
+  "window": "2026-09-10T10:00:00.000Z → 2026-10-05T09:10:00.000Z",
+  "semantics": "Current state, UTC: the per-delivered ratio counts items whose current (winning, spec 5.2) receipt state is delivered, dated by that state's at, inside [since, until); an item delivered, reopened and delivered again counts once, at its latest delivery, so historical ratios can change when items reopen. Limitation: a session's cumulative ledger line counts wholly in the window of its endedAt; no in-window deltas are claimed. Totals and breakdowns cover the sessions whose endedAt lies in the window; sessions without endedAt are outside every window and counted as undated.",
+  "sessions": 6,
+  "people": 1,
+  "totals": {
+    "sessions": 6,
+    "costUsd": 15,
+    "priced": 2,
+    "tokens": {
+      "input": 2040,
+      "output": 7340,
+      "cacheRead": 2851000,
+      "cacheWrite": 100
+    },
+    "activeMin": null,
+    "wallMin": 360,
+    "turns": 30,
+    "toolCalls": 44,
+    "toolErrors": 6
+  },
+  "byCase": {
+    "OVF-1": 2,
+    "GATE-1": 1,
+    "GATE-2": 1,
+    "SIZED-1": 1,
+    "SIZED-2": 1,
+    "NEG-1": 1
+  },
+  "byIntent": {
+    "undeclared": {
+      "sessions": 6,
+      "costUsd": 15,
+      "priced": 2,
+      "tokens": {
+        "input": 2040,
+        "output": 7340,
+        "cacheRead": 2851000,
+        "cacheWrite": 100
+      },
+      "activeMin": null,
+      "wallMin": 360,
+      "turns": 30,
+      "toolCalls": 44,
+      "toolErrors": 6
+    }
+  },
+  "costSources": {
+    "ccusage-metered": 2
+  },
+  "tokensOnly": 4,
+  "byPerson": {
+    "u1": {
+      "sessions": 6,
+      "costUsd": 15,
+      "priced": 2,
+      "tokens": {
+        "input": 2040,
+        "output": 7340,
+        "cacheRead": 2851000,
+        "cacheWrite": 100
+      },
+      "activeMin": null,
+      "wallMin": 360,
+      "turns": 30,
+      "toolCalls": 44,
+      "toolErrors": 6
+    }
+  },
+  "byRole": {
+    "(interactive session)": {
+      "units": 6,
+      "tokens": {
+        "input": 550,
+        "output": 5320,
+        "cacheRead": 2505000,
+        "cacheWrite": 100
+      },
+      "activeMin": null,
+      "toolCalls": 44,
+      "toolErrors": 6
+    },
+    "implementer": {
+      "units": 6,
+      "tokens": {
+        "input": 1440,
+        "output": 1820,
+        "cacheRead": 343000,
+        "cacheWrite": 0
+      },
+      "activeMin": 36,
+      "toolCalls": 17,
+      "toolErrors": 0
+    },
+    "triage": {
+      "units": 1,
+      "tokens": {
+        "input": 20,
+        "output": 80,
+        "cacheRead": 1000,
+        "cacheWrite": 0
+      },
+      "activeMin": 2,
+      "toolCalls": 1,
+      "toolErrors": 0
+    },
+    "reviewer": {
+      "units": 1,
+      "tokens": {
+        "input": 30,
+        "output": 120,
+        "cacheRead": 2000,
+        "cacheWrite": 0
+      },
+      "activeMin": 3,
+      "toolCalls": 2,
+      "toolErrors": 0
+    },
+    "analyst": {
+      "units": 1,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 2,
+      "toolCalls": 0,
+      "toolErrors": 0
+    }
+  },
+  "byWeek": {
+    "2026-W37": {
+      "sessions": 6,
+      "costUsd": 15,
+      "priced": 2,
+      "tokens": {
+        "input": 2040,
+        "output": 7340,
+        "cacheRead": 2851000,
+        "cacheWrite": 100
+      },
+      "activeMin": null,
+      "wallMin": 360,
+      "turns": 30,
+      "toolCalls": 44,
+      "toolErrors": 6
+    }
+  },
+  "byHost": {
+    "claude": {
+      "sessions": 5,
+      "costUsd": 15,
+      "priced": 2,
+      "tokens": {
+        "input": 1990,
+        "output": 7320,
+        "cacheRead": 2851000,
+        "cacheWrite": 100
+      },
+      "activeMin": null,
+      "wallMin": 300,
+      "turns": 25,
+      "toolCalls": 44,
+      "toolErrors": 6
+    },
+    "copilot": {
+      "sessions": 1,
+      "costUsd": 0,
+      "priced": 0,
+      "tokens": {
+        "input": 50,
+        "output": 20,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 10,
+      "wallMin": 60,
+      "turns": 5,
+      "toolCalls": 0,
+      "toolErrors": 0
+    }
+  },
+  "cases": {
+    "examined": 8,
+    "delivered": 0,
+    "unwindowed": 5,
+    "outcomes": {
+      "delivered": 4,
+      "defect-found": 1,
+      "not-started": 2,
+      "blocked": 1
+    },
+    "reports": 6
+  },
+  "perDelivered": null,
+  "perExamined": {
+    "costUsd": 1.875
+  },
+  "index": [
+    {
+      "host": "claude",
+      "id": "g1",
+      "user": "u1",
+      "role": null,
+      "startedAt": "2026-09-10T09:00:00.000Z",
+      "costUsd": 10,
+      "cases": [
+        "GATE-1",
+        "GATE-2"
+      ]
+    },
+    {
+      "host": "copilot",
+      "id": "q1",
+      "user": "u1",
+      "role": null,
+      "startedAt": "2026-09-10T09:00:00.000Z",
+      "costUsd": null,
+      "cases": []
+    },
+    {
+      "host": "claude",
+      "id": "z1",
+      "user": "u1",
+      "role": null,
+      "startedAt": "2026-09-10T09:00:00.000Z",
+      "costUsd": 5,
+      "cases": [
+        "SIZED-1",
+        "SIZED-2"
+      ]
+    },
+    {
+      "host": "claude",
+      "id": "ng1",
+      "user": "u1",
+      "role": null,
+      "startedAt": "2026-09-10T09:00:00.000Z",
+      "costUsd": null,
+      "cases": [
+        "NEG-1"
+      ]
+    },
+    {
+      "host": "claude",
+      "id": "ov1",
+      "user": "u1",
+      "role": null,
+      "startedAt": "2026-09-10T09:00:00.000Z",
+      "costUsd": null,
+      "cases": [
+        "OVF-1"
+      ]
+    },
+    {
+      "host": "claude",
+      "id": "ov2",
+      "user": "u1",
+      "role": null,
+      "startedAt": "2026-09-10T09:00:00.000Z",
+      "costUsd": null,
+      "cases": [
+        "OVF-1"
+      ]
+    }
+  ],
+  "byBatch": [
+    {
+      "batch": "bt-empty",
+      "cases": 0,
+      "delivered": 0,
+      "costUsd": null,
+      "activeMin": 0,
+      "perDelivered": null,
+      "gate": null,
+      "drift": false
+    },
+    {
+      "batch": "bt-gate",
+      "cases": 2,
+      "delivered": 2,
+      "costUsd": 10,
+      "activeMin": 60,
+      "perDelivered": 5,
+      "gate": "green",
+      "drift": true
+    },
+    {
+      "batch": "bt-neg",
+      "cases": 1,
+      "delivered": 1,
+      "costUsd": null,
+      "activeMin": 30,
+      "perDelivered": null,
+      "gate": null,
+      "drift": false
+    },
+    {
+      "batch": "bt-ovf",
+      "cases": 1,
+      "delivered": 1,
+      "costUsd": null,
+      "activeMin": null,
+      "perDelivered": null,
+      "gate": null,
+      "drift": false
+    },
+    {
+      "batch": "bt-quiet",
+      "cases": 2,
+      "delivered": 0,
+      "costUsd": null,
+      "activeMin": 10,
+      "perDelivered": null,
+      "gate": null,
+      "drift": false
+    },
+    {
+      "batch": "bt-sized",
+      "cases": 2,
+      "delivered": 1,
+      "costUsd": 5,
+      "activeMin": 20,
+      "perDelivered": 5,
+      "gate": null,
+      "drift": true
+    }
+  ],
+  "perCase": [
+    {
+      "batch": "bt-gate",
+      "id": "GATE-1",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": 3,
+        "tokens": 341450,
+        "tok": {
+          "input": 250,
+          "output": 1200,
+          "cacheRead": 340000,
+          "cacheWrite": 0
+        },
+        "activeMin": 14,
+        "dispatches": 2,
+        "fixRounds": 1,
+        "toolCalls": 8,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": 6.15,
+        "tokens": 1594500,
+        "activeMin": 36
+      }
+    },
+    {
+      "batch": "bt-gate",
+      "id": "GATE-2",
+      "outcome": "defect-found",
+      "direct": {
+        "costUsd": 0.7,
+        "tokens": 2150,
+        "tok": {
+          "input": 30,
+          "output": 120,
+          "cacheRead": 2000,
+          "cacheWrite": 0
+        },
+        "activeMin": 3,
+        "dispatches": 1,
+        "fixRounds": 0,
+        "toolCalls": 2,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": 3.85,
+        "tokens": 1255200,
+        "activeMin": 25
+      }
+    },
+    {
+      "batch": "bt-sized",
+      "id": "SIZED-2",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": 0.5,
+        "tokens": 1280,
+        "tok": {
+          "input": 80,
+          "output": 200,
+          "cacheRead": 1000,
+          "cacheWrite": 0
+        },
+        "activeMin": 4,
+        "dispatches": 1,
+        "fixRounds": 0,
+        "toolCalls": 2,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": 2,
+        "tokens": 4430,
+        "activeMin": 8
+      }
+    },
+    {
+      "batch": "bt-neg",
+      "id": "NEG-1",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": null,
+        "tokens": 1000,
+        "tok": {
+          "input": 1000,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": 5,
+        "dispatches": 1,
+        "fixRounds": 0,
+        "toolCalls": 2,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 0,
+        "activeMin": 30
+      }
+    },
+    {
+      "batch": "bt-ovf",
+      "id": "OVF-1",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": null,
+        "tokens": 30,
+        "tok": {
+          "input": 10,
+          "output": 20,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": 5,
+        "dispatches": 1,
+        "fixRounds": 0,
+        "toolCalls": 2,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 630,
+        "activeMin": null
+      }
+    },
+    {
+      "batch": "bt-sized",
+      "id": "SIZED-1",
+      "outcome": "blocked",
+      "direct": {
+        "costUsd": 1.5,
+        "tokens": 2500,
+        "tok": {
+          "input": 100,
+          "output": 400,
+          "cacheRead": 2000,
+          "cacheWrite": 0
+        },
+        "activeMin": 8,
+        "dispatches": 1,
+        "fixRounds": 0,
+        "toolCalls": 3,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": 3,
+        "tokens": 5650,
+        "activeMin": 12
+      }
+    },
+    {
+      "batch": "bt-quiet",
+      "id": "QUIET-1",
+      "outcome": null,
+      "direct": {
+        "costUsd": null,
+        "tokens": 0,
+        "tok": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": 2,
+        "dispatches": 1,
+        "fixRounds": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 35,
+        "activeMin": 6
+      }
+    },
+    {
+      "batch": "bt-quiet",
+      "id": "QUIET-2",
+      "outcome": null,
+      "direct": {
+        "costUsd": null,
+        "tokens": 0,
+        "tok": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": 0,
+        "dispatches": 0,
+        "fixRounds": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 35,
+        "activeMin": 4
+      }
+    }
+  ],
+  "perCaseStats": {
+    "note": "over DELIVERED cases; loaded = direct + even batch-overhead share (allocation)",
+    "loadedCostUsd": {
+      "avg": 4,
+      "median": 3.85,
+      "min": 2,
+      "max": 6.15,
+      "n": 3
+    },
+    "loadedActiveMin": {
+      "avg": 24.75,
+      "median": 27.5,
+      "min": 8,
+      "max": 36,
+      "n": 4
+    }
+  }
+}

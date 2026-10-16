@@ -1,0 +1,2 @@
+export: no factory profile at <REPO>/plain/.agents/telemetry/automation/factory-profile.json — identity fields will be null (copy the skill's templates/factory-profile.template.json there; seeding Step 6.7 does this)
+export: submission folder at <REPO>/plain/.agents/telemetry/automation/export/datasets/fx-plain (1 row(s), 1 row(s) still fail §7 — see submission.md)

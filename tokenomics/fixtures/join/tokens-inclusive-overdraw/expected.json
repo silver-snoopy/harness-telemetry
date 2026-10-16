@@ -1,0 +1,6 @@
+{
+  "violations": [
+    { "source": "claude:A", "quantity": "tokens.input", "allocated": 140, "available": 100 }
+  ],
+  "unallocated": []
+}

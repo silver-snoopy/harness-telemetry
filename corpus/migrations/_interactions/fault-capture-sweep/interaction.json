@@ -1,0 +1,13 @@
+{
+  "case": "fault-capture-sweep",
+  "migrations": [
+    "null-unobservable",
+    "copilot-inclusive",
+    "scope-resolution",
+    "writer"
+  ],
+  "reason": "scope-resolution (R9) lets the first sweep capture the Claude, Copilot and VS Code sessions that the non-directory scopes path used to abort, so the ledger file appears in changes.txt; null-unobservable and copilot-inclusive change those new lines' bytes (null unobservable counters, the inclusive Copilot basis), so the recorded digest is that of all three together. With writer the lines the sweep now writes (R9) are also stamped with writer and manifestRevision (map D4), so the git-dir digest of the committed ledger in changes.txt moves again.",
+  "changed": [
+    "__sandbox__/changes.txt"
+  ]
+}

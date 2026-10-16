@@ -1,0 +1,65 @@
+{
+  "ledgerLines": 1,
+  "facts": [
+    {
+      "path": "/subagents/0/label",
+      "equals": "implement TC-1 TC-2"
+    },
+    {
+      "path": "/scope/batch",
+      "equals": "camp"
+    }
+  ],
+  "fileFacts": [
+    {
+      "file": ".agents/automation/camp/a/cost.json",
+      "path": "/cases/0/id",
+      "equals": "TC-1"
+    },
+    {
+      "file": ".agents/automation/camp/a/cost.json",
+      "path": "/cases/0/direct/dispatches",
+      "equals": 1
+    },
+    {
+      "file": ".agents/automation/camp/a/cost.json",
+      "path": "/cases/0/direct/tokens",
+      "equals": 410
+    },
+    {
+      "file": ".agents/automation/camp/a/cost.json",
+      "path": "/totals/tokens",
+      "equals": 595
+    },
+    {
+      "file": ".agents/automation/camp/a/cost.json",
+      "path": "/sources/sharedSessions",
+      "equals": 1
+    },
+    {
+      "file": ".agents/automation/camp/b/cost.json",
+      "path": "/cases/0/id",
+      "equals": "TC-2"
+    },
+    {
+      "file": ".agents/automation/camp/b/cost.json",
+      "path": "/cases/0/direct/dispatches",
+      "equals": 1
+    },
+    {
+      "file": ".agents/automation/camp/b/cost.json",
+      "path": "/cases/0/direct/tokens",
+      "equals": 410
+    },
+    {
+      "file": ".agents/automation/camp/b/cost.json",
+      "path": "/totals/tokens",
+      "equals": 595
+    },
+    {
+      "file": ".agents/automation/camp/b/cost.json",
+      "path": "/sources/sharedSessions",
+      "equals": 1
+    }
+  ]
+}

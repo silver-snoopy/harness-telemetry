@@ -1,0 +1,11 @@
+{
+  "rollups": [],
+  "allocations": [
+    { "source": "claude:A", "group": "g1", "quantity": "costUsd", "amount": 3 },
+    { "source": "claude:A", "group": "g1", "quantity": "activeMin", "amount": 20 },
+    { "source": "claude:A", "group": "g1", "quantity": "tokens.input", "amount": 50 },
+    { "source": "claude:A", "group": "g1", "quantity": "tokens.output", "amount": 12 },
+    { "source": "claude:A", "group": "g1", "quantity": "tokens.cacheRead", "amount": 300 },
+    { "source": "claude:A", "group": "g1", "quantity": "tokens.cacheWrite", "amount": 8 }
+  ]
+}

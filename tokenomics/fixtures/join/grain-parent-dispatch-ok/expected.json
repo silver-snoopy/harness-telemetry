@@ -1,0 +1,11 @@
+{
+  "violations": [],
+  "unallocated": [
+    { "source": "claude:A", "quantity": "costUsd", "amount": 2, "reason": "not attributed in trace" },
+    { "source": "claude:A", "quantity": "activeMin", "amount": 30, "reason": "not attributed in trace" },
+    { "source": "claude:A", "quantity": "tokens.input", "amount": 50, "reason": "not attributed in trace" },
+    { "source": "claude:A", "quantity": "tokens.output", "amount": 17, "reason": "not attributed in trace" },
+    { "source": "claude:A", "quantity": "tokens.cacheRead", "amount": 400, "reason": "not attributed in trace" },
+    { "source": "claude:A", "quantity": "tokens.cacheWrite", "amount": 10, "reason": "not attributed in trace" }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "data": [
+    {
+      "period": "p1",
+      "totalCost": 0.5
+    },
+    {
+      "session": "f1",
+      "totalCost": 0.25
+    },
+    {
+      "totalCost": 0.125
+    },
+    {
+      "sessionId": "agent-zz",
+      "totalCost": "n/a"
+    }
+  ]
+}

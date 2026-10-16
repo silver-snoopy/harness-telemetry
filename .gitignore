@@ -1,0 +1,7 @@
+node_modules/
+.tmp/
+coverage-raw/
+*.log
+# raw frozen sessions must never be copied in
+**/harness-telemetry-corpus-raw/
+.claude/worktrees/

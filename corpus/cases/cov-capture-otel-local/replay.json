@@ -1,0 +1,72 @@
+{
+ "id": "cov-capture-otel-local",
+ "seed": 1,
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/384-seed",
+  "files": {
+   ".agents/telemetry/automation/config.json": "{\n  \"otel\": {\n    \"enabled\": true\n  }\n}\n",
+   "alt/.agents/telemetry/automation/config.json": "{\n  \"otel\": {\n    \"enabled\": true,\n    \"endpoint\": \"http://localhost\"\n  }\n}\n"
+  }
+ },
+ "stores": [
+  {
+   "from": "inputs/claude/o1.jsonl",
+   "to": "home/stage/o1.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/o2.jsonl",
+   "to": "home/stage/o2.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  }
+ ],
+ "outputs": [
+  ".agents/telemetry",
+  "alt/.agents/telemetry/automation/usage-corpus.jsonl"
+ ],
+ "events": [
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "TOKENOMICS_NO_SINK": null,
+    "HOME": "/dev/null/x"
+   },
+   "at": "2026-10-01T10:30:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/o1.jsonl",
+    "--session",
+    "o1"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "TOKENOMICS_NO_SINK": null,
+    "HOME": "/dev/null/x"
+   },
+   "at": "2026-10-01T10:31:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/o2.jsonl",
+    "--session",
+    "o2",
+    "--cwd",
+    "{repo}/alt"
+   ],
+   "captureStderr": true
+  }
+ ]
+}

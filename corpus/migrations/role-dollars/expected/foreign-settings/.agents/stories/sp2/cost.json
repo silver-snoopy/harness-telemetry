@@ -1,0 +1,227 @@
+{
+ "v": 1,
+ "batch": "sp2",
+ "generatedAt": "2026-10-01T10:36:00.000Z",
+ "sources": {
+  "sessions": 1,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "alice"
+  ],
+  "costSources": [
+   "ccusage-metered"
+  ],
+  "models": [
+   "claude-opus-5"
+  ],
+  "sharedSessions": 1,
+  "note": "session-level figures of shared sessions are split evenly across the sprints they served",
+  "foreignDispatchesExcluded": 1
+ },
+ "totals": {
+  "costUsd": 0.95,
+  "tokens": 34960,
+  "tokensSplit": {
+   "input": 135,
+   "output": 1750,
+   "cacheRead": 31250,
+   "cacheWrite": 1825
+  },
+  "tokensByModel": {
+   "claude-opus-5": {
+    "input": 50,
+    "output": 1000,
+    "cacheRead": 25000,
+    "cacheWrite": 1500
+   }
+  },
+  "activeMin": 30,
+  "dispatches": 1.5,
+  "sessions": 1,
+  "turns": 5,
+  "toolCalls": 11,
+  "toolErrors": 1,
+  "skills": [
+   "tdd"
+  ]
+ },
+ "byRole": {
+  "helper": {
+   "costUsd": null,
+   "tokens": 330,
+   "tok": {
+    "input": 5,
+    "output": 50,
+    "cacheRead": 250,
+    "cacheWrite": 25
+   },
+   "activeMin": 1,
+   "dispatches": 0.5,
+   "toolCalls": 1,
+   "toolErrors": 0,
+   "priced": 0,
+   "unpriced": 0
+  },
+  "implementer": {
+   "costUsd": null,
+   "tokens": 7080,
+   "tok": {
+    "input": 80,
+    "output": 700,
+    "cacheRead": 6000,
+    "cacheWrite": 300
+   },
+   "activeMin": 5,
+   "dispatches": 1,
+   "toolCalls": 4,
+   "toolErrors": 0,
+   "priced": 0,
+   "unpriced": 0
+  },
+  "session": {
+   "costUsd": 0.95,
+   "tokens": 27550,
+   "tok": {
+    "input": 50,
+    "output": 1000,
+    "cacheRead": 25000,
+    "cacheWrite": 1500
+   },
+   "activeMin": 24,
+   "dispatches": 0,
+   "toolCalls": 6,
+   "toolErrors": 1,
+   "priced": 1,
+   "unpriced": 0
+  }
+ },
+ "byDispatchRole": {
+  "helper": {
+   "units": 0.5,
+   "costUsd": 0.05,
+   "priced": 0.5
+  },
+  "implementer": {
+   "units": 1,
+   "costUsd": 0.4,
+   "priced": 1
+  }
+ },
+ "overhead": {
+  "note": "sprint-level work (lead thread) — shown once, never smeared into per-story rows",
+  "costUsd": 0.55,
+  "sharePct": 58,
+  "lead": {
+   "costUsd": 0.5,
+   "tokens": 27550,
+   "tok": {
+    "input": 50,
+    "output": 1000,
+    "cacheRead": 25000,
+    "cacheWrite": 1500
+   },
+   "activeMin": 24,
+   "dispatches": 0,
+   "toolCalls": 6,
+   "toolErrors": 1
+  },
+  "stages": {
+   "costUsd": 0.05,
+   "tokens": 330,
+   "tok": {
+    "input": 5,
+    "output": 50,
+    "cacheRead": 250,
+    "cacheWrite": 25
+   },
+   "activeMin": 1,
+   "dispatches": 0.5,
+   "toolCalls": 1,
+   "toolErrors": 0
+  }
+ },
+ "outcomes": {
+  "done": 1
+ },
+ "delivered": 1,
+ "cases": [
+  {
+   "id": "issue-102",
+   "outcome": "done",
+   "direct": {
+    "costUsd": 0.4,
+    "tokens": 7080,
+    "tok": {
+     "input": 80,
+     "output": 700,
+     "cacheRead": 6000,
+     "cacheWrite": 300
+    },
+    "activeMin": 5,
+    "dispatches": 1,
+    "toolCalls": 4,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": 0.95,
+    "tokens": 34960,
+    "activeMin": 30
+   }
+  }
+ ],
+ "stats": {
+  "note": "direct = per-story measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": {
+   "avg": 0.4,
+   "median": 0.4,
+   "min": 0.4,
+   "max": 0.4,
+   "n": 1
+  },
+  "directTokens": {
+   "avg": 7080,
+   "median": 7080,
+   "min": 7080,
+   "max": 7080,
+   "n": 1
+  },
+  "directActiveMin": {
+   "avg": 5,
+   "median": 5,
+   "min": 5,
+   "max": 5,
+   "n": 1
+  },
+  "loadedCostUsd": {
+   "avg": 0.95,
+   "median": 0.95,
+   "min": 0.95,
+   "max": 0.95,
+   "n": 1
+  },
+  "loadedActiveMin": {
+   "avg": 30,
+   "median": 30,
+   "min": 30,
+   "max": 30,
+   "n": 1
+  }
+ },
+ "averages": {
+  "totalPerDelivered": {
+   "costUsd": 0.95,
+   "note": "whole sprint incl. overhead ÷ delivered (done)"
+  },
+  "directPerCase": {
+   "costUsd": 0.4,
+   "note": "avg direct spend of an attributed story — excludes sprint overhead"
+  }
+ },
+ "coverage": {
+  "casesAttributed": 1,
+  "casesUnattributed": [],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

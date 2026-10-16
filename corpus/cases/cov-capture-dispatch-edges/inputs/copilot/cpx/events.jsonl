@@ -1,0 +1,2 @@
+{"type":"subagent.started"}
+{"type":"subagent.completed","data":{"toolCallId":"u1","totalTokens":50}}

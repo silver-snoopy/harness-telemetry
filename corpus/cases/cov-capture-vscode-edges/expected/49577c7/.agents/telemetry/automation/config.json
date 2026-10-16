@@ -1,0 +1,9 @@
+{
+  "capturePrompts": true,
+  "maxSweep": 2,
+  "vscodeUserDataDirs": [
+    "../roots/ud1/workspaceStorage",
+    "../roots/ud2",
+    "../roots/ud3"
+  ]
+}

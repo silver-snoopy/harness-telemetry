@@ -1,0 +1,79 @@
+# Tokenomics — team usage report — Sept
+
+Generated: 2026-10-05T09:00:00.000Z  ·  window: 2026-09-01T00:00:00.000Z → 2026-09-30T00:00:00.000Z
+
+_Current state, UTC: the per-delivered ratio counts items whose current (winning, spec 5.2) receipt state is delivered, dated by that state's at, inside [since, until); an item delivered, reopened and delivered again counts once, at its latest delivery, so historical ratios can change when items reopen. Limitation: a session's cumulative ledger line counts wholly in the window of its endedAt; no in-window deltas are claimed. Totals and breakdowns cover the sessions whose endedAt lies in the window; sessions without endedAt are outside every window and counted as undated._
+
+## Totals
+
+- Sessions: 5 (claude 5)  ·  people: 5
+- Cost (real figures only): $4.00 from 1 priced session(s) (ccusage-metered ×1)  ·  ⚠️ 4 session(s) tokens-only (no real dollar — never estimated)
+- Tokens (incl. sub-agents): total 1,530 (1 unmeasured)  ·  in 510, out 1,020, cache-read 0, cache-write 0
+- Real work: 1,530 tokens (in+out)  ·  cache hit rate: 0.0%
+- Time: 2.5h active  ·  5.0h wall  ·  25 turns  ·  30 tool calls (5 err)
+- ⚠️ Undated: 2 session(s) without endedAt ($1.00, 1 of 2 priced) — outside every window, not in these totals
+- Case ids named in sessions: 2 distinct (sessions-per-case in the --json `byCase`; top: M-1, M-2)
+- By declared intent: automation $4.00 (1)  ·  docs n/a (1)  ·  undeclared n/a (3)
+
+## Cases (from the pipeline's own receipts)
+
+- Examined: 2 unique case(s) across 1 report(s)  ·  **delivered (automated) in the window: 0**  ·  1 delivered without `at` (unwindowed, excluded)
+- Outcomes (current state): delivered 1  ·  blocked 1
+
+## By batch
+
+| batch | cases | delivered | total | per delivered | active | gate | drift |
+|---|---|---|---|---|---|---|---|
+| mb | 2 | 1 | $4.00 | $4.00 | 0.5h | — | — |
+
+## Per case — every batch's cost.json rows (delivered first)
+
+- Delivered-case loaded cost: avg $2.00 · median $2.00 · min $2.00 · max $2.00 (n=1)
+- Delivered-case loaded time: avg 15m · median 15m · min 15m · max 15m (n=1)
+  (loaded = direct measured work + an even share of the batch overhead — an allocation, labelled as such)
+
+| case | batch | outcome | direct | loaded | active (loaded) |
+|---|---|---|---|---|---|
+| M-1 | mb | delivered | n/a | $2.00 | 15m |
+| M-2 | mb | blocked | n/a | $2.00 | 15m |
+
+## By person
+
+| person | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| alice | $4.00 | 1 | 110/220 (1 unmeasured) | 0.5h | 6 (1) |
+| bob | n/a | 1 | 100/200 | 0.5h | 6 (1) |
+| x1 | n/a | 1 | 100/200 | 0.5h | 6 (1) |
+| x2 | n/a | 1 | 100/200 | 0.5h | 6 (1) |
+| x3 | n/a | 1 | 100/200 | 0.5h | 6 (1) |
+
+## By role
+
+| role | cost | units | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| (interactive session) | (session-grain) | 4 | 400/800 | 2.0h | 24 (4) |
+| lead | (session-grain) | 1 | 100/200 | 0.5h | 6 (1) |
+| implementer | (session-grain) | 2 | 10/20 | — | 2 (0) |
+| unknown | (session-grain) | 1 | — (1 unmeasured) | — | 2 (0) |
+
+_— = not allocated at this grain: a dispatch-only role has no parent-session minutes (its dispatch minutes are in the next table)._
+
+## Dispatch minutes by role
+
+_Measured per dispatch. Dispatches overlap their parent session and each other, so these minutes are not part of any total; the by-role table gives each parent role its full session minutes (spec 5.4)._
+
+| role | dispatches | active |
+|---|---|---|
+| implementer | 2 | 5m |
+| unknown | 1 | 5m |
+
+## By week
+
+| week | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| 2026-W37 | $4.00 | 3 | 310/620 (1 unmeasured) | 1.5h | 18 (3) |
+| 2026-W38 | n/a | 2 | 200/400 | 1.0h | 12 (2) |
+
+_Dollars are session-grain (one figure per session, real sources only), so the role table reports tokens/time — sub-agent roles included. Fork/resume caveat: a forked session replays its parent's records; its ledger line can double-count the replayed tokens._
+
+manifest revision 1

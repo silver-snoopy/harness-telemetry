@@ -1,0 +1,197 @@
+{
+ "v": 1,
+ "manifestRevision": 1,
+ "batch": "gb-edge",
+ "generatedAt": "2026-10-05T09:00:00.000Z",
+ "sources": {
+  "sessions": 1,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "dana"
+  ],
+  "costSources": [],
+  "models": []
+ },
+ "totals": {
+  "costUsd": null,
+  "tokens": 30,
+  "tokensSplit": {
+   "input": 10,
+   "output": 20,
+   "cacheRead": 0,
+   "cacheWrite": 0
+  },
+  "tokensAttribution": "none",
+  "unattributedUnits": 1,
+  "activeMin": 0,
+  "dispatches": 0,
+  "sessions": 1,
+  "turns": 0,
+  "toolCalls": 0,
+  "toolErrors": 0,
+  "skills": []
+ },
+ "byRole": {
+  "session": {
+   "costUsd": null,
+   "tokens": 30,
+   "tok": {
+    "input": 10,
+    "output": 20,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 0,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  }
+ },
+ "overhead": {
+  "note": "batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows",
+  "costUsd": null,
+  "sharePct": null,
+  "lead": {
+   "costUsd": null,
+   "tokens": 30,
+   "tok": {
+    "input": 10,
+    "output": 20,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 0,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "stages": {
+   "costUsd": null,
+   "tokens": 0,
+   "tok": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 0,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "byStage": {}
+ },
+ "outcomes": {
+  "delivered": 1,
+  "blocked": 1
+ },
+ "delivered": 1,
+ "gate": {
+  "verdict": "green"
+ },
+ "records": {
+  "note": "script-authored gate verdicts (gate-runs.jsonl) + declared session outcomes (work-scope) vs the receipt — drift means report.json needs a write-back, records never overwrite it",
+  "gateRuns": {
+   "count": 2,
+   "latest": {
+    "verdict": "red",
+    "at": null,
+    "consecutiveGreen": 0
+   }
+  },
+  "declaredOutcomes": {
+   "G-1": "blocked"
+  },
+  "gateDrift": {
+   "receipt": "green",
+   "recorded": "red",
+   "at": null
+  },
+  "outcomeDrift": [
+   {
+    "id": "G-1",
+    "receipt": "delivered",
+    "declared": "blocked"
+   }
+  ]
+ },
+ "cases": [
+  {
+   "id": "G-1",
+   "outcome": "delivered",
+   "findings": 0,
+   "direct": {
+    "costUsd": null,
+    "tokens": 0,
+    "tok": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0
+    },
+    "activeMin": 0,
+    "dispatches": 0,
+    "fixRounds": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": null,
+    "tokens": 15,
+    "activeMin": 0
+   }
+  },
+  {
+   "outcome": "blocked",
+   "findings": 0,
+   "direct": {
+    "costUsd": null,
+    "tokens": 0,
+    "tok": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0
+    },
+    "activeMin": 0,
+    "dispatches": 0,
+    "fixRounds": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": null,
+    "tokens": 15,
+    "activeMin": 0
+   }
+  }
+ ],
+ "stats": {
+  "note": "direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": null,
+  "directTokens": null,
+  "directActiveMin": null,
+  "loadedCostUsd": null,
+  "loadedActiveMin": {
+   "avg": 0,
+   "median": 0,
+   "min": 0,
+   "max": 0,
+   "n": 2
+  }
+ },
+ "averages": {
+  "totalPerDelivered": null,
+  "directPerCase": null
+ },
+ "coverage": {
+  "casesAttributed": 0,
+  "casesUnattributed": [
+   "G-1",
+   null
+  ],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

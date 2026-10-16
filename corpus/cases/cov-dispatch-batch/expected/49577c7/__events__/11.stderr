@@ -1,0 +1,3 @@
+work-scope: cd1 closed
+work-scope: batch report → <REPO>/.agents/automation/cov-d/batch-report.md
+work-scope: ⚠ OUTCOME DRIFT on cov-d (PROJ-2: receipt=delivered declared=blocked) — reconcile report.json

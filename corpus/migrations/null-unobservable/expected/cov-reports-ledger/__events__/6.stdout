@@ -1,0 +1,809 @@
+{
+  "generated": "2026-10-05T09:05:00.000Z",
+  "window": "2026-09-20 → 2026-10-05  ·  role: implementer",
+  "sessions": 3,
+  "people": 2,
+  "totals": {
+    "sessions": 3,
+    "costUsd": 6.5,
+    "priced": 3,
+    "tokens": {
+      "input": 800,
+      "output": 18500,
+      "cacheRead": 191500,
+      "cacheWrite": 11060
+    },
+    "activeMin": 180,
+    "wallMin": 360,
+    "turns": 30,
+    "toolCalls": 36,
+    "toolErrors": 3,
+    "unmeasured": {
+      "tokens": 1,
+      "activeMin": 0,
+      "wallMin": 0,
+      "turns": 0,
+      "toolCalls": 0,
+      "toolErrors": 0
+    }
+  },
+  "byCase": {
+    "S-1": 2,
+    "S-2": 1,
+    "W1-1": 1,
+    "S-3": 1,
+    "W2-1": 1
+  },
+  "byIntent": {
+    "automation": {
+      "sessions": 2,
+      "costUsd": 5,
+      "priced": 2,
+      "tokens": {
+        "input": 620,
+        "output": 15700,
+        "cacheRead": 135500,
+        "cacheWrite": 7760
+      },
+      "activeMin": 120,
+      "wallMin": 240,
+      "turns": 20,
+      "toolCalls": 24,
+      "toolErrors": 2,
+      "unmeasured": {
+        "tokens": 1,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    },
+    "docs": {
+      "sessions": 1,
+      "costUsd": 1.5,
+      "priced": 1,
+      "tokens": {
+        "input": 180,
+        "output": 2800,
+        "cacheRead": 56000,
+        "cacheWrite": 3300
+      },
+      "activeMin": 60,
+      "wallMin": 120,
+      "turns": 10,
+      "toolCalls": 12,
+      "toolErrors": 1,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "costSources": {
+    "ccusage-metered": 3
+  },
+  "tokensOnly": 0,
+  "byPerson": {
+    "alice": {
+      "sessions": 2,
+      "costUsd": 5,
+      "priced": 2,
+      "tokens": {
+        "input": 620,
+        "output": 15700,
+        "cacheRead": 135500,
+        "cacheWrite": 7760
+      },
+      "activeMin": 120,
+      "wallMin": 240,
+      "turns": 20,
+      "toolCalls": 24,
+      "toolErrors": 2,
+      "unmeasured": {
+        "tokens": 1,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    },
+    "bob": {
+      "sessions": 1,
+      "costUsd": 1.5,
+      "priced": 1,
+      "tokens": {
+        "input": 180,
+        "output": 2800,
+        "cacheRead": 56000,
+        "cacheWrite": 3300
+      },
+      "activeMin": 60,
+      "wallMin": 120,
+      "turns": 10,
+      "toolCalls": 12,
+      "toolErrors": 1,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "byRole": {
+    "(interactive session)": {
+      "units": 2,
+      "tokens": {
+        "input": 200,
+        "output": 4000,
+        "cacheRead": 100000,
+        "cacheWrite": 6000
+      },
+      "activeMin": 80,
+      "toolCalls": 24,
+      "toolErrors": 2,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    },
+    "analyst": {
+      "units": 1,
+      "tokens": {
+        "input": 100,
+        "output": 9000,
+        "cacheRead": 20000,
+        "cacheWrite": 1000
+      },
+      "activeMin": 5,
+      "toolCalls": 4,
+      "toolErrors": 0,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    },
+    "implementer": {
+      "units": 5,
+      "tokens": {
+        "input": 350,
+        "output": 3000,
+        "cacheRead": 18800,
+        "cacheWrite": 890
+      },
+      "activeMin": 25,
+      "toolCalls": 20,
+      "toolErrors": 0,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    },
+    "triage": {
+      "units": 1,
+      "tokens": {
+        "input": 10,
+        "output": 100,
+        "cacheRead": 500,
+        "cacheWrite": 50
+      },
+      "activeMin": 5,
+      "toolCalls": 4,
+      "toolErrors": 0,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    },
+    "helper": {
+      "units": 2,
+      "tokens": {
+        "input": 10,
+        "output": 100,
+        "cacheRead": 200,
+        "cacheWrite": 20
+      },
+      "activeMin": 10,
+      "toolCalls": 8,
+      "toolErrors": 0,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    },
+    "lead": {
+      "units": 1,
+      "tokens": {
+        "input": 100,
+        "output": 2000,
+        "cacheRead": 50000,
+        "cacheWrite": 3000
+      },
+      "activeMin": 45,
+      "toolCalls": 12,
+      "toolErrors": 1,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    },
+    "reviewer": {
+      "units": 2,
+      "tokens": {
+        "input": 30,
+        "output": 300,
+        "cacheRead": 2000,
+        "cacheWrite": 100
+      },
+      "activeMin": 10,
+      "toolCalls": 8,
+      "toolErrors": 0,
+      "unmeasured": {
+        "tokens": 1,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "byWeek": {
+    "2026-W40": {
+      "sessions": 3,
+      "costUsd": 6.5,
+      "priced": 3,
+      "tokens": {
+        "input": 800,
+        "output": 18500,
+        "cacheRead": 191500,
+        "cacheWrite": 11060
+      },
+      "activeMin": 180,
+      "wallMin": 360,
+      "turns": 30,
+      "toolCalls": 36,
+      "toolErrors": 3,
+      "unmeasured": {
+        "tokens": 1,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "byHost": {
+    "claude": {
+      "sessions": 3,
+      "costUsd": 6.5,
+      "priced": 3,
+      "tokens": {
+        "input": 800,
+        "output": 18500,
+        "cacheRead": 191500,
+        "cacheWrite": 11060
+      },
+      "activeMin": 180,
+      "wallMin": 360,
+      "turns": 30,
+      "toolCalls": 36,
+      "toolErrors": 3,
+      "unmeasured": {
+        "tokens": 1,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "cases": {
+    "examined": 8,
+    "delivered": 6,
+    "outcomes": {
+      "delivered": 4,
+      "defect-found": 1,
+      "not-started": 1,
+      "blocked": 1,
+      "automated": 1
+    },
+    "reports": 5,
+    "roleFiltered": true
+  },
+  "perDelivered": null,
+  "perExamined": null,
+  "index": [
+    {
+      "host": "claude",
+      "id": "s-a1",
+      "user": "alice",
+      "role": null,
+      "startedAt": "2026-09-28T09:00:00.000Z",
+      "costUsd": 2,
+      "cases": [
+        "S-1",
+        "S-2"
+      ]
+    },
+    {
+      "host": "claude",
+      "id": "s-a2",
+      "user": "alice",
+      "role": "lead",
+      "startedAt": "2026-09-29T09:00:00.000Z",
+      "costUsd": 3,
+      "cases": [
+        "W1-1",
+        "S-3",
+        "S-1"
+      ]
+    },
+    {
+      "host": "claude",
+      "id": "s-b2",
+      "user": "bob",
+      "role": null,
+      "startedAt": "2026-10-03T09:00:00.000Z",
+      "costUsd": 1.5,
+      "cases": [
+        "W2-1"
+      ]
+    }
+  ],
+  "byBatch": [
+    {
+      "batch": "camp/wave-01",
+      "cases": 2,
+      "delivered": 1,
+      "costUsd": 1.85,
+      "activeMin": 28,
+      "perDelivered": 1.85,
+      "gate": "green",
+      "drift": false,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    },
+    {
+      "batch": "camp/wave-02",
+      "cases": 1,
+      "delivered": 1,
+      "costUsd": 1.5,
+      "activeMin": 60,
+      "perDelivered": 1.5,
+      "gate": null,
+      "drift": false,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    },
+    {
+      "batch": "solo",
+      "cases": 4,
+      "delivered": 3,
+      "costUsd": 2.8,
+      "activeMin": 68,
+      "perDelivered": 0.93,
+      "gate": "red",
+      "drift": true,
+      "unmeasured": {
+        "tokens": 1,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    },
+    {
+      "batch": "tokonly",
+      "cases": 1,
+      "delivered": 1,
+      "costUsd": null,
+      "activeMin": 60,
+      "perDelivered": null,
+      "gate": null,
+      "drift": false,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  ],
+  "perCase": [
+    {
+      "batch": "camp/wave-02",
+      "id": "W2-1",
+      "outcome": "automated",
+      "direct": {
+        "costUsd": 0.9,
+        "tokens": 7180,
+        "tok": {
+          "input": 80,
+          "output": 800,
+          "cacheRead": 6000,
+          "cacheWrite": 300
+        },
+        "activeMin": 5,
+        "dispatches": 1,
+        "fixRounds": 0,
+        "toolCalls": 4,
+        "toolErrors": 0,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      },
+      "loaded": {
+        "costUsd": 1.5,
+        "tokens": 62280,
+        "activeMin": 60,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      }
+    },
+    {
+      "batch": "solo",
+      "id": "S-2",
+      "outcome": "defect-found",
+      "direct": {
+        "costUsd": 0.8,
+        "tokens": 2500,
+        "tok": {
+          "input": 100,
+          "output": 300,
+          "cacheRead": 2000,
+          "cacheWrite": 100
+        },
+        "activeMin": 5,
+        "dispatches": 1,
+        "fixRounds": 0,
+        "toolCalls": 4,
+        "toolErrors": 0,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      },
+      "loaded": {
+        "costUsd": 1.06,
+        "tokens": 16461,
+        "activeMin": 16,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      }
+    },
+    {
+      "batch": "camp/wave-01",
+      "id": "W1-1",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": 0.5,
+        "tokens": 5350,
+        "tok": {
+          "input": 50,
+          "output": 600,
+          "cacheRead": 4500,
+          "cacheWrite": 200
+        },
+        "activeMin": 3,
+        "dispatches": 0.5,
+        "fixRounds": 0,
+        "toolCalls": 2,
+        "toolErrors": 0,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      },
+      "loaded": {
+        "costUsd": 0.93,
+        "tokens": 19125,
+        "activeMin": 14,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      }
+    },
+    {
+      "batch": "solo",
+      "id": "S-1",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": 0.65,
+        "tokens": 31160,
+        "tok": {
+          "input": 120,
+          "output": 9200,
+          "cacheRead": 20800,
+          "cacheWrite": 1040
+        },
+        "activeMin": 10,
+        "dispatches": 2,
+        "fixRounds": 1,
+        "toolCalls": 8,
+        "toolErrors": 0,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      },
+      "loaded": {
+        "costUsd": 0.91,
+        "tokens": 45121,
+        "activeMin": 21,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      }
+    },
+    {
+      "batch": "solo",
+      "id": "S-3",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": 0.3,
+        "tokens": 2430,
+        "tok": {
+          "input": 30,
+          "output": 300,
+          "cacheRead": 2000,
+          "cacheWrite": 100
+        },
+        "activeMin": 10,
+        "dispatches": 2,
+        "fixRounds": 0,
+        "toolCalls": 8,
+        "toolErrors": 0,
+        "unmeasured": {
+          "tokens": 1,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      },
+      "loaded": {
+        "costUsd": 0.56,
+        "tokens": 16391,
+        "activeMin": 21,
+        "unmeasured": {
+          "tokens": 1,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      }
+    },
+    {
+      "batch": "tokonly",
+      "id": "T-1",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": null,
+        "tokens": 700,
+        "tok": {
+          "input": 700,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": 10,
+        "dispatches": 2,
+        "fixRounds": 0,
+        "toolCalls": 8,
+        "toolErrors": 0,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 1600,
+        "activeMin": 60,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      }
+    },
+    {
+      "batch": "camp/wave-01",
+      "id": "W1-2",
+      "outcome": "blocked",
+      "direct": {
+        "costUsd": 0.5,
+        "tokens": 5350,
+        "tok": {
+          "input": 50,
+          "output": 600,
+          "cacheRead": 4500,
+          "cacheWrite": 200
+        },
+        "activeMin": 3,
+        "dispatches": 0.5,
+        "fixRounds": 0,
+        "toolCalls": 2,
+        "toolErrors": 0,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      },
+      "loaded": {
+        "costUsd": 0.93,
+        "tokens": 19125,
+        "activeMin": 14,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      }
+    },
+    {
+      "batch": "solo",
+      "id": "S-4",
+      "outcome": null,
+      "direct": {
+        "costUsd": null,
+        "tokens": 0,
+        "tok": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": 0,
+        "dispatches": 0,
+        "fixRounds": 0,
+        "toolCalls": 0,
+        "toolErrors": 0,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      },
+      "loaded": {
+        "costUsd": 0.26,
+        "tokens": 13961,
+        "activeMin": 11,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      }
+    }
+  ],
+  "perCaseStats": {
+    "note": "over DELIVERED cases; loaded = direct + even batch-overhead share (allocation)",
+    "loadedCostUsd": {
+      "avg": 0.9920000000000002,
+      "median": 0.93,
+      "min": 0.56,
+      "max": 1.5,
+      "n": 5
+    },
+    "loadedActiveMin": {
+      "avg": 32,
+      "median": 21,
+      "min": 14,
+      "max": 60,
+      "n": 6
+    }
+  }
+}

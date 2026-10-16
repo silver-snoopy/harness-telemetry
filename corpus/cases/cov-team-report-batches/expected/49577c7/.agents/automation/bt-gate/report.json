@@ -1,0 +1,1 @@
+{"batch":"bt-gate","gate":{"verdict":"green","runs":3},"cases":[{"id":"GATE-1","outcome":"delivered"},{"id":"GATE-2","outcome":"defect-found"}]}

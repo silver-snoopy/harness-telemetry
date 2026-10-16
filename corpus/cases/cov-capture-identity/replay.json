@@ -1,0 +1,104 @@
+{
+ "id": "cov-capture-identity",
+ "seed": 1,
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/384-seed",
+  "files": {}
+ },
+ "stores": [
+  {
+   "from": "inputs/git/w1/HEAD",
+   "to": "repo/w1/.git/HEAD",
+   "mtime": "2026-10-01T10:00:00.000Z",
+   "template": false
+  },
+  {
+   "from": "inputs/git/w1/config",
+   "to": "repo/w1/.git/config",
+   "mtime": "2026-10-01T10:00:00.000Z",
+   "template": false
+  },
+  {
+   "from": "inputs/git/w1/objects/keep",
+   "to": "repo/w1/.git/objects/.keep",
+   "mtime": "2026-10-01T10:00:00.000Z",
+   "template": false
+  },
+  {
+   "from": "inputs/git/w1/refs/keep",
+   "to": "repo/w1/.git/refs/.keep",
+   "mtime": "2026-10-01T10:00:00.000Z",
+   "template": false
+  },
+  {
+   "from": "inputs/git/w2/HEAD",
+   "to": "repo/w2/.git/HEAD",
+   "mtime": "2026-10-01T10:00:00.000Z",
+   "template": false
+  },
+  {
+   "from": "inputs/git/w2/config",
+   "to": "repo/w2/.git/config",
+   "mtime": "2026-10-01T10:00:00.000Z",
+   "template": false
+  },
+  {
+   "from": "inputs/git/w2/objects/keep",
+   "to": "repo/w2/.git/objects/.keep",
+   "mtime": "2026-10-01T10:00:00.000Z",
+   "template": false
+  },
+  {
+   "from": "inputs/git/w2/refs/keep",
+   "to": "repo/w2/.git/refs/.keep",
+   "mtime": "2026-10-01T10:00:00.000Z",
+   "template": false
+  },
+  {
+   "from": "inputs/claude/i1.jsonl",
+   "to": "home/stage/i1.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  }
+ ],
+ "outputs": [
+  "w1/.agents/telemetry",
+  "w2/.agents"
+ ],
+ "events": [
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:30:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/i1.jsonl",
+    "--session",
+    "i1",
+    "--cwd",
+    "{repo}/w1"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:31:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--cwd",
+    "{repo}/w2"
+   ]
+  }
+ ]
+}

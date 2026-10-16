@@ -1,0 +1,4 @@
+batch-cost: gb-edge — 1 session(s), 2 case(s), total 30 tokens (unpriced) → cost.json
+batch-cost: gb-empty — 0 session(s), 0 case(s), total 0 tokens (unpriced) → cost.json
+batch-cost: gb-priced — 2 session(s), 1 case(s), total $0.5 → cost.json
+batch-cost: gb-sized — 1 session(s), 4 case(s), total 6570 tokens (unpriced) → cost.json

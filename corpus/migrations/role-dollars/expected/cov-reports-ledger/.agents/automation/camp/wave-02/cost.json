@@ -1,0 +1,233 @@
+{
+ "v": 1,
+ "batch": "camp/wave-02",
+ "generatedAt": "2026-10-05T09:07:00.000Z",
+ "sources": {
+  "sessions": 2,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "bob",
+   "live"
+  ],
+  "costSources": [
+   "ccusage-metered"
+  ],
+  "models": [
+   "claude-opus-5"
+  ],
+  "liveSessions": 1,
+  "liveNote": "PROVISIONAL — a session is still running: its finished dispatches are counted, its own lead thread is not yet measured, so these totals are a floor. Re-run once it ends."
+ },
+ "totals": {
+  "costUsd": 1.9,
+  "tokens": 62960,
+  "tokensSplit": {
+   "input": 190,
+   "output": 2950,
+   "cacheRead": 56500,
+   "cacheWrite": 3320
+  },
+  "tokensByModel": {
+   "claude-opus-5": {
+    "input": 100,
+    "output": 2000,
+    "cacheRead": 50000,
+    "cacheWrite": 3000
+   }
+  },
+  "tokensAttribution": "partial",
+  "unattributedUnits": 1,
+  "activeMin": 65,
+  "dispatches": 3,
+  "sessions": 2,
+  "turns": 10,
+  "toolCalls": 19,
+  "toolErrors": 1,
+  "skills": [
+   "tdd"
+  ]
+ },
+ "byRole": {
+  "implementer": {
+   "costUsd": null,
+   "tokens": 7860,
+   "tok": {
+    "input": 90,
+    "output": 950,
+    "cacheRead": 6500,
+    "cacheWrite": 320
+   },
+   "activeMin": 9,
+   "dispatches": 2,
+   "toolCalls": 7,
+   "toolErrors": 0,
+   "priced": 0,
+   "unpriced": 0
+  },
+  "reviewer": {
+   "costUsd": null,
+   "tokens": 0,
+   "tok": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 1,
+   "dispatches": 1,
+   "toolCalls": 0,
+   "toolErrors": 0,
+   "priced": 0,
+   "unpriced": 0
+  },
+  "session": {
+   "costUsd": 1.9,
+   "tokens": 55100,
+   "tok": {
+    "input": 100,
+    "output": 2000,
+    "cacheRead": 50000,
+    "cacheWrite": 3000
+   },
+   "activeMin": 55,
+   "dispatches": 0,
+   "toolCalls": 12,
+   "toolErrors": 1,
+   "priced": 2,
+   "unpriced": 0
+  }
+ },
+ "byDispatchRole": {
+  "implementer": {
+   "units": 2,
+   "costUsd": 1.3,
+   "priced": 2
+  },
+  "reviewer": {
+   "units": 1,
+   "costUsd": null,
+   "priced": 0
+  }
+ },
+ "overhead": {
+  "note": "batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows",
+  "costUsd": 0.6,
+  "sharePct": 32,
+  "lead": {
+   "costUsd": 0.6,
+   "tokens": 55100,
+   "tok": {
+    "input": 100,
+    "output": 2000,
+    "cacheRead": 50000,
+    "cacheWrite": 3000
+   },
+   "activeMin": 55,
+   "dispatches": 0,
+   "toolCalls": 12,
+   "toolErrors": 1
+  },
+  "stages": {
+   "costUsd": null,
+   "tokens": 0,
+   "tok": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 0,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "byStage": {}
+ },
+ "outcomes": {
+  "automated": 1
+ },
+ "delivered": 1,
+ "gate": null,
+ "cases": [
+  {
+   "id": "W2-1",
+   "outcome": "automated",
+   "findings": 0,
+   "direct": {
+    "costUsd": 1.3,
+    "tokens": 7860,
+    "tok": {
+     "input": 90,
+     "output": 950,
+     "cacheRead": 6500,
+     "cacheWrite": 320
+    },
+    "activeMin": 10,
+    "dispatches": 3,
+    "fixRounds": 0,
+    "toolCalls": 7,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": 1.9,
+    "tokens": 62960,
+    "activeMin": 65
+   }
+  }
+ ],
+ "stats": {
+  "note": "direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": {
+   "avg": 1.3,
+   "median": 1.3,
+   "min": 1.3,
+   "max": 1.3,
+   "n": 1
+  },
+  "directTokens": {
+   "avg": 7860,
+   "median": 7860,
+   "min": 7860,
+   "max": 7860,
+   "n": 1
+  },
+  "directActiveMin": {
+   "avg": 10,
+   "median": 10,
+   "min": 10,
+   "max": 10,
+   "n": 1
+  },
+  "loadedCostUsd": {
+   "avg": 1.9,
+   "median": 1.9,
+   "min": 1.9,
+   "max": 1.9,
+   "n": 1
+  },
+  "loadedActiveMin": {
+   "avg": 65,
+   "median": 65,
+   "min": 65,
+   "max": 65,
+   "n": 1
+  }
+ },
+ "averages": {
+  "totalPerDelivered": {
+   "costUsd": 1.9,
+   "note": "whole batch incl. overhead ÷ delivered (delivered/defect-found; legacy automated/merged-sanctioned-red)"
+  },
+  "directPerCase": {
+   "costUsd": 1.3,
+   "note": "avg direct spend of an attributed case — excludes batch overhead"
+  }
+ },
+ "coverage": {
+  "casesAttributed": 1,
+  "casesUnattributed": [],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

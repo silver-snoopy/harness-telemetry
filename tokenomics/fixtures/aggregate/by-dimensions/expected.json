@@ -1,0 +1,183 @@
+{
+  "verified": {
+    "sessions": 2,
+    "costUsd": 3,
+    "tokens": {
+      "input": 20,
+      "output": 40,
+      "cacheRead": 600,
+      "cacheWrite": 80
+    }
+  },
+  "unverified": {
+    "sessions": 0,
+    "costUsd": 0,
+    "tokens": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0
+    }
+  },
+  "coverage": {
+    "sessions": 2,
+    "unpriced": 0,
+    "unmeasured": 0,
+    "conflicts": 0,
+    "identityUnverified": 0,
+    "excluded": 0,
+    "unrecognized": 0,
+    "undated": 0,
+    "possibleCollisions": 0
+  },
+  "byHost": {
+    "claude": {
+      "sessions": 2,
+      "costUsd": 3,
+      "tokens": {
+        "input": 20,
+        "output": 40,
+        "cacheRead": 600,
+        "cacheWrite": 80
+      },
+      "activeMin": 7,
+      "turns": 11,
+      "unverified": {
+        "sessions": 0,
+        "costUsd": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        }
+      }
+    }
+  },
+  "byUser": {
+    "ann": {
+      "sessions": 1,
+      "costUsd": 1,
+      "tokens": {
+        "input": 10,
+        "output": 20,
+        "cacheRead": 300,
+        "cacheWrite": 40
+      },
+      "unverified": {
+        "sessions": 0,
+        "costUsd": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        }
+      }
+    },
+    "bob": {
+      "sessions": 1,
+      "costUsd": 2,
+      "tokens": {
+        "input": 10,
+        "output": 20,
+        "cacheRead": 300,
+        "cacheWrite": 40
+      },
+      "unverified": {
+        "sessions": 0,
+        "costUsd": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        }
+      }
+    }
+  },
+  "byRole": {
+    "qa": {
+      "sessions": 1,
+      "costUsd": 2,
+      "tokens": {
+        "input": 10,
+        "output": 20,
+        "cacheRead": 300,
+        "cacheWrite": 40
+      },
+      "unverified": {
+        "sessions": 0,
+        "costUsd": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        }
+      }
+    },
+    "sdlc": {
+      "sessions": 1,
+      "costUsd": 1,
+      "tokens": {
+        "input": 10,
+        "output": 20,
+        "cacheRead": 300,
+        "cacheWrite": 40
+      },
+      "unverified": {
+        "sessions": 0,
+        "costUsd": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        }
+      }
+    }
+  },
+  "byIntent": {
+    "bugfix": {
+      "sessions": 1,
+      "costUsd": 2,
+      "tokens": {
+        "input": 10,
+        "output": 20,
+        "cacheRead": 300,
+        "cacheWrite": 40
+      },
+      "unverified": {
+        "sessions": 0,
+        "costUsd": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        }
+      }
+    },
+    "story": {
+      "sessions": 1,
+      "costUsd": 1,
+      "tokens": {
+        "input": 10,
+        "output": 20,
+        "cacheRead": 300,
+        "cacheWrite": 40
+      },
+      "unverified": {
+        "sessions": 0,
+        "costUsd": 0,
+        "tokens": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        }
+      }
+    }
+  }
+}

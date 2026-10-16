@@ -1,0 +1,2 @@
+tokenomics: scope for copilot:sp: the only record is claude/sp.json (another host's) — not stamped; re-declare with --host copilot or move it to copilot/sp.json
+tokenomics: captured 2 session(s) → .agents/telemetry/automation/usage-corpus.jsonl

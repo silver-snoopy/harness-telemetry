@@ -1,0 +1,47 @@
+{
+  "generated": "2026-10-05T09:13:00.000Z",
+  "window": null,
+  "sessions": 0,
+  "people": 0,
+  "totals": {
+    "sessions": 0,
+    "costUsd": 0,
+    "priced": 0,
+    "tokens": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0
+    },
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0,
+    "unmeasured": {
+      "tokens": 0,
+      "activeMin": 0,
+      "wallMin": 0,
+      "turns": 0,
+      "toolCalls": 0,
+      "toolErrors": 0
+    }
+  },
+  "byCase": {},
+  "byIntent": {},
+  "costSources": {},
+  "tokensOnly": 0,
+  "byPerson": {},
+  "byRole": {},
+  "byWeek": {},
+  "byHost": {},
+  "cases": {
+    "examined": 0,
+    "delivered": 0,
+    "outcomes": {},
+    "reports": 0
+  },
+  "perDelivered": null,
+  "perExamined": null,
+  "index": []
+}

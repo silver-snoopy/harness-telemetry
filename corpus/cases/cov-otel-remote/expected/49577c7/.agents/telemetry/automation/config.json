@@ -1,0 +1,1 @@
+{"otel":{"enabled":true,"endpoint":"https://collector.example.invalid:4318"}}

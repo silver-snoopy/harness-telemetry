@@ -1,0 +1,12 @@
+{
+  "case": "cov-capture-pricing",
+  "migrations": [
+    "fold-flags",
+    "null-unobservable",
+    "writer"
+  ],
+  "reason": "fold-flags gives the folded agent-gone entry the captured dispatch shape (tokens null, tokensAttributed false, tokensByModel {}) and line p1 tokensAttribution partial; null-unobservable writes its absent toolCalls and toolErrors as null instead of 0. Together the entry has both. With writer, writer stamps every appended line with writer tokenomics-engine@0.0.0-replay and manifestRevision 1 right after v (map D4); the ledger carries all of these effects.",
+  "changed": [
+    ".agents/telemetry/automation/usage-corpus.jsonl"
+  ]
+}

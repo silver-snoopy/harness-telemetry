@@ -1,0 +1,11 @@
+{
+  "batch": "reopen-a",
+  "revision": "2026-10-02T12:00:00Z",
+  "cases": [
+    {
+      "id": "REO-1",
+      "outcome": "delivered",
+      "at": "2026-10-02T12:00:00Z"
+    }
+  ]
+}

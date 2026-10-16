@@ -1,0 +1,26 @@
+{
+  "case": "foreign-null-extension",
+  "migrations": [
+    "null-unobservable",
+    "active-minutes",
+    "reports-location",
+    "role-dollars",
+    "report-revision"
+  ],
+  "reason": "active-minutes allocates minutes at session grain (per-item and dispatch-role activeMin null, sources.activeMinGrain noted, loaded = group time / items); null-unobservable adds the unmeasured counts. The fb group's session is still running, and only with both on is its not-yet-measured lead thread null and counted (active-minutes never sums its overlapping dispatch minutes): cost.json and all four renders show the group time as '— (1 unmeasured)'. reports-location (item 10, Q13) then relocates the fb group's four renders and cost.json to .agents/telemetry/automation/reports/fb/ (removed at the old path, changed at the new one, so the old path's owners null-unobservable and active-minutes are named with it); the close stderr line names the new path. role-dollars (item 23, O3) then makes by-role dollars inclusive on the same cost.json files, their batch and tokenomics renders and the batch-cost / --batch / --batches streams: a priced session's parent role carries what the group charges for it (dispatch dollars included, so over priced sessions Σ byRole.costUsd = totals.costUsd), an unpriced session's parent role stays null and counts in its unpriced (byRole {priced, unpriced} session counts; 0/0 = a dispatch-only role, not allocated at this grain), dispatch roles carry no by-role dollars, and a separate byDispatchRole {units, costUsd, priced} breakdown (present, possibly empty) holds the measured per-dispatch dollars; the renders add the inclusive note and the dispatch-dollar table, so the cumulative bytes carry it too. report-revision (item 24, O6) then records the current manifest revision (1: the implied manifest) on the same reports: manifestRevision right after v in every cost.json, the period --json's manifestRevision after generated, the 'manifest revision 1' footer on the batch, tokenomics, period and live renders and in submission.md, and manifestRevision after schema_version in the export runs.json; it adds a field and a footer line and moves no figure, so the cumulative bytes carry its provenance beside every other owner's change. null-unobservable (Codex B2-07) also makes the fb provisional live parent's tokens, turns and tool counters null and unmeasured instead of an invented zero (the cost.json, all four renders and the export runs.json), alone and without active-minutes.",
+  "changed": [
+    ".agents/telemetry/automation/export/runs.json",
+    ".agents/telemetry/automation/reports/fb/batch-report.html",
+    ".agents/telemetry/automation/reports/fb/batch-report.md",
+    ".agents/telemetry/automation/reports/fb/batch-tokenomics.html",
+    ".agents/telemetry/automation/reports/fb/batch-tokenomics.md",
+    ".agents/telemetry/automation/reports/fb/cost.json"
+  ],
+  "removed": [
+    ".agents/automation/fb/batch-report.html",
+    ".agents/automation/fb/batch-report.md",
+    ".agents/automation/fb/batch-tokenomics.html",
+    ".agents/automation/fb/batch-tokenomics.md",
+    ".agents/automation/fb/cost.json"
+  ]
+}

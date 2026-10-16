@@ -1,0 +1,4 @@
+work-scope: sA closed
+work-scope: batch report → <REPO>/.agents/automation/solo/batch-report.md
+work-scope: ⚠ GATE DRIFT on solo — receipt 'red' vs recorded 'green': write the verdict back into report.json BEFORE walking away
+work-scope: ⚠ OUTCOME DRIFT on solo (S-3: receipt=delivered declared=blocked; S-4: receipt=— declared=delivered) — reconcile report.json

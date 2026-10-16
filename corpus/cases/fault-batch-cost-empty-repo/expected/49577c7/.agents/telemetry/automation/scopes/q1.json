@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "session": "q1",
+  "intent": "automation",
+  "batch": "gb-nr",
+  "cases": [
+    "Q-1"
+  ],
+  "declaredAt": "2026-10-05T09:00:00.000Z",
+  "updatedAt": "2026-10-05T09:02:00.000Z",
+  "closedAt": "2026-10-05T09:02:00.000Z"
+}

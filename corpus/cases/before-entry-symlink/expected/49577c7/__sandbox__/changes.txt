@@ -1,0 +1,1 @@
+["A","links/telemetry-capture.mjs","l:<IMPL>/hooks/telemetry-capture.mjs"]

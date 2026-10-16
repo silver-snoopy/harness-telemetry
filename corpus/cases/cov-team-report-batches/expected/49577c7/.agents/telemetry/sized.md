@@ -1,0 +1,46 @@
+# Batch cost — bt-sized
+
+Generated: 2026-10-05T09:05:00.000Z  ·  sessions: 1 (claude)  ·  sources: ccusage-metered  ·  models: claude-opus-5
+
+## What happened
+
+- Cases: 2  ·  **delivered: 1**  ·  blocked 1  ·  delivered 1
+- ⚠️ **OUTCOME DRIFT** (1): SIZED-1 receipt=blocked declared=delivered — reconcile report.json
+- Findings reported: 0  ·  fix rounds: 0
+
+## What it cost
+
+- Total: $5.00  ·  0.3h active (cases 12m · lead 8m · stages 0m)  ·  2 dispatches
+- Tokens: total 10,080  ·  **real work 1,980** (in 480 / out 1,500)  ·  cache 8k read / 100 write  ·  **cache hit rate 93.2%**  ·  see batch-tokenomics for the full breakdown
+- Activity: 5 turns  ·  11 tool calls (1 err, 91% ok)
+- Overhead (lead + triage + gate + report, shown once): $3.00 (60%)
+- **Per delivered case (incl. overhead): $5.00**
+- Avg direct per case (excl. overhead): $1.00
+- Direct cost spread: avg $1.00 · median $1.00 · min $0.50 · max $1.50
+- Loaded cost spread (direct + even overhead share): avg $2.50 · median $2.50 · min $2.00 · max $3.00
+- Active-time spread: avg 6m · median 6m · min 4m · max 8m  ·  loaded: avg 10m · median 10m · min 8m · max 12m
+
+## Per case (direct = measured; loaded = direct + even overhead share, an allocation)
+
+| case | size | outcome | direct cost | loaded | real-work tok | active | loaded act. | dispatches | tools (err) | fix rounds | findings |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| SIZED-1 | M | blocked | $1.50 | $3.00 | 500 (in 100 / out 400) | 8m | 12m | 1 | 3 (0) | 0 | 0 |
+| SIZED-2 | S | delivered | $0.50 | $2.00 | 280 (in 80 / out 200) | 4m | 8m | 1 | 2 (0) | 0 | 0 |
+
+_Cases analysed/built as one cluster share its measured dispatches — their rows are an even split, not per-case measurement (fractional `dispatches` marks them)._
+
+## By size — predicted (automation-scoping) vs actual
+
+| size | cases | ΣSP | est min | actual min | actual rw tok |
+|---|---|---|---|---|---|
+| M | 1 | 3 | 20 | 8 | 500 |
+| S | 1 | — | — | 4 | 280 |
+
+**Estimate vs actual (batch grain): 20m predicted / 12m actual — ×0.6.** Batch grain only: per-case dollars rank-correlate ~zero with predictions (scoping doctrine) — deviations below are tokens/time analysis pointers.
+
+## By role
+
+| role | cost | dispatches | real-work tok | cache hit | active | tools (err) |
+|---|---|---|---|---|---|---|
+| session | $3.00 | 0 | 1,200 (in 300 / out 900) | 92.6% | 8m | 6 (1) |
+| implementer | $2.00 | 2 | 780 (in 180 / out 600) | 94.3% | 12m | 5 (0) |

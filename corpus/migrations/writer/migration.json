@@ -1,0 +1,257 @@
+{
+  "id": "writer",
+  "item": 11,
+  "spec": "§14.8 item 11, §14.7, §3.2",
+  "summary": "Every measurement line the engine appends carries writer (\"tokenomics-engine@<version>\") and manifestRevision (module.json, else 1), together and nothing else (§14.7, §3.2; map D4); a restamp append keeps the original writer and manifestRevision (§14.11).",
+  "beforeCases": [
+    "seed-claude-basic"
+  ],
+  "declared": {
+    "before-dispatch-two-groups": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "before-ids-substring": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "before-scope-handle": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "before-scope-precedence": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "before-vscode-no-usage": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-claude-parse": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-claude-sweep": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl",
+        "alt/.agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-copilot-edges": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-dispatch-edges": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        "alt/.agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-identity": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged. The stamped line is in the identity-fallback ledger usage-unknown.jsonl.",
+      "changed": [
+        "w1/.agents/telemetry/automation/usage-unknown.jsonl"
+      ]
+    },
+    "cov-capture-otel-local": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl",
+        "alt/.agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-pricing": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-scope-live": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl",
+        "alt/.agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-sync": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged. The committed ledger blob now holds the stamped line, so the git-dir digest g:<new> in __sandbox__/changes.txt changes too.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl",
+        "__sandbox__/changes.txt",
+        "alt/.agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-vscode-edges": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl",
+        "alt/.agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-copilot-dispatch": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-dispatch-batch": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-otel-remote": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "fault-batch-cost-sizing-locked": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "fault-pending-write": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "foreign-null-extension": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "foreign-settings": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged. The ledger is under the foreign settings' dir, .agents/telemetry/stories/.",
+      "changed": [
+        ".agents/telemetry/stories/usage-corpus.jsonl"
+      ]
+    },
+    "real-coach-dispatch": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "real-coach-heavy": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "real-coach-small": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "real-coach-workflow": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "real-solo-1": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-claude-basic": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-claude-basic-unpriced": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-claude-folded": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-claude-killed": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-claude-resumed": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-copilot-cli": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-copilot-no-usage": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-receipts-shared-id": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-scope-handoff": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-scope-pending": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-scope-self": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-vscode-credits": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-vscode-no-credits": {
+      "reason": "Each ledger line this case's capture appends is a measurement append, so it gains writer tokenomics-engine@0.0.0-replay (the replay pin) and manifestRevision 1 (no module.json: the implied TA manifest) right after v (§3.2, map D4); pre-seeded lines are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    }
+  }
+}

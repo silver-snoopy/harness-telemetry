@@ -1,0 +1,11 @@
+{
+  "case": "seed-scope-self",
+  "migrations": [
+    "scope-resolution",
+    "writer"
+  ],
+  "reason": "scope-resolution stamps the claimed pending declaration (story / issue-7) as the line's scope and re-derives its cases; writer stamps every appended line with writer tokenomics-engine@0.0.0-replay and manifestRevision 1 right after v (map D4). The ledger carries both.",
+  "changed": [
+    ".agents/telemetry/automation/usage-corpus.jsonl"
+  ]
+}

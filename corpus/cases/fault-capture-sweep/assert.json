@@ -1,0 +1,13 @@
+{
+  "ledgerLines": 0,
+  "textFacts": [
+    {
+      "file": "__events__/0.stderr",
+      "equals": "tokenomics: swept 0 session(s)\n"
+    },
+    {
+      "file": "__events__/1.stderr",
+      "equals": "tokenomics: swept 0 session(s)\n"
+    }
+  ]
+}

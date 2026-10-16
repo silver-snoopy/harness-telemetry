@@ -1,0 +1,117 @@
+# SDD ledger — plan: ~/dev/sdlc-skills/docs/superpowers/plans/2026-10-10-harness-telemetry-plan-1-kit-and-corpus.md
+
+Spec: ~/dev/sdlc-skills/docs/superpowers/specs/2026-10-09-tokenomics-port-blueprint-design.md (v4.2)
+Target repo: ~/dev/harness-telemetry (created by Task 1)
+
+## Pre-flight scan
+
+| rows | produces → consumes | finding |
+|---|---|---|
+| T1 ↔ T4/T8/T10 | `COMMANDS` map in bin/harness-telemetry.mjs → each registers a command by editing the file before the main guard | consistent |
+| T2 ↔ T4/T6/T12/T13/T14 | `refDir(sha)`, `SNAPSHOTS` | consistent |
+| T3 ↔ T4 | `pricingKey(configDir)`, preload via NODE_OPTIONS --import, stub as TOKENOMICS_CCUSAGE_BIN | **conflict R1**: sandbox root is random (mkdtemp) and is templated into transcript `cwd`, so staged content and the pricing key change every run → replay can never find its recorded response |
+| T4 internal | test "outputs never contain sandbox path" vs scrub of only repo/home/root literals | **conflict R2**: encoded project key (`-private-var-…-ht-sandbox-…`) is not a literal of any scrubbed path |
+| T4/T6 ↔ T2 historical shas | goldens for fa0a6fb/d9eac08 | **conflict R3**: a snapshot without TOKENOMICS_CCUSAGE_BIN would call real `npx ccusage` (network, nondeterminism) and still exit 0, so the plan's "exit non-zero → unpriced variant" fallback never triggers |
+| T11 ↔ T12 | sanitiser masks free text → equivalence test compares raw vs sanitised capture | **conflict R4**: dispatch `label`s are derived from description/prompt text, so they differ by design; the test strips only prompts/dispatched/title |
+| T12 internal | `sessionFiles` copies only `*.jsonl` under `subagents/` | **conflict R5**: reference `findSubagents` walks `<session>/` recursively and needs `<id>.meta.json` (agentType, description) — without them no dispatch is found |
+| T12 ↔ Global (Node ≥ 18) | `import(facts, { with: { type: 'json' } })` | **conflict R6**: import attributes `with` are not in Node 18 |
+| T13 internal | `seed-receipts-waves` captures team-report output, which goes to stdout | **conflict R7**: runner collects files only |
+| T1 ↔ skill setup | work on `main` of a new repo | **R8** |
+| T5 internal | tests vs schemas | consistent (one garbled assertion already fixed in the plan) |
+| T6 internal | goldens written under `tokenomics/fixtures/reference/<sha>/` with rel keys `.agents/telemetry/...` → T8 reads `<sha>/.agents/telemetry` | consistent |
+| T7 internal | loader cases (implied automation/, flat-era, module.json dirs) vs tests | consistent |
+| T8 internal | each invalid fixture's single change → the rule its dir names; `timestamp-form` also yields `schema` (allowed: "other diagnostics allowed") | consistent |
+| T9 internal | conservation tests vs implementation | consistent |
+| T10 internal | per-metric verified rules in Interfaces vs fixture table | consistent after the plan fix to `copilot-reference` |
+| T14 ↔ T4 | NODE_V8_COVERAGE pass-through added in T14 Step 1 | consistent |
+
+## Rulings
+
+- Ruling R1: pricing keys are computed over content with the sandbox root normalised — `sandbox.mjs` sets `HT_SANDBOX_ROOT=<root>` in the env; `pricingKey(configDir, sandboxRoot = process.env.HT_SANDBOX_ROOT ?? null)` replaces every occurrence of `sandboxRoot` and of `encodeProjectPath(sandboxRoot)` in file content and file names with `<ROOT>` / `<ROOTKEY>` before hashing; `stagePricingProbe` passes its own root. — spec §18.2 demands byte-reproducible replay; without it no recorded price is ever found — if wrong: pricing keys collide only when content differs solely in the sandbox root, which is the intent.
+- Ruling R2: `collect` scrub also replaces `encodeProjectPath(repo)` with `<REPOKEY>` and `encodeProjectPath(root)` with `<ROOTKEY>` (applied before the literal path replacements). — the R0 gate's no-sandbox-path test is the spec's determinism requirement — if wrong: a golden keeps a harmless placeholder.
+- Ruling R3: the sandbox prepends `<root>/bin` to PATH containing an `npx` shim that prints `npx disabled in replay` and exits 97, so no implementation can reach the network; the stub's record mode calls the real npx via `HT_REAL_NPX` (resolved with `which npx` by the runner when `pricingMode === 'record'`). For a snapshot that does not reference `TOKENOMICS_CCUSAGE_BIN` (grep its capture hook), goldens use the case's event env `TOKENOMICS_NO_CCUSAGE=1` (the plan's `-unpriced` variant), recorded in fixtures/reference/README.md. — hermetic replay (spec §18.2) forbids network — if wrong: historical fixtures are unpriced, which only weakens a cost assertion that is not made for them.
+- Ruling R4: the raw-vs-sanitised equivalence compares ledger lines with `prompts`, `dispatched`, `title` removed and every `subagents[].label` removed; everything else (tokens, costs, cases, roles, times, counts) must be equal. — labels are text-derived by design; ids inside them are still compared through `subagents[].cases` and session `cases` — if wrong: a sanitiser bug that only alters label-derived attribution slips through; mitigated because `cases` are compared.
+- Ruling R5: `build-case` copies the session's whole `<sessionId>/` directory recursively (all files), sanitising `.jsonl` records and `.json` files with the same sanitiser; KEEP_KEYS additionally includes `agentType`. — reference `findSubagents` requires `.meta.json` — if wrong: extra non-read files enter the corpus, sanitised.
+- Ruling R6: `build-case.test.mjs` reads `raw-facts.json` with `JSON.parse(readFileSync(...))`. — Global Constraint Node ≥ 18 — if wrong: none.
+- Ruling R7: an event may set `"captureStdout": true`; the runner then adds its stdout to `files` as `__events__/<index>.stdout` (scrubbed like other outputs). — needed for report-producing events in T13 — if wrong: one extra key in collected outputs for those cases only.
+- Ruling R8: work happens directly on `main` of the brand-new `harness-telemetry` repo (no worktree): it has no history to protect, no remote, and the owner approved creating it; the milestone ends with a candidate tag. — if wrong: history can be moved to a branch with one `git branch` before anything is pushed.
+
+## Progress
+Task 1: minor (deferred): COMMANDS[name] resolves inherited props (toString/__proto__) — use Object.hasOwn (plan-mandated code)
+Task 1: minor (deferred): default io has only err; rejected command promise is unhandled at entry point (plan-mandated)
+Task 1: complete (commits root..295ffc6, review clean)
+Task 2: ⚠️ resolved by controller: vendored bytes == git show (hash-checked 2 files across 49577c7/d9eac08)
+Task 2: minor (deferred): unused readFileSync import; hash test checks provenance→disk only (not file-set equality); 7-char shas
+Task 2: fix round 1/5 (1 addressed, 1 new open — npm test ran 22 vendored reference test files → scripts/test.mjs runner; new: empty-list fallback to default discovery; commits e5f7295..65d20f5)
+Task 2: minor (deferred): test runner skips symlinked tests; SKIP_DIRS matches 'reference' at any depth; '/reference/' assertion not Windows-portable
+Task 2: fix round 2/5 (1 addressed, 0 open — empty-list guard testArgs(); commits 65d20f5..295a479)
+Task 2: complete (commits 295ffc6..295a479, review clean)
+Task 3: Ruling: plan-mandated FrozenDate class (Date() without new throws; internal Dates fail instanceof; Date.name changes) — fix it: function constructor sharing RealDate.prototype, statics inherited, name 'Date', Date() returns a string of the frozen now — the harness must replay arbitrary reference code unchanged (spec §18.2) — if wrong: a few lines of preload complexity
+Task 3: minor (deferred): stub hashes utf8-decoded content (binary collapse); record path untested beyond refusal; ccusage failure/empty output recorded unvalidated; walk() ENOENT stack; only Date/Math.random frozen (performance.now, hrtime, randomUUID not)
+Task 3: fix round 1/5 (2 addressed, 0 open — FrozenDate as function constructor; commits ccc985f..1eecc42)
+Task 3: minor (deferred): new Date().constructor !== Date; FrozenDate.length 0 vs 7
+Task 3: complete (commits 295a479..1eecc42, review clean)
+Task 4: Ruling: reviewer listed "no tests for npx shim / REPOKEY-ROOTKEY scrub" as Minor — raised to required in fix round 1: R2/R3 are the hermeticity guarantees of spec §18.2 and Review Focus #1; untested they can regress silently — cost if wrong: two small tests
+Task 4: minor (deferred): ccusage-stub path via URL.pathname (use fileURLToPath); stagePricingProbe leaks temp dirs; git setup env not isolated (XDG_CONFIG_HOME/GIT_*/system config); captureStdout untested until Task 13 uses it
+Task 4: fix round 1/5 (3 addressed, 0 open — resolve() relative paths; buildSandbox cleanup on failure; R2/R3 tests; commits 9603518..5827fe8)
+Task 4: minor (deferred): stagePricingProbe leaks sb.root + stage dir; stdin-expanded paths not scrubbed; record mode (HT_REAL_NPX) untested until Task 12 uses it
+Task 4: complete (commits 1eecc42..5827fe8, review clean) — R0 gate passes
+Task 5: Ruling: plan-mandated "shipped schemas" test only checks existence (Important) — no fix round: end-to-end schema validation is Task 6's A1 gate (real port + reference lines) and Task 8's fixtures (incl. dispatch entries → cross-file $ref, ts pattern) — cost if wrong: a schema defect surfaces one/two tasks later, still before any consumer
+Task 5: minor (deferred): validator uses `k in value`/props[k] (inherited keys leak: {constructor:1} passes additionalProperties:false; required:['toString'] passes) → Object.hasOwn; anyOf errors lack branch detail; maxLength counts UTF-16 units; scope/receipt timestamps are plain strings (no Z pattern); host/costSource registry not in schema (enforced by invariants, Task 8); dispatch allows tokensAttributed; config maxSweep minimum 1 (plan-mandated)
+Task 5: complete (commits 5827fe8..e436ab9, review clean)
+Task 6: ⚠️ resolved by controller: TOKENOMICS_CCUSAGE_BIN present in 49577c7/fa0a6fb, absent in d9eac08 — README's R3 table is correct
+Task 6: minor (deferred): a1.test does not scan reference fixtures for host/sandbox paths, nor assert d9eac08 is the unpriced one; goldens.mjs CLI has no .catch; unpriced case duplicates the seed transcript; 49577c7 and fa0a6fb seed fixtures are byte-identical (do not discriminate)
+Task 6: complete (commits e436ab9..928151a, review clean) — A1 gate passes
+Task 7: Ruling: plan-mandated implied manifest carries manifestRevision:1 and receipts.source:'files' beyond spec §7.1's text — keep: spec v3.2 §3.1 made both required in module.json, so the implied manifest must carry them to be a valid manifest; §7.1's example predates v3.2 (spec wording to align in a later spec edit) — cost if wrong: none for readers
+Task 7: Ruling: loadTelemetry gains an `unrecognized` list (ledger-bearing dirs without module.json, not named automation); Task 8's check must turn each into an error finding (`manifest-missing`) — §1.2 absent evidence never passes silently
+Task 7: minor (deferred): canonical() emits bare `undefined`; IMPLIED_MANIFEST shallow freeze; malformed module.json/scope JSON indistinguishable from absent; non-object JSON lines pass as `line`; symlinked dirs ignored; unparseable timestamps rank lowest silently; no tests for findings.mjs exitCode / host-qualified scopes / mixed layouts
+Task 7: fix round 1/5 (3 addressed, 0 open — total identity ordering; deterministic observer winner; unrecognized dirs; commits 36a7842..e9990eb)
+Task 7: minor (deferred): ownership arrays may hold undefined repo/user; unreadable subdir throws in loader
+Task 7: complete (commits 928151a..e9990eb, review clean)
+Task 8: Ruling: plan-mandated files-source receipts (absent root → available+empty; malformed receipt dropped) — fix: spec §1.2 absent evidence never passes; absent root/malformed file → unverified findings, available=false when root absent — cost if wrong: extra unverified noise for repos without receipts that asked for the profile
+Task 8: Ruling: controller adds non-object JSON ledger lines (5, [], "x") → json-parse error instead of TypeError crash on `'writer' in line` (reviewer ⚠️, confirmed by reading load.mjs: JSON.parse result is passed through as line)
+Task 8: minor (deferred): no-command finding is error not unverified; cost-source-mismatch applies in all modes; HOSTS[host] prototype keys; 'missing required writer' string coupling; settings JSON.parse unguarded; command rerun per module; timeoutSec unvalidated; files root from snapshot manifest not confined to repo; missing tests for timeout/malformed/complete:false/success/20MB/CLI parsing; "never executes" test doesn't assert marker absence
+Task 8: fix round 1/5 (3 addressed, 0 open — files receipts unverified on absent/malformed; receipts-not-checked + CLI implied profile; non-object lines json-parse; commits b359348..d3e1428)
+Task 8: minor (deferred): receipts-not-checked repeats per module / absent with zero modules; falsy lines reported "not JSON" vs "not a JSON object"
+Task 8: complete (commits e9990eb..d3e1428, review clean) — A2 gate passes
+Task 9: Ruling: plan-mandated unallocated entries without `reason` — add `reason: 'not attributed in trace'` (spec §5.4 "reported as unallocated with a reason") — cost if wrong: one extra field in a test-only trace output
+Task 9: parked — §5.4 grain rules (inclusive at session grain, activeMin never partitioned, finer only where disjoint) are not checkable: the trace interface has no grain/dispatch field — Ruling: acceptable for A; Plan 2's join replay must add a `grain` field to allocations and the checker must enforce it then (carry into Plan 2)
+Task 9: minor (deferred): raw float compare at tolerance edge; unallocated.amount unrounded (golden stability); negative-amount violation reports available:null; single looping fixture test
+Task 9: fix round 1/5 (3 addressed, 0 open — token/inclusive/unmeasured/activeMin/absent-source fixtures; reason field; commits 3d2ca83..e8655ea)
+Task 9: complete (commits d3e1428..e8655ea, review clean, 1 parked: grain rules → Plan 2)
+Task 10: Ruling: plan-mandated per-line verification → per-metric (spec §1.2(c)): a finding moves a metric out of verified only if its rule affects that metric — map: prompts-unverified → none; inclusive-overflow → tokens; unknown-cost-source, cost-source-mismatch → cost; ownership → none; everything else (incl. unknown-host) → cost+tokens — cost if wrong: a rule mis-mapped lets one metric through as verified; mitigated by fixtures per rule
+Task 10: Ruling: caller-chosen collisions (plan-mandated fixture loses $10 silently) → coverage.possibleCollisions = number of host:id groups with identity-unverified hosts whose lines carry >1 distinct non-null startedAt; losing lines are not summed (they may be re-captures) but are counted — spec §1.2 never drop silently, §3.4 uniqueness is an assumption — cost if wrong: re-captured caller-chosen sessions with rewritten startedAt inflate the count (informational only)
+Task 10: Ruling: add byModule (spec §8.2 lists module; plan omitted it) keyed by module name, sessions shared across modules counted once in cross-module totals (spec §3.4)
+Task 10: minor (deferred): empty-string id dropped silently in dedup; errored newest snapshot → older valid snapshot reported verified; CLI does not validate --since/--until, zero inputs exit 0
+Task 10: fix round 1/5 (5 addressed, 1 open — per-metric clause missing 'measured' check; undated/window-conflicts/possibleCollisions/byModule/reference-zero-quad done; commits 5ad6676..8de5301)
+Task 10: minor (deferred): byModule keyed by dir name only (same-named modules across ports merge)
+Task 10: fix round 2/5 (1 addressed, 0 open — numeric-cost / measured-tokens clause; commits 8de5301..b26ce9a)
+Task 10: ⚠️ resolved by controller: sessionTokens returns only null or an object, so `toks !== null` is exact
+Task 10: complete (commits e8655ea..b26ce9a, review clean) — A3 gate passes
+Task 11: Ruling: KEEP_KEYS were key-name-global (plan code) and leak free text in tool inputs — scope them: a kept key keeps only a STRING value (arrays/objects under it are sanitised normally), and inside any `input` object (tool_use.input, recursively) only `subagent_type` and `skill` are kept — spec §18.1 privacy — cost if wrong: a field the reference reads from input (other than subagent_type/description/skill) is masked → caught by Task 12's raw-vs-sanitised equivalence test
+Task 11: Ruling: plan's path→<PATH> then first-char-'<' rule fabricates a leading '<' (reference skips '<' prompts) — the '<' rule must test the ORIGINAL first character; drop the <PATH> marker (all masked anyway)
+Task 11: minor (deferred): sentence shape (word lengths/whitespace) visible — inherent to length-preserving masking; cwd kept until build-case rewrites it (Task 12 must pin with a test)
+Task 11: fix round 1/5 (4 addressed, 0 open — scoped keeps incl. input hardening; per-code-unit masking; original-first-char '<'; empty-id filter; commits 63067ac..e46433f)
+Task 11: complete (commits b26ce9a..e46433f, review clean)
+Ruling R9 (Task 12): corpus size cap — each real case's inputs ≤ 10 MB, all real cases together ≤ 40 MB; "heavy" = largest dispatch count within the cap. Sanitising preserves length and raw sessions average ~93 MB; committing GBs would make the repo unusable — cost if wrong: the very largest real sessions are not replayed (coverage gate in Task 14 shows any branch only they reach)
+Task 12: Ruling: gitBranch values kept verbatim (reference mines ids from branches; R4 equivalence needs them) — exposes project feature names (e.g. feat/bookmark-polish-m1) in corpus; flag to owner before any push — cost if wrong: branch names visible if the repo is published
+Task 12: Ruling: accept cap deviation for real-coach-workflow (8 largest sub-agent files excluded from BOTH case and raw probe → like-for-like proof) — R9 intent kept
+Task 12: Ruling (Critical privacy leak in fa31085 — local only, never pushed): (1) kept keys must also pass a per-key value pattern, else masked: name only when the same object has type 'tool_use' (or is a tools[] entry) AND matches tool-name pattern; ids (id, uuid, parentUuid, sessionId, requestId, agentId, tool_use_id, messageId) /^[A-Za-z0-9_.:-]+$/; type/role/speed /^[a-z_-]+$/; model/version /^[A-Za-z0-9._-]+$/; agentType/subagent_type/skill /^[A-Za-z0-9:_.-]+$/; gitBranch verbatim (earlier ruling); cwd → {repo}. (2) non-id file/dir names in copied session trees renamed to deterministic `n<sha256-8>` in case, raw probe and manifest alike. (3) kept ids restored only at word boundaries. (4) uniqueKey throws on collision; workflow exclude ids written to CASES.md. (5) a corpus-wide structural privacy test: every kept string in inputs matches its key's pattern. (6) history purge: replace fa31085 by a clean commit (reset --soft e46433f, recommit), expire reflog, gc --prune=now; verify leaked strings absent from `git log --all -p` and from all objects — local, unpushed, our own commit; removing private data from it is the point — cost if wrong: loss of the fa31085 review trail (kept in the SDD workspace files)
+Task 12: fix round 1/5 (history purged: fa31085 replaced by 8d72faa; controller verified 0 leaked strings in all objects)
+Task 12: minor (deferred): SCHEMA_KEY keeps any identifier-shaped key ≤41 chars (multi-word keys like my_private_feature_plan would survive; none present); word-boundary restore treats - / . as boundaries; privacy test's SAFE regexes duplicated from build-case; privacy key walk skips unparseable jsonl lines; value lengths visible by design
+Task 12: complete (commits e46433f..8d72faa, review clean) — real corpus: 5 cases, 26.9 MB, equivalence + privacy proven
+Task 13: reference finding (for spec §10, Plan 2 B2 list): sessionScope readdirSync unguarded (ref 49577c7 telemetry-capture.mjs:640) — an unreadable scopes path makes capture write NO ledger line (silent spend loss); fault case rerouted to the guarded claim-write path (line 652)
+Task 13: minor (deferred): sanitize type pattern now admits lowercase dotted tokens (tighten to known event prefixes); fault-pending-write lacks a fileFacts on the leftover pending file; seed-scope-self/pending rely on goldens for claimedFrom; seed-claude-killed doesn't pin sweep as source; CASES.md "no effect on Linux" unproven
+Task 13: complete (commits 8d72faa..434319b, review clean)
+Task 14: Ruling (made in dispatch, recorded here): coverage gate at FUNCTION granularity for Plan 1 (plan's script was function-range based); spec §18.3 says branches — branch blocks are measured and reported per file but NOT gated (capture 225/571, team-report 135/484, batch-cost 57/400, work-scope 43/96, scope-hook 13/55 never executed). Branch-level closure becomes a hard prerequisite of Plan 2 B1 (extraction) — cost if wrong: a refactor could change behaviour on an unexercised branch without the differential harness noticing; mitigated by making it a B1 gate
+Task 14: controller repair: HEAD was left detached at 434319b (a `checkout 434319b`); local main fast-forwarded to 0ebccb0; tag v0.1.0-rc.1 on main
+Task 14: concern carried: tokenomics/kit/load.mjs throws ENOTDIR when scopes is a file (crash instead of finding)
+Task 14: fix round 1/5 (3 addressed, 0 open — exclusion reclassified approved-reachable; exact A4 guard; vacuous assert dropped; commits 0ebccb0..534940f)
+Task 14: complete (commits 434319b..534940f, review clean) — A4 gate passes; tag v0.1.0-rc.1 on 534940f
+Final review: With fixes — 6 Important (goldens not compared for 7 cases / missing outputs undetected; 1ms tick in frozen clock; sandbox git inherits host GIT_*; check silent passes; reference mode ignores §7.3/§7.4; aggregate bad window → zeros), 8 Minor
+Ruling F1: frozen clock = constant HT_NOW per event (no tick); regenerate all goldens; the regeneration diff must touch only timestamp milliseconds — B1 byte-equality must not depend on Date call counts (spec §18.2) — cost if wrong: two writes in one event get identical timestamps (dedup falls back to canonical tie-break, deterministic)
+Ruling F2: reference mode emits §7.4 per-record `limitation` findings for known variants (Copilot no-writer lines → reference-copilot-tokens; copilot-vscode lines → reference-vscode-counters; foldedFromLive → reference-folded; no-writer zero-quad tokens → zero-for-unmeasured) mapped to the tokens metric in aggregate; unknown `v` → `unverified` rule unknown-version mapped to cost+tokens (§7.3) — cost if wrong: over-flagging reference data (already unverified tokens), never under-flagging
+Ruling F3: network block extended — preload stubs fetch/http/https/net connects to throw `network disabled in replay` (spec §18.2), not only the npx shim; coverage gate added to CI as a separate step (too slow for npm test) and flags stale exclusions
+Final fix wave: 12/12 addressed (commits 534940f..3bb72bf); scoped re-review clean; tag v0.1.0-rc.1 → 3bb72bf
+Reference finding (for spec §10 / Plan 2 B2): every reference entry point guards with `import.meta.url === pathToFileURL(argv[1]).href`; Node realpaths the main module, so a hook invoked via a SYMLINKED path (sdlc-skills `--symlink` installs, macOS /tmp) exits 0 and captures NOTHING — silent spend loss in the field
+Deferred to Plan 2 (from final review): dns/dgram/http2/child-process network not blocked in replay; CI node:18 doesn't pin 18.19; mixed/reference-mode test for writer-gated limitations; stagePricingProbe skips manifest validation; scope-only trees report no-ledgers

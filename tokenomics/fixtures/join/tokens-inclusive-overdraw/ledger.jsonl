@@ -1,0 +1,1 @@
+{"v":1,"host":"claude","id":"A","costUsd":4,"activeMin":10,"tokensBasis":"inclusive","tokens":{"input":100,"output":30,"cacheRead":500,"cacheWrite":20},"subagents":[{"id":"sub-1","tokens":{"input":40,"output":10,"cacheRead":200,"cacheWrite":5}}]}

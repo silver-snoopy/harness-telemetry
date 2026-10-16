@@ -1,0 +1,9 @@
+{
+  "rollups": [],
+  "allocations": [
+    { "source": "copilot:A", "group": "g1", "quantity": "tokens.input", "amount": 1000 },
+    { "source": "copilot:A", "group": "g2", "quantity": "tokens.input", "amount": 500 },
+    { "source": "copilot:A", "group": "g1", "quantity": "costUsd", "amount": 3 },
+    { "source": "copilot:A", "group": "g1", "quantity": "activeMin", "amount": 30 }
+  ]
+}

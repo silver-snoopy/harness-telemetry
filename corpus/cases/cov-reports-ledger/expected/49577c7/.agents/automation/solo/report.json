@@ -1,0 +1,1 @@
+{"batch":"solo","work_item_ref":"EPIC-9","integration_branch":"feat/S-1","gate":{"verdict":"red"},"cases":[{"id":"S-1","outcome":"delivered","findings":[{},{}]},{"id":"S-2","outcome":"defect-found"},{"id":"S-3","outcome":"delivered"},{"id":"S-4"}]}

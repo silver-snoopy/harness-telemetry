@@ -1,0 +1,37 @@
+{
+  "sessions": [
+    {
+      "cacheCreationTokens": 761943,
+      "cacheReadTokens": 20326423,
+      "firstActivity": "2026-09-05T11:03:42.898Z",
+      "inputTokens": 258,
+      "lastActivity": "2026-09-06T22:41:08.703Z",
+      "modelBreakdowns": [
+        {
+          "cacheCreationTokens": 761943,
+          "cacheReadTokens": 20326423,
+          "cost": 20.224331499999998,
+          "inputTokens": 258,
+          "modelName": "claude-opus-5",
+          "outputTokens": 97616
+        }
+      ],
+      "modelsUsed": [
+        "claude-opus-5"
+      ],
+      "outputTokens": 97616,
+      "projectPath": "f0",
+      "sessionId": "331f763c-83f2-4b6e-b81b-7515dcb0d7d1",
+      "totalCost": 20.224331499999998,
+      "totalTokens": 21186240
+    }
+  ],
+  "totals": {
+    "cacheCreationTokens": 761943,
+    "cacheReadTokens": 20326423,
+    "inputTokens": 258,
+    "outputTokens": 97616,
+    "totalCost": 20.224331499999998,
+    "totalTokens": 21186240
+  }
+}

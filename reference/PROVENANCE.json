@@ -1,0 +1,75 @@
+{
+  "49577c7": {
+    "sourcePath": "bundles/test-automation/skills/tokenomics",
+    "files": {
+      "README.md": "3d45fbb3cd2cc7d62e0f17d211567d08e4daf4efba6f99de85650934af6c0df0",
+      "SKILL.md": "29651dc22e5bb9a50023ce16ba1539e28d8a03f2ddb8637b961f453fbcf70c6f",
+      "hooks/otel-sink.mjs": "fb43ea6b1bf933d23e09ac924f0fa2bbb8f1a45bfbec0bd3d14ffbab57aaca30",
+      "hooks/otel-sink.test.mjs": "8311af2aa475e7ddf55b11ca79aeadfe50fe12a9efe2e145fc20836bd610cc8b",
+      "hooks/scope-hook.mjs": "1087b570e350ac80b8cb33a533083053e07726e745e948a4891830163b1e5df5",
+      "hooks/scope-hook.test.mjs": "e1720a28f16d2e37a5a6509bf31147a371db7d8a9a0efa39dbdc75df0d6872ed",
+      "hooks/telemetry-capture.mjs": "9d0e03a9ea1aa43297d19159f15ebd37752eb009dd4135f8cf4a6227c7f4df32",
+      "hooks/telemetry-capture.test.mjs": "e801d5a1fdbab42f2bbe8cf2c1d39040fc1f5d217371828f4177ac5b38198c8c",
+      "references/otel-roadmap.md": "c964070e2fd4c63f73e580fbc5cab5f64a21fb64e2b5af452f5db2d182e0445f",
+      "scripts/batch-cost.mjs": "704d6ef662cf418f15d3d55739e2f88537ebe467cd01deb48b3a27c122caa879",
+      "scripts/batch-cost.test.mjs": "193676a7601c6f7208b28bb605089f02a2e4adb6f424bc5fc72569a6977ce2a0",
+      "scripts/build-tokenomics-export.mjs": "d4e655ad29c6e6f63ed12411d28eb53b8f3a99d4dfada86c3000d615ebc7289d",
+      "scripts/install-hooks.mjs": "bc9f8f7806f5d352f81b58ce24d7342a848cdc3520ed407aa895f43e69fb4a6d",
+      "scripts/install-hooks.test.mjs": "e6aab39ed787bb123391ed51eff0ea0c5e9cde3d2ac6e789f81cc46a5934d6ce",
+      "scripts/otel-report.mjs": "a597580ea519251f6f1e7937c25242176de9f278d83db164e50274853d4c619d",
+      "scripts/otel-report.test.mjs": "f233251548ef013987720971d4abe528f1741e4bca9c84fbefa356c6d28441cb",
+      "scripts/team-report.mjs": "9a3318cad6bb089383e1630fb0a2406e033c06ae8dd33a9861a997dd53b54a5a",
+      "scripts/team-report.test.mjs": "0f95562bd9eb7536df95eb5bca5a7d2db75465defe837e7a0a854d1c8dc99035",
+      "scripts/work-scope.mjs": "ef9d71842a174dde178993c263fe17bac3c44bb73f095149ef92d333fdd16b01",
+      "scripts/work-scope.test.mjs": "58bc165d1464a97766eeaf35d649c10f6b4c9e5f783ce425a659bff030d76b70",
+      "templates/factory-profile.template.json": "49c9d2e442c37c688509ee2e1ca8eb03b7afdf478c98765d732208c2938a077c"
+    }
+  },
+  "fa0a6fb": {
+    "sourcePath": "factories/test-automation/skills/tokenomics",
+    "files": {
+      "README.md": "3d45fbb3cd2cc7d62e0f17d211567d08e4daf4efba6f99de85650934af6c0df0",
+      "SKILL.md": "29651dc22e5bb9a50023ce16ba1539e28d8a03f2ddb8637b961f453fbcf70c6f",
+      "hooks/otel-sink.mjs": "fb43ea6b1bf933d23e09ac924f0fa2bbb8f1a45bfbec0bd3d14ffbab57aaca30",
+      "hooks/otel-sink.test.mjs": "8311af2aa475e7ddf55b11ca79aeadfe50fe12a9efe2e145fc20836bd610cc8b",
+      "hooks/scope-hook.mjs": "1087b570e350ac80b8cb33a533083053e07726e745e948a4891830163b1e5df5",
+      "hooks/scope-hook.test.mjs": "e1720a28f16d2e37a5a6509bf31147a371db7d8a9a0efa39dbdc75df0d6872ed",
+      "hooks/telemetry-capture.mjs": "9d0e03a9ea1aa43297d19159f15ebd37752eb009dd4135f8cf4a6227c7f4df32",
+      "hooks/telemetry-capture.test.mjs": "e801d5a1fdbab42f2bbe8cf2c1d39040fc1f5d217371828f4177ac5b38198c8c",
+      "references/otel-roadmap.md": "c964070e2fd4c63f73e580fbc5cab5f64a21fb64e2b5af452f5db2d182e0445f",
+      "scripts/batch-cost.mjs": "704d6ef662cf418f15d3d55739e2f88537ebe467cd01deb48b3a27c122caa879",
+      "scripts/batch-cost.test.mjs": "193676a7601c6f7208b28bb605089f02a2e4adb6f424bc5fc72569a6977ce2a0",
+      "scripts/build-tokenomics-export.mjs": "d4e655ad29c6e6f63ed12411d28eb53b8f3a99d4dfada86c3000d615ebc7289d",
+      "scripts/install-hooks.mjs": "bc9f8f7806f5d352f81b58ce24d7342a848cdc3520ed407aa895f43e69fb4a6d",
+      "scripts/install-hooks.test.mjs": "e6aab39ed787bb123391ed51eff0ea0c5e9cde3d2ac6e789f81cc46a5934d6ce",
+      "scripts/otel-report.mjs": "a597580ea519251f6f1e7937c25242176de9f278d83db164e50274853d4c619d",
+      "scripts/otel-report.test.mjs": "f233251548ef013987720971d4abe528f1741e4bca9c84fbefa356c6d28441cb",
+      "scripts/team-report.mjs": "9a3318cad6bb089383e1630fb0a2406e033c06ae8dd33a9861a997dd53b54a5a",
+      "scripts/team-report.test.mjs": "0f95562bd9eb7536df95eb5bca5a7d2db75465defe837e7a0a854d1c8dc99035",
+      "scripts/work-scope.mjs": "ef9d71842a174dde178993c263fe17bac3c44bb73f095149ef92d333fdd16b01",
+      "scripts/work-scope.test.mjs": "58bc165d1464a97766eeaf35d649c10f6b4c9e5f783ce425a659bff030d76b70",
+      "templates/factory-profile.template.json": "49c9d2e442c37c688509ee2e1ca8eb03b7afdf478c98765d732208c2938a077c"
+    }
+  },
+  "d9eac08": {
+    "sourcePath": "bundles/test-automation/skills/tokenomics",
+    "files": {
+      "SKILL.md": "484df3fe8637ca5cda329af1e8bc98ebfe71e16c7db454b6ba9caa4c1aead0c7",
+      "hooks/otel-sink.mjs": "fb43ea6b1bf933d23e09ac924f0fa2bbb8f1a45bfbec0bd3d14ffbab57aaca30",
+      "hooks/otel-sink.test.mjs": "8311af2aa475e7ddf55b11ca79aeadfe50fe12a9efe2e145fc20836bd610cc8b",
+      "hooks/telemetry-capture.mjs": "543ab69ac4dc2e78fc17483a6b7d97167d959068aa0fe75184c37060b6d90b92",
+      "hooks/telemetry-capture.test.mjs": "4cc4634d2f25b5292b16167779e381792c9a9ebcfb335bc6a4dab998a42d4059",
+      "references/otel-roadmap.md": "ed1f820d149016613ef05622829a215dd702c3a497f533b476ee7a3048b2fd48",
+      "scripts/batch-cost.mjs": "0e256bc7c4665b3fa1c23ac6f0db2817a6624c4d579cef5e7a0b64026a091ae0",
+      "scripts/batch-cost.test.mjs": "da62009aa4a96861f3da6c8bff29481f91be1990a1ecd10ce95c1dbbe5a37012",
+      "scripts/build-tokenomics-export.mjs": "9d331b699314293c0a34c9f8add552bfbc2141f7ae6cf552bb1ae36b331ab336",
+      "scripts/install-hooks.mjs": "6488e72cf19cf8836f61751474d54a9ba7325cf758016651cae88b7b8fb7a271",
+      "scripts/install-hooks.test.mjs": "de90e69c20db949eedd6830935f6b57fcb90c13397e637f0899fbc4806afd64c",
+      "scripts/otel-report.mjs": "a597580ea519251f6f1e7937c25242176de9f278d83db164e50274853d4c619d",
+      "scripts/otel-report.test.mjs": "f233251548ef013987720971d4abe528f1741e4bca9c84fbefa356c6d28441cb",
+      "scripts/team-report.mjs": "a83916bfb0b3460dacfcda3e47630dfa48541bb763f0ea6d560c5575945b233d",
+      "scripts/team-report.test.mjs": "6a32ca00c172229641ed23d7eadae99cc47a52c0f88ca26f5ae53470055664cf",
+      "templates/factory-profile.template.json": "89306c1bb483c1cbd6d695a02727c9e1af226953ec5d369edeef8bdce85e14ca"
+    }
+  }
+}

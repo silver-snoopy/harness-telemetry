@@ -1,0 +1,17 @@
+{
+  "ledgerLines": 1,
+  "facts": [
+    {
+      "path": "/scope/intent",
+      "equals": "story"
+    },
+    {
+      "path": "/scope/batch",
+      "equals": "issue-7"
+    },
+    {
+      "path": "/scope/cases/0",
+      "equals": "issue-7"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "agentType": "workflow-subagent",
+  "description": "xxxxxx",
+  "workflowPhase": "xxxxxxxxxx",
+  "spawnDepth": 1,
+  "requestShape": "xxxxxxxxxx",
+  "requestNonInteractive": false
+}

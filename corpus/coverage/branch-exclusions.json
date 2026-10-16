@@ -1,0 +1,517 @@
+[
+  {
+    "id": "hooks/scope-hook.mjs:182:7:3f92c5a6",
+    "kind": "approved-reachable",
+    "reason": "catch around scope-hook.mjs:174-181: in the field the process.stdin getter can throw when fd 0 is closed, but the replay runner always attaches a stdin pipe (replay/runner.mjs spawnSync input), so this path is outside the replayed environment."
+  },
+  {
+    "id": "scripts/work-scope.mjs:329:54:7c8a89b4",
+    "kind": "unreachable",
+    "reason": "the `?? err` fallback needs a thrown value with no .message; every throw inside the try (work-scope.mjs:56, 77, 96, 99, 133 are new Error, the rest are Node fs/JSON errors) is an Error carrying a message."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:177:38:491f186e",
+    "kind": "unreachable",
+    "reason": "declaredOutcomesFor is called only from buildBatchCost (batch-cost.mjs:604) with a receipt that loadReceipts accepted only because Array.isArray(receipt.cases) held (batch-cost.mjs:67), so `receipt.cases ?? []` never falls back."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:205:33:4753add1",
+    "kind": "unreachable",
+    "reason": "crossCheck is called only at batch-cost.mjs:605 with the same receipt that loadReceipts admitted only when receipt.cases is an array (batch-cost.mjs:67), so the `?? []` fallback never fires."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:262:34:f4f79b30",
+    "kind": "unreachable",
+    "reason": "lineMatchesBatch gets its slug from batch-cost.mjs:459 (a filtered array) and :513 (o.keys, always an array from receiptIdentity :714), so `slug || []` never sees a falsy slug."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:386:23:afcc7777",
+    "kind": "unreachable",
+    "reason": "applySizing is called only at batch-cost.mjs:635 behind `sizings0?.size ?`, so its `!sizings?.size` guard is never true when reached through any entry point."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:394:82:58891e48",
+    "kind": "unreachable",
+    "reason": "`c.direct.tok ? ... : null`: c.direct.tok is built by roundQuad(d.tok ?? emptyQuad()) at batch-cost.mjs:585, always an object, so the null arm cannot occur."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:414:51:0f45485f",
+    "kind": "unreachable",
+    "reason": "`rw?.toLocaleString?.() ?? rw`: rw is a number whenever this template is built (batch-cost.mjs:394, c.direct.tok is always an object), and Number.prototype.toLocaleString always returns a string."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:415:51:77948a32",
+    "kind": "unreachable",
+    "reason": "same template as batch-cost.mjs:414: rw is always a number (batch-cost.mjs:394), so `rw?.toLocaleString?.()` is never nullish and the `?? rw` arm never runs."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:419:63:b1bff35f",
+    "kind": "unreachable",
+    "reason": "`n ?? 0`: n is `Math.min(..) || Math.max(..)` of numbers (batch-cost.mjs:398), never null or undefined."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:462:59:8cb72afe",
+    "kind": "unreachable",
+    "reason": "`others` elements come only from receiptIdentity (batch-cost.mjs:713-717, updateBatchCosts :743), which always sets ids, so `o?.ids ?? []` never falls back."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:463:61:c6427511",
+    "kind": "unreachable",
+    "reason": "`others` elements come only from receiptIdentity (batch-cost.mjs:713-717, updateBatchCosts :743), which always sets keys, so `o?.keys ?? []` never falls back."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:513:85:7e197330",
+    "kind": "unreachable",
+    "reason": "`others` elements come only from receiptIdentity (batch-cost.mjs:713-717, :743), which always sets keys, ids and branches, so `o.keys ?? []` never falls back."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:513:103:36820272",
+    "kind": "unreachable",
+    "reason": "`others` elements come only from receiptIdentity (batch-cost.mjs:713-717, :743), which always sets keys, ids and branches, so `o.ids ?? []` never falls back."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:513:131:3aa21752",
+    "kind": "unreachable",
+    "reason": "`others` elements come only from receiptIdentity (batch-cost.mjs:713-717, :743), which always sets keys, ids and branches, so `o.branches ?? []` never falls back."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:585:60:6c519920",
+    "kind": "unreachable",
+    "reason": "`d.tok ?? emptyQuad()`: d is a perCase bucket or `{...emptyBucket()}` (batch-cost.mjs:470, :579), and emptyBucket (:277) always carries tok, so the fallback never runs."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:639:56:6c519920",
+    "kind": "unreachable",
+    "reason": "`b.tok ?? emptyQuad()`: every bucket passed to bucketOut is an emptyBucket (batch-cost.mjs:277) or a byRole entry with tok (:497), so the fallback never runs."
+  },
+  {
+    "id": "scripts/batch-cost.mjs:763:55:4b205ffc",
+    "kind": "unreachable",
+    "reason": "`process.argv[1] ?? ''` needs a process with no script argument (node -e / REPL); replay always runs `node <script>` and the importers (work-scope.mjs:209 dynamic import) also have argv[1] set."
+  },
+  {
+    "id": "scripts/team-report.mjs:276:42:3b875f7d",
+    "kind": "unreachable",
+    "reason": "renderMarkdown is called only from main (team-report.mjs:865) with the object buildReport returns, which always sets byCase (team-report.mjs:233), so `?? {}` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:280:47:3b875f7d",
+    "kind": "unreachable",
+    "reason": "renderMarkdown gets only the buildReport result from main (team-report.mjs:865), which always sets byIntent (team-report.mjs:234), so `?? {}` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:736:47:3b875f7d",
+    "kind": "unreachable",
+    "reason": "renderTeamHtml is called only from main (team-report.mjs:864) with the buildReport result, which always sets byIntent (team-report.mjs:234), so `?? {}` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:745:164:a160667e",
+    "kind": "unreachable",
+    "reason": "renderTeamHtml gets only the buildReport result (team-report.mjs:864), which always sets costSources via ser(sources) (team-report.mjs:235), so `?? {}` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:291:338:60d8c069",
+    "kind": "unreachable",
+    "reason": "inside `if (rep.perDelivered)` (team-report.mjs:290): perDelivered needs cases.delivered > 0 and !roleFiltered (:241) and delivered counts a subset of the same latest-outcome map as examined (:156), so examined > 0 and perExamined (:251) is non-null too; its `: ''` alternative never runs."
+  },
+  {
+    "id": "scripts/team-report.mjs:314:141:12aa13ea",
+    "kind": "unreachable",
+    "reason": "perCase rows are copied from updateBatchCosts cases (team-report.mjs:842), and buildBatchCost gives every case a loaded object with numeric activeMin (batch-cost.mjs:617-625), so `?? '—'` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:777:204:8940d3ad",
+    "kind": "unreachable",
+    "reason": "perCase rows come from cost.cases (team-report.mjs:842), each with loaded.activeMin numeric (batch-cost.mjs:619-624), so `?? '—'` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:419:223:788aed16",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); every cases[] entry carries loaded.activeMin as a number (batch-cost.mjs:619-624), so `?? '—'` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:533:304:b6a14abf",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); every case has loaded.activeMin numeric (batch-cost.mjs:619-624), so `x.loaded?.activeMin != null` is always true and the `: ''` alternative never runs."
+  },
+  {
+    "id": "scripts/team-report.mjs:348:66:8000b5c9",
+    "kind": "unreachable",
+    "reason": "every realWork caller passes a truthy quad: team-report.mjs:373 sits behind `tokQuad &&`, :394/:553/:686 pass tokensSplit (batch-cost.mjs:657), :627/:670 only rows filtered by `b.tok` (:628, :642, :671, :672), :639 is guarded by `lead?.tok` (:637) and :748 passes a bucket quad (:175), so `t ? .. : null` never yields null."
+  },
+  {
+    "id": "scripts/team-report.mjs:365:11:afcc7777",
+    "kind": "unreachable",
+    "reason": "costShareOfCacheRead is called only at team-report.mjs:616 (after `if (!ts) return` at :604) and :683 (inside `ts ? [...]` at :677), so t is never falsy."
+  },
+  {
+    "id": "scripts/team-report.mjs:370:32:454cf1fd",
+    "kind": "unreachable",
+    "reason": "every kTok argument is a number: quad fields from roundQuad (batch-cost.mjs:585, 639, tokensByModel quads), realWork() of a truthy quad (team-report.mjs:348), and cache fields of rows filtered by b.tok (:628, :642), so `n == null` never holds."
+  },
+  {
+    "id": "scripts/team-report.mjs:374:26:742fa35a",
+    "kind": "unreachable",
+    "reason": "rwCell is called with x.direct.tokens (team-report.mjs:419; Math.round at batch-cost.mjs:585) and b.tokens (:434; Math.round at batch-cost.mjs:639), always numbers, so `scalarFallback ?? 0` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:398:74:18aeeb4b",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); totals.turns is Math.round(...) (batch-cost.mjs:662), always a number, so `?? '—'` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:406:126:58891e48",
+    "kind": "unreachable",
+    "reason": "line4 is called only behind truthy guards (team-report.mjs:407, 408, 409 incl. `s.loadedActiveMin ?`, 410), so `st ? .. : null` never sees a null stat."
+  },
+  {
+    "id": "scripts/team-report.mjs:419:280:7123a71f",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); direct.toolCalls is Math.round(d.toolCalls) (batch-cost.mjs:588), a number, so `?? '—'` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:419:311:13439f64",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); direct.toolErrors is Math.round(d.toolErrors) (batch-cost.mjs:588), a number, so `?? 0` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:429:41:3b875f7d",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); buildBatchCost always sets byRole (batch-cost.mjs:665), so `?? {}` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:578:26:a3191f6f",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); buildBatchCost always sets byRole (batch-cost.mjs:665), so `?? {}` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:628:41:d67fff31",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); buildBatchCost always sets byRole (batch-cost.mjs:665), so `?? {}` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:671:41:6e52b09f",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); buildBatchCost always sets byRole (batch-cost.mjs:665), so `?? {}` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:434:128:6dbde36d",
+    "kind": "unreachable",
+    "reason": "byRole entries come from bucketOut, which always sets tok (batch-cost.mjs:639, 665), so `b.tok ? .. : '—'` never takes the dash."
+  },
+  {
+    "id": "scripts/team-report.mjs:627:202:aef10f16",
+    "kind": "unreachable",
+    "reason": "rowFor is called only for rows already filtered by `b.tok` (team-report.mjs:628, 642), and bucketOut always sets tok (batch-cost.mjs:639), so the `'—'` alternative never runs."
+  },
+  {
+    "id": "scripts/team-report.mjs:627:100:e1f23f11",
+    "kind": "unreachable",
+    "reason": "rowFor is called only for rows filtered by `b.tok` (team-report.mjs:628, 642), and realWork of a truthy quad is a number (:348), so `?? '—'` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:670:155:d7997af2",
+    "kind": "unreachable",
+    "reason": "row() is called only for rows filtered by `b.tok` (team-report.mjs:671, 672), and bucketOut always sets tok (batch-cost.mjs:639), so the `'—'` alternative never runs."
+  },
+  {
+    "id": "scripts/team-report.mjs:434:169:3f629804",
+    "kind": "unreachable",
+    "reason": "byRole entries come from bucketOut with toolCalls as Math.round (batch-cost.mjs:642, 665), a number, so `?? '—'` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:434:193:f58233bb",
+    "kind": "unreachable",
+    "reason": "byRole entries come from bucketOut with toolErrors as Math.round (batch-cost.mjs:642, 665), a number, so `?? 0` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:584:245:bee3b240",
+    "kind": "unreachable",
+    "reason": "byRole entries come from bucketOut with numeric toolCalls (batch-cost.mjs:642, 665), so `b.toolCalls != null` is always true and the `: ''` alternative never runs."
+  },
+  {
+    "id": "scripts/team-report.mjs:447:34:b48d3718",
+    "kind": "unreachable",
+    "reason": "every fmtInt argument is a number: counts and sums (team-report.mjs:542-543, 559-561, 693-696, 706, 754-760), bucket totals (:749-761), tokensSplit/quad fields (:554, 687-690, 518, 669 behind `num(..) > 0`) and rounded tokensByModel quads (:717), never null/undefined."
+  },
+  {
+    "id": "scripts/team-report.mjs:499:133:39c679a1",
+    "kind": "unreachable",
+    "reason": "statCell is only ever called with two arguments (team-report.mjs:540-563, 678-697, 741-762), so `small` is always undefined and the `stat-value-sm` alternative never runs."
+  },
+  {
+    "id": "scripts/team-report.mjs:560:178:fa273197",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); totals.toolCalls is Math.round(...) (batch-cost.mjs:662), a number, so `!= null` is always true and the `'—'` alternative never runs."
+  },
+  {
+    "id": "scripts/team-report.mjs:694:178:fa273197",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); totals.toolCalls is Math.round(...) (batch-cost.mjs:662), a number, so `!= null` is always true and the `'—'` alternative never runs."
+  },
+  {
+    "id": "scripts/team-report.mjs:642:53:d67fff31",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); overhead.byStage is always an object (batch-cost.mjs:672), so `?? {}` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:672:53:d67fff31",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); overhead.byStage is always an object (batch-cost.mjs:672), so `?? {}` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:653:26:5194006a",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); cost.cases is always an array (batch-cost.mjs:688), so `?? []` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:673:26:5194006a",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); cost.cases is always an array (batch-cost.mjs:688), so `?? []` never falls back."
+  },
+  {
+    "id": "scripts/team-report.mjs:711:186:f36cd7d6",
+    "kind": "unreachable",
+    "reason": "renderBatch* are called only with cost objects from updateBatchCosts/buildBatchCost (team-report.mjs:801-809, work-scope.mjs:210-224, telemetry-capture.mjs:1438-1450); overhead.lead comes from bucketOut, which always sets tok (batch-cost.mjs:639, 670), so `lead?.tok` is always truthy and the `: ''` alternative never runs."
+  },
+  {
+    "id": "scripts/team-report.mjs:395:4:1f45bda0",
+    "kind": "unreachable",
+    "reason": "guard for a cost object without totals.tokensSplit: buildBatchCost always sets it, as an object even for NaN-free empty input (batch-cost.mjs:657), and every renderer caller rebuilds the cost object first (team-report.mjs:801, work-scope.mjs:215, telemetry-capture.mjs:1442); no ledger, receipt or scope input can leave it unset, so `ts` is always truthy."
+  },
+  {
+    "id": "scripts/team-report.mjs:556:7:00b5d40d",
+    "kind": "unreachable",
+    "reason": "guard for a cost object without totals.tokensSplit: buildBatchCost always sets it, as an object even for NaN-free empty input (batch-cost.mjs:657), and every renderer caller rebuilds the cost object first (team-report.mjs:801, work-scope.mjs:215, telemetry-capture.mjs:1442); no ledger, receipt or scope input can leave it unset, so `ts` is always truthy."
+  },
+  {
+    "id": "scripts/team-report.mjs:557:163:596231e5",
+    "kind": "unreachable",
+    "reason": "guard for a cost object without totals.tokensSplit: buildBatchCost always sets it, as an object even for NaN-free empty input (batch-cost.mjs:657), and every renderer caller rebuilds the cost object first (team-report.mjs:801, work-scope.mjs:215, telemetry-capture.mjs:1442); no ledger, receipt or scope input can leave it unset, so `ts` is always truthy."
+  },
+  {
+    "id": "scripts/team-report.mjs:604:12:ee1ef346",
+    "kind": "unreachable",
+    "reason": "guard for a cost object without totals.tokensSplit: buildBatchCost always sets it, as an object even for NaN-free empty input (batch-cost.mjs:657), and every renderer caller rebuilds the cost object first (team-report.mjs:801, work-scope.mjs:215, telemetry-capture.mjs:1442); no ledger, receipt or scope input can leave it unset, so `ts` is always truthy."
+  },
+  {
+    "id": "scripts/team-report.mjs:676:69:58891e48",
+    "kind": "unreachable",
+    "reason": "guard for a cost object without totals.tokensSplit: buildBatchCost always sets it, as an object even for NaN-free empty input (batch-cost.mjs:657), and every renderer caller rebuilds the cost object first (team-report.mjs:801, work-scope.mjs:215, telemetry-capture.mjs:1442); no ledger, receipt or scope input can leave it unset, so `ts` is always truthy."
+  },
+  {
+    "id": "scripts/team-report.mjs:698:14:9684d31f",
+    "kind": "unreachable",
+    "reason": "guard for a cost object without totals.tokensSplit: buildBatchCost always sets it, as an object even for NaN-free empty input (batch-cost.mjs:657), and every renderer caller rebuilds the cost object first (team-report.mjs:801, work-scope.mjs:215, telemetry-capture.mjs:1442); no ledger, receipt or scope input can leave it unset, so `ts` is always truthy."
+  },
+  {
+    "id": "scripts/team-report.mjs:702:9:c6aba26c",
+    "kind": "unreachable",
+    "reason": "guard for a cost object without totals.tokensSplit: buildBatchCost always sets it, as an object even for NaN-free empty input (batch-cost.mjs:657), and every renderer caller rebuilds the cost object first (team-report.mjs:801, work-scope.mjs:215, telemetry-capture.mjs:1442); no ledger, receipt or scope input can leave it unset, so `ts` is always truthy."
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:92:21:cdf9207d",
+    "kind": "unreachable",
+    "reason": "name is `git('user.name') || userInfo().username` (telemetry-capture.mjs:84); os.userInfo() returns the account's login name or throws a SystemError when the user has no username (Node os docs), so name is never falsy here and the email fallback never runs"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:93:28:7f805a34",
+    "kind": "unreachable",
+    "reason": "base is `name || ...` (telemetry-capture.mjs:92) and name is always a non-empty login name or userInfo() throws (telemetry-capture.mjs:84), so base is never null/undefined and `?? 'unknown'` never falls back (the empty-slug case is the separate `|| 'unknown'`, covered)"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:405:22:68325219",
+    "kind": "unreachable",
+    "reason": "captureDispatches is called only from main (telemetry-capture.mjs:1364) with `config: cfg` from loadConfig (:1340), which always returns an object (:69-71), so `config ?? loadConfig(repo)` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:669:22:68325219",
+    "kind": "unreachable",
+    "reason": "captureClaudeSession: every caller passes the cfg it loaded (telemetry-capture.mjs:1364-1366 main; 1261, 1284, 1316 sweep; 818 captureSessionNow; work-scope.mjs:135/145/159), and loadConfig always returns an object (telemetry-capture.mjs:69-71), so `config ?? loadConfig(repo)` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:897:22:68325219",
+    "kind": "unreachable",
+    "reason": "captureCopilotSession is called only from sweep (telemetry-capture.mjs:1284) with `config: cfg`, and sweep's cfg is the object loadConfig returned (:1227, :69-71), so `config ?? loadConfig(repo)` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:1160:22:68325219",
+    "kind": "unreachable",
+    "reason": "captureVsCodeSession is called only from sweep (telemetry-capture.mjs:1316) with `config: cfg`, an object from loadConfig (:1227, :69-71), so `config ?? loadConfig(repo)` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:1227:22:68325219",
+    "kind": "unreachable",
+    "reason": "sweep is called only from main (telemetry-capture.mjs:1377, 1416) with `config: cfg` from loadConfig (:1340), always an object (:69-71), so `config ?? loadConfig(repo)` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:748:16:17a036e1",
+    "kind": "unreachable",
+    "reason": "captureClaudeSession: every caller passes a user: main/sweep pass `me = whoAmI(repo).slug` (telemetry-capture.mjs:1341, 1228), a non-empty string ('unknown' fallback at :93), captureSessionNow passes its own `me` (:814, :818) and work-scope.mjs:145/159 pass 'live', so `user ?? whoAmI(repo).slug` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:980:16:17a036e1",
+    "kind": "unreachable",
+    "reason": "captureCopilotSession is called only from sweep (telemetry-capture.mjs:1284) with `user: me`, where me is `user ?? whoAmI(repo).slug` (:1228), a non-empty slug, so the `?? whoAmI(repo).slug` fallback never runs"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:1171:16:17a036e1",
+    "kind": "unreachable",
+    "reason": "captureVsCodeSession is called only from sweep (telemetry-capture.mjs:1316) with `user: me`, a non-empty slug (:1228, :93), so the `?? whoAmI(repo).slug` fallback never runs"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:1228:19:97fb07b9",
+    "kind": "unreachable",
+    "reason": "sweep is called only from main (telemetry-capture.mjs:1377, 1416) with `user: me` where me = whoAmI(repo).slug (:1341), a non-empty string (`|| 'unknown'` at :93), so `user ?? whoAmI(repo).slug` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:473:40:5616aabf",
+    "kind": "unreachable",
+    "reason": "foldDispatchLog is called only at telemetry-capture.mjs:746 with the literal line captureClaudeSession builds, which always sets `subagents: subs.map(...)` (an array, :780), so `line.subagents ?? []` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:476:40:c5780bd7",
+    "kind": "unreachable",
+    "reason": "foldDispatchLog is called only at telemetry-capture.mjs:746 with a line whose subagents is always an array (:780), so the second `line.subagents ?? []` never falls back either"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:485:44:820c6d60",
+    "kind": "unreachable",
+    "reason": "foldDispatchLog is called only at telemetry-capture.mjs:746 with a line whose `cases` is always the sorted array built at :743 (set at :772), so `line.cases ?? []` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:600:4:5b2bcfd0",
+    "kind": "unreachable",
+    "reason": "the continuation after meterSession's try/catch: the try ends in `return priced ? ... : unpriced` (telemetry-capture.mjs:597) and the catch in `return unpriced` (:599), so control never falls through to the code after them"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:638:21:16b82bae",
+    "kind": "unreachable",
+    "reason": "line 638 runs only when startTs is truthy (telemetry-capture.mjs:636); every caller passing startTs gets startTs/endTs from the same stamps (timeStats :187-188, VS Code :1147-1148: both null or both numbers, Infinity included), so endTs is never null there and `?? Date.now()` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:658:15:afcc7777",
+    "kind": "unreachable",
+    "reason": "scopeForLine is called only behind a truthy-scope guard (telemetry-capture.mjs:773, 991, 1186: `scope ? { scope: scopeForLine(scope) } : {}`), so its `if (!scope) return null` never runs"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:735:38:da7bc6e0",
+    "kind": "unreachable",
+    "reason": "subs are spread from parseClaudeTranscript results (telemetry-capture.mjs:679-683), which always return caseIds as the extractCaseIds array (:315-316), so `s.caseIds ?? []` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:762:71:d985d690",
+    "kind": "unreachable",
+    "reason": "subs carry usageSeen from parseClaudeTranscript (telemetry-capture.mjs:683, :316), always the number byId.size from dedupUsage (:175), so `x.usageSeen ?? 1` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:784:28:931c2733",
+    "kind": "unreachable",
+    "reason": "every sub has a numeric usageSeen (byId.size, telemetry-capture.mjs:175, spread at :683), so `(s.usageSeen ?? 1)` in the tokens field never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:785:24:10bd8be1",
+    "kind": "unreachable",
+    "reason": "every sub has a numeric usageSeen (byId.size, telemetry-capture.mjs:175, spread at :683), so `(s.usageSeen ?? 1)` in the tokensAttributed guard never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:770:36:09fda13a",
+    "kind": "unreachable",
+    "reason": "p is a parseClaudeTranscript result (telemetry-capture.mjs:671), whose tokensByModel is always the object dedupUsage builds (:161, :175, :316), so `p.tokensByModel ?? {}` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:786:38:0e67a579",
+    "kind": "unreachable",
+    "reason": "each sub is a spread parseClaudeTranscript result (telemetry-capture.mjs:683) whose tokensByModel is always an object (:161, :316), so `s.tokensByModel ?? {}` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:878:58:65a5fa10",
+    "kind": "unreachable",
+    "reason": "closeSync runs only on the fd that openSync returned in the same call (telemetry-capture.mjs:867), closed exactly once and opened read-only, so close cannot fail (no EBADF, no write-back) and this catch never runs"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:883:13:6f3b1e96",
+    "kind": "unreachable",
+    "reason": "cwd is never falsy: sweep passes repo (telemetry-capture.mjs:1281, 1301), which main builds as `arg('--cwd') || env.CLAUDE_PROJECT_DIR || process.cwd()` (:1339, non-empty), and folder only after `!folder ||` (:1301); install-hooks.mjs:643 passes a resolve()d repo and a truthy folder"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:1068:49:720d2ef5",
+    "kind": "unreachable",
+    "reason": "`String(uri).split('/')` always returns an array with at least one string (telemetry-capture.mjs:1068), so `.pop()` is never undefined and `?? ''` never falls back"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:1497:103:99b16338",
+    "kind": "unreachable",
+    "reason": "the `|| err` fallback at telemetry-capture.mjs:1497 needs a thrown value with an empty or missing message; the file has no throw statement, and what main (:1334-1421) can raise (fs errors from readFileSync :53, TypeErrors, URL errors) is always an Error with a message"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:705:51:be4a91d4",
+    "kind": "approved-reachable",
+    "reason": "race only: this sub-agent transcript was just read by readRecords (telemetry-capture.mjs:679) in the same captureClaudeSession call, and nothing runs between :679 and :705 (the meter, the only input-supplied code, runs later at :715), so statSync fails only if another process removes the file; the replay runs one event process at a time"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:1278:53:ceddb3ba",
+    "kind": "approved-reachable",
+    "reason": "race only: existsSync(eventsPath) was true on the previous statement (telemetry-capture.mjs:1276) with no other code in between (no meter call), so statSync fails only if another process deletes the file; the replay runs one event process at a time"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:544:32:4c9419d8",
+    "kind": "approved-reachable",
+    "reason": "linkSync into the mkdtemp stage (telemetry-capture.mjs:561, 565) fails only across filesystems (EXDEV) or on a file the OS refuses to link (EPERM); the only levers are host-specific and not sandboxable: TMPDIR=/dev/shm gives EXDEV on Linux only (no such tmpfs on macOS), and an immutable file needs chflags uchg (macOS/BSD only, and it then blocks the sandbox cleanup); the manifest has neither a mount nor a file-flag facility"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:1328:30:afcc7777",
+    "kind": "approved-reachable",
+    "reason": "needs process.stdin to be a TTY (telemetry-capture.mjs:1328, a hook run from a terminal); the replay runner always attaches a stdin pipe (replay/runner.mjs spawnSync input), so this is outside the replayed environment"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:1331:5:9a64ef9f",
+    "kind": "approved-reachable",
+    "reason": "readFileSync(0) fails only when fd 0 is closed or non-blocking (EBADF/EAGAIN) (telemetry-capture.mjs:1329); the replay runner always attaches a readable stdin pipe ending in EOF, so this path is outside the replayed environment"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:45:11:afcc7777",
+    "kind": "unreachable",
+    "reason": "costWeightedCacheShare's !q return: its only caller is build-tokenomics-export.mjs:123 with q = t.tokensSplit ?? null (:82); buildRunRow/buildSegment run only inside appendRun (build-tokenomics-export.mjs:168-169), whose two callers (build-tokenomics-export.mjs:292 after the !cost guard at :291, and work-scope.mjs:241 iterating costs) pass an element of updateBatchCosts output (batch-cost.mjs:746), i.e. a buildBatchCost object, and that always carries totals.tokensSplit as an object (batch-cost.mjs:657)."
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:69:76:d501acb9",
+    "kind": "unreachable",
+    "reason": "buildSegment's `: null` when cost is falsy: buildRunRow/buildSegment run only inside appendRun (build-tokenomics-export.mjs:168-169), whose two callers (build-tokenomics-export.mjs:292 after the !cost guard at :291, and work-scope.mjs:241 iterating costs) pass an element of updateBatchCosts output (batch-cost.mjs:746), i.e. a buildBatchCost object, which is always a non-null object, so the agent_tool fallback always takes the cost branch."
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:82:27:50e8025f",
+    "kind": "unreachable",
+    "reason": "the `t.tokensSplit ?? null` fallback: buildRunRow/buildSegment run only inside appendRun (build-tokenomics-export.mjs:168-169), whose two callers (build-tokenomics-export.mjs:292 after the !cost guard at :291, and work-scope.mjs:241 iterating costs) pass an element of updateBatchCosts output (batch-cost.mjs:746), i.e. a buildBatchCost object, whose totals.tokensSplit is always an object (batch-cost.mjs:657)."
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:89:136:96b1ef17",
+    "kind": "unreachable",
+    "reason": "the `?? null` after the dominant-size sort: cost.sizing exists only when applySizing returned a rollup (batch-cost.mjs:690), which it does only when at least one case was sized (batch-cost.mjs:425), and every sized case adds its size key to bySize (batch-cost.mjs:422), so [0] is always an entry. buildRunRow/buildSegment run only inside appendRun (build-tokenomics-export.mjs:168-169), whose two callers (build-tokenomics-export.mjs:292 after the !cost guard at :291, and work-scope.mjs:241 iterating costs) pass an element of updateBatchCosts output (batch-cost.mjs:746), i.e. a buildBatchCost object."
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:98:91:531da030",
+    "kind": "unreachable",
+    "reason": "the first `??` after the primary-model sort: tokensByModel is present only when it has at least one model key (batch-cost.mjs:658), so the sorted entries' [0]?.[0] is always a key string. buildRunRow/buildSegment run only inside appendRun (build-tokenomics-export.mjs:168-169), whose two callers (build-tokenomics-export.mjs:292 after the !cost guard at :291, and work-scope.mjs:241 iterating costs) pass an element of updateBatchCosts output (batch-cost.mjs:746), i.e. a buildBatchCost object."
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:98:117:96b1ef17",
+    "kind": "unreachable",
+    "reason": "the trailing `?? null` of that same expression, reachable only past the unreachable first `??` (tokensByModel present means non-empty, batch-cost.mjs:658). buildRunRow/buildSegment run only inside appendRun (build-tokenomics-export.mjs:168-169), whose two callers (build-tokenomics-export.mjs:292 after the !cost guard at :291, and work-scope.mjs:241 iterating costs) pass an element of updateBatchCosts output (batch-cost.mjs:746), i.e. a buildBatchCost object."
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:100:43:2501054d",
+    "kind": "unreachable",
+    "reason": "the `cost.outcomes ?? {}` fallback: buildBatchCost always sets outcomes to an object (batch-cost.mjs:594, emitted at :677). buildRunRow/buildSegment run only inside appendRun (build-tokenomics-export.mjs:168-169), whose two callers (build-tokenomics-export.mjs:292 after the !cost guard at :291, and work-scope.mjs:241 iterating costs) pass an element of updateBatchCosts output (batch-cost.mjs:746), i.e. a buildBatchCost object."
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:110:20:a3355368",
+    "kind": "unreachable",
+    "reason": "the `t.turns ?? null` fallback: buildBatchCost always emits totals.turns as Math.round of a numeric sum (batch-cost.mjs:662). buildRunRow/buildSegment run only inside appendRun (build-tokenomics-export.mjs:168-169), whose two callers (build-tokenomics-export.mjs:292 after the !cost guard at :291, and work-scope.mjs:241 iterating costs) pass an element of updateBatchCosts output (batch-cost.mjs:746), i.e. a buildBatchCost object."
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:115:107:6fcfa92a",
+    "kind": "unreachable",
+    "reason": "the `tokens: ... : null` alternative (q falsy): q is totals.tokensSplit, always an object (batch-cost.mjs:657). buildRunRow/buildSegment run only inside appendRun (build-tokenomics-export.mjs:168-169), whose two callers (build-tokenomics-export.mjs:292 after the !cost guard at :291, and work-scope.mjs:241 iterating costs) pass an element of updateBatchCosts output (batch-cost.mjs:746), i.e. a buildBatchCost object."
+  }
+]

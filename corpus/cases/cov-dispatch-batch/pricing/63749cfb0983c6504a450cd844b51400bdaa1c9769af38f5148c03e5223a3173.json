@@ -1,0 +1,14 @@
+{
+  "sessions": [
+    {
+      "sessionId": "cd1",
+      "projectPath": "f0",
+      "inputTokens": 75,
+      "outputTokens": 1900,
+      "cacheReadTokens": 41000,
+      "cacheCreationTokens": 2900,
+      "totalCost": 0.0519,
+      "totalTokens": 45875
+    }
+  ]
+}

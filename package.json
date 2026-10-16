@@ -1,0 +1,28 @@
+{
+  "name": "harness-telemetry",
+  "version": "0.4.0",
+  "private": true,
+  "description": "Portable telemetry modules for agent harnesses — tokenomics first.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18.19"
+  },
+  "bin": {
+    "harness-telemetry": "bin/harness-telemetry.mjs"
+  },
+  "files": [
+    "bin/",
+    "tokenomics/",
+    "!tokenomics/extensions/",
+    "!tokenomics/fixtures/",
+    "!tokenomics/ENGINE-B1.md",
+    "!**/*.test.mjs",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node scripts/test.mjs",
+    "check": "node bin/harness-telemetry.mjs check",
+    "aggregate": "node bin/harness-telemetry.mjs aggregate"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "fold-flags",
+  "item": 6,
+  "spec": "§14.8 item 6, §10.5",
+  "summary": "Folding a session recomputes its session flags (§10.5).",
+  "beforeCases": [
+    "seed-claude-folded",
+    "cov-capture-pricing",
+    "cov-dispatch-batch"
+  ],
+  "declared": {
+    "seed-claude-folded": {
+      "reason": "The live-log record a1 folded into the line was measured; the folded entry now carries the dispatch shape of a captured one, so subagents[0] gains tokensByModel {} in captured key order. No flag changes.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-pricing": {
+      "reason": "Live record agent-gone carried no tokens: the folded entry gains tokens null, tokensAttributed false and tokensByModel {}, and line p1 gains tokensAttribution partial, since one unit is unmeasured.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-dispatch-batch": {
+      "reason": "Folded agent-gone was measured but had no per-model split: the entry gains tokensByModel {} in captured key order. The line was already partial and stays partial; models and cost.json are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    }
+  }
+}

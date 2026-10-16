@@ -1,0 +1,12 @@
+{
+  "case": "seed-copilot-cli",
+  "migrations": [
+    "null-unobservable",
+    "copilot-inclusive",
+    "writer"
+  ],
+  "reason": "null-unobservable writes the dispatch toolErrors as null (host exposes no error count); copilot-inclusive adds tokensBasis inclusive, stores the session input un-netted and nulls the dispatch tokens. Together the line has both: tokens inclusive, dispatch tokens null, dispatch toolErrors null. With writer, writer stamps every appended line with writer tokenomics-engine@0.0.0-replay and manifestRevision 1 right after v (map D4); the ledger carries all of these effects.",
+  "changed": [
+    ".agents/telemetry/automation/usage-corpus.jsonl"
+  ]
+}

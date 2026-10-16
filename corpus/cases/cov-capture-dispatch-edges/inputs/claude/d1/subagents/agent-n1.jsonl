@@ -1,0 +1,2 @@
+{"type":"user","isSidechain":true,"message":{"role":"user","content":"n1 work"}}
+{"type":"assistant","isSidechain":true,"message":{"id":"a-n1","model":"claude-sonnet-5-5","role":"assistant","content":[{"type":"text","text":"ok"}],"usage":{"input_tokens":4,"output_tokens":6}}}

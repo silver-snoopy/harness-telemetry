@@ -1,0 +1,44 @@
+{
+  "fileFacts": [
+    {
+      "file": ".agents/telemetry/automation/live/d1.jsonl",
+      "path": "/agentId",
+      "equals": "agent-n1"
+    },
+    {
+      "file": ".agents/telemetry/automation/live/d2.jsonl",
+      "path": "/agentId",
+      "equals": "agent-n2"
+    },
+    {
+      "file": "stage-observed.json",
+      "path": "/lockedStageLeftBehind",
+      "equals": true
+    },
+    {
+      "file": "stage-observed.json",
+      "path": "/lockedStageMode",
+      "equals": "500"
+    },
+    {
+      "file": "stage-observed.json",
+      "path": "/lockedStageRemoved",
+      "equals": true
+    },
+    {
+      "file": "stage-observed.json",
+      "path": "/otherStagesAfterCleanup",
+      "equals": 0
+    }
+  ],
+  "textFacts": [
+    {
+      "file": "__events__/0.stderr",
+      "equals": "tokenomics: recorded 1 finished dispatch(es) for d1\n"
+    },
+    {
+      "file": "__events__/1.stderr",
+      "equals": "tokenomics: recorded 1 finished dispatch(es) for d2\n"
+    }
+  ]
+}

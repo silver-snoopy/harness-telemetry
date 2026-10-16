@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "session": "camp-s",
+  "intent": "automation",
+  "batch": "wave-01",
+  "cases": [
+    "W1-1",
+    "W1-2"
+  ],
+  "declaredAt": "2026-09-29T08:00:00.000Z",
+  "updatedAt": "2026-10-05T09:02:00.000Z",
+  "closedAt": "2026-10-05T09:02:00.000Z"
+}

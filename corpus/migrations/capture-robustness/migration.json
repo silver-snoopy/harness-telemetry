@@ -1,0 +1,44 @@
+{
+  "id": "capture-robustness",
+  "item": 14,
+  "items": [
+    14,
+    15,
+    16,
+    17,
+    21
+  ],
+  "spec": "§14.8 (owner Q1b group: items 14 stable-enumeration, 15 dispatch-dir, 16 vscode-oplog-holes, 17 vscode-end-guard, 21 live-host)",
+  "summary": "Capture sorts sub-agent and receipt listings itself (R13), skips a directory sub-agent transcript instead of aborting the dispatch loop (R16), tolerates VS Code op-log holes (R14), guards the VS Code end so a timestamp-less session is not re-appended (R15), and labels provisional live lines with their real host (R19). Item 14 has no corpus diff (POSIX listings are already sorted); its evidence is an unsorted-readdirSync unit test.",
+  "beforeCases": [
+    "cov-capture-vscode-edges",
+    "cov-capture-dispatch-edges",
+    "cov-copilot-dispatch"
+  ],
+  "declared": {
+    "cov-capture-vscode-edges": {
+      "reason": "Holes in a replayed op-log no longer drop the session (item 16), and a timestamp-less session is appended once instead of on every sweep (item 17), so the sweep ledger and counts change.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl",
+        "__events__/2.stderr",
+        "__events__/3.stderr",
+        "__events__/4.stderr",
+        "alt/.agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-dispatch-edges": {
+      "reason": "A directory where a sub-agent transcript should be skips only that dispatch with a stderr note instead of aborting the loop with EISDIR (item 15); the Copilot live record also names its host (item 21).",
+      "changed": [
+        ".agents/telemetry/automation/live/cpx.jsonl",
+        "__events__/4.stderr"
+      ]
+    },
+    "cov-copilot-dispatch": {
+      "reason": "The Copilot live dispatch log now carries its own host, so the provisional live line is labelled copilot and de-duplicates against the captured session instead of double-counting as a claude session (item 21).",
+      "changed": [
+        ".agents/telemetry/automation/live/cp1.jsonl",
+        ".agents/telemetry/automation/reports/camp-wave-01.html"
+      ]
+    }
+  }
+}

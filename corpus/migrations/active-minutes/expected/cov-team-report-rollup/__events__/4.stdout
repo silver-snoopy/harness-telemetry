@@ -1,0 +1,68 @@
+# Tokenomics — team usage report
+
+Generated: 2026-10-05T09:04:00.000Z
+
+## Totals
+
+- Sessions: 1 (copilot 1)  ·  people: 1
+- Cost (real figures only): n/a from 0 priced session(s)  ·  ⚠️ 1 session(s) tokens-only (no real dollar — never estimated)
+- Tokens (incl. sub-agents): total 330  ·  in 110, out 220, cache-read 0, cache-write 0
+- Real work: 330 tokens (in+out)  ·  cache hit rate: 0.0%
+- Time: 0.5h active  ·  1.0h wall  ·  5 turns  ·  6 tool calls (1 err)
+- Case ids named in sessions: 2 distinct (sessions-per-case in the --json `byCase`; top: T-1, T-2)
+- By declared intent: automation n/a (1)
+
+## Cases (from the pipeline's own receipts)
+
+- Examined: 2 unique case(s) across 1 report(s)  ·  **delivered (automated): 2**
+- Outcomes: delivered 1  ·  automated 1
+- Per delivered case: n/a  ·  15 active min  ·  per case examined: n/a
+  (spend in the window ÷ delivered cases in the receipts — align the window to the batch for a per-batch figure)
+
+## By batch
+
+| batch | cases | delivered | total | per delivered | active | gate | drift |
+|---|---|---|---|---|---|---|---|
+| tk | 2 | 2 | n/a | n/a | 0.5h | — | — |
+
+## Per case — every batch's cost.json rows (delivered first)
+
+- Delivered-case loaded cost: n/a
+- Delivered-case loaded time: avg 15m · median 15m · min 15m · max 15m (n=2)
+  (loaded = direct measured work + an even share of the batch overhead — an allocation, labelled as such)
+
+| case | batch | outcome | direct | loaded | active (loaded) |
+|---|---|---|---|---|---|
+| T-1 | tk | delivered | n/a | n/a | 15m |
+| T-2 | tk | automated | n/a | n/a | 15m |
+
+## By person
+
+| person | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| dana | n/a | 1 | 110/220 | 0.5h | 6 (1) |
+
+## By role
+
+| role | cost | units | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| (interactive session) | (session-grain) | 1 | 100/200 | 0.5h | 6 (1) |
+| implementer | (session-grain) | 1 | 10/20 | — | 2 (0) |
+
+_— = not allocated at this grain: a dispatch-only role has no parent-session minutes (its dispatch minutes are in the next table)._
+
+## Dispatch minutes by role
+
+_Measured per dispatch. Dispatches overlap their parent session and each other, so these minutes are not part of any total; the by-role table gives each parent role its full session minutes (spec 5.4)._
+
+| role | dispatches | active |
+|---|---|---|
+| implementer | 1 | 5m |
+
+## By week
+
+| week | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| 2026-W37 | n/a | 1 | 110/220 | 0.5h | 6 (1) |
+
+_Dollars are session-grain (one figure per session, real sources only), so the role table reports tokens/time — sub-agent roles included. Fork/resume caveat: a forked session replays its parent's records; its ledger line can double-count the replayed tokens._

@@ -1,0 +1,2 @@
+["D","home/.claude/projects/<REPOKEY>/d1/subagents/x/agent-n1.jsonl","f:cd5cfab947cfa598"]
+["D","home/.claude/projects/<REPOKEY>/d1/subagents/y/agent-n1.jsonl","f:cd5cfab947cfa598"]

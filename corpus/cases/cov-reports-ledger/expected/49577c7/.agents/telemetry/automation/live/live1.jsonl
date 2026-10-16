@@ -1,0 +1,4 @@
+{"agentId":"l1","role":"implementer","label":"implement W2-1 (running)","cases":["W2-1"],"tokens":{"input":10,"output":100,"cacheRead":500,"cacheWrite":20},"activeMin":3,"toolCalls":2,"toolErrors":0,"costUsd":0.3,"endedAt":"2026-10-03T10:00:00.000Z"}
+{"agentId":"l1","role":"implementer","label":"implement W2-1 (running)","cases":["W2-1"],"tokens":{"input":10,"output":150,"cacheRead":500,"cacheWrite":20},"activeMin":4,"toolCalls":3,"toolErrors":0,"costUsd":0.4,"endedAt":"2026-10-03T10:05:00.000Z"}
+{"agentId":"l2","role":"reviewer","label":"review W2-1","cases":[],"tokens":null,"tokensAttributed":false,"tokensByModel":{},"activeMin":1}
+not json

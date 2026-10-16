@@ -1,0 +1,121 @@
+{
+ "id": "cov-capture-pricing",
+ "seed": 1,
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/384-seed",
+  "files": {
+   ".agents/telemetry/automation/live/p1.jsonl": "{\"agentId\":\"agent-gone\",\"role\":\"implementer\",\"label\":\"implement PR-9\",\"activeMin\":2}\n"
+  }
+ },
+ "stores": [
+  {
+   "from": "inputs/claude/p1.jsonl",
+   "to": "home/stage/p1.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/p1/subagents/agent-q1.meta.json",
+   "to": "home/stage/p1/subagents/agent-q1.meta.json",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/p1/subagents/agent-q1.jsonl",
+   "to": "home/stage/p1/subagents/agent-q1.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/p2.jsonl",
+   "to": "home/stage/p2.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/p3.jsonl",
+   "to": "home/stage/p3.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/p4.jsonl",
+   "to": "home/stage/p4.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/p4/subagents/agent-q4.meta.json",
+   "to": "home/stage/p4/subagents/agent-q4.meta.json",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/p4/subagents/agent-q4.jsonl",
+   "to": "home/stage/p4/subagents/agent-q4.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  }
+ ],
+ "outputs": [
+  ".agents/telemetry",
+  ".agents/automation"
+ ],
+ "events": [
+  {
+   "stdin": null,
+   "env": {},
+   "at": "2026-10-01T10:30:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/p2.jsonl",
+    "--session",
+    "p2"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_CCUSAGE_BIN": null
+   },
+   "at": "2026-10-01T10:31:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/p3.jsonl",
+    "--session",
+    "p3"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {},
+   "at": "2026-10-01T10:32:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/p4.jsonl",
+    "--session",
+    "p4"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {},
+   "at": "2026-10-01T10:33:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/p1.jsonl",
+    "--session",
+    "p1"
+   ]
+  }
+ ]
+}

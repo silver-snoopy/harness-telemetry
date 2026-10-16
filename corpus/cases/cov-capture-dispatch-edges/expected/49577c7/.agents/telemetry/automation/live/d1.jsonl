@@ -1,0 +1,1 @@
+{"v":1,"session":"d1","agentId":"agent-n1","role":"implementer","label":"n1 work","cases":[],"tokensByModel":{"claude-sonnet-5-5":{"input":4,"output":6,"cacheRead":0,"cacheWrite":0}},"tokens":{"input":4,"output":6,"cacheRead":0,"cacheWrite":0},"activeMin":0,"toolCalls":0,"toolErrors":0,"endedAt":null,"bytes":277,"at":"2026-10-01T10:31:00.000Z"}

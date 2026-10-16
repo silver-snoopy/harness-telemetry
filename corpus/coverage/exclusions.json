@@ -1,0 +1,44 @@
+[
+  {
+    "file": "scripts/install-hooks.mjs",
+    "fn": "*",
+    "wholeFile": true,
+    "kind": "approved-reachable",
+    "reason": "Hook/git post-commit/VS Code task installer, a spec non-goal for this corpus; it writes host config rather than capturing, scoping, joining or reporting (spec §18.3 scope)."
+  },
+  {
+    "file": "scripts/otel-report.mjs",
+    "fn": "*",
+    "wholeFile": true,
+    "kind": "approved-reachable",
+    "reason": "OTel report over the optional OTel sink, a spec non-goal; not part of the capture/scope/join/report path replayed by the corpus."
+  },
+  {
+    "file": "hooks/otel-sink.mjs",
+    "fn": "*",
+    "wholeFile": true,
+    "kind": "approved-reachable",
+    "reason": "optional OTel service; spawned by cov-capture-otel-local only to fail before listen; live-receiver coverage deferred (corrects the old \"needs a live collector\" rationale)"
+  },
+  {
+    "file": "scripts/team-report.mjs",
+    "fn": "f",
+    "offset": 24782,
+    "kind": "unreachable",
+    "reason": "Default-parameter initializer `f = (x) => x` of `line4` in renderBatchMarkdown: all four call sites (team-report.mjs:407-410) pass an explicit formatter, so the default is never evaluated."
+  },
+  {
+    "file": "scripts/work-scope.mjs",
+    "fn": "(anonymous)",
+    "offset": 17884,
+    "kind": "approved-reachable",
+    "reason": "Rejection handler of `main().then(…, onRejected)` (work-scope.mjs:335-338): reached only if `main()` rejects outside its own try/catch, i.e. a host/runtime failure such as an exception thrown by the Node runtime or a stdio write error escaping main; no CLI input reaches it; owner-approved 2026-10-11"
+  },
+  {
+    "file": "scripts/build-tokenomics-export.mjs",
+    "fn": "f",
+    "offset": 15476,
+    "kind": "unreachable",
+    "reason": "Default-parameter initializer `f = (x) => x` of `fmt` in the --compare renderer: every call passes an explicit formatter (usd at build-tokenomics-export.mjs:240, the share and hours rows at build-tokenomics-export.mjs:251 and :252), so the default is never evaluated."
+  }
+]

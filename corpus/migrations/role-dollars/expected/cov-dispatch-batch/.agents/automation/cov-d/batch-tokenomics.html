@@ -1,0 +1,104 @@
+<!doctype html><meta charset="utf-8"><title>Batch tokenomics — cov-d</title><style>
+:root{color-scheme:light;--page:#f9f9f7;--surface:#fcfcfb;--text-primary:#0b0b0b;--text-secondary:#52514e;--text-muted:#898781;--gridline:#e1e0d9;--border:rgba(11,11,11,0.10);--series-1:#2a78d6;--series-2:#eb6834;--series-3:#1baf7a;--series-4:#eda100;--warn:#c53030;--ok:#2f855a}
+html[data-theme="dark"]{color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#898781;--gridline:#2c2c2a;--border:rgba(255,255,255,0.10);--series-1:#3987e5;--series-2:#d95926;--series-3:#199e70;--series-4:#c98500;--warn:#e06c6c;--ok:#48a06f}
+*{box-sizing:border-box}
+body{font:14px/1.5 -apple-system,"Segoe UI",sans-serif;color:var(--text-primary);background:var(--page);max-width:1120px;margin:0 auto;padding:1.8rem 1.2rem 3rem}
+h1{font-size:1.35rem;margin:0 0 .2rem}
+.meta{color:var(--text-muted);font-size:.85rem;margin:0 0 1.1rem}
+section{margin-top:1.1rem}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:.8rem}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;min-width:0}
+.kpi-card h3{margin:0 0 .55rem;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);font-weight:600}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .7rem}
+.stat{display:flex;flex-direction:column;min-width:0}
+.stat-label{font-size:.74rem;color:var(--text-secondary)}
+.stat-sub{color:var(--text-muted);font-weight:400}
+.stat-value{font-size:1.02rem;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.3;overflow-wrap:anywhere}
+.stat-value-sm{font-size:.84rem;font-weight:500}
+.kpi-callout{margin-top:.65rem;padding:.45rem .6rem;background:var(--page);border:1px solid var(--gridline);border-radius:7px;font-size:.81rem;color:var(--text-secondary)}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem;overflow-x:auto;min-width:0}
+.panel h2{margin:0;font-size:1rem}
+.panel-sub{margin:.15rem 0 .75rem;color:var(--text-muted);font-size:.84rem}
+.stacked-bar{display:flex;height:18px;border-radius:5px;overflow:hidden;background:var(--gridline)}
+.bar-seg{height:100%}
+.s-in{background:var(--series-1)}.s-out{background:var(--series-2)}.s-cr{background:var(--series-3)}.s-cw{background:var(--series-4)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.35rem 1rem;margin-top:.6rem}
+.legend-item{display:flex;align-items:center;gap:.4rem;font-size:.82rem;min-width:0;flex-wrap:wrap}
+.legend-swatch{width:10px;height:10px;border-radius:3px;flex:none}
+.legend-label{color:var(--text-secondary)}
+.legend-value{margin-left:auto;font-variant-numeric:tabular-nums}
+.legend-pct{color:var(--text-muted)}
+.row{display:grid;grid-template-columns:minmax(130px,210px) minmax(140px,1fr) minmax(200px,240px);gap:.7rem;align-items:center;margin:.32rem 0}
+.row .lbl{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .track{background:var(--gridline);border-radius:4px;height:15px}
+.row .bar{background:var(--series-1);height:15px;border-radius:4px}
+.row .stacked{display:flex;overflow:hidden;height:15px;border-radius:4px}
+.row .num{font-size:.84rem;font-variant-numeric:tabular-nums}
+.sub{color:var(--text-muted)}
+.oc{font-size:.72rem;border:1px solid var(--gridline);border-radius:8px;padding:0 .4rem;margin-left:.35rem;color:var(--text-muted);display:inline-block}
+.oc-automated{color:var(--ok);border-color:var(--ok)}.oc-blocked{color:var(--warn);border-color:var(--warn)}
+.callout-warn{margin-top:.8rem;color:var(--warn);border:1px solid var(--warn);border-radius:7px;padding:.5rem .7rem;font-size:.86rem;background:var(--surface)}
+.note{color:var(--text-muted);font-size:.84rem}
+table{border-collapse:collapse;width:100%;font-size:.87rem;margin:.4rem 0}
+th{text-align:left;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--gridline);padding:.3rem .5rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+td{border-bottom:1px solid var(--gridline);padding:.3rem .5rem;font-variant-numeric:tabular-nums}
+.chip{font-size:.8rem;border:1px solid var(--gridline);border-radius:8px;padding:.1rem .5rem;margin-right:.4rem;color:var(--text-secondary);display:inline-block}
+.share-cell{display:flex;align-items:center;gap:.45rem;min-width:140px}
+.share-bar-track{flex:1;height:8px;border-radius:4px;background:var(--gridline);overflow:hidden}
+.share-bar-fill{height:8px;border-radius:4px;background:var(--series-1)}
+.share-bar-label{font-size:.8rem;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:640px){.row{grid-template-columns:110px 1fr}.row .num{grid-column:1/-1}}
+</style>
+  <h1>Batch tokenomics — cov-d</h1>
+  <p class="meta">The other unfolding of the same records as batch-report (delivery view) · generated 2026-10-01T10:50:00.000Z · 1 session(s) · models: claude-opus-5, claude-sonnet-5</p>
+  
+  <section class="kpi-row"><div class="kpi-card"><h3>Cache</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Cache hit rate</span><span class="stat-value">93.9%</span></div><div class="stat"><span class="stat-label">Prompt cost saved</span><span class="stat-value">~83.1%</span></div><div class="stat"><span class="stat-label">Total cost <span class="stat-sub">measured</span></span><span class="stat-value">$0.35</span></div><div class="stat"><span class="stat-label">Active time</span><span class="stat-value">0.9h</span></div></div><div class="kpi-callout">a cache write is a STORED MISS (processed fresh at ~1.25×, kept for reuse); a read replays at ~0.1× input price — cache-read ≈ 19.7% of SPEND at public ratios</div></div><div class="kpi-card"><h3>Tokens</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Total <span class="stat-sub">incl. cache replay</span></span><span class="stat-value">75,244</span></div><div class="stat"><span class="stat-label">Real work <span class="stat-sub">in+out</span></span><span class="stat-value">4,524</span></div><div class="stat"><span class="stat-label">Input</span><span class="stat-value">174</span></div><div class="stat"><span class="stat-label">Output</span><span class="stat-value">4,350</span></div><div class="stat"><span class="stat-label">Cache read</span><span class="stat-value">66,600</span></div><div class="stat"><span class="stat-label">Cache write</span><span class="stat-value">4,120</span></div></div><div class="kpi-callout"><strong>88.5%</strong> of all tokens served from cache</div></div><div class="kpi-card"><h3>Activity</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Turns</span><span class="stat-value">4</span></div><div class="stat"><span class="stat-label">Tool calls</span><span class="stat-value">14 <span class="stat-sub">(1 err, 93% ok)</span></span></div><div class="stat"><span class="stat-label">Dispatches</span><span class="stat-value">9</span></div><div class="stat"><span class="stat-label">Sessions</span><span class="stat-value">1</span></div></div></div></section>
+  <p class="callout-warn">⚠ Token totals are a FLOOR — attribution partial: 2 unit(s) reported no usage (gateway pass-through gap). The real bill is higher.</p>
+  <section class="panel"><h2>Token composition</h2>
+  <p class="panel-sub">Share of 75,244 total tokens by type — the raw sum is dominated by the cheapest kind, so judge by composition and cache hit rate, not the big number.</p>
+  <div class="stacked-bar"><div class="bar-seg s-in" style="flex:0.4 0 0" title="input · 1×: 174 (0.2%)"></div><div class="bar-seg s-out" style="flex:5.781191855829036 0 0" title="output: 4,350 (5.8%)"></div><div class="bar-seg s-cw" style="flex:5.4755196427622135 0 0" title="cache write · 1.25×: 4,120 (5.5%)"></div><div class="bar-seg s-cr" style="flex:88.51204082717558 0 0" title="cache read · 0.1×: 66,600 (88.5%)"></div></div><div class="legend"><div class="legend-item"><span class="legend-swatch s-in"></span><span class="legend-label">input · 1×</span><span class="legend-value">174 <span class="legend-pct">(0.2%)</span></span></div><div class="legend-item"><span class="legend-swatch s-out"></span><span class="legend-label">output</span><span class="legend-value">4,350 <span class="legend-pct">(5.8%)</span></span></div><div class="legend-item"><span class="legend-swatch s-cw"></span><span class="legend-label">cache write · 1.25×</span><span class="legend-value">4,120 <span class="legend-pct">(5.5%)</span></span></div><div class="legend-item"><span class="legend-swatch s-cr"></span><span class="legend-label">cache read · 0.1×</span><span class="legend-value">66,600 <span class="legend-pct">(88.5%)</span></span></div></div></section>
+  <section class="panel"><h2>Orchestrator (lead thread) composition</h2>
+  <p class="panel-sub">$0.05 · real work 2k · cache hit 93.2% · overhead incl. stages: 16% of the batch</p>
+  <div class="stacked-bar"><div class="bar-seg s-in" style="flex:0.4 0 0" title="input · 1×: 75 (0.2%)"></div><div class="bar-seg s-out" style="flex:4.141689373297003 0 0" title="output: 1,900 (4.1%)"></div><div class="bar-seg s-cw" style="flex:6.321525885558583 0 0" title="cache write · 1.25×: 2,900 (6.3%)"></div><div class="bar-seg s-cr" style="flex:89.3732970027248 0 0" title="cache read · 0.1×: 41,000 (89.4%)"></div></div><div class="legend"><div class="legend-item"><span class="legend-swatch s-in"></span><span class="legend-label">input · 1×</span><span class="legend-value">75 <span class="legend-pct">(0.2%)</span></span></div><div class="legend-item"><span class="legend-swatch s-out"></span><span class="legend-label">output</span><span class="legend-value">1,900 <span class="legend-pct">(4.1%)</span></span></div><div class="legend-item"><span class="legend-swatch s-cw"></span><span class="legend-label">cache write · 1.25×</span><span class="legend-value">2,900 <span class="legend-pct">(6.3%)</span></span></div><div class="legend-item"><span class="legend-swatch s-cr"></span><span class="legend-label">cache read · 0.1×</span><span class="legend-value">41,000 <span class="legend-pct">(89.4%)</span></span></div></div>
+  <div class="kpi-callout">A high lead share with a high cache hit rate is orchestration working as designed — context replayed per turn from cache, not runaway spend.</div></section>
+  <section class="panel"><h2>By role</h2><p class="panel-sub">Per-role composition; rw = real work (in+out), hit = cache hit rate. role cost = the parent session's role, inclusive of its dispatches; — (n unpriced) = n parent session(s) without dollars; — = not allocated at this grain: a dispatch-only role has no parent-session dollars (its dispatch dollars are the separate breakdown, never added to a role or the total).</p>
+    <div class="row"><div class="lbl">session</div><div class="stacked"><div class="bar-seg s-in" style="flex:0.4 0 0" title="input · 1×: 75"></div><div class="bar-seg s-out" style="flex:4.141689373297003 0 0" title="output: 1,900"></div><div class="bar-seg s-cw" style="flex:6.321525885558583 0 0" title="cache write · 1.25×: 2,900"></div><div class="bar-seg s-cr" style="flex:89.3732970027248 0 0" title="cache read · 0.1×: 41,000"></div></div>
+    <div class="num">$0.35<span class="sub"> · rw 2k · hit 93.2%</span></div></div>
+    <div class="row"><div class="lbl">analyst</div><div class="stacked"><div class="bar-seg s-in" style="flex:0.4 0 0" title="input · 1×: 10"></div><div class="bar-seg s-out" style="flex:6.651884700665188 0 0" title="output: 300"></div><div class="bar-seg s-cw" style="flex:4.434589800443459 0 0" title="cache write · 1.25×: 200"></div><div class="bar-seg s-cr" style="flex:88.69179600886919 0 0" title="cache read · 0.1×: 4,000"></div></div>
+    <div class="num">—<span class="sub"> · rw 310 · hit 95.0%</span></div></div>
+    <div class="row"><div class="lbl">empty</div><div class="track"></div>
+    <div class="num">—<span class="sub"> · rw 0 · hit n/a</span></div></div>
+    <div class="row"><div class="lbl">implementer</div><div class="stacked"><div class="bar-seg s-in" style="flex:0.4011767852366943 0 0" title="input · 1×: 75"></div><div class="bar-seg s-out" style="flex:9.253811179459749 0 0" title="output: 1,730"></div><div class="bar-seg s-cw" style="flex:4.22572880449318 0 0" title="cache write · 1.25×: 790"></div><div class="bar-seg s-cr" style="flex:86.11928323081037 0 0" title="cache read · 0.1×: 16,100"></div></div>
+    <div class="num">—<span class="sub"> · rw 2k · hit 94.9%</span></div></div>
+    <div class="row"><div class="lbl">reviewer</div><div class="stacked"><div class="bar-seg s-in" style="flex:0.4 0 0" title="input · 1×: 6"></div><div class="bar-seg s-out" style="flex:6.049606775559589 0 0" title="output: 200"></div><div class="bar-seg s-cw" style="flex:3.0248033877797944 0 0" title="cache write · 1.25×: 100"></div><div class="bar-seg s-cr" style="flex:90.74410163339383 0 0" title="cache read · 0.1×: 3,000"></div></div>
+    <div class="num">—<span class="sub"> · rw 206 · hit 96.6%</span></div></div>
+    <div class="row"><div class="lbl">triage</div><div class="stacked"><div class="bar-seg s-in" style="flex:0.4 0 0" title="input · 1×: 4"></div><div class="bar-seg s-out" style="flex:8.59106529209622 0 0" title="output: 100"></div><div class="bar-seg s-cw" style="flex:5.154639175257731 0 0" title="cache write · 1.25×: 60"></div><div class="bar-seg s-cr" style="flex:85.91065292096219 0 0" title="cache read · 0.1×: 1,000"></div></div>
+    <div class="num">—<span class="sub"> · rw 104 · hit 94.0%</span></div></div>
+    <div class="row"><div class="lbl">workflow-subagent</div><div class="track"></div>
+    <div class="num">—<span class="sub"> · rw 0 · hit n/a</span></div></div>
+    <div class="row"><div class="lbl">writer</div><div class="stacked"><div class="bar-seg s-in" style="flex:0.4 0 0" title="input · 1×: 4"></div><div class="bar-seg s-out" style="flex:7.083825265643448 0 0" title="output: 120"></div><div class="bar-seg s-cw" style="flex:4.132231404958678 0 0" title="cache write · 1.25×: 70"></div><div class="bar-seg s-cr" style="flex:88.5478158205431 0 0" title="cache read · 0.1×: 1,500"></div></div>
+    <div class="num">—<span class="sub"> · rw 124 · hit 95.3%</span></div></div></section>
+  <section class="panel"><h2>Dispatch dollars by role</h2><p class="panel-sub">measured per-dispatch dollars by dispatch role — already inside the parent role and the total, so never added to them</p>
+    <div class="row"><div class="lbl">analyst</div><div class="num">$0.01<span class="sub"> · 1 disp · 1 of 1 priced</span></div></div>
+    <div class="row"><div class="lbl">empty</div><div class="num">$0.00<span class="sub"> · 1 disp · 1 of 1 priced</span></div></div>
+    <div class="row"><div class="lbl">implementer</div><div class="num">$0.28<span class="sub"> · 3 disp · 3 of 3 priced</span></div></div>
+    <div class="row"><div class="lbl">reviewer</div><div class="num">$0.00<span class="sub"> · 1 disp · 1 of 1 priced</span></div></div>
+    <div class="row"><div class="lbl">triage</div><div class="num">$0.00<span class="sub"> · 1 disp · 1 of 1 priced</span></div></div>
+    <div class="row"><div class="lbl">workflow-subagent</div><div class="num">$0.00<span class="sub"> · 1 disp · 1 of 1 priced</span></div></div>
+    <div class="row"><div class="lbl">writer</div><div class="num">$0.00<span class="sub"> · 1 disp · 1 of 1 priced</span></div></div></section>
+  <section class="panel"><h2>By stage (overhead)</h2>
+    <div class="row"><div class="lbl">triage</div><div class="stacked"><div class="bar-seg s-in" style="flex:0.4 0 0" title="input · 1×: 4"></div><div class="bar-seg s-out" style="flex:8.59106529209622 0 0" title="output: 100"></div><div class="bar-seg s-cw" style="flex:5.154639175257731 0 0" title="cache write · 1.25×: 60"></div><div class="bar-seg s-cr" style="flex:85.91065292096219 0 0" title="cache read · 0.1×: 1,000"></div></div>
+    <div class="num">$0.00<span class="sub"> · rw 104 · hit 94.0%</span></div></div>
+    <div class="row"><div class="lbl">gate</div><div class="track"></div>
+    <div class="num">$0.00<span class="sub"> · rw 0 · hit n/a</span></div></div>
+    <div class="row"><div class="lbl">report</div><div class="stacked"><div class="bar-seg s-in" style="flex:0.4 0 0" title="input · 1×: 4"></div><div class="bar-seg s-out" style="flex:7.083825265643448 0 0" title="output: 120"></div><div class="bar-seg s-cw" style="flex:4.132231404958678 0 0" title="cache write · 1.25×: 70"></div><div class="bar-seg s-cr" style="flex:88.5478158205431 0 0" title="cache read · 0.1×: 1,500"></div></div>
+    <div class="num">$0.00<span class="sub"> · rw 124 · hit 95.3%</span></div></div>
+    <div class="row"><div class="lbl">other</div><div class="track"></div>
+    <div class="num">$0.00<span class="sub"> · rw 0 · hit n/a</span></div></div></section>
+  <section class="panel"><h2>By model</h2>
+  <p class="panel-sub">Per-model token split — what lets a mixed-tier run be re-priced (the dataset's tokens_by_model).</p>
+  <table><tr><th>model</th><th>input</th><th>output</th><th>cache write</th><th>cache read</th><th>total</th></tr>
+  <tr><td>claude-sonnet-5</td><td>59</td><td>2,670</td><td>1,310</td><td>30,500</td><td>34,539</td></tr><tr><td>claude-opus-5</td><td>65</td><td>1,600</td><td>2,800</td><td>36,000</td><td>40,465</td></tr></table></section>
+  <section class="panel"><h2>Per case</h2><p class="panel-sub">Direct spend only; clustered cases are an even split of their shared dispatches. Share = of the batch's 75,244 total tokens.</p>
+  <table><tr><th>case</th><th>cost</th><th>input</th><th>output</th><th>cache write</th><th>cache read</th><th>total</th><th>hit rate</th><th>share</th></tr>
+  <tr><td>PROJ-1</td><td>$0.01</td><td>10</td><td>300</td><td>200</td><td>4,000</td><td>4,510</td><td>95.0%</td><td><div class="share-cell"><div class="share-bar-track"><div class="share-bar-fill" style="width:5.993833395353782%"></div></div><span class="share-bar-label">6.0%</span></div></td></tr><tr><td>PROJ-2</td><td>$0.02</td><td>16</td><td>950</td><td>450</td><td>10,000</td><td>11,416</td><td>95.5%</td><td><div class="share-cell"><div class="share-bar-track"><div class="share-bar-fill" style="width:15.171973845090639%"></div></div><span class="share-bar-label">15.2%</span></div></td></tr><tr><td>PROJ-3</td><td>$0.27</td><td>65</td><td>980</td><td>440</td><td>9,100</td><td>10,585</td><td>94.7%</td><td><div class="share-cell"><div class="share-bar-track"><div class="share-bar-fill" style="width:14.067566849183988%"></div></div><span class="share-bar-label">14.1%</span></div></td></tr></table></section>

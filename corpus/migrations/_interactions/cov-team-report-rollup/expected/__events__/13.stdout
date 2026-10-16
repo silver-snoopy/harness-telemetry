@@ -1,0 +1,51 @@
+{
+  "generated": "2026-10-05T09:13:00.000Z",
+  "manifestRevision": 1,
+  "window": "— → 2026-10-05T09:13:00.000Z",
+  "semantics": "Current state, UTC: the per-delivered ratio counts items whose current (winning, spec 5.2) receipt state is delivered, dated by that state's at, inside [since, until); an item delivered, reopened and delivered again counts once, at its latest delivery, so historical ratios can change when items reopen. Limitation: a session's cumulative ledger line counts wholly in the window of its endedAt; no in-window deltas are claimed. Totals and breakdowns cover the sessions whose endedAt lies in the window; sessions without endedAt are outside every window and counted as undated.",
+  "sessions": 0,
+  "people": 0,
+  "totals": {
+    "sessions": 0,
+    "costUsd": 0,
+    "priced": 0,
+    "tokens": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0
+    },
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0,
+    "unmeasured": {
+      "tokens": 0,
+      "activeMin": 0,
+      "wallMin": 0,
+      "turns": 0,
+      "toolCalls": 0,
+      "toolErrors": 0
+    }
+  },
+  "byCase": {},
+  "byIntent": {},
+  "costSources": {},
+  "tokensOnly": 0,
+  "byPerson": {},
+  "byRole": {},
+  "byDispatchRole": {},
+  "byWeek": {},
+  "byHost": {},
+  "cases": {
+    "examined": 0,
+    "delivered": 0,
+    "unwindowed": 0,
+    "outcomes": {},
+    "reports": 0
+  },
+  "perDelivered": null,
+  "perExamined": null,
+  "index": []
+}

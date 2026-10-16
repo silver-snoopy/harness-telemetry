@@ -1,0 +1,13 @@
+{
+  "batch": "b",
+  "gate": {
+    "verdict": "green"
+  },
+  "cases": [
+    {
+      "id": "TC-2",
+      "outcome": "delivered",
+      "branch": "feat/tc-2"
+    }
+  ]
+}

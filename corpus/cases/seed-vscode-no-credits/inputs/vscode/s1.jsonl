@@ -1,0 +1,2 @@
+{"kind":0,"v":{"customTitle":"Fix PROJ-12","requests":[]}}
+{"k":["requests"],"kind":2,"v":[{"requestId":"r1","promptTokens":1000,"completionTokens":200,"modelId":"copilot/gpt-5","elapsedMs":30000,"timestamp":1790848800000,"message":{"text":"Fix PROJ-12 now"}}]}

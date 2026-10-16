@@ -1,0 +1,2 @@
+{"isSidechain":true,"agentId":"d1","sessionId":"fx","type":"user","timestamp":"2026-10-01T10:31:10.000Z","message":{"role":"user","content":"Implement FX-1"}}
+{"isSidechain":true,"agentId":"d1","sessionId":"fx","type":"assistant","timestamp":"2026-10-01T10:31:40.000Z","message":{"id":"fm_1","model":"claude-sonnet-5","role":"assistant","content":[{"type":"text","text":"working"},{"type":"tool_use","id":"f1","name":"Bash","input":{}}],"usage":{"input_tokens":12,"output_tokens":300,"cache_read_input_tokens":2000,"cache_creation_input_tokens":100}}}

@@ -1,0 +1,15 @@
+{
+  "ledgerLines": 1,
+  "facts": [
+    { "path": "/scope/batch", "equals": "g1" },
+    { "path": "/subagents/0/label", "equals": "implement TC-10" },
+    { "path": "/subagents/1/label", "equals": "review tc-1" }
+  ],
+  "fileFacts": [
+    { "file": ".agents/automation/g1/cost.json", "path": "/cases/0/id", "equals": "TC-1" },
+    { "file": ".agents/automation/g1/cost.json", "path": "/cases/0/direct/dispatches", "equals": 2 },
+    { "file": ".agents/automation/g1/cost.json", "path": "/cases/0/direct/tokens", "equals": 565 },
+    { "file": ".agents/automation/g1/cost.json", "path": "/overhead/stages/dispatches", "equals": 0 },
+    { "file": ".agents/automation/g1/cost.json", "path": "/coverage/casesAttributed", "equals": 1 }
+  ]
+}

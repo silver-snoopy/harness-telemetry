@@ -1,0 +1,2 @@
+{"type":"user","timestamp":"2026-10-01T10:00:00.000Z","message":{"role":"user","content":"live sB"}}
+{"type":"assistant","timestamp":"2026-10-01T10:01:00.000Z","message":{"id":"m-sB","model":"claude-haiku-5-5","role":"assistant","content":[{"type":"text","text":"ok"}],"usage":{"input_tokens":3,"output_tokens":3}}}

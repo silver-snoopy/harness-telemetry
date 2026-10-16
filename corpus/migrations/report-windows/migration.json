@@ -1,0 +1,86 @@
+{
+  "id": "report-windows",
+  "item": 8,
+  "spec": "§14.8 item 8, §5.5",
+  "summary": "The per-delivered ratio follows §5.5: current-state receipts by the §5.2 ordering, [since, until) UTC windows on at and endedAt, unwindowed and partial reported, ratioIntents bound by each line's manifest revision (revisionless lines: the implied legacy manifest; missing archive: unverified; map D1).",
+  "beforeCases": [
+    "cov-team-report-rollup",
+    "before-report-windows",
+    "before-ratio-manifest",
+    "before-ratio-revisions"
+  ],
+  "declared": {
+    "cov-team-report-rollup": {
+      "reason": "Every period report (Markdown, HTML, --json) now windows on endedAt with the default since = earliest endedAt and until = report time (Q10b): lines without endedAt (m2, m3, d5, …) leave every total and are counted as undated beside the ratio; it states the current-state semantics, labels the UTC window, and reads receipts by the 5.2 ordering: the corpus receipts carry no at, so the denominator is 0 with unwindowed n and perDelivered is null.",
+      "changed": [
+        "__events__/0.stdout",
+        "__events__/1.stdout",
+        "__events__/10.stdout",
+        "__events__/11.stdout",
+        "__events__/12.stdout",
+        "__events__/13.stdout",
+        "__events__/14.stdout",
+        "__events__/15.stdout",
+        "__events__/16.stdout",
+        "__events__/17.stdout",
+        "__events__/18.stdout",
+        "__events__/2.stdout",
+        "__events__/3.stdout",
+        "__events__/4.stdout",
+        "__events__/5.stdout",
+        "__events__/6.stdout",
+        "__events__/7.stdout",
+        "__events__/8.stdout",
+        "__events__/9.stdout"
+      ]
+    },
+    "before-report-windows": {
+      "reason": "The spec 5.5 fixture: b1 (starts before since, ends inside) joins the endedAt window, the receipts follow the 5.2 ordering (REO-1 reopened in-progress, CON-1 follows the later revision to delivered), OLD-1 lies before the window and UND-1 is unwindowed: delivered 2, and the ratio is the implied manifest's automation spend $7 / 2 = 3.5 with priced/eligible coverage.",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    },
+    "before-ratio-manifest": {
+      "reason": "The lines are revisionless, so D1 binds them to the implied legacy manifest (automation), never the present module.json (story): the per-delivered ratio is the automation numerator $0.50 over the one delivered item, and only the spec 5.5 fields (semantics, UTC window, unwindowed, priced/eligible) change.",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    },
+    "before-ratio-revisions": {
+      "reason": "Each line is read by its own manifest revision (D1, O4): rv1 binds to manifests/1.json (automation), rv2 to manifests/2.json (story), rv0 to the implied manifest (automation), never module.json revision 3; rv4 names revision 4 without an archive, so it is unverified (spend beside the ratio, finding manifest-archive-missing) and the ratio is $7 / 2.",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    },
+    "cov-reports-ledger": {
+      "reason": "The period reports (events 4-7 and the --out file of event 12) window on endedAt (Q10b), so the session without endedAt (s-nostart) leaves the totals and breakdowns and is counted as undated; they state the current-state semantics and the UTC window; the receipts carry no at, so the delivered items are unwindowed and the per-delivered line is gone.",
+      "changed": [
+        ".agents/telemetry/out.md",
+        "__events__/4.stdout",
+        "__events__/5.stdout",
+        "__events__/6.stdout",
+        "__events__/7.stdout"
+      ]
+    },
+    "cov-team-report-batches": {
+      "reason": "The period reports (events 8-10) window on endedAt with the default since and until (Q10b), state the current-state semantics and the UTC window, and read receipts by the 5.2 ordering: no receipt row carries at, so the delivered items are unwindowed and perDelivered is null.",
+      "changed": [
+        "__events__/10.stdout",
+        "__events__/8.stdout",
+        "__events__/9.stdout"
+      ]
+    },
+    "foreign-settings": {
+      "reason": "Event 4's revisionless lines bind to the implied legacy manifest (D1), where story is not a ratio intent, so the ratio is gone (intended, map D1). Its receipts carry no manifestRevision, so their delivered outcomes come from the settings policy that discovered them: both done items are delivered but carry no at, so they are unwindowed (2), in agreement with the by-group table. Under none the event still reads settings.ratioIntents through B1_DEFAULTS.",
+      "changed": [
+        "__events__/4.stdout"
+      ]
+    },
+    "before-report-unknowns": {
+      "reason": "The period report --json windows on endedAt with the default since = earliest endedAt (Q10b), states the current-state semantics, and reads the receipt by the 5.2 ordering: U-1 carries no at, so it is unwindowed, the denominator is 0 and perDelivered is null.",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    }
+  }
+}

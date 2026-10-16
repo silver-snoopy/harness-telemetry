@@ -1,0 +1,44 @@
+[
+  {
+    "v": 1,
+    "host": "claude",
+    "id": "331f763c-83f2-4b6e-b81b-7515dcb0d7d1",
+    "user": "corpus",
+    "capturedAt": "2026-09-10T17:34:08.000Z",
+    "repo": "repo",
+    "branch": "docs/coach-android-adr-027-evidence-bar",
+    "role": null,
+    "models": [
+      "claude-opus-5"
+    ],
+    "startedAt": "2026-09-05T11:03:22.283Z",
+    "endedAt": "2026-09-06T22:41:18.562Z",
+    "wallMin": 2138,
+    "activeMin": 96,
+    "turns": 129,
+    "toolCalls": 117,
+    "toolErrors": 6,
+    "tokens": {
+      "input": 258,
+      "output": 97616,
+      "cacheRead": 20326423,
+      "cacheWrite": 761943
+    },
+    "tokensByModel": {
+      "claude-opus-5": {
+        "input": 258,
+        "output": 97616,
+        "cacheRead": 20326423,
+        "cacheWrite": 761943
+      }
+    },
+    "costUsd": 20.224331499999998,
+    "costSource": "ccusage-metered",
+    "cases": [
+      "ADR-028"
+    ],
+    "subagents": [],
+    "skills": [],
+    "dispatches": 0
+  }
+]

@@ -1,0 +1,266 @@
+{
+ "v": 1,
+ "manifestRevision": 1,
+ "batch": "bt-sized",
+ "generatedAt": "2026-10-05T09:05:00.000Z",
+ "sources": {
+  "sessions": 1,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "u1"
+  ],
+  "costSources": [
+   "ccusage-metered"
+  ],
+  "models": [
+   "claude-opus-5"
+  ]
+ },
+ "totals": {
+  "costUsd": 5,
+  "tokens": 10080,
+  "tokensSplit": {
+   "input": 480,
+   "output": 1500,
+   "cacheRead": 8000,
+   "cacheWrite": 100
+  },
+  "activeMin": 20,
+  "dispatches": 2,
+  "sessions": 1,
+  "turns": 5,
+  "toolCalls": 11,
+  "toolErrors": 1,
+  "skills": []
+ },
+ "byRole": {
+  "implementer": {
+   "costUsd": 2,
+   "tokens": 3780,
+   "tok": {
+    "input": 180,
+    "output": 600,
+    "cacheRead": 3000,
+    "cacheWrite": 0
+   },
+   "activeMin": 12,
+   "dispatches": 2,
+   "toolCalls": 5,
+   "toolErrors": 0
+  },
+  "session": {
+   "costUsd": 3,
+   "tokens": 6300,
+   "tok": {
+    "input": 300,
+    "output": 900,
+    "cacheRead": 5000,
+    "cacheWrite": 100
+   },
+   "activeMin": 8,
+   "dispatches": 0,
+   "toolCalls": 6,
+   "toolErrors": 1
+  }
+ },
+ "overhead": {
+  "note": "batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows",
+  "costUsd": 3,
+  "sharePct": 60,
+  "lead": {
+   "costUsd": 3,
+   "tokens": 6300,
+   "tok": {
+    "input": 300,
+    "output": 900,
+    "cacheRead": 5000,
+    "cacheWrite": 100
+   },
+   "activeMin": 8,
+   "dispatches": 0,
+   "toolCalls": 6,
+   "toolErrors": 1
+  },
+  "stages": {
+   "costUsd": null,
+   "tokens": 0,
+   "tok": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 0,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "byStage": {}
+ },
+ "outcomes": {
+  "blocked": 1,
+  "delivered": 1
+ },
+ "delivered": 1,
+ "gate": null,
+ "records": {
+  "note": "script-authored gate verdicts (gate-runs.jsonl) + declared session outcomes (work-scope) vs the receipt — drift means report.json needs a write-back, records never overwrite it",
+  "declaredOutcomes": {
+   "SIZED-1": "delivered"
+  },
+  "outcomeDrift": [
+   {
+    "id": "SIZED-1",
+    "receipt": "blocked",
+    "declared": "delivered"
+   }
+  ]
+ },
+ "cases": [
+  {
+   "id": "SIZED-1",
+   "outcome": "blocked",
+   "findings": 0,
+   "direct": {
+    "costUsd": 1.5,
+    "tokens": 2500,
+    "tok": {
+     "input": 100,
+     "output": 400,
+     "cacheRead": 2000,
+     "cacheWrite": 0
+    },
+    "activeMin": 8,
+    "dispatches": 1,
+    "fixRounds": 0,
+    "toolCalls": 3,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": 3,
+    "tokens": 5650,
+    "activeMin": 12
+   },
+   "sizing": {
+    "size": "M",
+    "sp": 3,
+    "estMin": 20,
+    "src": "scores.json",
+    "note": "insufficient M-class history (n=0 < 5) — no deviation verdict"
+   }
+  },
+  {
+   "id": "SIZED-2",
+   "outcome": "delivered",
+   "findings": 0,
+   "direct": {
+    "costUsd": 0.5,
+    "tokens": 1280,
+    "tok": {
+     "input": 80,
+     "output": 200,
+     "cacheRead": 1000,
+     "cacheWrite": 0
+    },
+    "activeMin": 4,
+    "dispatches": 1,
+    "fixRounds": 0,
+    "toolCalls": 2,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": 2,
+    "tokens": 4430,
+    "activeMin": 8
+   },
+   "sizing": {
+    "size": "S",
+    "sp": null,
+    "estMin": null,
+    "src": "scores.json",
+    "note": "insufficient S-class history (n=0 < 5) — no deviation verdict"
+   }
+  }
+ ],
+ "sizing": {
+  "note": "pre-run predicted size (automation-scoping) joined to actuals. Deviations are tokens/time vs the size-class CROSS-BATCH history — analysis pointers, never per-case dollar verdicts (scoping doctrine: per-case $ rank-correlates ~zero with actuals; only batch totals are quotable). Flags feed Mode 4 calibration.",
+  "sized": 2,
+  "bySize": {
+   "M": {
+    "cases": 1,
+    "sp": 3,
+    "estMin": 20,
+    "actualMin": 8,
+    "actualTok": 500
+   },
+   "S": {
+    "cases": 1,
+    "sp": 0,
+    "estMin": 0,
+    "actualMin": 4,
+    "actualTok": 280
+   }
+  },
+  "estVsActualMin": {
+   "est": 20,
+   "actual": 12,
+   "ratio": 0.6
+  },
+  "flagged": []
+ },
+ "stats": {
+  "note": "direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": {
+   "avg": 1,
+   "median": 1,
+   "min": 0.5,
+   "max": 1.5,
+   "n": 2
+  },
+  "directTokens": {
+   "avg": 1890,
+   "median": 1890,
+   "min": 1280,
+   "max": 2500,
+   "n": 2
+  },
+  "directActiveMin": {
+   "avg": 6,
+   "median": 6,
+   "min": 4,
+   "max": 8,
+   "n": 2
+  },
+  "loadedCostUsd": {
+   "avg": 2.5,
+   "median": 2.5,
+   "min": 2,
+   "max": 3,
+   "n": 2
+  },
+  "loadedActiveMin": {
+   "avg": 10,
+   "median": 10,
+   "min": 8,
+   "max": 12,
+   "n": 2
+  }
+ },
+ "averages": {
+  "totalPerDelivered": {
+   "costUsd": 5,
+   "note": "whole batch incl. overhead ÷ delivered (delivered/defect-found; legacy automated/merged-sanctioned-red)"
+  },
+  "directPerCase": {
+   "costUsd": 1,
+   "note": "avg direct spend of an attributed case — excludes batch overhead"
+  }
+ },
+ "coverage": {
+  "casesAttributed": 2,
+  "casesUnattributed": [],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

@@ -1,0 +1,17 @@
+{
+  "v": 1,
+  "session": "pending-mupd2d6o-smkm",
+  "intent": "automation",
+  "cases": [
+    "X-2"
+  ],
+  "declaredAt": "2026-10-01T10:32:00.000Z",
+  "outcomes": {
+    "X-2": {
+      "outcome": "delivered",
+      "at": "2026-10-01T10:32:00.000Z"
+    }
+  },
+  "updatedAt": "2026-10-01T10:33:00.000Z",
+  "closedAt": "2026-10-01T10:33:00.000Z"
+}

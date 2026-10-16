@@ -1,0 +1,28 @@
+{
+  "v": 1,
+  "session": "cd1",
+  "intent": "automation",
+  "batch": "cov-d",
+  "cases": [
+    "PROJ-1",
+    "PROJ-2",
+    "PROJ-3",
+    "PROJ-9"
+  ],
+  "declaredAt": "2026-10-01T09:55:00.000Z",
+  "updatedAt": "2026-10-01T09:56:00.000Z",
+  "outcomes": {
+    "PROJ-1": {
+      "outcome": "delivered",
+      "at": "2026-10-01T09:56:00.000Z"
+    },
+    "PROJ-2": {
+      "outcome": "blocked",
+      "at": "2026-10-01T09:56:00.000Z"
+    },
+    "PROJ-9": {
+      "outcome": "delivered",
+      "at": "2026-10-01T09:56:00.000Z"
+    }
+  }
+}

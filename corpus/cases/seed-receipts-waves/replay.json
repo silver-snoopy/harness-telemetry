@@ -1,0 +1,6 @@
+{ "id": "seed-receipts-waves", "seed": 1,
+  "identity": { "gitUser": "corpus", "gitEmail": "corpus@example.invalid" },
+  "repo": { "path": "repo", "branch": "feat/384-seed", "files": {".agents/automation/camp/wave-01/report.json":"{\n  \"batch\": \"wave-01\",\n  \"gate\": {\n    \"verdict\": \"green\"\n  },\n  \"cases\": [\n    {\n      \"id\": \"TC-11\",\n      \"outcome\": \"delivered\",\n      \"branch\": \"feat/TC-11\"\n    },\n    {\n      \"id\": \"TC-12\",\n      \"outcome\": \"delivered\",\n      \"branch\": \"feat/TC-12\"\n    }\n  ]\n}\n",".agents/automation/camp/wave-02/report.json":"{\n  \"batch\": \"wave-02\",\n  \"gate\": {\n    \"verdict\": \"green\"\n  },\n  \"cases\": [\n    {\n      \"id\": \"TC-21\",\n      \"outcome\": \"delivered\",\n      \"branch\": \"feat/TC-21\"\n    }\n  ]\n}\n"} },
+  "stores": [],
+  "events": [{"at":"2026-10-01T11:00:00Z","run":"scripts/team-report.mjs","args":["--batches","--json"],"stdin":null,"env":{"TOKENOMICS_NO_CCUSAGE":"1"},"captureStdout":true}],
+  "outputs": [".agents/telemetry",".agents/automation"] }

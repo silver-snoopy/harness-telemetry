@@ -1,0 +1,1 @@
+{"batch":"gb-edge","integration_branch":"feat/zq-int","gate":{"verdict":"green"},"cases":[{"id":"G-1","outcome":"delivered"},{"outcome":"blocked"}]}

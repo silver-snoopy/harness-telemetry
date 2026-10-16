@@ -1,0 +1,2 @@
+{"type":"user","timestamp":"2026-10-01T10:03:00.000Z","sessionId":"ids","gitBranch":"feat/384-seed","cwd":"{repo}","message":{"role":"user","content":"review tc-1"},"isSidechain":true}
+{"type":"assistant","timestamp":"2026-10-01T10:04:00.000Z","sessionId":"ids","gitBranch":"feat/384-seed","cwd":"{repo}","message":{"id":"msg_ids_subrev","model":"claude-haiku-5-5","role":"assistant","content":[{"type":"text","text":"ok"}],"usage":{"input_tokens":5,"output_tokens":30,"cache_read_input_tokens":100,"cache_creation_input_tokens":20}},"isSidechain":true}

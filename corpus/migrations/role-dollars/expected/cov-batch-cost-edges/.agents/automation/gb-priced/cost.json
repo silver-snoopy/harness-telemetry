@@ -1,0 +1,217 @@
+{
+ "v": 1,
+ "batch": "gb-priced",
+ "generatedAt": "2026-10-05T09:00:00.000Z",
+ "sources": {
+  "sessions": 2,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "dana",
+   "live"
+  ],
+  "costSources": [],
+  "models": [],
+  "liveSessions": 1,
+  "liveNote": "PROVISIONAL — a session is still running: its finished dispatches are counted, its own lead thread is not yet measured, so these totals are a floor. Re-run once it ends."
+ },
+ "totals": {
+  "costUsd": 0.5,
+  "tokens": 195,
+  "tokensSplit": {
+   "input": 25,
+   "output": 170,
+   "cacheRead": 0,
+   "cacheWrite": 0
+  },
+  "activeMin": 30,
+  "dispatches": 2,
+  "sessions": 2,
+  "turns": 0,
+  "toolCalls": 0,
+  "toolErrors": 0,
+  "skills": []
+ },
+ "byRole": {
+  "implementer": {
+   "costUsd": null,
+   "tokens": 110,
+   "tok": {
+    "input": 10,
+    "output": 100,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 0,
+   "dispatches": 1,
+   "toolCalls": 0,
+   "toolErrors": 0,
+   "priced": 0,
+   "unpriced": 0
+  },
+  "session": {
+   "costUsd": null,
+   "tokens": 30,
+   "tok": {
+    "input": 10,
+    "output": 20,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 26,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0,
+   "priced": 0,
+   "unpriced": 2
+  },
+  "unknown": {
+   "costUsd": null,
+   "tokens": 55,
+   "tok": {
+    "input": 5,
+    "output": 50,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 4,
+   "dispatches": 1,
+   "toolCalls": 0,
+   "toolErrors": 0,
+   "priced": 0,
+   "unpriced": 0
+  }
+ },
+ "byDispatchRole": {
+  "implementer": {
+   "units": 1,
+   "costUsd": null,
+   "priced": 0
+  },
+  "unknown": {
+   "units": 1,
+   "costUsd": 0.5,
+   "priced": 1
+  }
+ },
+ "overhead": {
+  "note": "batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows",
+  "costUsd": null,
+  "sharePct": null,
+  "lead": {
+   "costUsd": null,
+   "tokens": 30,
+   "tok": {
+    "input": 10,
+    "output": 20,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 26,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "stages": {
+   "costUsd": null,
+   "tokens": 0,
+   "tok": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 0,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "byStage": {}
+ },
+ "outcomes": {
+  "delivered": 1
+ },
+ "delivered": 1,
+ "gate": null,
+ "cases": [
+  {
+   "id": "P-1",
+   "outcome": "delivered",
+   "findings": 0,
+   "direct": {
+    "costUsd": 0.5,
+    "tokens": 165,
+    "tok": {
+     "input": 15,
+     "output": 150,
+     "cacheRead": 0,
+     "cacheWrite": 0
+    },
+    "activeMin": 4,
+    "dispatches": 2,
+    "fixRounds": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": 0.5,
+    "tokens": 195,
+    "activeMin": 30
+   }
+  }
+ ],
+ "stats": {
+  "note": "direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": {
+   "avg": 0.5,
+   "median": 0.5,
+   "min": 0.5,
+   "max": 0.5,
+   "n": 1
+  },
+  "directTokens": {
+   "avg": 165,
+   "median": 165,
+   "min": 165,
+   "max": 165,
+   "n": 1
+  },
+  "directActiveMin": {
+   "avg": 4,
+   "median": 4,
+   "min": 4,
+   "max": 4,
+   "n": 1
+  },
+  "loadedCostUsd": {
+   "avg": 0.5,
+   "median": 0.5,
+   "min": 0.5,
+   "max": 0.5,
+   "n": 1
+  },
+  "loadedActiveMin": {
+   "avg": 30,
+   "median": 30,
+   "min": 30,
+   "max": 30,
+   "n": 1
+  }
+ },
+ "averages": {
+  "totalPerDelivered": {
+   "costUsd": 0.5,
+   "note": "whole batch incl. overhead ÷ delivered (delivered/defect-found; legacy automated/merged-sanctioned-red)"
+  },
+  "directPerCase": {
+   "costUsd": 0.5,
+   "note": "avg direct spend of an attributed case — excludes batch overhead"
+  }
+ },
+ "coverage": {
+  "casesAttributed": 1,
+  "casesUnattributed": [],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

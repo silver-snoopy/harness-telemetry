@@ -1,0 +1,13 @@
+{
+  "case": "cov-capture-vscode-edges",
+  "migrations": [
+    "null-unobservable",
+    "writer",
+    "capture-robustness"
+  ],
+  "reason": "null-unobservable writes toolCalls and skills null on every VS Code line in both ledgers, and null minutes on the timestamp-less session g (re-appended each sweep, the known Task 19 defect); writer stamps every appended line with writer tokenomics-engine@0.0.0-replay and manifestRevision 1 right after v (map D4). The ledger carries both: the stamped lines with the null fields. capture-robustness also captures session z once and stops re-appending the timestamp-less session g.",
+  "changed": [
+    ".agents/telemetry/automation/usage-corpus.jsonl",
+    "alt/.agents/telemetry/automation/usage-corpus.jsonl"
+  ]
+}

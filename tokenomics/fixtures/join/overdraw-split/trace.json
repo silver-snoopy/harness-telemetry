@@ -1,0 +1,8 @@
+{
+  "rollups": [],
+  "allocations": [
+    { "source": "claude:A", "group": "g1", "quantity": "costUsd", "amount": 7.5 },
+    { "source": "claude:A", "group": "g2", "quantity": "costUsd", "amount": 7.5 },
+    { "source": "claude:B", "group": "g1", "quantity": "costUsd", "amount": 0 }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "work_item_ref": "T-b4",
+  "work_item_level": "feature",
+  "work_item_brief": "Test-automation batch: 1 TMS case(s) through analyse → implement → review → merge → gate; 1 delivered.",
+  "maturity": "production",
+  "size_tshirt": null,
+  "effort_days": null,
+  "sessions": 0,
+  "turns": 0,
+  "subagent_dispatches": 0,
+  "orchestrator_cost_pct": 100,
+  "tokens": {
+    "input": 0,
+    "output": 0,
+    "cache_read": 0,
+    "cache_create": 0
+  },
+  "primary_model": null,
+  "models_used": [],
+  "cost_api_equivalent_usd": null,
+  "cache_read_share_pct": null,
+  "scenarios_authored": 1,
+  "scenarios_automated": 1,
+  "scenarios_executed": 1,
+  "env_setup": "single-fixture",
+  "self_size": "XXL",
+  "story_points": 1.5e+308,
+  "notes": "gate not-run; outcomes: delivered 1. Telemetry cohort: reconstructed from .agents/automation/b4/cost.json (v1); batch slug 'b4'. effort_days derived from scoping SP (1.5e+308 SP × 1h ÷ 8) — conventional-effort estimate, not a human report. cache_read_share_pct computed from the token quad at public list ratios (in 1x / out 5x / write 1.25x / read 0.1x). scenarios_executed = cases the pipeline analysed live and gated (live execution evidence + N-consecutive gate runs; re-runs not multiplied)."
+}

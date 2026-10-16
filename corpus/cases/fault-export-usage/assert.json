@@ -1,0 +1,26 @@
+{
+  "exits": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "textFacts": [
+    {
+      "file": "__events__/0.stderr",
+      "equals": "compare: could not parse the two cost.json files\n"
+    },
+    {
+      "file": "__events__/1.stderr",
+      "equals": "export: no factory profile at <REPO>/bare/.agents/telemetry/automation/factory-profile.json — identity fields will be null (copy the skill's templates/factory-profile.template.json there; seeding Step 6.7 does this)\nexport: no accumulated runs at <REPO>/bare/.agents/telemetry/automation/export/runs.json — close a batch first (or run --batch <slug>)\n"
+    },
+    {
+      "file": "__events__/2.stderr",
+      "includes": "usage: build-tokenomics-export.mjs [repo] --batch <slug>"
+    },
+    {
+      "file": "__events__/3.stderr",
+      "equals": "export: no factory profile at <REPO>/broken-profile.json — identity fields will be null (copy the skill's templates/factory-profile.template.json there; seeding Step 6.7 does this)\nexport: no receipt for batch 'nope' under <REPO>/.agents/automation\n"
+    }
+  ]
+}

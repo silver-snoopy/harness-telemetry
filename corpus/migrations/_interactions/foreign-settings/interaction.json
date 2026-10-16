@@ -1,0 +1,32 @@
+{
+  "case": "foreign-settings",
+  "migrations": [
+    "null-unobservable",
+    "active-minutes",
+    "report-windows",
+    "reports-location",
+    "report-conflicts",
+    "role-dollars",
+    "report-revision"
+  ],
+  "reason": "active-minutes allocates minutes at session grain (per-item, stage and dispatch-role activeMin null, sources.activeMinGrain noted, loaded = group time / items); null-unobservable adds the per-bucket unmeasured counts to every cost.json bucket. Together the foreign-settings files carry the session-grain minutes beside all-zero activeMin counts: a not-allocated minute is not unmeasured, so no count is added. report-windows (item 8) rewrites the same period-report streams: the endedAt window, the semantics statement and the spec 5.5 ratio fields, so the cumulative bytes carry all three. reports-location (item 10, Q13) then relocates these files: the receipt-tree copies are removed and the same bytes appear under .agents/telemetry/stories/reports/<group>/ (the relocation is removed at the old path, changed at the new one, so the old path's owners null-unobservable and active-minutes are named alongside it), and the close stderr line names the new path. report-conflicts (item 22, review round 1 I3) reads the deduplicated lines in host:id order on the same period-report streams, so the cumulative bytes also carry its key-ordered rows; no figure changes. role-dollars (item 23, O3) then makes by-role dollars inclusive on the same cost.json files, their batch and tokenomics renders and the batch-cost / --batch / --batches streams: a priced session's parent role carries what the group charges for it (dispatch dollars included, so over priced sessions Σ byRole.costUsd = totals.costUsd), an unpriced session's parent role stays null and counts in its unpriced (byRole {priced, unpriced} session counts; 0/0 = a dispatch-only role, not allocated at this grain), dispatch roles carry no by-role dollars, and a separate byDispatchRole {units, costUsd, priced} breakdown (present, possibly empty) holds the measured per-dispatch dollars; the renders add the inclusive note and the dispatch-dollar table, so the cumulative bytes carry it too. report-revision (item 24, O6) then records the current manifest revision (1: the implied manifest) on the same reports: manifestRevision right after v in every cost.json, the period --json's manifestRevision after generated, the 'manifest revision 1' footer on the batch, tokenomics, period and live renders and in submission.md, and manifestRevision after schema_version in the export runs.json; it adds a field and a footer line and moves no figure, so the cumulative bytes carry its provenance beside every other owner's change.",
+  "changed": [
+    ".agents/telemetry/stories/reports/sp1/batch-report.html",
+    ".agents/telemetry/stories/reports/sp1/batch-report.md",
+    ".agents/telemetry/stories/reports/sp1/batch-tokenomics.html",
+    ".agents/telemetry/stories/reports/sp1/batch-tokenomics.md",
+    ".agents/telemetry/stories/reports/sp1/cost.json",
+    ".agents/telemetry/stories/reports/sp2/cost.json",
+    "__events__/4.stdout",
+    "__events__/5.stdout",
+    "__events__/6.stdout"
+  ],
+  "removed": [
+    ".agents/stories/sp1/batch-report.html",
+    ".agents/stories/sp1/batch-report.md",
+    ".agents/stories/sp1/batch-tokenomics.html",
+    ".agents/stories/sp1/batch-tokenomics.md",
+    ".agents/stories/sp1/cost.json",
+    ".agents/stories/sp2/cost.json"
+  ]
+}

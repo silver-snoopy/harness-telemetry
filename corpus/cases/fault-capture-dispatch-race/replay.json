@@ -1,0 +1,67 @@
+{
+ "id": "fault-capture-dispatch-race",
+ "seed": 1,
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/384-seed",
+  "files": {
+   "claude": "const fs=require('fs'),p=require('path');const w=(d)=>{for(const e of fs.readdirSync(d,{withFileTypes:true})){const f=p.join(d,e.name);if(e.isDirectory())w(f);else if(f.includes(p.sep+'subagents'+p.sep)&&f.endsWith('.jsonl'))fs.rmSync(f);}};w(p.join(process.env.HOME,'.claude','projects'));process.stdout.write('{\"sessions\":[]}');\n"
+  }
+ },
+ "stores": [
+  {
+   "from": "inputs/claude/d1.jsonl",
+   "to": "home/.claude/projects/{repoKey}/d1.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d1/x/agent-n1.meta.json",
+   "to": "home/.claude/projects/{repoKey}/d1/subagents/x/agent-n1.meta.json",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d1/x/agent-n1.jsonl",
+   "to": "home/.claude/projects/{repoKey}/d1/subagents/x/agent-n1.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d1/y/agent-n1.meta.json",
+   "to": "home/.claude/projects/{repoKey}/d1/subagents/y/agent-n1.meta.json",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d1/y/agent-n1.jsonl",
+   "to": "home/.claude/projects/{repoKey}/d1/subagents/y/agent-n1.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  }
+ ],
+ "outputs": [
+  ".agents/telemetry",
+  ".agents/automation"
+ ],
+ "events": [
+  {
+   "stdin": {
+    "session_id": "d1"
+   },
+   "env": {
+    "TOKENOMICS_CCUSAGE_BIN": "node"
+   },
+   "at": "2026-10-01T10:31:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--dispatch"
+   ],
+   "captureStderr": true
+  }
+ ]
+}

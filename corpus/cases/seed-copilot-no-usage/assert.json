@@ -1,0 +1,21 @@
+{
+  "ledgerLines": 1,
+  "facts": [
+    {
+      "path": "/tokens/input",
+      "equals": 0
+    },
+    {
+      "path": "/costUsd",
+      "equals": null
+    },
+    {
+      "path": "/costSource",
+      "equals": "none"
+    },
+    {
+      "path": "/subagents/0/tokens/input",
+      "equals": 500
+    }
+  ]
+}

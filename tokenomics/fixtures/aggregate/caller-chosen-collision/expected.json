@@ -1,0 +1,33 @@
+{
+  "verified": {
+    "sessions": 0,
+    "costUsd": 0,
+    "tokens": {
+      "input": 0,
+      "output": 0,
+      "cacheRead": 0,
+      "cacheWrite": 0
+    }
+  },
+  "unverified": {
+    "sessions": 1,
+    "costUsd": 20,
+    "tokens": {
+      "input": 10,
+      "output": 20,
+      "cacheRead": 300,
+      "cacheWrite": 40
+    }
+  },
+  "coverage": {
+    "sessions": 1,
+    "unpriced": 0,
+    "unmeasured": 0,
+    "conflicts": 0,
+    "identityUnverified": 1,
+    "excluded": 0,
+    "unrecognized": 0,
+    "undated": 0,
+    "possibleCollisions": 1
+  }
+}

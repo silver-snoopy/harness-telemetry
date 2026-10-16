@@ -1,0 +1,27 @@
+{
+  "rollups": [],
+  "allocations": [
+    {"source": "claude:sh", "group": "camp/a", "quantity": "costUsd", "amount": 0.2, "grain": "dispatch", "dispatch": "d1"},
+    {"source": "claude:sh", "group": "camp/a", "quantity": "tokens.input", "amount": 5, "grain": "dispatch", "dispatch": "d1"},
+    {"source": "claude:sh", "group": "camp/a", "quantity": "tokens.output", "amount": 30, "grain": "dispatch", "dispatch": "d1"},
+    {"source": "claude:sh", "group": "camp/a", "quantity": "tokens.cacheRead", "amount": 150, "grain": "dispatch", "dispatch": "d1"},
+    {"source": "claude:sh", "group": "camp/a", "quantity": "tokens.cacheWrite", "amount": 20, "grain": "dispatch", "dispatch": "d1"},
+    {"source": "claude:sh", "group": "camp/a", "quantity": "costUsd", "amount": 0.3, "grain": "session"},
+    {"source": "claude:sh", "group": "camp/a", "quantity": "tokens.input", "amount": 5, "grain": "session"},
+    {"source": "claude:sh", "group": "camp/a", "quantity": "tokens.output", "amount": 10, "grain": "session"},
+    {"source": "claude:sh", "group": "camp/a", "quantity": "tokens.cacheRead", "amount": 150, "grain": "session"},
+    {"source": "claude:sh", "group": "camp/a", "quantity": "tokens.cacheWrite", "amount": 20, "grain": "session"},
+    {"source": "claude:sh", "group": "camp/a", "quantity": "activeMin", "amount": 7, "grain": "session"},
+    {"source": "claude:sh", "group": "camp/b", "quantity": "costUsd", "amount": 0.2, "grain": "dispatch", "dispatch": "d1"},
+    {"source": "claude:sh", "group": "camp/b", "quantity": "tokens.input", "amount": 5, "grain": "dispatch", "dispatch": "d1"},
+    {"source": "claude:sh", "group": "camp/b", "quantity": "tokens.output", "amount": 30, "grain": "dispatch", "dispatch": "d1"},
+    {"source": "claude:sh", "group": "camp/b", "quantity": "tokens.cacheRead", "amount": 150, "grain": "dispatch", "dispatch": "d1"},
+    {"source": "claude:sh", "group": "camp/b", "quantity": "tokens.cacheWrite", "amount": 20, "grain": "dispatch", "dispatch": "d1"},
+    {"source": "claude:sh", "group": "camp/b", "quantity": "costUsd", "amount": 0.3, "grain": "session"},
+    {"source": "claude:sh", "group": "camp/b", "quantity": "tokens.input", "amount": 5, "grain": "session"},
+    {"source": "claude:sh", "group": "camp/b", "quantity": "tokens.output", "amount": 10, "grain": "session"},
+    {"source": "claude:sh", "group": "camp/b", "quantity": "tokens.cacheRead", "amount": 150, "grain": "session"},
+    {"source": "claude:sh", "group": "camp/b", "quantity": "tokens.cacheWrite", "amount": 20, "grain": "session"},
+    {"source": "claude:sh", "group": "camp/b", "quantity": "activeMin", "amount": 7, "grain": "session"}
+  ]
+}

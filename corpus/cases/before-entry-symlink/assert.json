@@ -1,0 +1,7 @@
+{
+  "ledgerLines": 0,
+  "exits": [0],
+  "textFacts": [
+    { "file": "__sandbox__/changes.txt", "equals": "[\"A\",\"links/telemetry-capture.mjs\",\"l:<IMPL>/hooks/telemetry-capture.mjs\"]\n" }
+  ]
+}

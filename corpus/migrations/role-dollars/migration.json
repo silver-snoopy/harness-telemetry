@@ -1,0 +1,214 @@
+{
+  "id": "role-dollars",
+  "item": 23,
+  "spec": "§3.2.1, §14.8 (owner Q1a slot 23)",
+  "summary": "The join's byRole dollars are inclusive by role per §3.2.1: the parent role is no longer session minus the dispatch total, and dispatch-role dollars are a separate breakdown instead of being mixed into the same map (map R21, O3).",
+  "beforeCases": [
+    "cov-dispatch-batch"
+  ],
+  "declared": {
+    "before-dispatch-two-groups": {
+      "reason": "Both groups' cost.json gain byDispatchRole.implementer {units 1, costUsd null, priced 0}: the shared dispatch is unpriced, so it is counted, never shown as $0; byRole keeps no dispatch dollars. The batch-report md/html of camp/a and camp/b add the inclusive by-role note and the 'Dispatch dollars by role' table ('— (1 unpriced)'). Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/camp/a/batch-report.html",
+        ".agents/automation/camp/a/batch-report.md",
+        ".agents/automation/camp/a/batch-tokenomics.html",
+        ".agents/automation/camp/a/batch-tokenomics.md",
+        ".agents/automation/camp/a/cost.json",
+        ".agents/automation/camp/b/batch-report.html",
+        ".agents/automation/camp/b/batch-report.md",
+        ".agents/automation/camp/b/batch-tokenomics.html",
+        ".agents/automation/camp/b/batch-tokenomics.md",
+        ".agents/automation/camp/b/cost.json"
+      ]
+    },
+    "before-export-anon-batch": {
+      "reason": "The batch's cost.json gains an empty byDispatchRole: {} (role-dollars writes the separate per-dispatch-role dollar breakdown into every cost.json, present even when no dispatch is included); its byRole dollars do not move because no included dispatch is priced. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/b1/cost.json"
+      ]
+    },
+    "before-ids-substring": {
+      "reason": "g1's cost.json gains byDispatchRole {implementer, reviewer} each {units 1, costUsd null, priced 0} (unpriced dispatches counted, never $0); the batch-report md/html add the inclusive by-role note and the 'Dispatch dollars by role' table with '— (1 unpriced)' rows. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/g1/batch-report.html",
+        ".agents/automation/g1/batch-report.md",
+        ".agents/automation/g1/batch-tokenomics.html",
+        ".agents/automation/g1/batch-tokenomics.md",
+        ".agents/automation/g1/cost.json"
+      ]
+    },
+    "before-report-unknowns": {
+      "reason": "Event 1's batch-cost --stdout JSON (group bu) gains an empty byDispatchRole: {} (role-dollars writes the separate per-dispatch-role dollar breakdown into every cost.json, present even when no dispatch is included); its byRole dollars do not move because no included dispatch is priced; the period --json of event 0 carries no dollars by role and is unchanged. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        "__events__/1.stdout"
+      ]
+    },
+    "cov-batch-cost-edges": {
+      "reason": "Every group's cost.json (and event 1's batch-cost --stdout) gains byDispatchRole and the byRole {priced, unpriced} session counts. gb-priced's session line is unpriced but its 'unknown' dispatch is $0.50: that $0.50 leaves byRole.unknown and appears only in byDispatchRole.unknown; the parent role session stays null and counts its 2 unpriced sessions (unpriced: 2; review round 1, I1); the unpriced implementer dispatch reads {costUsd null, priced 0}, never $0; dispatch-free groups get an empty {}. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/gb-edge/cost.json",
+        ".agents/automation/gb-empty/cost.json",
+        ".agents/automation/gb-priced/cost.json",
+        ".agents/automation/gb-sized/cost.json",
+        "__events__/1.stdout"
+      ]
+    },
+    "cov-copilot-dispatch": {
+      "reason": "The live report page renders the cost.json's byDispatchRole: the by-role panel gains the inclusive note and a 'Dispatch dollars by role' panel lists ghost, implementer, reviewer and unknown as '— (n unpriced)' — Copilot prices the session once, so no dispatch carries dollars and none reads $0. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/telemetry/automation/reports/camp-wave-01.html"
+      ]
+    },
+    "cov-dispatch-batch": {
+      "reason": "cov-d's byRole dollars become inclusive (O3, R21): the parent role session carries the line's $0.35 instead of $0.05 (0.35 minus its dispatches), dispatch roles carry no by-role dollars (implementer $0.28, analyst $0.01 and the $0 roles become null), and byDispatchRole holds the measured per-dispatch dollars for all seven roles; the batch-report and batch-tokenomics md/html and the live report page follow. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/cov-d/batch-report.html",
+        ".agents/automation/cov-d/batch-report.md",
+        ".agents/automation/cov-d/batch-tokenomics.html",
+        ".agents/automation/cov-d/batch-tokenomics.md",
+        ".agents/automation/cov-d/cost.json",
+        ".agents/telemetry/automation/reports/cov-d.html"
+      ]
+    },
+    "cov-export-cli": {
+      "reason": "Each of b1-b4's cost.json gains an empty byDispatchRole: {} (role-dollars writes the separate per-dispatch-role dollar breakdown into every cost.json, present even when no dispatch is included); its byRole dollars do not move because no included dispatch is priced; the export rows read neither field and do not change. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/b1/cost.json",
+        ".agents/automation/b2/cost.json",
+        ".agents/automation/b3/cost.json",
+        ".agents/automation/b4/cost.json"
+      ]
+    },
+    "cov-export-submission-edges": {
+      "reason": "s1's cost.json gains an empty byDispatchRole: {} (role-dollars writes the separate per-dispatch-role dollar breakdown into every cost.json, present even when no dispatch is included); its byRole dollars do not move because no included dispatch is priced; the export and submission outputs read neither field and do not change. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/s1/cost.json"
+      ]
+    },
+    "cov-reports-ledger": {
+      "reason": "Dispatch dollars leave byRole and the parent roles become inclusive: wave-01 lead $0.85 -> $1.85, wave-02 session $0.60 -> $1.90, solo lead $0.85 -> $1.15 and session $0 -> $1.65 (Σ byRole = totals $2.80); byDispatchRole carries the measured analyst/helper/implementer/reviewer/triage dollars, unpriced dispatches as {costUsd null, priced 0} (tokonly's tester, wave-02's reviewer). The batch renders, event 0's batch-cost --stdout and the --batches views of events 8-11 follow; the period reports are unchanged. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/camp/wave-01/batch-report.html",
+        ".agents/automation/camp/wave-01/batch-report.md",
+        ".agents/automation/camp/wave-01/batch-tokenomics.html",
+        ".agents/automation/camp/wave-01/batch-tokenomics.md",
+        ".agents/automation/camp/wave-01/cost.json",
+        ".agents/automation/camp/wave-02/cost.json",
+        ".agents/automation/solo/batch-report.html",
+        ".agents/automation/solo/batch-report.md",
+        ".agents/automation/solo/batch-tokenomics.html",
+        ".agents/automation/solo/batch-tokenomics.md",
+        ".agents/automation/solo/cost.json",
+        ".agents/automation/tokonly/cost.json",
+        "__events__/0.stdout",
+        "__events__/10.stdout",
+        "__events__/11.stdout",
+        "__events__/8.stdout",
+        "__events__/9.stdout"
+      ]
+    },
+    "cov-team-report-batches": {
+      "reason": "bt-gate's parent role session carries the session-inclusive $10 (was $5.80) and bt-sized's $5 (was $3), with implementer/reviewer/triage dispatch dollars moved to byDispatchRole; the unpriced groups list {costUsd null, priced 0} and bt-empty an empty {}. The --batches md/html/tokenomics views (events 0-3), the --batch --json (event 4) and sized.md follow; the period streams are unchanged. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/bt-empty/cost.json",
+        ".agents/automation/bt-gate/cost.json",
+        ".agents/automation/bt-neg/cost.json",
+        ".agents/automation/bt-ovf/cost.json",
+        ".agents/automation/bt-quiet/cost.json",
+        ".agents/automation/bt-sized/cost.json",
+        ".agents/telemetry/sized.md",
+        "__events__/0.stdout",
+        "__events__/1.stdout",
+        "__events__/2.stdout",
+        "__events__/3.stdout",
+        "__events__/4.stdout"
+      ]
+    },
+    "cov-work-scope-close-faults": {
+      "reason": "The close-written cost.json of c1/w, c2/w and fb1-fb3 gains an empty byDispatchRole: {} (role-dollars writes the separate per-dispatch-role dollar breakdown into every cost.json, present even when no dispatch is included); its byRole dollars do not move because no included dispatch is priced. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/c1/w/cost.json",
+        ".agents/automation/c2/w/cost.json",
+        ".agents/automation/fb1/cost.json",
+        ".agents/automation/fb2/cost.json",
+        ".agents/automation/fb3/cost.json"
+      ]
+    },
+    "fault-batch-cost-empty-repo": {
+      "reason": "gb-nr's cost.json and the event-1 batch-cost --stdout gains an empty byDispatchRole: {} (role-dollars writes the separate per-dispatch-role dollar breakdown into every cost.json, present even when no dispatch is included); its byRole dollars do not move because no included dispatch is priced. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/gb-nr/cost.json",
+        "__events__/1.stdout"
+      ]
+    },
+    "fault-batch-cost-sizing-locked": {
+      "reason": "sz's cost.json gains an empty byDispatchRole: {} (role-dollars writes the separate per-dispatch-role dollar breakdown into every cost.json, present even when no dispatch is included); its byRole dollars do not move because no included dispatch is priced; its batch-report md/html add the inclusive by-role note (the dispatch table is omitted for an empty breakdown). Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/sz/batch-report.html",
+        ".agents/automation/sz/batch-report.md",
+        ".agents/automation/sz/batch-tokenomics.html",
+        ".agents/automation/sz/batch-tokenomics.md",
+        ".agents/automation/sz/cost.json"
+      ]
+    },
+    "fault-batch-cost-unreadable": {
+      "reason": "gb-live's cost.json gains an empty byDispatchRole: {} (role-dollars writes the separate per-dispatch-role dollar breakdown into every cost.json, present even when no dispatch is included); its byRole dollars do not move because no included dispatch is priced. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/gb-live/cost.json"
+      ]
+    },
+    "fault-gate-fold-symlink": {
+      "reason": "fs1's cost.json gains an empty byDispatchRole: {} (role-dollars writes the separate per-dispatch-role dollar breakdown into every cost.json, present even when no dispatch is included); its byRole dollars do not move because no included dispatch is priced. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/fs1/cost.json"
+      ]
+    },
+    "foreign-null-extension": {
+      "reason": "fb's cost.json gains byDispatchRole.implementer {units 1, costUsd null, priced 0} (an unpriced dispatch counted, never $0) and the batch-report md/html add the inclusive by-role note and the 'Dispatch dollars by role' table, with no extension loaded. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/fb/batch-report.html",
+        ".agents/automation/fb/batch-report.md",
+        ".agents/automation/fb/batch-tokenomics.html",
+        ".agents/automation/fb/batch-tokenomics.md",
+        ".agents/automation/fb/cost.json"
+      ]
+    },
+    "foreign-settings": {
+      "reason": "One session serves sp1 and sp2 (div 2), so each story's parent role 'session' is charged what that story charges for it, dispatches included: sp1 $0.50 -> $1.05, sp2 $0.50 -> $0.95 (Σ byRole = totals; together the session's $2.00 once). byDispatchRole carries the measured dispatch dollars: implementer $0.50 / $0.40 and the neutral helper dispatch at its even 1/2 share ($0.05, 0.5 of 0.5 priced). The --batches md/html (events 5-6) and the batch renders follow. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/stories/sp1/batch-report.html",
+        ".agents/stories/sp1/batch-report.md",
+        ".agents/stories/sp1/batch-tokenomics.html",
+        ".agents/stories/sp1/batch-tokenomics.md",
+        ".agents/stories/sp1/cost.json",
+        ".agents/stories/sp2/cost.json",
+        "__events__/5.stdout",
+        "__events__/6.stdout"
+      ]
+    },
+    "seed-receipts-shared-id": {
+      "reason": "grp-a and grp-b each gain byDispatchRole.implementer {units 1, costUsd null, priced 0}: the shared-id dispatch is unpriced, so byRole.implementer stays null and nothing reads $0; the batch-report md/html add the inclusive by-role note and the 'Dispatch dollars by role' table ('— (1 unpriced)'). Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/camp/grp-a/batch-report.html",
+        ".agents/automation/camp/grp-a/batch-report.md",
+        ".agents/automation/camp/grp-a/batch-tokenomics.html",
+        ".agents/automation/camp/grp-a/batch-tokenomics.md",
+        ".agents/automation/camp/grp-a/cost.json",
+        ".agents/automation/camp/grp-b/batch-report.html",
+        ".agents/automation/camp/grp-b/batch-report.md",
+        ".agents/automation/camp/grp-b/batch-tokenomics.html",
+        ".agents/automation/camp/grp-b/batch-tokenomics.md",
+        ".agents/automation/camp/grp-b/cost.json"
+      ]
+    },
+    "seed-receipts-waves": {
+      "reason": "wave-01 and wave-02's cost.json and the --batches --json stream (event 0) gains an empty byDispatchRole: {} (role-dollars writes the separate per-dispatch-role dollar breakdown into every cost.json, present even when no dispatch is included); its byRole dollars do not move because no included dispatch is priced. Every byRole bucket also gains the parent-session counts priced/unpriced (0/0 for a dispatch-only role: not allocated at this grain), and the renders tell the two apart ('—' versus '— (n unpriced)'; review round 1, I2).",
+      "changed": [
+        ".agents/automation/camp/wave-01/cost.json",
+        ".agents/automation/camp/wave-02/cost.json",
+        "__events__/0.stdout"
+      ]
+    }
+  }
+}

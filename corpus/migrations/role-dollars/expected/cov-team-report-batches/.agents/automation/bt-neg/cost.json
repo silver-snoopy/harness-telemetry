@@ -1,0 +1,177 @@
+{
+ "v": 1,
+ "batch": "bt-neg",
+ "generatedAt": "2026-10-05T09:03:00.000Z",
+ "sources": {
+  "sessions": 1,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "u1"
+  ],
+  "costSources": [],
+  "models": [
+   "claude-opus-5"
+  ]
+ },
+ "totals": {
+  "costUsd": null,
+  "tokens": 0,
+  "tokensSplit": {
+   "input": 0,
+   "output": 0,
+   "cacheRead": 0,
+   "cacheWrite": 0
+  },
+  "activeMin": 30,
+  "dispatches": 1,
+  "sessions": 1,
+  "turns": 5,
+  "toolCalls": 8,
+  "toolErrors": 1,
+  "skills": []
+ },
+ "byRole": {
+  "implementer": {
+   "costUsd": null,
+   "tokens": 1000,
+   "tok": {
+    "input": 1000,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 5,
+   "dispatches": 1,
+   "toolCalls": 2,
+   "toolErrors": 0,
+   "priced": 0,
+   "unpriced": 0
+  },
+  "session": {
+   "costUsd": null,
+   "tokens": -1000,
+   "tok": {
+    "input": -1000,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 25,
+   "dispatches": 0,
+   "toolCalls": 6,
+   "toolErrors": 1,
+   "priced": 0,
+   "unpriced": 1
+  }
+ },
+ "byDispatchRole": {
+  "implementer": {
+   "units": 1,
+   "costUsd": null,
+   "priced": 0
+  }
+ },
+ "overhead": {
+  "note": "batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows",
+  "costUsd": null,
+  "sharePct": null,
+  "lead": {
+   "costUsd": null,
+   "tokens": -1000,
+   "tok": {
+    "input": -1000,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 25,
+   "dispatches": 0,
+   "toolCalls": 6,
+   "toolErrors": 1
+  },
+  "stages": {
+   "costUsd": null,
+   "tokens": 0,
+   "tok": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 0,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "byStage": {}
+ },
+ "outcomes": {
+  "delivered": 1
+ },
+ "delivered": 1,
+ "gate": null,
+ "cases": [
+  {
+   "id": "NEG-1",
+   "outcome": "delivered",
+   "findings": 0,
+   "direct": {
+    "costUsd": null,
+    "tokens": 1000,
+    "tok": {
+     "input": 1000,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0
+    },
+    "activeMin": 5,
+    "dispatches": 1,
+    "fixRounds": 0,
+    "toolCalls": 2,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": null,
+    "tokens": 0,
+    "activeMin": 30
+   }
+  }
+ ],
+ "stats": {
+  "note": "direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": null,
+  "directTokens": {
+   "avg": 1000,
+   "median": 1000,
+   "min": 1000,
+   "max": 1000,
+   "n": 1
+  },
+  "directActiveMin": {
+   "avg": 5,
+   "median": 5,
+   "min": 5,
+   "max": 5,
+   "n": 1
+  },
+  "loadedCostUsd": null,
+  "loadedActiveMin": {
+   "avg": 30,
+   "median": 30,
+   "min": 30,
+   "max": 30,
+   "n": 1
+  }
+ },
+ "averages": {
+  "totalPerDelivered": null,
+  "directPerCase": null
+ },
+ "coverage": {
+  "casesAttributed": 1,
+  "casesUnattributed": [],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

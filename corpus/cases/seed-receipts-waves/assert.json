@@ -1,0 +1,20 @@
+{
+  "ledgerLines": 0,
+  "fileFacts": [
+    {
+      "file": "__events__/0.stdout",
+      "path": "/0/batch",
+      "equals": "camp/wave-01"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/1/batch",
+      "equals": "camp/wave-02"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/0/cases/1/id",
+      "equals": "TC-12"
+    }
+  ]
+}

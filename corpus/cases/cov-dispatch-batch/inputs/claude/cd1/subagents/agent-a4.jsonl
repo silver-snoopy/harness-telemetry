@@ -1,0 +1,2 @@
+{"isSidechain":true,"agentId":"a4","sessionId":"cd1","type":"user","timestamp":"2026-10-01T10:22:00.000Z","message":{"role":"user","content":"Common preamble. Hardening gate for batch cov-d: run every spec"}}
+{"isSidechain":true,"agentId":"a4","sessionId":"cd1","type":"assistant","timestamp":"2026-10-01T10:25:00.000Z","message":{"id":"sm_9","model":"claude-sonnet-5","role":"assistant","content":[{"type":"text","text":"working"},{"type":"tool_use","id":"s9","name":"Bash","input":{}}]}}

@@ -1,0 +1,14 @@
+{
+  "sessions": [
+    {
+      "sessionId": "agent-a2",
+      "projectPath": "f0",
+      "inputTokens": 20,
+      "outputTokens": 1500,
+      "cacheReadTokens": 14000,
+      "cacheCreationTokens": 700,
+      "totalCost": 0.029385,
+      "totalTokens": 16220
+    }
+  ]
+}

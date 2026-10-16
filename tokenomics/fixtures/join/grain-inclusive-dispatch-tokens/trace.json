@@ -1,0 +1,6 @@
+{
+  "rollups": [],
+  "allocations": [
+    { "source": "claude:A", "group": "g1", "quantity": "tokens.input", "amount": 20, "grain": "dispatch", "dispatch": "d1" }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "textFacts": [
+    {
+      "file": "__events__/0.stderr",
+      "equals": "export: appended row 'PROJ-77' in <REPO>/.agents/telemetry/automation/export/runs.json\n  ✓ §7 checklist clean\n"
+    },
+    {
+      "file": "__events__/1.stderr",
+      "equals": "export: replaced row 'PROJ-77' in <REPO>/.agents/telemetry/automation/export/runs.json\n  ✓ §7 checklist clean\n"
+    },
+    {
+      "file": "__events__/2.stderr",
+      "equals": "export: submission folder at <REPO>/.agents/telemetry/automation/export/datasets/fx-qa-01 (1 row(s))\n"
+    },
+    {
+      "file": ".agents/telemetry/automation/export/datasets/fx-qa-01/submission.md",
+      "includes": "All rows pass the self-validation checklist."
+    },
+    {
+      "file": ".agents/telemetry/automation/export/datasets/fx-qa-01/submission.md",
+      "includes": "| **Pipeline** | analyse → implement → review |"
+    }
+  ],
+  "fileFacts": [
+    {
+      "file": "__events__/0.stdout",
+      "path": "/work_item_ref",
+      "equals": "PROJ-77"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/size_tshirt",
+      "equals": "M"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/effort_days",
+      "equals": 1.6
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/self_size",
+      "equals": "L"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/env_setup",
+      "equals": "single-fixture"
+    },
+    {
+      "file": ".agents/telemetry/automation/export/runs.json",
+      "path": "/segment/factory_domain",
+      "equals": "payments"
+    },
+    {
+      "file": ".agents/telemetry/automation/export/runs.json",
+      "path": "/segment/submitted_by",
+      "equals": "corpus-team"
+    },
+    {
+      "file": ".agents/telemetry/automation/export/runs.json",
+      "path": "/segment/submitted_date",
+      "equals": "2026-10-05"
+    },
+    {
+      "file": ".agents/telemetry/automation/export/runs.json",
+      "path": "/runs/0/work_item_ref",
+      "equals": "PROJ-77"
+    },
+    {
+      "file": ".agents/telemetry/automation/export/runs.json",
+      "path": "/runs/1/size_tshirt",
+      "equals": "L"
+    },
+    {
+      "file": ".agents/telemetry/automation/export/runs.json",
+      "path": "/runs/2/size_tshirt",
+      "equals": "XL"
+    },
+    {
+      "file": ".agents/telemetry/automation/export/runs.json",
+      "path": "/runs/4",
+      "absent": true
+    },
+    {
+      "file": "__events__/5.stdout",
+      "path": "/self_size",
+      "equals": "XXL"
+    },
+    {
+      "file": "__events__/5.stdout",
+      "path": "/size_tshirt",
+      "equals": null
+    },
+    {
+      "file": "__events__/5.stdout",
+      "path": "/scenario_complexity",
+      "absent": true
+    }
+  ]
+}

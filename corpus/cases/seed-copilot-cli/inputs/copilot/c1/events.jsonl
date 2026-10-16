@@ -1,0 +1,6 @@
+{"type":"session.start","timestamp":"2026-10-01T10:00:00.000Z","data":{"context":{"cwd":"{repo}","branch":"feat/384-seed"}}}
+{"type":"user.message","timestamp":"2026-10-01T10:00:30.000Z","data":{"text":"Work on PROJ-12"}}
+{"type":"subagent.started","timestamp":"2026-10-01T10:01:00.000Z","data":{"toolCallId":"tc1","agentName":"implementer","agentDescription":"implement PROJ-12 change"}}
+{"type":"subagent.completed","timestamp":"2026-10-01T10:02:00.000Z","data":{"toolCallId":"tc1","agentName":"implementer","totalTokens":500,"durationMs":60000,"totalToolCalls":2}}
+{"type":"assistant.message","timestamp":"2026-10-01T10:05:00.000Z","data":{"content":"done"}}
+{"type":"session.shutdown","timestamp":"2026-10-01T10:10:00.000Z","data":{"totalNanoAiu":2000000000,"modelMetrics":{"gpt-5":{"usage":{"inputTokens":1500,"outputTokens":200,"cacheReadTokens":0,"cacheWriteTokens":0}}}}}

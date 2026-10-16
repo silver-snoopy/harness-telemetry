@@ -1,0 +1,49 @@
+{
+  "window": {
+    "since": "2026-10-01T10:00:00Z",
+    "until": "2026-10-01T11:00:00Z"
+  },
+  "verified": {
+    "sessions": 1,
+    "costUsd": 1,
+    "tokens": {
+      "input": 10,
+      "output": 20,
+      "cacheRead": 300,
+      "cacheWrite": 40
+    }
+  },
+  "unverified": {
+    "sessions": 1,
+    "costUsd": 5,
+    "tokens": {
+      "input": 10,
+      "output": 20,
+      "cacheRead": 300,
+      "cacheWrite": 40
+    }
+  },
+  "coverage": {
+    "sessions": 2,
+    "unpriced": 0,
+    "unmeasured": 0,
+    "conflicts": 1,
+    "identityUnverified": 0,
+    "excluded": 0,
+    "unrecognized": 0,
+    "undated": 0,
+    "possibleCollisions": 0
+  },
+  "ownership": [
+    {
+      "key": "claude:33333333-3333-4333-8333-333333333333",
+      "repos": [
+        "x",
+        "y"
+      ],
+      "users": [
+        "corpus"
+      ]
+    }
+  ]
+}

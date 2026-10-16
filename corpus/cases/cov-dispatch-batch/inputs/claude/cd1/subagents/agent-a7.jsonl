@@ -1,0 +1,2 @@
+{"isSidechain":true,"agentId":"a7","sessionId":"cd1","type":"user","timestamp":"2026-10-01T10:31:00.000Z","message":{"role":"user","content":"Write report"}}
+{"isSidechain":true,"agentId":"a7","sessionId":"cd1","type":"assistant","timestamp":"2026-10-01T10:33:00.000Z","message":{"id":"sm_12","model":"claude-sonnet-5","role":"assistant","content":[{"type":"text","text":"working"},{"type":"tool_use","id":"s12","name":"Bash","input":{}}],"usage":{"input_tokens":4,"output_tokens":120,"cache_read_input_tokens":1500,"cache_creation_input_tokens":70}}}

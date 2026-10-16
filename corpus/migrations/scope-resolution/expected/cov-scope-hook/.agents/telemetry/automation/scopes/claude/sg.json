@@ -1,0 +1,11 @@
+{
+  "v": 1,
+  "session": "sg",
+  "intent": "automation",
+  "batch": "gb",
+  "cases": [
+    "A-1"
+  ],
+  "declaredAt": "2026-10-01T09:05:00.000Z",
+  "updatedAt": "2026-10-01T09:05:00.000Z"
+}

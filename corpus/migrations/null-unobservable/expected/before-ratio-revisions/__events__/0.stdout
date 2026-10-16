@@ -1,0 +1,378 @@
+{
+  "generated": "2026-10-08T09:00:00.000Z",
+  "window": "2026-10-01 → 2026-10-07",
+  "sessions": 4,
+  "people": 1,
+  "totals": {
+    "sessions": 4,
+    "costUsd": 15,
+    "priced": 4,
+    "tokens": {
+      "input": 400,
+      "output": 800,
+      "cacheRead": 4000,
+      "cacheWrite": 400
+    },
+    "activeMin": 120,
+    "wallMin": 120,
+    "turns": 16,
+    "toolCalls": 8,
+    "toolErrors": 0,
+    "unmeasured": {
+      "tokens": 0,
+      "activeMin": 0,
+      "wallMin": 0,
+      "turns": 0,
+      "toolCalls": 0,
+      "toolErrors": 0
+    }
+  },
+  "byCase": {},
+  "byIntent": {
+    "automation": {
+      "sessions": 3,
+      "costUsd": 13,
+      "priced": 3,
+      "tokens": {
+        "input": 300,
+        "output": 600,
+        "cacheRead": 3000,
+        "cacheWrite": 300
+      },
+      "activeMin": 90,
+      "wallMin": 90,
+      "turns": 12,
+      "toolCalls": 6,
+      "toolErrors": 0,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    },
+    "story": {
+      "sessions": 1,
+      "costUsd": 2,
+      "priced": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 1000,
+        "cacheWrite": 100
+      },
+      "activeMin": 30,
+      "wallMin": 30,
+      "turns": 4,
+      "toolCalls": 2,
+      "toolErrors": 0,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "costSources": {
+    "ccusage-metered": 4
+  },
+  "tokensOnly": 0,
+  "byPerson": {
+    "alice": {
+      "sessions": 4,
+      "costUsd": 15,
+      "priced": 4,
+      "tokens": {
+        "input": 400,
+        "output": 800,
+        "cacheRead": 4000,
+        "cacheWrite": 400
+      },
+      "activeMin": 120,
+      "wallMin": 120,
+      "turns": 16,
+      "toolCalls": 8,
+      "toolErrors": 0,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "byRole": {
+    "(interactive session)": {
+      "units": 4,
+      "tokens": {
+        "input": 400,
+        "output": 800,
+        "cacheRead": 4000,
+        "cacheWrite": 400
+      },
+      "activeMin": 120,
+      "toolCalls": 8,
+      "toolErrors": 0,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "byWeek": {
+    "2026-W40": {
+      "sessions": 3,
+      "costUsd": 7,
+      "priced": 3,
+      "tokens": {
+        "input": 300,
+        "output": 600,
+        "cacheRead": 3000,
+        "cacheWrite": 300
+      },
+      "activeMin": 90,
+      "wallMin": 90,
+      "turns": 12,
+      "toolCalls": 6,
+      "toolErrors": 0,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    },
+    "2026-W41": {
+      "sessions": 1,
+      "costUsd": 8,
+      "priced": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 1000,
+        "cacheWrite": 100
+      },
+      "activeMin": 30,
+      "wallMin": 30,
+      "turns": 4,
+      "toolCalls": 2,
+      "toolErrors": 0,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "byHost": {
+    "claude": {
+      "sessions": 4,
+      "costUsd": 15,
+      "priced": 4,
+      "tokens": {
+        "input": 400,
+        "output": 800,
+        "cacheRead": 4000,
+        "cacheWrite": 400
+      },
+      "activeMin": 120,
+      "wallMin": 120,
+      "turns": 16,
+      "toolCalls": 8,
+      "toolErrors": 0,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "cases": {
+    "examined": 2,
+    "delivered": 2,
+    "outcomes": {
+      "delivered": 2
+    },
+    "reports": 1
+  },
+  "perDelivered": {
+    "costUsd": 7.5,
+    "activeMin": 60,
+    "automationOnlyCostUsd": 6.5
+  },
+  "perExamined": {
+    "costUsd": 7.5
+  },
+  "index": [
+    {
+      "host": "claude",
+      "id": "rv1",
+      "user": "alice",
+      "role": null,
+      "startedAt": "2026-10-02T10:00:00.000Z",
+      "costUsd": 1,
+      "cases": []
+    },
+    {
+      "host": "claude",
+      "id": "rv2",
+      "user": "alice",
+      "role": null,
+      "startedAt": "2026-10-03T10:00:00.000Z",
+      "costUsd": 2,
+      "cases": []
+    },
+    {
+      "host": "claude",
+      "id": "rv0",
+      "user": "alice",
+      "role": null,
+      "startedAt": "2026-10-04T10:00:00.000Z",
+      "costUsd": 4,
+      "cases": []
+    },
+    {
+      "host": "claude",
+      "id": "rv4",
+      "user": "alice",
+      "role": null,
+      "startedAt": "2026-10-05T10:00:00.000Z",
+      "costUsd": 8,
+      "cases": []
+    }
+  ],
+  "byBatch": [
+    {
+      "batch": "rr",
+      "cases": 2,
+      "delivered": 2,
+      "costUsd": null,
+      "activeMin": 0,
+      "perDelivered": null,
+      "gate": null,
+      "drift": false,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  ],
+  "perCase": [
+    {
+      "batch": "rr",
+      "id": "RR-1",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": null,
+        "tokens": 0,
+        "tok": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": 0,
+        "dispatches": 0,
+        "fixRounds": 0,
+        "toolCalls": 0,
+        "toolErrors": 0,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 0,
+        "activeMin": 0,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      }
+    },
+    {
+      "batch": "rr",
+      "id": "RR-2",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": null,
+        "tokens": 0,
+        "tok": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": 0,
+        "dispatches": 0,
+        "fixRounds": 0,
+        "toolCalls": 0,
+        "toolErrors": 0,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 0,
+        "activeMin": 0,
+        "unmeasured": {
+          "tokens": 0,
+          "activeMin": 0,
+          "wallMin": 0,
+          "turns": 0,
+          "toolCalls": 0,
+          "toolErrors": 0
+        }
+      }
+    }
+  ],
+  "perCaseStats": {
+    "note": "over DELIVERED cases; loaded = direct + even batch-overhead share (allocation)",
+    "loadedCostUsd": null,
+    "loadedActiveMin": {
+      "avg": 0,
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 2
+    }
+  }
+}

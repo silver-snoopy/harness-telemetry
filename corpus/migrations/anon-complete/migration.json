@@ -1,0 +1,17 @@
+{
+  "id": "anon-complete",
+  "item": 5,
+  "spec": "§14.8 item 5, §10.4",
+  "summary": "Anonymisation removes every supplied identifier, collected across all rows and the submission, from every output string (§10.4).",
+  "beforeCases": [
+    "before-export-anon-batch"
+  ],
+  "declared": {
+    "before-export-anon-batch": {
+      "reason": "The anonymised row's notes named the receipt path .agents/automation/b1/cost.json; the group slug b1, a supplied identifier, now reads anonymised as a path segment, in notes only.",
+      "changed": [
+        ".agents/telemetry/automation/export/datasets/fx-qa-01/runs.json"
+      ]
+    }
+  }
+}

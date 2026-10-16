@@ -1,0 +1,114 @@
+{
+ "id": "cov-capture-claude-sweep",
+ "seed": 1,
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/384-seed",
+  "files": {
+   ".agents/telemetry/automation/config.json": "{\n  \"maxSweep\": 1,\n  \"otel\": {\n    \"enabled\": true,\n    \"endpoint\": \"not a url\"\n  }\n}\n",
+   ".agents/telemetry/automation/usage-legacy.jsonl": "{\"v\":1,\"host\":\"claude\",\"endedAt\":\"2099-01-01T00:00:00Z\"}\n",
+   "alt/.agents/telemetry/automation/config.json": "7\n"
+  }
+ },
+ "stores": [
+  {
+   "from": "inputs/claude/g1.jsonl",
+   "to": "home/.claude/projects/{repoKey}/g1.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/g2.jsonl",
+   "to": "home/.claude/projects/{repoKey}/g2.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/glive.jsonl",
+   "to": "home/.claude/projects/{repoKey}/glive.jsonl",
+   "mtime": "2026-10-01T10:59:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/undefined.jsonl",
+   "to": "home/.claude/projects/{repoKey}/undefined.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/r1.jsonl",
+   "to": "roots/croot/r1.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/a1.jsonl",
+   "to": "home/.claude/projects/{repoKey}-alt/a1.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  }
+ ],
+ "outputs": [
+  ".agents/telemetry/automation/usage-corpus.jsonl",
+  "alt/.agents/telemetry/automation/usage-corpus.jsonl"
+ ],
+ "events": [
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "CLAUDE_PROJECT_DIR": null,
+    "TOKENOMICS_NO_SINK": "0"
+   },
+   "at": "2026-10-01T11:00:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T11:00:30Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "TOKENOMICS_CLAUDE_ROOT": "../roots/croot"
+   },
+   "at": "2026-10-01T11:01:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T11:02:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--cwd",
+    "{repo}/alt"
+   ]
+  }
+ ]
+}

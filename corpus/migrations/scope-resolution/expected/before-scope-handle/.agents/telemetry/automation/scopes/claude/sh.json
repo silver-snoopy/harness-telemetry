@@ -1,0 +1,24 @@
+{
+  "v": 1,
+  "session": "sh",
+  "intent": "automation",
+  "batch": "hb",
+  "cases": [
+    "X-1",
+    "X-2"
+  ],
+  "declaredAt": "2026-10-01T09:58:00.000Z",
+  "updatedAt": "2026-10-01T10:33:00.000Z",
+  "outcomes": {
+    "X-1": {
+      "outcome": "delivered",
+      "at": "2026-10-01T09:59:00.000Z"
+    },
+    "X-2": {
+      "outcome": "delivered",
+      "at": "2026-10-01T10:32:00.000Z"
+    }
+  },
+  "claimedFrom": "pending-mupd2d6o-smkm",
+  "closedAt": "2026-10-01T10:33:00.000Z"
+}

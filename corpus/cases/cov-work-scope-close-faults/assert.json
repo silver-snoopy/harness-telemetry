@@ -1,0 +1,49 @@
+{
+  "ledgerLines": 0,
+  "fileFacts": [
+    {
+      "file": ".agents/automation/fb1/cost.json",
+      "path": "/records/gateDrift/recorded",
+      "equals": "green"
+    },
+    {
+      "file": ".agents/automation/fb1/cost.json",
+      "path": "/records/gateDrift/receipt",
+      "equals": null
+    },
+    {
+      "file": ".agents/automation/fb2/cost.json",
+      "path": "/batch",
+      "equals": "fb2"
+    },
+    {
+      "file": ".agents/automation/fb3/cost.json",
+      "path": "/batch",
+      "equals": "fb3"
+    },
+    {
+      "file": ".agents/automation/c1/w/cost.json",
+      "path": "/batch",
+      "equals": "c1/w"
+    },
+    {
+      "file": ".agents/automation/c2/w/cost.json",
+      "path": "/batch",
+      "equals": "c2/w"
+    }
+  ],
+  "textFacts": [
+    {
+      "file": ".agents/automation/c1/w/batch-report.md",
+      "includes": "c1/w"
+    },
+    {
+      "file": ".agents/automation/c2/w/batch-report.md",
+      "includes": "c2/w"
+    },
+    {
+      "file": ".agents/automation/c2/w/batch-tokenomics.html",
+      "includes": "<"
+    }
+  ]
+}

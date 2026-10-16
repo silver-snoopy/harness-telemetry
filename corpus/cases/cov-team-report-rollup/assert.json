@@ -1,0 +1,238 @@
+{
+  "textFacts": [
+    {
+      "file": "__events__/0.stdout",
+      "includes": "# Tokenomics — team usage report — Sept"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "includes": "window: 2026-09-01 → 2026-09-30"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "includes": "- Sessions: 5 (claude 5)"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "includes": "⚠️ 4 session(s) tokens-only"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "includes": "automation $4.00 (1)  ·  undeclared n/a (3)  ·  docs n/a (1)"
+    },
+    {
+      "file": "__events__/1.stdout",
+      "includes": "<h1>Tokenomics — team usage report</h1>"
+    },
+    {
+      "file": "__events__/1.stdout",
+      "includes": "<tr><td>unknown</td><td>n/a</td><td>1</td><td>3</td>"
+    },
+    {
+      "file": "__events__/1.stdout",
+      "includes": "<tr><td>unknown</td><td>$1.00</td><td>2</td>"
+    },
+    {
+      "file": "__events__/1.stdout",
+      "includes": "<tr><td>unknown</td><td>1</td><td>0</td><td>0.1h</td>"
+    },
+    {
+      "file": "__events__/4.stdout",
+      "includes": "- Per delivered case: n/a  ·  "
+    },
+    {
+      "file": "__events__/4.stdout",
+      "includes": "  ·  per case examined: n/a"
+    },
+    {
+      "file": "__events__/4.stdout",
+      "includes": "automation n/a (1)"
+    },
+    {
+      "file": "__events__/4.stdout",
+      "includes": "- Delivered-case loaded cost: n/a"
+    },
+    {
+      "file": "__events__/4.stdout",
+      "includes": "- Delivered-case loaded time: avg "
+    },
+    {
+      "file": "__events__/5.stdout",
+      "includes": "<tr><td>T-1</td><td>tk</td><td>delivered</td><td>n/a</td><td>n/a</td>"
+    },
+    {
+      "file": "__events__/5.stdout",
+      "includes": "<span class=\"chip\">delivered 1</span><span class=\"chip\">automated 1</span>"
+    },
+    {
+      "file": "__events__/6.stdout",
+      "includes": "| nb | 2 | 0 | $3.00 | n/a | "
+    },
+    {
+      "file": "__events__/6.stdout",
+      "includes": "| ⚠️ |"
+    },
+    {
+      "file": "__events__/7.stdout",
+      "includes": "<td>nb</td><td>2</td><td>0</td><td>$3.00</td><td>n/a</td>"
+    },
+    {
+      "file": "__events__/7.stdout",
+      "includes": "<td>⚠️</td>"
+    },
+    {
+      "file": "__events__/8.stdout",
+      "includes": "- Sessions: 0 ()  ·  people: 0"
+    },
+    {
+      "file": "__events__/8.stdout",
+      "includes": "Examined: 0 unique case(s) across 1 report(s)"
+    },
+    {
+      "file": "__events__/8.stdout",
+      "includes": "Cost (real figures only): n/a from 0 priced session(s)\n"
+    },
+    {
+      "file": "__events__/9.stdout",
+      "includes": "<span class=\"stat-label\">Batches</span><span class=\"stat-value\">0</span>"
+    },
+    {
+      "file": "__events__/9.stdout",
+      "includes": "<span class=\"stat-label\">Hosts</span><span class=\"stat-value\">—</span>"
+    },
+    {
+      "file": "__events__/10.stdout",
+      "includes": "cache hit rate: n/a"
+    },
+    {
+      "file": "__events__/10.stdout",
+      "includes": "0 tool calls (0 err)"
+    },
+    {
+      "file": "__events__/11.stdout",
+      "includes": "<span class=\"stat-label\">Tool calls</span><span class=\"stat-value\">0 <span class=\"stat-sub\">(0 err)</span></span>"
+    }
+  ],
+  "fileFacts": [
+    {
+      "file": "__events__/2.stdout",
+      "path": "/sessions",
+      "equals": 1
+    },
+    {
+      "file": "__events__/2.stdout",
+      "path": "/cases/roleFiltered",
+      "equals": true
+    },
+    {
+      "file": "__events__/2.stdout",
+      "path": "/perDelivered",
+      "equals": null
+    },
+    {
+      "file": "__events__/3.stdout",
+      "path": "/sessions",
+      "equals": 5
+    },
+    {
+      "file": "__events__/3.stdout",
+      "path": "/totals/costUsd",
+      "equals": 31
+    },
+    {
+      "file": "__events__/12.stdout",
+      "path": "/sessions",
+      "equals": 1
+    },
+    {
+      "file": "__events__/12.stdout",
+      "path": "/totals/costUsd",
+      "equals": 9
+    },
+    {
+      "file": "__events__/13.stdout",
+      "path": "/sessions",
+      "equals": 0
+    },
+    {
+      "file": "__events__/14.stdout",
+      "path": "/sessions",
+      "equals": 1
+    },
+    {
+      "file": "__events__/14.stdout",
+      "path": "/cases/reports",
+      "equals": 1
+    },
+    {
+      "file": "__events__/14.stdout",
+      "path": "/byBatch",
+      "absent": true
+    },
+    {
+      "file": "__events__/14.stdout",
+      "path": "/perCase",
+      "absent": true
+    },
+    {
+      "file": "__events__/14.stdout",
+      "path": "/perCaseStats",
+      "absent": true
+    },
+    {
+      "file": "__events__/15.stdout",
+      "path": "/cases/reports",
+      "equals": 0
+    },
+    {
+      "file": "__events__/15.stdout",
+      "path": "/sessions",
+      "equals": 8
+    },
+    {
+      "file": "__events__/16.stdout",
+      "path": "/cases/reports",
+      "equals": 1
+    },
+    {
+      "file": "__events__/16.stdout",
+      "path": "/cases/examined",
+      "equals": 2
+    },
+    {
+      "file": "__events__/16.stdout",
+      "path": "/cases/outcomes/not-started",
+      "equals": 1
+    },
+    {
+      "file": "__events__/16.stdout",
+      "path": "/cases/outcomes/delivered",
+      "equals": 1
+    },
+    {
+      "file": "__events__/17.stdout",
+      "path": "/cases/reports",
+      "equals": 0
+    },
+    {
+      "file": "__events__/17.stdout",
+      "path": "/sessions",
+      "equals": 8
+    },
+    {
+      "file": "__events__/18.stdout",
+      "path": "/perCaseStats/loadedCostUsd",
+      "equals": null
+    },
+    {
+      "file": "__events__/18.stdout",
+      "path": "/perCaseStats/loadedActiveMin",
+      "equals": null
+    },
+    {
+      "file": "__events__/18.stdout",
+      "path": "/byBatch/0/drift",
+      "equals": true
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+# Batch cost — bt-empty
+
+Generated: 2026-10-05T09:00:00.000Z  ·  sessions: 0 (none)  ·  sources: tokens only  ·  models: —
+
+## What happened
+
+- Cases: 0  ·  **delivered: 0**
+- Findings reported: 0  ·  fix rounds: 0
+
+## What it cost
+
+- Total: n/a  ·  0.0h active (cases 0m · lead 0m · stages 0m)  ·  0 dispatches
+- Tokens: total 0  ·  **real work 0** (in 0 / out 0)  ·  cache 0 read / 0 write  ·  **cache hit rate n/a**  ·  see batch-tokenomics for the full breakdown
+- Activity: 0 turns  ·  0 tool calls (0 err)
+- Overhead (lead + triage + gate + report, shown once): n/a
+
+## Per case (direct = measured; loaded = direct + even overhead share, an allocation)
+
+| case | outcome | direct cost | loaded | real-work tok | active | loaded act. | dispatches | tools (err) | fix rounds | findings |
+|---|---|---|---|---|---|---|---|---|---|---|
+
+_Cases analysed/built as one cluster share its measured dispatches — their rows are an even split, not per-case measurement (fractional `dispatches` marks them)._
+
+manifest revision 1
+
+---
+
+# Batch cost — bt-gate
+
+Generated: 2026-10-05T09:00:00.000Z  ·  sessions: 1 (claude)  ·  sources: ccusage-metered  ·  models: claude-opus-5
+
+## What happened
+
+- Cases: 2  ·  **delivered: 2**  ·  delivered 1  ·  defect-found 1
+- Gate: green (3 runs)
+- Gate record (script-authored): red at ? (1 run record(s))
+- ⚠️ **GATE DRIFT**: receipt says `green` but the recorded verdict is `red` — write the verdict back into report.json
+- Findings reported: 0  ·  fix rounds: 1
+
+## What it cost
+
+- Total: $10.00  ·  1.0h active (cases 17m · lead 41m · stages 2m)  ·  4 dispatches
+- Tokens: total 2,849,700  ·  **real work 6,700** (in 1,300 / out 5,400)  ·  cache 2.8M read / 0 write  ·  **cache hit rate 100.0%**  ·  see batch-tokenomics for the full breakdown
+- Activity: 5 turns  ·  31 tool calls (2 err, 94% ok)
+- Overhead (lead + triage + gate + report, shown once): $6.30 (63%)
+  - by stage: lead $5.80 · triage $0.50 (2m)
+- Rework (fix rounds — already inside per-case direct): $1.00  ·  1 dispatch(es)  ·  4m
+- **Per delivered case (incl. overhead): $5.00**
+- Avg direct per case (excl. overhead): $1.85
+- Direct cost spread: avg $1.85 · median $1.85 · min $0.70 · max $3.00
+- Loaded cost spread (direct + even overhead share): avg $5.00 · median $5.00 · min $3.85 · max $6.15
+- Active-time spread: avg 9m · median 9m · min 3m · max 14m  ·  loaded: avg 31m · median 31m · min 25m · max 36m
+
+## Per case (direct = measured; loaded = direct + even overhead share, an allocation)
+
+| case | outcome | direct cost | loaded | real-work tok | active | loaded act. | dispatches | tools (err) | fix rounds | findings |
+|---|---|---|---|---|---|---|---|---|---|---|
+| GATE-1 | delivered | $3.00 | $6.15 | 1,450 (in 250 / out 1k) | 14m | 36m | 2 | 8 (0) | 1 | 0 |
+| GATE-2 | defect-found | $0.70 | $3.85 | 150 (in 30 / out 120) | 3m | 25m | 1 | 2 (0) | 0 | 0 |
+
+_Cases analysed/built as one cluster share its measured dispatches — their rows are an even split, not per-case measurement (fractional `dispatches` marks them)._
+
+## By role
+
+| role | cost | dispatches | real-work tok | cache hit | active | tools (err) |
+|---|---|---|---|---|---|---|
+| session | $5.80 | 0 | 5,000 (in 1k / out 4k) | 100.0% | 41m | 20 (2) |
+| implementer | $3.00 | 2 | 1,450 (in 250 / out 1k) | 99.9% | 14m | 8 (0) |
+| reviewer | $0.70 | 1 | 150 (in 30 / out 120) | 98.5% | 3m | 2 (0) |
+| triage | $0.50 | 1 | 100 (in 20 / out 80) | 98.0% | 2m | 1 (0) |
+
+manifest revision 1
+
+---
+
+# Batch cost — bt-neg
+
+Generated: 2026-10-05T09:00:00.000Z  ·  sessions: 1 (claude)  ·  sources: tokens only  ·  models: claude-opus-5
+
+## What happened
+
+- Cases: 1  ·  **delivered: 1**  ·  delivered 1
+- Findings reported: 0  ·  fix rounds: 0
+
+## What it cost
+
+- Total: n/a  ·  0.5h active (cases 5m · lead 25m · stages 0m)  ·  1 dispatches
+- Tokens: total 0  ·  **real work 0** (in 0 / out 0)  ·  cache 0 read / 0 write  ·  **cache hit rate n/a**  ·  see batch-tokenomics for the full breakdown
+- Activity: 5 turns  ·  8 tool calls (1 err, 88% ok)
+- Overhead (lead + triage + gate + report, shown once): n/a
+- Active-time spread: avg 5m · median 5m · min 5m · max 5m  ·  loaded: avg 30m · median 30m · min 30m · max 30m
+- Direct token spread (no per-dispatch dollars on this host): avg 1,000 · median 1,000 · min 1,000 · max 1,000
+
+## Per case (direct = measured; loaded = direct + even overhead share, an allocation)
+
+| case | outcome | direct cost | loaded | real-work tok | active | loaded act. | dispatches | tools (err) | fix rounds | findings |
+|---|---|---|---|---|---|---|---|---|---|---|
+| NEG-1 | delivered | n/a | n/a | 1,000 (in 1k / out 0) | 5m | 30m | 1 | 2 (0) | 0 | 0 |
+
+_Cases analysed/built as one cluster share its measured dispatches — their rows are an even split, not per-case measurement (fractional `dispatches` marks them)._
+
+## By role
+
+| role | cost | dispatches | real-work tok | cache hit | active | tools (err) |
+|---|---|---|---|---|---|---|
+| implementer | n/a | 1 | 1,000 (in 1k / out 0) | 0.0% | 5m | 2 (0) |
+| session | n/a | 0 | -1,000 (in -1000 / out 0) | 0.0% | 25m | 6 (1) |
+
+manifest revision 1
+
+---
+
+# Batch cost — bt-ovf
+
+Generated: 2026-10-05T09:00:00.000Z  ·  sessions: 2 (claude)  ·  sources: tokens only  ·  models: claude-opus-5
+
+## What happened
+
+- Cases: 1  ·  **delivered: 1**  ·  delivered 1
+- Findings reported: 0  ·  fix rounds: 0
+
+## What it cost
+
+- Total: n/a  ·  Infinityh active (cases 5m · lead 0m · stages 0m)  ·  1 dispatches
+- Tokens: total 630  ·  **real work 630** (in 210 / out 420)  ·  cache 0 read / 0 write  ·  **cache hit rate 0.0%**  ·  see batch-tokenomics for the full breakdown
+- Activity: 10 turns  ·  14 tool calls (2 err, 86% ok)
+- Overhead (lead + triage + gate + report, shown once): n/a
+- Active-time spread: avg 5m · median 5m · min 5m · max 5m
+- Direct token spread (no per-dispatch dollars on this host): avg 30 · median 30 · min 30 · max 30
+
+## Per case (direct = measured; loaded = direct + even overhead share, an allocation)
+
+| case | outcome | direct cost | loaded | real-work tok | active | loaded act. | dispatches | tools (err) | fix rounds | findings |
+|---|---|---|---|---|---|---|---|---|---|---|
+| OVF-1 | delivered | n/a | n/a | 30 (in 10 / out 20) | 5m | Infinitym | 1 | 2 (0) | 0 | 0 |
+
+_Cases analysed/built as one cluster share its measured dispatches — their rows are an even split, not per-case measurement (fractional `dispatches` marks them)._
+
+## By role
+
+| role | cost | dispatches | real-work tok | cache hit | active | tools (err) |
+|---|---|---|---|---|---|---|
+| implementer | n/a | 1 | 30 (in 10 / out 20) | 0.0% | 5m | 2 (0) |
+| session | n/a | 0 | 600 (in 200 / out 400) | 0.0% | Infinitym | 12 (2) |
+
+manifest revision 1
+
+---
+
+# Batch cost — bt-quiet
+
+Generated: 2026-10-05T09:00:00.000Z  ·  sessions: 1 (copilot)  ·  sources: tokens only  ·  models: claude-opus-5
+
+## What happened
+
+- Cases: 2  ·  **delivered: 0**
+- Findings reported: 0  ·  fix rounds: 0
+
+## What it cost
+
+- Total: n/a  ·  0.2h active (cases 2m · lead 8m · stages 0m)  ·  1 dispatches
+- Tokens: total 70  ·  **real work 70** (in 50 / out 20)  ·  cache 0 read / 0 write  ·  **cache hit rate 0.0%**  ·  see batch-tokenomics for the full breakdown
+- Activity: 5 turns  ·  0 tool calls (0 err)
+- Overhead (lead + triage + gate + report, shown once): n/a
+- Active-time spread: avg 2m · median 2m · min 2m · max 2m  ·  loaded: avg 5m · median 5m · min 4m · max 6m
+- Direct token spread (no per-dispatch dollars on this host): avg 0 · median 0 · min 0 · max 0
+
+## Per case (direct = measured; loaded = direct + even overhead share, an allocation)
+
+| case | outcome | direct cost | loaded | real-work tok | active | loaded act. | dispatches | tools (err) | fix rounds | findings |
+|---|---|---|---|---|---|---|---|---|---|---|
+| QUIET-1 | — | n/a | n/a | 0 (incl. cache) | 2m | 6m | 1 | 0 (0) | 0 | 0 |
+| QUIET-2 | — | n/a | n/a | 0 (incl. cache) | 0m | 4m | 0 | 0 (0) | 0 | 0 |
+
+_Cases analysed/built as one cluster share its measured dispatches — their rows are an even split, not per-case measurement (fractional `dispatches` marks them)._
+
+## By role
+
+| role | cost | dispatches | real-work tok | cache hit | active | tools (err) |
+|---|---|---|---|---|---|---|
+| analyst | n/a | 1 | 0 (incl. cache) | n/a | 2m | 0 (0) |
+| session | n/a | 0 | 70 (in 50 / out 20) | 0.0% | 8m | 0 (0) |
+
+Unattributed (no dispatch named them in any captured session): QUIET-2
+
+manifest revision 1
+
+---
+
+# Batch cost — bt-sized
+
+Generated: 2026-10-05T09:00:00.000Z  ·  sessions: 1 (claude)  ·  sources: ccusage-metered  ·  models: claude-opus-5
+
+## What happened
+
+- Cases: 2  ·  **delivered: 1**  ·  blocked 1  ·  delivered 1
+- ⚠️ **OUTCOME DRIFT** (1): SIZED-1 receipt=blocked declared=delivered — reconcile report.json
+- Findings reported: 0  ·  fix rounds: 0
+
+## What it cost
+
+- Total: $5.00  ·  0.3h active (cases 12m · lead 8m · stages 0m)  ·  2 dispatches
+- Tokens: total 10,080  ·  **real work 1,980** (in 480 / out 1,500)  ·  cache 8k read / 100 write  ·  **cache hit rate 93.2%**  ·  see batch-tokenomics for the full breakdown
+- Activity: 5 turns  ·  11 tool calls (1 err, 91% ok)
+- Overhead (lead + triage + gate + report, shown once): $3.00 (60%)
+- **Per delivered case (incl. overhead): $5.00**
+- Avg direct per case (excl. overhead): $1.00
+- Direct cost spread: avg $1.00 · median $1.00 · min $0.50 · max $1.50
+- Loaded cost spread (direct + even overhead share): avg $2.50 · median $2.50 · min $2.00 · max $3.00
+- Active-time spread: avg 6m · median 6m · min 4m · max 8m  ·  loaded: avg 10m · median 10m · min 8m · max 12m
+
+## Per case (direct = measured; loaded = direct + even overhead share, an allocation)
+
+| case | size | outcome | direct cost | loaded | real-work tok | active | loaded act. | dispatches | tools (err) | fix rounds | findings |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| SIZED-1 | M | blocked | $1.50 | $3.00 | 500 (in 100 / out 400) | 8m | 12m | 1 | 3 (0) | 0 | 0 |
+| SIZED-2 | S | delivered | $0.50 | $2.00 | 280 (in 80 / out 200) | 4m | 8m | 1 | 2 (0) | 0 | 0 |
+
+_Cases analysed/built as one cluster share its measured dispatches — their rows are an even split, not per-case measurement (fractional `dispatches` marks them)._
+
+## By size — predicted (automation-scoping) vs actual
+
+| size | cases | ΣSP | est min | actual min | actual rw tok |
+|---|---|---|---|---|---|
+| M | 1 | 3 | 20 | 8 | 500 |
+| S | 1 | — | — | 4 | 280 |
+
+**Estimate vs actual (batch grain): 20m predicted / 12m actual — ×0.6.** Batch grain only: per-case dollars rank-correlate ~zero with predictions (scoping doctrine) — deviations below are tokens/time analysis pointers.
+
+## By role
+
+| role | cost | dispatches | real-work tok | cache hit | active | tools (err) |
+|---|---|---|---|---|---|---|
+| session | $3.00 | 0 | 1,200 (in 300 / out 900) | 92.6% | 8m | 6 (1) |
+| implementer | $2.00 | 2 | 780 (in 180 / out 600) | 94.3% | 12m | 5 (0) |
+
+manifest revision 1

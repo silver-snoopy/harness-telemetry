@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "session": "fx",
+  "intent": "automation",
+  "batch": "fb",
+  "cases": [
+    "FX-1"
+  ],
+  "declaredAt": "2026-10-01T10:31:00.000Z",
+  "updatedAt": "2026-10-01T10:33:00.000Z",
+  "closedAt": "2026-10-01T10:33:00.000Z"
+}

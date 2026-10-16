@@ -1,0 +1,10 @@
+{ "type": "object", "required": ["v","host","id"],
+  "properties": {
+    "v": {"type":"integer"}, "host": {"type":"string"}, "id": {"type":"string"},
+    "costUsd": {"type":["number","null"]}, "costSource": {"type":"string"},
+    "tokens": {"anyOf":[{"type":"object"},{"type":"null"}]},
+    "cases": {"type":"array","items":{"type":"string"}},
+    "subagents": {"type":"array","items":{"type":"object"}},
+    "endedAt": {"type":["string","null"]}, "capturedAt": {"type":["string","null"]}
+  },
+  "additionalProperties": true }

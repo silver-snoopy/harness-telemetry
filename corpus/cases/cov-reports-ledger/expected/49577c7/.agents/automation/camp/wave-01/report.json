@@ -1,0 +1,1 @@
+{"batch":"wave-01","gate":{"verdict":"green"},"cases":[{"id":"W1-1","outcome":"delivered","branch":"feat/W1-1"},{"id":"W1-2","outcome":"blocked"}]}

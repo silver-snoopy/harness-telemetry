@@ -1,0 +1,106 @@
+{
+ "id": "fault-capture-sweep",
+ "seed": 1,
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/384-seed",
+  "files": {
+   ".agents/telemetry/automation/config.json": "{\n  \"vscodeUserDataDirs\": null\n}\n",
+   ".agents/telemetry/automation/scopes": "not a directory\n"
+  }
+ },
+ "stores": [
+  {
+   "from": "inputs/claude/c1.jsonl",
+   "to": "roots/croot/c1.jsonl",
+   "mtime": "2026-10-01T10:02:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/cdir/keep",
+   "to": "roots/croot/cdir.jsonl/keep",
+   "mtime": "2026-10-01T10:02:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/clive.jsonl",
+   "to": "roots/croot/clive.jsonl",
+   "mtime": "2026-10-01T10:29:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/k1/events.jsonl",
+   "to": "roots/kroot/k1/events.jsonl",
+   "mtime": "2026-10-01T10:02:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/kdir/keep",
+   "to": "roots/kroot/kdir/events.jsonl/keep",
+   "mtime": "2026-10-01T10:02:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/cph-file",
+   "to": "roots/cph/session-state",
+   "mtime": "2026-10-01T10:02:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/h1/workspace.json",
+   "to": "roots/vroot/h1/workspace.json",
+   "mtime": "2026-10-01T10:02:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/vscode/h1/v1.jsonl",
+   "to": "roots/vroot/h1/chatSessions/v1.jsonl",
+   "mtime": "2026-10-01T10:02:00.000Z",
+   "template": true
+  }
+ ],
+ "symlinks": [
+  {
+   "path": "roots/croot/cl.jsonl",
+   "target": "missing.jsonl"
+  }
+ ],
+ "outputs": [],
+ "events": [
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "TOKENOMICS_CLAUDE_ROOT": "../roots/croot",
+    "TOKENOMICS_COPILOT_ROOT": "../roots/kroot",
+    "TOKENOMICS_VSCODE_ROOT": "../roots/vroot"
+   },
+   "at": "2026-10-01T10:30:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "TOKENOMICS_CLAUDE_ROOT": "../roots/nowhere",
+    "COPILOT_HOME": "../roots/cph"
+   },
+   "at": "2026-10-01T10:31:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all"
+   ],
+   "captureStderr": true
+  }
+ ]
+}

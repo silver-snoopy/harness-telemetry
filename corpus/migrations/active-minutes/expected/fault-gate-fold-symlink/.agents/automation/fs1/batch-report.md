@@ -1,0 +1,28 @@
+# Batch cost — fs1
+
+Generated: 2026-10-01T09:01:00.000Z  ·  sessions: 0 (none)  ·  sources: tokens only  ·  models: —
+
+## What happened
+
+- Cases: 1  ·  **delivered: 1**  ·  delivered 1
+- Gate: green
+- Gate record (script-authored): green at 2026-10-01T08:00:00Z (1 run record(s))
+- Findings reported: 0  ·  fix rounds: 0
+
+## What it cost
+
+- Total: n/a  ·  0.0h active (session grain — not split per case, stage or dispatch)  ·  0 dispatches
+- Tokens: total 0  ·  **real work 0** (in 0 / out 0)  ·  cache 0 read / 0 write  ·  **cache hit rate n/a**  ·  see batch-tokenomics for the full breakdown
+- Activity: 0 turns  ·  0 tool calls (0 err)
+- Overhead (lead + triage + gate + report, shown once): n/a
+- Active-time spread: session grain, none per case  ·  loaded: avg 0m · median 0m · min 0m · max 0m (batch time ÷ cases, an allocation)
+
+## Per case (direct = measured; loaded = direct + even overhead share, an allocation; loaded minutes = batch time ÷ cases)
+
+| case | outcome | direct cost | loaded | real-work tok | active | loaded act. | dispatches | tools (err) | fix rounds | findings |
+|---|---|---|---|---|---|---|---|---|---|---|
+| A-1 | delivered | n/a | n/a | 0 (incl. cache) | — | 0m | 0 | 0 (0) | 0 | 0 |
+
+_Cases analysed/built as one cluster share its measured dispatches — their rows are an even split, not per-case measurement (fractional `dispatches` marks them)._
+
+Unattributed (no dispatch named them in any captured session): A-1

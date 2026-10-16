@@ -1,0 +1,4 @@
+{ "id": "m1", "seed": 1, "identity": { "gitUser": "t", "gitEmail": "t@example.invalid" },
+  "repo": { "path": "repo", "branch": "main", "files": {} }, "stores": [],
+  "events": [{ "at": "2026-10-01T00:00:00Z", "run": "scripts/w.mjs", "args": [], "stdin": null, "env": {} }],
+  "outputs": ["out"] }

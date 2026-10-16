@@ -1,0 +1,145 @@
+[
+  {
+    "v": 1,
+    "host": "claude",
+    "id": "39d27e4f-6012-4056-96fa-1d5324a409ac",
+    "user": "corpus",
+    "capturedAt": "2026-09-14T06:34:26.000Z",
+    "repo": "repo",
+    "branch": "main",
+    "role": null,
+    "models": [
+      "claude-opus-5"
+    ],
+    "startedAt": "2026-09-09T15:34:23.374Z",
+    "endedAt": "2026-09-10T09:01:25.379Z",
+    "wallMin": 1047,
+    "activeMin": 106,
+    "turns": 53,
+    "toolCalls": 41,
+    "toolErrors": 0,
+    "tokens": {
+      "input": 106,
+      "output": 71711,
+      "cacheRead": 5648153,
+      "cacheWrite": 462489
+    },
+    "tokensByModel": {
+      "claude-opus-5": {
+        "input": 106,
+        "output": 71711,
+        "cacheRead": 5648153,
+        "cacheWrite": 462489
+      }
+    },
+    "costUsd": 20.422582750000004,
+    "costSource": "ccusage-metered",
+    "cases": [
+      "ADR-024",
+      "ADR-026"
+    ],
+    "subagents": [
+      {
+        "id": "agent-a3cf7b3ed43790a0d",
+        "role": "ba",
+        "n": 1,
+        "tokens": {
+          "input": 88,
+          "output": 16418,
+          "cacheRead": 4926732,
+          "cacheWrite": 143593
+        },
+        "tokensByModel": {
+          "claude-opus-5": {
+            "input": 88,
+            "output": 16418,
+            "cacheRead": 4926732,
+            "cacheWrite": 143593
+          }
+        },
+        "activeMin": 9,
+        "toolCalls": 50,
+        "toolErrors": 0,
+        "cases": [
+          "ADR-024",
+          "ADR-026"
+        ],
+        "costUsd": 3.7717122499999998
+      },
+      {
+        "id": "agent-ac49ed2174fd5755a",
+        "role": "tech-lead",
+        "n": 1,
+        "tokens": {
+          "input": 82,
+          "output": 13323,
+          "cacheRead": 4725154,
+          "cacheWrite": 150938
+        },
+        "tokensByModel": {
+          "claude-opus-5": {
+            "input": 82,
+            "output": 13323,
+            "cacheRead": 4725154,
+            "cacheWrite": 150938
+          }
+        },
+        "activeMin": 6,
+        "toolCalls": 46,
+        "toolErrors": 0,
+        "cases": [
+          "ADR-026"
+        ],
+        "costUsd": 3.639424499999999
+      },
+      {
+        "id": "agent-ace1bc510f01d58c7",
+        "role": "tech-lead",
+        "n": 1,
+        "tokens": {
+          "input": 48,
+          "output": 19925,
+          "cacheRead": 2591946,
+          "cacheWrite": 131542
+        },
+        "tokensByModel": {
+          "claude-opus-5": {
+            "input": 48,
+            "output": 19925,
+            "cacheRead": 2591946,
+            "cacheWrite": 131542
+          }
+        },
+        "activeMin": 8,
+        "toolCalls": 38,
+        "toolErrors": 1,
+        "costUsd": 2.6164755000000004
+      },
+      {
+        "id": "agent-ae0b80429dad1af61",
+        "role": "Explore",
+        "n": 1,
+        "tokens": {
+          "input": 30,
+          "output": 5939,
+          "cacheRead": 877373,
+          "cacheWrite": 90462
+        },
+        "tokensByModel": {
+          "claude-opus-5": {
+            "input": 30,
+            "output": 5939,
+            "cacheRead": 877373,
+            "cacheWrite": 90462
+          }
+        },
+        "activeMin": 3,
+        "toolCalls": 25,
+        "toolErrors": 0,
+        "costUsd": 1.1526990000000001
+      }
+    ],
+    "skills": [],
+    "dispatches": 4
+  }
+]

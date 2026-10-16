@@ -1,0 +1,6 @@
+export: appended row 'T-b4' in <REPO>/.agents/telemetry/automation/export/runs.json
+  ❌ MISSING: segment.agent_tool
+  ❌ MISSING: size_tshirt (derives from effort_days)
+  ❌ MISSING: primary_model/models_used
+  ❌ MISSING: cost_api_equivalent_usd > 0
+  ❌ MISSING: scenario_complexity (from sizing verdicts)

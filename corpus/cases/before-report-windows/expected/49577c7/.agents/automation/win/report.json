@@ -1,0 +1,10 @@
+{
+  "batch": "win",
+  "cases": [
+    {
+      "id": "WIN-1",
+      "outcome": "delivered",
+      "at": "2026-10-05T12:00:00Z"
+    }
+  ]
+}

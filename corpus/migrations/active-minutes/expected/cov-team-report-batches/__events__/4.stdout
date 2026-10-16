@@ -1,0 +1,293 @@
+{
+  "v": 1,
+  "batch": "bt-gate",
+  "generatedAt": "2026-10-05T09:04:00.000Z",
+  "sources": {
+    "sessions": 1,
+    "hosts": [
+      "claude"
+    ],
+    "users": [
+      "u1"
+    ],
+    "costSources": [
+      "ccusage-metered"
+    ],
+    "models": [
+      "claude-opus-5"
+    ],
+    "activeMinGrain": "session",
+    "activeMinNote": "active minutes are allocated once, at session grain (spec 5.4): per-case, stage and dispatch-role minutes are not allocated (null, which is not unmeasured); loaded minutes = batch time ÷ cases, an allocation"
+  },
+  "totals": {
+    "costUsd": 10,
+    "tokens": 2849700,
+    "tokensSplit": {
+      "input": 1300,
+      "output": 5400,
+      "cacheRead": 2843000,
+      "cacheWrite": 0
+    },
+    "tokensByModel": {
+      "claude-opus-5": {
+        "input": 1000,
+        "output": 4000,
+        "cacheRead": 2500000,
+        "cacheWrite": 0
+      }
+    },
+    "activeMin": 60,
+    "dispatches": 4,
+    "sessions": 1,
+    "turns": 5,
+    "toolCalls": 31,
+    "toolErrors": 2,
+    "skills": []
+  },
+  "byRole": {
+    "implementer": {
+      "costUsd": 3,
+      "tokens": 341450,
+      "tok": {
+        "input": 250,
+        "output": 1200,
+        "cacheRead": 340000,
+        "cacheWrite": 0
+      },
+      "activeMin": null,
+      "dispatches": 2,
+      "toolCalls": 8,
+      "toolErrors": 0
+    },
+    "reviewer": {
+      "costUsd": 0.7,
+      "tokens": 2150,
+      "tok": {
+        "input": 30,
+        "output": 120,
+        "cacheRead": 2000,
+        "cacheWrite": 0
+      },
+      "activeMin": null,
+      "dispatches": 1,
+      "toolCalls": 2,
+      "toolErrors": 0
+    },
+    "session": {
+      "costUsd": 5.8,
+      "tokens": 2505000,
+      "tok": {
+        "input": 1000,
+        "output": 4000,
+        "cacheRead": 2500000,
+        "cacheWrite": 0
+      },
+      "activeMin": 60,
+      "dispatches": 0,
+      "toolCalls": 20,
+      "toolErrors": 2
+    },
+    "triage": {
+      "costUsd": 0.5,
+      "tokens": 1100,
+      "tok": {
+        "input": 20,
+        "output": 80,
+        "cacheRead": 1000,
+        "cacheWrite": 0
+      },
+      "activeMin": null,
+      "dispatches": 1,
+      "toolCalls": 1,
+      "toolErrors": 0
+    }
+  },
+  "overhead": {
+    "note": "batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows",
+    "costUsd": 6.3,
+    "sharePct": 63,
+    "lead": {
+      "costUsd": 5.8,
+      "tokens": 2505000,
+      "tok": {
+        "input": 1000,
+        "output": 4000,
+        "cacheRead": 2500000,
+        "cacheWrite": 0
+      },
+      "activeMin": 60,
+      "dispatches": 0,
+      "toolCalls": 20,
+      "toolErrors": 2
+    },
+    "stages": {
+      "costUsd": 0.5,
+      "tokens": 1100,
+      "tok": {
+        "input": 20,
+        "output": 80,
+        "cacheRead": 1000,
+        "cacheWrite": 0
+      },
+      "activeMin": null,
+      "dispatches": 1,
+      "toolCalls": 1,
+      "toolErrors": 0
+    },
+    "byStage": {
+      "triage": {
+        "costUsd": 0.5,
+        "tokens": 1100,
+        "tok": {
+          "input": 20,
+          "output": 80,
+          "cacheRead": 1000,
+          "cacheWrite": 0
+        },
+        "activeMin": null,
+        "dispatches": 1,
+        "toolCalls": 1,
+        "toolErrors": 0
+      }
+    }
+  },
+  "rework": {
+    "costUsd": 1,
+    "tokens": 40350,
+    "tok": {
+      "input": 50,
+      "output": 300,
+      "cacheRead": 40000,
+      "cacheWrite": 0
+    },
+    "activeMin": null,
+    "dispatches": 1,
+    "toolCalls": 3,
+    "toolErrors": 0,
+    "note": "fix-round dispatches — the batch's rework bill (already inside per-case direct; shown here as its own lever)"
+  },
+  "outcomes": {
+    "delivered": 1,
+    "defect-found": 1
+  },
+  "delivered": 2,
+  "gate": {
+    "verdict": "green",
+    "runs": 3
+  },
+  "records": {
+    "note": "script-authored gate verdicts (gate-runs.jsonl) + declared session outcomes (work-scope) vs the receipt — drift means report.json needs a write-back, records never overwrite it",
+    "gateRuns": {
+      "count": 1,
+      "latest": {
+        "verdict": "red",
+        "at": null,
+        "consecutiveGreen": 0
+      }
+    },
+    "gateDrift": {
+      "receipt": "green",
+      "recorded": "red",
+      "at": null
+    }
+  },
+  "cases": [
+    {
+      "id": "GATE-1",
+      "outcome": "delivered",
+      "findings": 0,
+      "direct": {
+        "costUsd": 3,
+        "tokens": 341450,
+        "tok": {
+          "input": 250,
+          "output": 1200,
+          "cacheRead": 340000,
+          "cacheWrite": 0
+        },
+        "activeMin": null,
+        "dispatches": 2,
+        "fixRounds": 1,
+        "toolCalls": 8,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": 6.15,
+        "tokens": 1594500,
+        "activeMin": 30
+      }
+    },
+    {
+      "id": "GATE-2",
+      "outcome": "defect-found",
+      "findings": 0,
+      "direct": {
+        "costUsd": 0.7,
+        "tokens": 2150,
+        "tok": {
+          "input": 30,
+          "output": 120,
+          "cacheRead": 2000,
+          "cacheWrite": 0
+        },
+        "activeMin": null,
+        "dispatches": 1,
+        "fixRounds": 0,
+        "toolCalls": 2,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": 3.85,
+        "tokens": 1255200,
+        "activeMin": 30
+      }
+    }
+  ],
+  "stats": {
+    "note": "direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+    "directCostUsd": {
+      "avg": 1.85,
+      "median": 1.85,
+      "min": 0.7,
+      "max": 3,
+      "n": 2
+    },
+    "directTokens": {
+      "avg": 171800,
+      "median": 171800,
+      "min": 2150,
+      "max": 341450,
+      "n": 2
+    },
+    "directActiveMin": null,
+    "loadedCostUsd": {
+      "avg": 5,
+      "median": 5,
+      "min": 3.85,
+      "max": 6.15,
+      "n": 2
+    },
+    "loadedActiveMin": {
+      "avg": 30,
+      "median": 30,
+      "min": 30,
+      "max": 30,
+      "n": 2
+    }
+  },
+  "averages": {
+    "totalPerDelivered": {
+      "costUsd": 5,
+      "note": "whole batch incl. overhead ÷ delivered (delivered/defect-found; legacy automated/merged-sanctioned-red)"
+    },
+    "directPerCase": {
+      "costUsd": 1.85,
+      "note": "avg direct spend of an attributed case — excludes batch overhead"
+    }
+  },
+  "coverage": {
+    "casesAttributed": 2,
+    "casesUnattributed": [],
+    "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "ledgerLines": 2,
+  "exits": [0, 0, 0, 0, 1],
+  "facts": [
+    { "path": "/host", "equals": "copilot" },
+    { "path": "/id", "equals": "sp" },
+    { "path": "/scope", "equals": { "intent": "automation", "cases": [] } }
+  ],
+  "fileFacts": [
+    { "file": ".agents/telemetry/automation/scopes/sp.json", "path": "/source", "equals": "handoff" },
+    { "file": ".agents/telemetry/automation/scopes/sp.json", "path": "/role", "absent": true },
+    { "file": ".agents/telemetry/automation/scopes/sp.json", "path": "/claimedFrom", "absent": true },
+    { "file": ".agents/telemetry/automation/scopes/pending-mupd2d6o-smkm.json", "path": "/session", "equals": "pending-mupd2d6o-smkm" },
+    { "file": ".agents/telemetry/automation/scopes/pending-mupd2d6o-smkm.json", "path": "/intent", "equals": "story" }
+  ],
+  "textFacts": [
+    { "file": ".agents/telemetry/automation/usage-corpus.jsonl", "includes": "{\"v\":1,\"host\":\"claude\",\"id\":\"sp\"," },
+    { "file": ".agents/telemetry/automation/usage-corpus.jsonl", "includes": "\"costSource\":\"none\",\"cases\":[\"PROJ-12\"],\"scope\":{\"intent\":\"automation\",\"cases\":[]}," },
+    { "file": "__events__/2.stderr", "equals": "tokenomics: captured 2 session(s) → .agents/telemetry/automation/usage-corpus.jsonl\n" },
+    { "file": "__events__/3.stderr", "equals": "tokenomics: swept 0 session(s)\n" },
+    { "file": "__events__/4.stderr", "equals": "usage: work-scope.mjs open|outcome|close|show|list … (see file header)\n" }
+  ]
+}

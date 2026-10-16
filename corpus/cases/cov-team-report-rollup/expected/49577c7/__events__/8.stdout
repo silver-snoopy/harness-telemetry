@@ -1,0 +1,32 @@
+# Tokenomics — team usage report
+
+Generated: 2026-10-05T09:08:00.000Z
+
+## Totals
+
+- Sessions: 0 ()  ·  people: 0
+- Cost (real figures only): n/a from 0 priced session(s)
+- Tokens (incl. sub-agents): total 0  ·  in 0, out 0, cache-read 0, cache-write 0
+- Real work: 0 tokens (in+out)  ·  cache hit rate: n/a
+- Time: 0.0h active  ·  0.0h wall  ·  0 turns  ·  0 tool calls (0 err)
+
+## Cases (from the pipeline's own receipts)
+
+- Examined: 0 unique case(s) across 1 report(s)  ·  **delivered (automated): 0**
+
+## By person
+
+| person | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+
+## By role
+
+| role | cost | units | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+
+## By week
+
+| week | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+
+_Dollars are session-grain (one figure per session, real sources only), so the role table reports tokens/time — sub-agent roles included. Fork/resume caveat: a forked session replays its parent's records; its ledger line can double-count the replayed tokens._

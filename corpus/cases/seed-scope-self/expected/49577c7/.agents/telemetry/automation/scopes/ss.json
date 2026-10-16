@@ -1,0 +1,11 @@
+{
+  "v": 1,
+  "session": "ss",
+  "intent": "bugfix",
+  "batch": "issue-9",
+  "cases": [
+    "issue-9"
+  ],
+  "declaredAt": "2026-10-01T09:58:00.000Z",
+  "updatedAt": "2026-10-01T09:58:00.000Z"
+}

@@ -1,0 +1,26 @@
+{
+  "ledgerLines": 1,
+  "facts": [
+    {
+      "path": "/id",
+      "equals": "y1"
+    }
+  ],
+  "fileFacts": [
+    {
+      "file": "alt/.agents/telemetry/automation/usage-corpus.jsonl",
+      "path": "/id",
+      "equals": "y2"
+    }
+  ],
+  "textFacts": [
+    {
+      "file": "tgit/COMMIT_EDITMSG",
+      "equals": "telemetry: capture\n"
+    },
+    {
+      "file": "tgit/HEAD",
+      "equals": "ref: refs/heads/telemetry\n"
+    }
+  ]
+}

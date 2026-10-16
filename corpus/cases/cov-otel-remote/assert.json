@@ -1,0 +1,15 @@
+{
+  "ledgerLines": 1,
+  "facts": [
+    {
+      "path": "/id",
+      "equals": "s1"
+    },
+    {
+      "path": "/cases",
+      "equals": [
+        "PROJ-12"
+      ]
+    }
+  ]
+}

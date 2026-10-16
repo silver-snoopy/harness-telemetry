@@ -1,0 +1,195 @@
+{
+ "v": 1,
+ "batch": "g1",
+ "generatedAt": "2026-10-01T10:30:00.000Z",
+ "sources": {
+  "sessions": 1,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "corpus"
+  ],
+  "costSources": [],
+  "models": [
+   "claude-haiku-5-5"
+  ]
+ },
+ "totals": {
+  "costUsd": null,
+  "tokens": 935,
+  "tokensSplit": {
+   "input": 25,
+   "output": 110,
+   "cacheRead": 700,
+   "cacheWrite": 100
+  },
+  "tokensByModel": {
+   "claude-haiku-5-5": {
+    "input": 25,
+    "output": 110,
+    "cacheRead": 700,
+    "cacheWrite": 100
+   }
+  },
+  "activeMin": 7,
+  "dispatches": 2,
+  "sessions": 1,
+  "turns": 1,
+  "toolCalls": 0,
+  "toolErrors": 0,
+  "skills": []
+ },
+ "byRole": {
+  "implementer": {
+   "costUsd": null,
+   "tokens": 410,
+   "tok": {
+    "input": 10,
+    "output": 60,
+    "cacheRead": 300,
+    "cacheWrite": 40
+   },
+   "activeMin": 1,
+   "dispatches": 1,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "reviewer": {
+   "costUsd": null,
+   "tokens": 155,
+   "tok": {
+    "input": 5,
+    "output": 30,
+    "cacheRead": 100,
+    "cacheWrite": 20
+   },
+   "activeMin": 1,
+   "dispatches": 1,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "session": {
+   "costUsd": null,
+   "tokens": 370,
+   "tok": {
+    "input": 10,
+    "output": 20,
+    "cacheRead": 300,
+    "cacheWrite": 40
+   },
+   "activeMin": 5,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  }
+ },
+ "overhead": {
+  "note": "batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows",
+  "costUsd": null,
+  "sharePct": null,
+  "lead": {
+   "costUsd": null,
+   "tokens": 370,
+   "tok": {
+    "input": 10,
+    "output": 20,
+    "cacheRead": 300,
+    "cacheWrite": 40
+   },
+   "activeMin": 5,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "stages": {
+   "costUsd": null,
+   "tokens": 565,
+   "tok": {
+    "input": 15,
+    "output": 90,
+    "cacheRead": 400,
+    "cacheWrite": 60
+   },
+   "activeMin": 2,
+   "dispatches": 2,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "byStage": {
+   "other": {
+    "costUsd": null,
+    "tokens": 565,
+    "tok": {
+     "input": 15,
+     "output": 90,
+     "cacheRead": 400,
+     "cacheWrite": 60
+    },
+    "activeMin": 2,
+    "dispatches": 2,
+    "toolCalls": 0,
+    "toolErrors": 0
+   }
+  }
+ },
+ "outcomes": {
+  "delivered": 1
+ },
+ "delivered": 1,
+ "gate": {
+  "verdict": "green"
+ },
+ "cases": [
+  {
+   "id": "TC-1",
+   "outcome": "delivered",
+   "findings": 0,
+   "direct": {
+    "costUsd": null,
+    "tokens": 0,
+    "tok": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0
+    },
+    "activeMin": 0,
+    "dispatches": 0,
+    "fixRounds": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": null,
+    "tokens": 935,
+    "activeMin": 7
+   }
+  }
+ ],
+ "stats": {
+  "note": "direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": null,
+  "directTokens": null,
+  "directActiveMin": null,
+  "loadedCostUsd": null,
+  "loadedActiveMin": {
+   "avg": 7,
+   "median": 7,
+   "min": 7,
+   "max": 7,
+   "n": 1
+  }
+ },
+ "averages": {
+  "totalPerDelivered": null,
+  "directPerCase": null
+ },
+ "coverage": {
+  "casesAttributed": 0,
+  "casesUnattributed": [
+   "TC-1"
+  ],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

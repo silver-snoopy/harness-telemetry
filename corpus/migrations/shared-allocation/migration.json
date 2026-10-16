@@ -1,0 +1,44 @@
+{
+  "id": "shared-allocation",
+  "item": 2,
+  "spec": "§14.8 item 2, §10.3, §5.4",
+  "summary": "A dispatch shared by several items is allocated so that its cost is conserved (§10.3).",
+  "beforeCases": [
+    "seed-receipts-shared-id",
+    "before-dispatch-two-groups"
+  ],
+  "declared": {
+    "seed-receipts-shared-id": {
+      "reason": "Groups camp/grp-a and camp/grp-b both own TC-1, so the one 410-token dispatch is mine in both (k = 2): each group now carries half of it (direct tokens 205, dispatches 0.5, tok/minutes/tool counters halved) instead of counting it in full twice, and sources.sharedDispatches 1 is noted; the renders and both export rows follow.",
+      "changed": [
+        ".agents/automation/camp/grp-a/batch-report.html",
+        ".agents/automation/camp/grp-a/batch-report.md",
+        ".agents/automation/camp/grp-a/batch-tokenomics.html",
+        ".agents/automation/camp/grp-a/batch-tokenomics.md",
+        ".agents/automation/camp/grp-a/cost.json",
+        ".agents/automation/camp/grp-b/batch-report.html",
+        ".agents/automation/camp/grp-b/batch-report.md",
+        ".agents/automation/camp/grp-b/batch-tokenomics.html",
+        ".agents/automation/camp/grp-b/batch-tokenomics.md",
+        ".agents/automation/camp/grp-b/cost.json",
+        ".agents/telemetry/automation/export/runs.json"
+      ]
+    },
+    "before-dispatch-two-groups": {
+      "reason": "The dispatch labelled implement TC-1 TC-2 is mine in camp/a and camp/b (k = 2): each group now carries half of its 410 tokens (205, dispatches 0.5, tok/minutes/tool counters halved) instead of the full dispatch in both, so totals.tokens is 390 not 595; sources.sharedDispatches 1 is noted and the renders and export rows follow.",
+      "changed": [
+        ".agents/automation/camp/a/batch-report.html",
+        ".agents/automation/camp/a/batch-report.md",
+        ".agents/automation/camp/a/batch-tokenomics.html",
+        ".agents/automation/camp/a/batch-tokenomics.md",
+        ".agents/automation/camp/a/cost.json",
+        ".agents/automation/camp/b/batch-report.html",
+        ".agents/automation/camp/b/batch-report.md",
+        ".agents/automation/camp/b/batch-tokenomics.html",
+        ".agents/automation/camp/b/batch-tokenomics.md",
+        ".agents/automation/camp/b/cost.json",
+        ".agents/telemetry/automation/export/runs.json"
+      ]
+    }
+  }
+}

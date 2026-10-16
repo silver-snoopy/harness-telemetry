@@ -1,0 +1,51 @@
+{
+  "ledgerLines": 0,
+  "fileFacts": [
+    {
+      "file": "__events__/0.stdout",
+      "path": "/additionalContext",
+      "equals": "tokenomics scope [session sd]: docs — 1 case(s), 1 outcome(s) (closed). Update via `node <IMPL>/scripts/work-scope.mjs`."
+    },
+    {
+      "file": "__events__/9.stdout",
+      "path": "/additionalContext",
+      "equals": "tokenomics scope [session sd]: docs — 1 case(s), 1 outcome(s) (closed). Update via `node <IMPL>/scripts/work-scope.mjs`."
+    },
+    {
+      "file": "__events__/4.stdout",
+      "path": "/decision",
+      "equals": "block"
+    },
+    {
+      "file": "__events__/8.stdout",
+      "path": "/additionalContext",
+      "equals": "tokenomics [session rootcheck]: declare what this session is for — `node scripts/work-scope.mjs open --session rootcheck --intent <intent> [--batch <slug> --cases <ID,ID,…>]`. Batch work: `--intent automation` WITH batch + cases (only this intent feeds cost-per-case). Anything else: pick the honest label — manual-testing, investigation, framework, onboarding, docs, other — or your own; no batch/cases needed. Then record results as they become true: `… outcome --session rootcheck <ID>=<outcome>`."
+    }
+  ],
+  "textFacts": [
+    {
+      "file": "__events__/1.stdout",
+      "equals": ""
+    },
+    {
+      "file": "__events__/5.stdout",
+      "equals": ""
+    },
+    {
+      "file": "__events__/6.stdout",
+      "equals": ""
+    },
+    {
+      "file": "__events__/7.stdout",
+      "equals": ""
+    },
+    {
+      "file": "__events__/10.stdout",
+      "equals": ""
+    },
+    {
+      "file": "__events__/11.stdout",
+      "includes": "tokenomics scope [session sd]"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "v": 1,
+  "session": "sA",
+  "intent": "automation",
+  "batch": "solo",
+  "cases": [
+    "S-1",
+    "S-3",
+    "S-4"
+  ],
+  "declaredAt": "2026-09-27T09:00:00.000Z",
+  "updatedAt": "2026-10-05T09:02:30.000Z",
+  "outcomes": {
+    "S-1": {
+      "outcome": "delivered"
+    },
+    "S-3": {
+      "outcome": "blocked"
+    },
+    "S-4": "delivered",
+    "ZZ-9": {
+      "outcome": "delivered"
+    }
+  },
+  "closedAt": "2026-10-05T09:02:30.000Z"
+}

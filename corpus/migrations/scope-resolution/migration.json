@@ -1,0 +1,276 @@
+{
+  "id": "scope-resolution",
+  "item": 9,
+  "spec": "§14.8 item 9, §14.11",
+  "summary": "Scope resolution, handles, precedence and role stamping follow §14.11.",
+  "beforeCases": [
+    "seed-scope-self",
+    "seed-scope-pending",
+    "seed-scope-handoff",
+    "fault-capture-sweep",
+    "before-scope-precedence",
+    "before-scope-handle",
+    "before-scope-env-host"
+  ],
+  "declared": {
+    "seed-scope-self": {
+      "reason": "precedence (§14.11): the in-window pending record is claimed over the self-declared one, so the line's scope is the pending declaration (story / issue-7) and its cases re-derive; the claimed record is scopes/claude/ss.json with claimedFrom (Q12c merge) and the pending file is gone; open --session auto prints the handle on stdout",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/ss.json",
+        ".agents/telemetry/automation/usage-corpus.jsonl",
+        "__events__/0.stdout"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/pending-mupd12w0-smkm.json",
+        ".agents/telemetry/automation/scopes/ss.json"
+      ]
+    },
+    "seed-scope-pending": {
+      "reason": "the pending record is claimed into the host-qualified scopes/claude/ss.json instead of the flat scopes/ss.json (§14.11); open --session auto prints the {\"handle\":…} JSON on stdout; the ledger scope is unchanged",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/ss.json",
+        "__events__/0.stdout"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/ss.json"
+      ]
+    },
+    "seed-scope-handoff": {
+      "reason": "the declared record: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/<id>.json to scopes/claude/<id>.json (§14.11 host-qualified); the ledger line's scope is unchanged (no role declared)",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/ss.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/ss.json"
+      ]
+    },
+    "fault-capture-sweep": {
+      "reason": "R9 (Q12d): the non-directory scopes path now resolves to no scope instead of throwing inside the resolver, so the first sweep captures the timestamped sessions (swept N > 0, lines without scope) and the ledger file appears in changes.txt",
+      "changed": [
+        "__events__/0.stderr",
+        "__sandbox__/changes.txt"
+      ]
+    },
+    "before-scope-precedence": {
+      "reason": "host-qualified records (§14.11): the hand-off record is scopes/claude/sp.json with role lead, stamped as scope.role on the Claude line; the pending record is stamped with the claude host (CLAUDE_PROJECT_DIR; review round 1 M4), so the Copilot session claims nothing and its line carries no scope, reported on stderr as Claude's record (O1, I1); restamp rejects the reference-era winner naming capture --force; open --session auto prints the handle",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/pending-mupd2d6o-smkm.json",
+        ".agents/telemetry/automation/scopes/claude/sp.json",
+        ".agents/telemetry/automation/usage-corpus.jsonl",
+        "__events__/0.stdout",
+        "__events__/2.stderr",
+        "__events__/4.stderr"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/pending-mupd2d6o-smkm.json",
+        ".agents/telemetry/automation/scopes/sp.json"
+      ]
+    },
+    "before-scope-handle": {
+      "reason": "handles (§14.11): open --session auto prints the handle; after the capture claims the pending record into scopes/claude/sh.json, outcome and close on the handle update and close that claimed record (close exits 0, no orphan pending record); close --session auto is a usage error",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/sh.json",
+        "__events__/0.stdout",
+        "__events__/3.stderr",
+        "__events__/4.stderr",
+        "__events__/5.stderr",
+        "__events__/6.stderr"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/pending-mupd2d6o-smkm.json",
+        ".agents/telemetry/automation/scopes/sh.json"
+      ],
+      "exits": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "fault-pending-write": {
+      "reason": "open --session auto prints the {\"handle\":…} JSON on stdout (§14.11 handles), and the pending record is stamped with the known claude host (scopes/claude/pending-….json; review round 1 M4); the claim into scopes/claude/a/b.json.claim still fails for the a/b session id, so the line stays scope-less",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/pending-mupd2d6o-smkm.json",
+        "__events__/0.stdout"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/pending-mupd2d6o-smkm.json"
+      ]
+    },
+    "cov-dispatch-batch": {
+      "reason": "the batch scope: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/<id>.json to scopes/claude/<id>.json (§14.11 host-qualified)",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/cd1.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/cd1.json"
+      ]
+    },
+    "cov-copilot-dispatch": {
+      "reason": "the agent declares with --host copilot (what the announce now suggests), so cp1's record moves from the flat scopes/cp1.json to the host-qualified scopes/copilot/cp1.json (§14.11) and the Copilot session's line keeps its scope",
+      "changed": [
+        ".agents/telemetry/automation/scopes/copilot/cp1.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/cp1.json"
+      ]
+    },
+    "cov-work-scope-lifecycle": {
+      "reason": "ws1, ws2 and ws3: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/<id>.json to scopes/claude/<id>.json (§14.11 host-qualified); list still prints them in the same order",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/ws1.json",
+        ".agents/telemetry/automation/scopes/claude/ws2.json",
+        ".agents/telemetry/automation/scopes/claude/ws3.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/ws1.json",
+        ".agents/telemetry/automation/scopes/ws2.json",
+        ".agents/telemetry/automation/scopes/ws3.json"
+      ]
+    },
+    "cov-scope-hook": {
+      "reason": "sg's scope: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/sg.json to scopes/claude/sg.json (§14.11); the announce and the gate nag now suggest `open --session <id> --host claude` (review round 1, I1)",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/sg.json",
+        "__events__/0.stdout",
+        "__events__/2.stdout",
+        "__events__/9.stdout"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/sg.json"
+      ]
+    },
+    "seed-receipts-shared-id": {
+      "reason": "rs's scope: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/<id>.json to scopes/claude/<id>.json (§14.11 host-qualified)",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/rs.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/rs.json"
+      ]
+    },
+    "cov-capture-vscode-edges": {
+      "reason": "the VS Code session claims the in-window pending record into the host-qualified scopes/copilot-vscode/a.json instead of the flat scopes/a.json (§14.11); the line's scope is unchanged",
+      "changed": [
+        ".agents/telemetry/automation/scopes/copilot-vscode/a.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/a.json"
+      ]
+    },
+    "cov-capture-scope-live": {
+      "reason": "e1 and e2: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/<id>.json to scopes/claude/<id>.json (§14.11 host-qualified)",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/e1.json",
+        ".agents/telemetry/automation/scopes/claude/e2.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/e1.json",
+        ".agents/telemetry/automation/scopes/e2.json"
+      ]
+    },
+    "foreign-settings": {
+      "reason": "fs's scope: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/<id>.json to scopes/claude/<id>.json (§14.11 host-qualified) under the foreign stories telemetry dir",
+      "changed": [
+        ".agents/telemetry/stories/scopes/claude/fs.json"
+      ],
+      "removed": [
+        ".agents/telemetry/stories/scopes/fs.json"
+      ]
+    },
+    "foreign-null-extension": {
+      "reason": "fx's scope: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/<id>.json to scopes/claude/<id>.json (§14.11 host-qualified)",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/fx.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/fx.json"
+      ]
+    },
+    "before-dispatch-two-groups": {
+      "reason": "tg's scope: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/<id>.json to scopes/claude/<id>.json (§14.11 host-qualified)",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/tg.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/tg.json"
+      ]
+    },
+    "before-ids-substring": {
+      "reason": "ids's scope: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/<id>.json to scopes/claude/<id>.json (§14.11 host-qualified)",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/ids.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/ids.json"
+      ]
+    },
+    "cov-work-scope-close-faults": {
+      "reason": "cf1 to cf4: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/<id>.json to scopes/claude/<id>.json (§14.11 host-qualified)",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/cf1.json",
+        ".agents/telemetry/automation/scopes/claude/cf2.json",
+        ".agents/telemetry/automation/scopes/claude/cf3.json",
+        ".agents/telemetry/automation/scopes/claude/cf4.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/cf1.json",
+        ".agents/telemetry/automation/scopes/cf2.json",
+        ".agents/telemetry/automation/scopes/cf3.json",
+        ".agents/telemetry/automation/scopes/cf4.json"
+      ]
+    },
+    "fault-batch-cost-empty-repo": {
+      "reason": "q1's scope: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/<id>.json to scopes/claude/<id>.json (§14.11 host-qualified)",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/q1.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/q1.json"
+      ]
+    },
+    "fault-batch-cost-sizing-locked": {
+      "reason": "sz1's scope: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/<id>.json to scopes/claude/<id>.json (§14.11 host-qualified)",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/sz1.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/sz1.json"
+      ]
+    },
+    "fault-gate-fold-symlink": {
+      "reason": "fs1's scope: work-scope open runs with CLAUDE_PROJECT_DIR set, so --host defaults to claude (Q12a) and the record moves from the flat scopes/<id>.json to scopes/claude/<id>.json (§14.11 host-qualified)",
+      "changed": [
+        ".agents/telemetry/automation/scopes/claude/fs1.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/fs1.json"
+      ]
+    },
+    "cov-scope-hook-edges": {
+      "reason": "the announce asks of sessions without a record now suggest `open --session <id> --host claude`, the host the sandbox's CLAUDE_PROJECT_DIR defaults to (scope-resolution review round 1, I1); the legacy flat records still read unchanged",
+      "changed": [
+        "__events__/2.stdout",
+        "__events__/8.stdout"
+      ]
+    },
+    "cov-scope-hook-stdin-chunks": {
+      "reason": "the announce ask now suggests `open --session big --host claude`, the host the sandbox's CLAUDE_PROJECT_DIR defaults to (scope-resolution review round 1, I1)",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    },
+    "before-scope-env-host": {
+      "reason": "With COPILOT_CLI=1 and no --host, work-scope open now resolves the host to copilot and files the record under scopes/copilot/, where the reference wrote a flat scopes/<session>.json (Task 12 review round 1, I1).",
+      "changed": [
+        ".agents/telemetry/automation/scopes/copilot/cenv.json"
+      ],
+      "removed": [
+        ".agents/telemetry/automation/scopes/cenv.json"
+      ]
+    }
+  }
+}

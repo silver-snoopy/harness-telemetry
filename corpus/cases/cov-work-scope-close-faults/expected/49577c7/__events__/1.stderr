@@ -1,0 +1,3 @@
+work-scope: cf1 closed
+work-scope: batch report → <REPO>/.agents/automation/fb1/batch-report.md
+work-scope: ⚠ GATE DRIFT on fb1 — receipt 'not-run' vs recorded 'green': write the verdict back into report.json BEFORE walking away

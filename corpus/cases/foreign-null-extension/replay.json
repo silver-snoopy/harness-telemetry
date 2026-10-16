@@ -1,0 +1,117 @@
+{
+  "id": "foreign-null-extension",
+  "seed": 1,
+  "implOnly": "engine",
+  "identity": {
+    "gitUser": "corpus",
+    "gitEmail": "corpus@example.invalid"
+  },
+  "repo": {
+    "path": "repo",
+    "branch": "feat/384-seed",
+    "files": {
+      ".agents/tokenomics/settings.json": "{\"extension\": null}",
+      ".agents/automation/fb/report.json": "{\"batch\":\"fb\",\"gate\":{\"verdict\":\"green\",\"runs\":2},\"cases\":[{\"id\":\"FX-1\",\"outcome\":\"delivered\",\"findings\":[{}]}]}"
+    }
+  },
+  "stores": [
+    {
+      "from": "inputs/claude/s1.jsonl",
+      "to": "home/.claude/projects/{repoKey}/s1.jsonl",
+      "mtime": "2026-10-01T10:01:00Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/fx/subagents/agent-d1.jsonl",
+      "to": "home/.claude/projects/{repoKey}/fx/subagents/agent-d1.jsonl",
+      "mtime": "2026-10-01T10:31:40Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/fx/subagents/agent-d1.meta.json",
+      "to": "home/.claude/projects/{repoKey}/fx/subagents/agent-d1.meta.json",
+      "mtime": "2026-10-01T10:31:40Z",
+      "template": true
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-10-01T10:30:00Z",
+      "run": "hooks/telemetry-capture.mjs",
+      "args": [
+        "--transcript",
+        "{home}/.claude/projects/{repoKey}/s1.jsonl",
+        "--session",
+        "s1"
+      ],
+      "stdin": null,
+      "env": {}
+    },
+    {
+      "at": "2026-10-01T10:31:00Z",
+      "run": "scripts/work-scope.mjs",
+      "args": [
+        "open",
+        "--session",
+        "fx",
+        "--intent",
+        "automation",
+        "--batch",
+        "fb",
+        "--cases",
+        "FX-1"
+      ],
+      "stdin": null,
+      "env": {
+        "TOKENOMICS_NO_CCUSAGE": "1"
+      }
+    },
+    {
+      "at": "2026-10-01T10:31:50Z",
+      "run": "hooks/telemetry-capture.mjs",
+      "args": [
+        "--dispatch"
+      ],
+      "stdin": {
+        "session_id": "fx",
+        "transcript_path": "{home}/.claude/projects/{repoKey}/fx.jsonl",
+        "agent_id": "agent-d1"
+      },
+      "env": {
+        "TOKENOMICS_NO_CCUSAGE": "1"
+      }
+    },
+    {
+      "at": "2026-10-01T10:32:00Z",
+      "run": "hooks/scope-hook.mjs",
+      "args": [
+        "--gate"
+      ],
+      "stdin": {
+        "session_id": "fx"
+      },
+      "env": {
+        "TOKENOMICS_NO_CCUSAGE": "1"
+      },
+      "captureStdout": true
+    },
+    {
+      "at": "2026-10-01T10:33:00Z",
+      "run": "scripts/work-scope.mjs",
+      "args": [
+        "close",
+        "--session",
+        "fx"
+      ],
+      "stdin": null,
+      "env": {
+        "TOKENOMICS_NO_CCUSAGE": "1"
+      },
+      "captureStderr": true
+    }
+  ],
+  "outputs": [
+    ".agents/telemetry",
+    ".agents/automation"
+  ]
+}

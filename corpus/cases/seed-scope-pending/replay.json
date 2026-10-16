@@ -1,0 +1,6 @@
+{ "id": "seed-scope-pending", "seed": 1,
+  "identity": { "gitUser": "corpus", "gitEmail": "corpus@example.invalid" },
+  "repo": { "path": "repo", "branch": "feat/384-seed", "files": {} },
+  "stores": [{"from":"inputs/claude/ss.jsonl","to":"home/.claude/projects/{repoKey}/ss.jsonl","mtime":"2026-10-01T10:01:00Z","template":true}],
+  "events": [{"at":"2026-10-01T09:58:00Z","run":"scripts/work-scope.mjs","args":["open","--session","auto","--intent","story","--batch","issue-7","--cases","issue-7"],"stdin":null,"env":{"TOKENOMICS_NO_CCUSAGE":"1"}},{"at":"2026-10-01T10:30:00Z","run":"hooks/telemetry-capture.mjs","args":["--transcript","{home}/.claude/projects/{repoKey}/ss.jsonl","--session","ss"],"stdin":null,"env":{"TOKENOMICS_NO_CCUSAGE":"1"}}],
+  "outputs": [".agents/telemetry",".agents/automation"] }

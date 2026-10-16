@@ -1,0 +1,11 @@
+{
+  "case": "before-entry-symlink",
+  "migrations": [
+    "entry-points",
+    "writer"
+  ],
+  "reason": "entry-points lets the symlinked capture run execute and append its session line; writer stamps that line with writer tokenomics-engine@0.0.0-replay and manifestRevision 1 right after v. The stamped line exists only with both on.",
+  "changed": [
+    ".agents/telemetry/automation/usage-corpus.jsonl"
+  ]
+}

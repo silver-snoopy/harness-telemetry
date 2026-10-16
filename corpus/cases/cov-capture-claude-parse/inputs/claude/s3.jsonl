@@ -1,0 +1,2 @@
+{"type":"user","message":{"role":"user","content":"sweep CC-6"}}
+{"type":"assistant","message":{"id":"s3a","model":"claude-haiku-5-5","role":"assistant","content":[{"type":"text","text":"ok"}],"usage":{"input_tokens":2,"output_tokens":2}}}

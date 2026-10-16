@@ -1,0 +1,24 @@
+{
+  "case": "seed-receipts-shared-id",
+  "migrations": [
+    "null-unobservable",
+    "shared-allocation",
+    "active-minutes",
+    "role-dollars",
+    "report-revision"
+  ],
+  "reason": "shared-allocation splits the TC-1 dispatch shared by camp/grp-a and camp/grp-b 1/2 into each group (205 tokens, dispatches 0.5); active-minutes then takes its minutes out of every bucket and allocates the 7-minute session at session grain (7 / 2 per group, the 1/k weight never reaching minutes); null-unobservable adds the unmeasured counts. Together each group's cost.json and renders show the halved dispatch, the session-grain minutes and all-zero counts. role-dollars (item 23, O3) then makes by-role dollars inclusive on the same cost.json files, their batch and tokenomics renders and the batch-cost / --batch / --batches streams: a priced session's parent role carries what the group charges for it (dispatch dollars included, so over priced sessions Σ byRole.costUsd = totals.costUsd), an unpriced session's parent role stays null and counts in its unpriced (byRole {priced, unpriced} session counts; 0/0 = a dispatch-only role, not allocated at this grain), dispatch roles carry no by-role dollars, and a separate byDispatchRole {units, costUsd, priced} breakdown (present, possibly empty) holds the measured per-dispatch dollars; the renders add the inclusive note and the dispatch-dollar table, so the cumulative bytes carry it too. report-revision (item 24, O6) then records the current manifest revision (1: the implied manifest) on the same reports: manifestRevision right after v in every cost.json, the period --json's manifestRevision after generated, the 'manifest revision 1' footer on the batch, tokenomics, period and live renders and in submission.md, and manifestRevision after schema_version in the export runs.json; it adds a field and a footer line and moves no figure, so the cumulative bytes carry its provenance beside every other owner's change.",
+  "changed": [
+    ".agents/automation/camp/grp-a/batch-report.html",
+    ".agents/automation/camp/grp-a/batch-report.md",
+    ".agents/automation/camp/grp-a/batch-tokenomics.html",
+    ".agents/automation/camp/grp-a/batch-tokenomics.md",
+    ".agents/automation/camp/grp-a/cost.json",
+    ".agents/automation/camp/grp-b/batch-report.html",
+    ".agents/automation/camp/grp-b/batch-report.md",
+    ".agents/automation/camp/grp-b/batch-tokenomics.html",
+    ".agents/automation/camp/grp-b/batch-tokenomics.md",
+    ".agents/automation/camp/grp-b/cost.json",
+    ".agents/telemetry/automation/export/runs.json"
+  ]
+}

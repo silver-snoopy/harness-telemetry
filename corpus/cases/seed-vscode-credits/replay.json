@@ -1,0 +1,6 @@
+{ "id": "seed-vscode-credits", "seed": 1,
+  "identity": { "gitUser": "corpus", "gitEmail": "corpus@example.invalid" },
+  "repo": { "path": "repo", "branch": "feat/384-seed", "files": {} },
+  "stores": [{"from":"inputs/vscode/workspace.json","to":"home/.config/Code/User/workspaceStorage/h1/workspace.json","mtime":"2026-10-01T10:00:00Z","template":true},{"from":"inputs/vscode/s1.jsonl","to":"home/.config/Code/User/workspaceStorage/h1/chatSessions/vs1.jsonl","mtime":"2026-10-01T10:05:00Z","template":true}],
+  "events": [{"at":"2026-10-01T10:30:00Z","run":"hooks/telemetry-capture.mjs","args":["--sweep","--all"],"stdin":null,"env":{"TOKENOMICS_NO_CCUSAGE":"1"}}],
+  "outputs": [".agents/telemetry",".agents/automation"] }

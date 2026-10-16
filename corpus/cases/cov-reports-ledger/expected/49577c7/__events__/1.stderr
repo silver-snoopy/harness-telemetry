@@ -1,0 +1,4 @@
+batch-cost: camp/wave-01 — 1 session(s), 2 case(s), total $1.85 → cost.json
+batch-cost: camp/wave-02 — 2 session(s), 1 case(s), total $1.9 → cost.json
+batch-cost: solo — 2 session(s), 4 case(s), total $2.8 → cost.json
+batch-cost: tokonly — 1 session(s), 1 case(s), total 1600 tokens (unpriced) → cost.json

@@ -1,0 +1,14 @@
+[
+  {
+    "file": "scripts/install-hooks.mjs",
+    "reason": "installer milestone B3; not a capture/scope/join/report path; copied unit tests guard it"
+  },
+  {
+    "file": "scripts/otel-report.mjs",
+    "reason": "optional OTel reporting, byte-identical to the reference in B1"
+  },
+  {
+    "file": "hooks/otel-sink.mjs",
+    "reason": "optional OTel service; spawned by cov-capture-otel-local only to fail before listen; live-receiver coverage deferred"
+  }
+]

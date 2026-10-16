@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "manifestRevision": 1,
+  "segment": {
+    "factory_id": null,
+    "factory_name": null,
+    "agent_tool": "claude",
+    "default_method": "metered",
+    "scope": {
+      "includes_subagents": true,
+      "includes_retries": true,
+      "includes_abandoned_runs": false
+    },
+    "currency": "USD",
+    "efficiency_techniques": [],
+    "pipeline": []
+  },
+  "runs": [
+    {
+      "work_item_ref": "T-fb",
+      "maturity": "pilot",
+      "sessions": 1,
+      "turns": 0,
+      "subagent_dispatches": 1,
+      "orchestrator_cost_pct": null,
+      "tokens": {
+        "input": 12,
+        "output": 300,
+        "cache_read": 2000,
+        "cache_create": 100
+      },
+      "primary_model": "claude-sonnet-5",
+      "models_used": [],
+      "tokens_by_model": {
+        "claude-sonnet-5": {
+          "input": 12,
+          "output": 300,
+          "cache_read": 2000,
+          "cache_create": 100
+        }
+      },
+      "cost_api_equivalent_usd": null,
+      "cache_read_share_pct": 10.9,
+      "notes": "cache_read_share_pct computed from the token quad at public list ratios (in 1x / out 5x / write 1.25x / read 0.1x)."
+    }
+  ]
+}

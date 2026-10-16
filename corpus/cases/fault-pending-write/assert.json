@@ -1,0 +1,13 @@
+{
+  "ledgerLines": 1,
+  "facts": [
+    {
+      "path": "/id",
+      "equals": "a/b"
+    },
+    {
+      "path": "/scope",
+      "absent": true
+    }
+  ]
+}

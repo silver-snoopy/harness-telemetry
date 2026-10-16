@@ -1,0 +1,63 @@
+{
+  "fileFacts": [
+    {
+      "file": "__events__/0.stdout",
+      "path": "/window",
+      "equals": "2026-10-01 → 2026-10-07"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/sessions",
+      "equals": 2
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/index/0/id",
+      "equals": "a1"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/index/1/id",
+      "equals": "c1"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/totals/costUsd",
+      "equals": 4.5
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/cases/examined",
+      "equals": 5
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/cases/delivered",
+      "equals": 3
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/cases/outcomes",
+      "equals": {
+        "delivered": 3,
+        "in-progress": 1,
+        "blocked": 1
+      }
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/perDelivered/costUsd",
+      "equals": 1.5
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/perDelivered/automationOnlyCostUsd",
+      "equals": 1
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/perExamined/costUsd",
+      "equals": 0.9
+    }
+  ]
+}

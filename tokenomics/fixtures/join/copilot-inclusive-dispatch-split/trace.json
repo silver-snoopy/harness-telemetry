@@ -1,0 +1,6 @@
+{
+  "rollups": [],
+  "allocations": [
+    { "source": "copilot:A", "group": "g1", "quantity": "tokens.input", "amount": 500, "grain": "dispatch", "dispatch": "d1" }
+  ]
+}

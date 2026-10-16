@@ -1,0 +1,12 @@
+export: no factory profile at <REPO>/.agents/telemetry/automation/factory-profile.json — identity fields will be null (copy the skill's templates/factory-profile.template.json there; seeding Step 6.7 does this)
+export: appended row 'T-s1' in <REPO>/.agents/telemetry/automation/export/runs.json
+  ❌ MISSING: segment.factory_id
+  ❌ MISSING: segment.factory_name
+  ❌ MISSING: segment.agent_tool
+  ❌ MISSING: effort_days (run the intake sizing pass)
+  ❌ MISSING: size_tshirt (derives from effort_days)
+  ❌ MISSING: primary_model/models_used
+  ❌ MISSING: cost_api_equivalent_usd > 0
+  ❌ MISSING: scenario_complexity (from sizing verdicts)
+  ❌ MISSING: env_setup (set it in factory-profile.json: trivial|single-fixture|multi-fixture|external-deps|full-env)
+  ⚠️  DEFAULTED: maturity=pilot (set it in factory-profile.json)

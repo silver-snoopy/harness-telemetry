@@ -1,0 +1,21 @@
+{
+  "ledgerLines": 0,
+  "fileFacts": [
+    {
+      "file": ".agents/telemetry/automation/gate-runs/fs1.jsonl",
+      "path": "/verdict",
+      "equals": "green"
+    },
+    {
+      "file": ".agents/automation/fs1/cost.json",
+      "path": "/batch",
+      "equals": "fs1"
+    }
+  ],
+  "textFacts": [
+    {
+      "file": ".agents/automation/fs1/batch-report.md",
+      "includes": "fs1"
+    }
+  ]
+}

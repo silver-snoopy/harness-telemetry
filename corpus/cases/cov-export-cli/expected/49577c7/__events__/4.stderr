@@ -1,0 +1,4 @@
+export: appended row 'T-b3' in <REPO>/.agents/telemetry/automation/export/runs.json
+  ❌ MISSING: segment.agent_tool
+  ❌ MISSING: primary_model/models_used
+  ❌ MISSING: cost_api_equivalent_usd > 0

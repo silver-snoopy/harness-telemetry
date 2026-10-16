@@ -1,0 +1,9 @@
+{ "type": "object", "required": ["v","session","intent","cases","declaredAt","updatedAt"],
+  "properties": {
+    "v": {"const":1}, "session": {"type":"string"}, "intent": {"type":"string"}, "batch": {"type":"string"},
+    "cases": {"type":"array","items":{"type":"string"}}, "source": {"type":"string"}, "role": {"type":"string"},
+    "declaredAt": {"type":"string"}, "updatedAt": {"type":"string"}, "closedAt": {"type":"string"}, "claimedFrom": {"type":"string"},
+    "outcomes": {"type":"object","additionalProperties":{"type":"object","required":["outcome","at"],
+      "properties":{"outcome":{"type":"string"},"at":{"type":"string"}},"additionalProperties":false}}
+  },
+  "additionalProperties": false }

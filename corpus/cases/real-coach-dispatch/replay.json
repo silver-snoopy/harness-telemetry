@@ -1,0 +1,141 @@
+{
+  "id": "real-coach-dispatch",
+  "seed": 1,
+  "identity": {
+    "gitUser": "corpus",
+    "gitEmail": "corpus@example.invalid"
+  },
+  "repo": {
+    "path": "repo",
+    "branch": "feat/replay-a-m6-e2e-verification",
+    "files": {}
+  },
+  "stores": [
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1.jsonl",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1.jsonl",
+      "mtime": "2026-09-23T05:47:32.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/subagents/agent-a159e06b6b849ab45.jsonl",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/subagents/agent-a159e06b6b849ab45.jsonl",
+      "mtime": "2026-09-23T05:05:08.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/subagents/agent-a159e06b6b849ab45.meta.json",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/subagents/agent-a159e06b6b849ab45.meta.json",
+      "mtime": "2026-09-23T04:59:21.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/subagents/agent-a393b0e22d2796624.jsonl",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/subagents/agent-a393b0e22d2796624.jsonl",
+      "mtime": "2026-09-23T05:13:51.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/subagents/agent-a393b0e22d2796624.meta.json",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/subagents/agent-a393b0e22d2796624.meta.json",
+      "mtime": "2026-09-23T05:09:14.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/subagents/agent-ae3ca0eb34ddbbf97.jsonl",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/subagents/agent-ae3ca0eb34ddbbf97.jsonl",
+      "mtime": "2026-09-23T05:08:49.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/subagents/agent-ae3ca0eb34ddbbf97.meta.json",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/subagents/agent-ae3ca0eb34ddbbf97.meta.json",
+      "mtime": "2026-09-23T05:05:16.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/b3sd2ury4.txt",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/b3sd2ury4.txt",
+      "mtime": "2026-09-23T04:59:36.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/b5mmcnaff.txt",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/b5mmcnaff.txt",
+      "mtime": "2026-09-23T04:59:55.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/bc1y5t8fb.txt",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/bc1y5t8fb.txt",
+      "mtime": "2026-09-23T04:50:32.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/bl951lspy.txt",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/bl951lspy.txt",
+      "mtime": "2026-09-23T04:07:49.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/bv3ihfqd8.txt",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/bv3ihfqd8.txt",
+      "mtime": "2026-09-23T05:12:52.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/hook-1e8d7ba8-2240-4eda-abc9-13053ba2b0a1-5-additionalContext.txt",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/hook-1e8d7ba8-2240-4eda-abc9-13053ba2b0a1-5-additionalContext.txt",
+      "mtime": "2026-09-23T04:07:11.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/hook-43afcf54-c688-42a3-a86d-0489e1215775-5-additionalContext.txt",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/hook-43afcf54-c688-42a3-a86d-0489e1215775-5-additionalContext.txt",
+      "mtime": "2026-09-23T04:47:53.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/hook-79710525-4737-49af-b910-e29e18d44d80-1-additionalContext.txt",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/hook-79710525-4737-49af-b910-e29e18d44d80-1-additionalContext.txt",
+      "mtime": "2026-09-23T04:59:21.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/hook-7bf7be5a-1e50-4ff7-b001-68e4b3cf639f-1-additionalContext.txt",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/hook-7bf7be5a-1e50-4ff7-b001-68e4b3cf639f-1-additionalContext.txt",
+      "mtime": "2026-09-23T04:50:07.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/hook-b0c84116-da11-44cf-9788-e4e38bd68971-1-additionalContext.txt",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/hook-b0c84116-da11-44cf-9788-e4e38bd68971-1-additionalContext.txt",
+      "mtime": "2026-09-23T05:05:16.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/hook-b2839951-4150-421c-9fcb-c76e0fcd7337-1-additionalContext.txt",
+      "to": "home/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1/tool-results/hook-b2839951-4150-421c-9fcb-c76e0fcd7337-1-additionalContext.txt",
+      "mtime": "2026-09-23T05:09:14.000Z",
+      "template": true
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-09-23T06:17:32.000Z",
+      "run": "hooks/telemetry-capture.mjs",
+      "args": [
+        "--transcript",
+        "{home}/.claude/projects/{repoKey}/cf20a8bd-3298-436b-82b4-af3ecf9344b1.jsonl",
+        "--session",
+        "cf20a8bd-3298-436b-82b4-af3ecf9344b1"
+      ],
+      "stdin": null,
+      "env": {}
+    }
+  ],
+  "outputs": [
+    ".agents/telemetry",
+    ".agents/automation"
+  ]
+}

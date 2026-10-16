@@ -1,0 +1,25 @@
+{
+  "ledgerLines": 1,
+  "facts": [
+    {
+      "path": "/host",
+      "equals": "copilot"
+    },
+    {
+      "path": "/costUsd",
+      "equals": 0.02
+    },
+    {
+      "path": "/costSource",
+      "equals": "copilot-nano-aiu"
+    },
+    {
+      "path": "/subagents/0/tokens/input",
+      "equals": 500
+    },
+    {
+      "path": "/tokens/input",
+      "equals": 1000
+    }
+  ]
+}

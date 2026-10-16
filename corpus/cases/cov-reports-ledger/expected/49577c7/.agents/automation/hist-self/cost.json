@@ -1,0 +1,1 @@
+{"batch":"solo","cases":[{"id":"S-1","sizing":{"size":"M"},"direct":{"tok":{"input":100,"output":99999,"cacheRead":0,"cacheWrite":0},"activeMin":99}}]}

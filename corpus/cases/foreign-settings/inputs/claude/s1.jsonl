@@ -1,0 +1,2 @@
+{"type":"user","timestamp":"2026-10-01T10:00:00.000Z","sessionId":"s1","gitBranch":"feat/issue-101-login","cwd":"{repo}","message":{"role":"user","content":"Story work for issue-101 (login form)"}}
+{"type":"assistant","timestamp":"2026-10-01T10:01:00.000Z","sessionId":"s1","gitBranch":"feat/issue-101-login","cwd":"{repo}","message":{"id":"msg_1","model":"claude-haiku-5-5","role":"assistant","content":[{"type":"text","text":"ok"}],"usage":{"input_tokens":10,"output_tokens":20,"cache_read_input_tokens":300,"cache_creation_input_tokens":40}}}

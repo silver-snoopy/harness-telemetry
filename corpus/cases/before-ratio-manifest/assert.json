@@ -1,0 +1,39 @@
+{
+  "fileFacts": [
+    {
+      "file": "__events__/0.stdout",
+      "path": "/sessions",
+      "equals": 2
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/totals/costUsd",
+      "equals": 2.5
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/byIntent/story/costUsd",
+      "equals": 2
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/byIntent/automation/costUsd",
+      "equals": 0.5
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/cases/delivered",
+      "equals": 1
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/perDelivered/costUsd",
+      "equals": 2.5
+    },
+    {
+      "file": "__events__/0.stdout",
+      "path": "/perDelivered/automationOnlyCostUsd",
+      "equals": 0.5
+    }
+  ]
+}

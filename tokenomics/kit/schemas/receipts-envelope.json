@@ -1,0 +1,12 @@
+{ "type": "object", "required": ["schema","complete","receipts"],
+  "properties": {
+    "schema": {"const":1}, "complete": {"type":"boolean"},
+    "receipts": {"type":"array","items":{"type":"object","required":["group","cases"],
+      "properties": {
+        "group": {"type":"string"}, "work_item_ref": {"type":"string"}, "rollup": {"type":"boolean"},
+        "revision": {"type":"string"}, "source": {"type":"string"},
+        "cases": {"type":"array","items":{"type":"object","required":["id"],
+          "properties":{"id":{"type":"string"},"outcome":{"type":"string"},"at":{"type":"string"}},"additionalProperties":true}}
+      },"additionalProperties": true}}
+  },
+  "additionalProperties": false }

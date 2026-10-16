@@ -1,0 +1,6 @@
+{ "id": "seed-claude-folded", "seed": 1,
+  "identity": { "gitUser": "corpus", "gitEmail": "corpus@example.invalid" },
+  "repo": { "path": "repo", "branch": "feat/384-seed", "files": {".agents/telemetry/automation/live/sf.jsonl":"{\"v\":1,\"session\":\"sf\",\"agentId\":\"a1\",\"role\":\"implementer\",\"label\":\"implement PROJ-12\",\"cases\":[\"PROJ-12\"],\"tokens\":{\"input\":100,\"output\":50,\"cacheRead\":0,\"cacheWrite\":0},\"activeMin\":3,\"toolCalls\":4,\"toolErrors\":0,\"costUsd\":0.5,\"endedAt\":\"2026-10-01T10:02:00.000Z\",\"bytes\":1234,\"at\":\"2026-10-01T10:02:01.000Z\"}\n"} },
+  "stores": [{"from":"inputs/claude/sf.jsonl","to":"home/.claude/projects/{repoKey}/sf.jsonl","mtime":"2026-10-01T10:01:00Z","template":true}],
+  "events": [{"at":"2026-10-01T10:30:00Z","run":"hooks/telemetry-capture.mjs","args":["--transcript","{home}/.claude/projects/{repoKey}/sf.jsonl","--session","sf"],"stdin":null,"env":{"TOKENOMICS_NO_CCUSAGE":"1"}}],
+  "outputs": [".agents/telemetry",".agents/automation"] }

@@ -1,0 +1,11 @@
+{
+  "case": "seed-claude-folded",
+  "migrations": [
+    "fold-flags",
+    "writer"
+  ],
+  "reason": "fold-flags gives the folded dispatch a1 the captured dispatch shape (tokensByModel {} in captured key order); writer stamps every appended line with writer tokenomics-engine@0.0.0-replay and manifestRevision 1 right after v (map D4). The ledger carries both.",
+  "changed": [
+    ".agents/telemetry/automation/usage-corpus.jsonl"
+  ]
+}

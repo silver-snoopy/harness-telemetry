@@ -1,0 +1,86 @@
+{
+ "id": "fault-batch-cost-sizing-locked",
+ "seed": 1,
+ "requires": ["non-root"],
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/SZ-1-size",
+  "files": {
+   "claude": "const fs=require('fs');fs.chmodSync('.agents/automation/hist-locked',process.env.CASE_STUB_UNLOCK==='1'?0o755:0o000);process.stdout.write('{}');\n",
+   ".agents/automation/sz/report.json": "{\"batch\":\"sz\",\"cases\":[{\"id\":\"SZ-1\",\"outcome\":\"delivered\"}]}",
+   ".agents/automation/hist-open/cost.json": "{\"batch\":\"hist-open\",\"cases\":[{\"id\":\"H1\",\"sizing\":{\"size\":\"M\"},\"direct\":{\"tok\":{\"input\":100,\"output\":1000,\"cacheRead\":0,\"cacheWrite\":0},\"activeMin\":5}}]}",
+   ".agents/automation/hist-locked/cost.json": "{\"batch\":\"hist-locked\",\"cases\":[{\"id\":\"H2\",\"sizing\":{\"size\":\"M\"},\"direct\":{\"tok\":{\"input\":100,\"output\":1000,\"cacheRead\":0,\"cacheWrite\":0},\"activeMin\":5}}]}",
+   ".agents/estimation/scores.json": "{\"cases\":[{\"id\":\"SZ-1\",\"size\":\"M\",\"sp\":3}]}"
+  }
+ },
+ "stores": [
+  {
+   "from": "inputs/claude/sz1.jsonl",
+   "to": "home/.claude/projects/{repoKey}/sz1.jsonl",
+   "mtime": "2026-10-01T10:05:00Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/w2.jsonl",
+   "to": "home/.claude/projects/{repoKey}/w2.jsonl",
+   "mtime": "2026-10-01T10:05:00Z",
+   "template": true
+  }
+ ],
+ "events": [
+  {
+   "at": "2026-10-01T10:10:00Z",
+   "run": "scripts/work-scope.mjs",
+   "args": [
+    "open",
+    "--session",
+    "sz1",
+    "--intent",
+    "automation",
+    "--batch",
+    "sz",
+    "--cases",
+    "SZ-1"
+   ],
+   "stdin": null,
+   "env": {}
+  },
+  {
+   "at": "2026-10-01T10:20:00Z",
+   "run": "scripts/work-scope.mjs",
+   "args": [
+    "close",
+    "--session",
+    "sz1"
+   ],
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_CCUSAGE_BIN": "node"
+   },
+   "captureStderr": true
+  },
+  {
+   "at": "2026-10-01T10:21:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/.claude/projects/{repoKey}/w2.jsonl",
+    "--session",
+    "w2"
+   ],
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_CCUSAGE_BIN": "node",
+    "CASE_STUB_UNLOCK": "1"
+   }
+  }
+ ],
+ "outputs": [
+  ".agents/telemetry",
+  ".agents/automation"
+ ]
+}

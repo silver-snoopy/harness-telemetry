@@ -1,0 +1,5 @@
+work-scope: cf3 closed
+work-scope: ⚠ NO RECEIPT for batch 'fb3' — .agents/automation/fb3/report.json is missing, so no batch report was written.
+  The receipt is an agent write; an interrupted run leaves none. Rebuild it from what IS on disk — gate-runs.jsonl (script-authored verdicts),
+  .agents/telemetry/automation/returns/ (per-dispatch returns; legacy _returns/), the run journal and git — see the orchestration playbook § Interruption and resumption,
+  then re-run: work-scope.mjs close --session cf3 (the render is idempotent).

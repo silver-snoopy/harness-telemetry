@@ -1,0 +1,14 @@
+{
+  "fileFacts": [
+    {
+      "file": "w1/.agents/telemetry/automation/usage-unknown.jsonl",
+      "path": "/id",
+      "equals": "i1"
+    },
+    {
+      "file": "w1/.agents/telemetry/automation/usage-unknown.jsonl",
+      "path": "/user",
+      "equals": "unknown"
+    }
+  ]
+}

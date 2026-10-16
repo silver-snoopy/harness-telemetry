@@ -1,0 +1,1 @@
+{"kind":0,"v":{"requests":[{"requestId":"v1","promptTokens":10,"completionTokens":2,"modelId":"copilot/gpt-5","elapsedMs":60000,"timestamp":1790938800000,"message":{"text":"chat V-1"}}]}}

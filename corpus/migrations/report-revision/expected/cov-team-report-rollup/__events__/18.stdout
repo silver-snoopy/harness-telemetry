@@ -1,0 +1,223 @@
+{
+  "generated": "2026-10-05T09:18:00.000Z",
+  "manifestRevision": 1,
+  "window": null,
+  "sessions": 1,
+  "people": 1,
+  "totals": {
+    "sessions": 1,
+    "costUsd": 3,
+    "priced": 1,
+    "tokens": {
+      "input": 110,
+      "output": 220,
+      "cacheRead": 0,
+      "cacheWrite": 0
+    },
+    "activeMin": 30,
+    "wallMin": 60,
+    "turns": 5,
+    "toolCalls": 6,
+    "toolErrors": 1
+  },
+  "byCase": {
+    "N-1": 1
+  },
+  "byIntent": {
+    "undeclared": {
+      "sessions": 1,
+      "costUsd": 3,
+      "priced": 1,
+      "tokens": {
+        "input": 110,
+        "output": 220,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 30,
+      "wallMin": 60,
+      "turns": 5,
+      "toolCalls": 6,
+      "toolErrors": 1
+    }
+  },
+  "costSources": {
+    "ccusage-metered": 1
+  },
+  "tokensOnly": 0,
+  "byPerson": {
+    "erin": {
+      "sessions": 1,
+      "costUsd": 3,
+      "priced": 1,
+      "tokens": {
+        "input": 110,
+        "output": 220,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 30,
+      "wallMin": 60,
+      "turns": 5,
+      "toolCalls": 6,
+      "toolErrors": 1
+    }
+  },
+  "byRole": {
+    "(interactive session)": {
+      "units": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 25,
+      "toolCalls": 6,
+      "toolErrors": 1
+    },
+    "implementer": {
+      "units": 1,
+      "tokens": {
+        "input": 10,
+        "output": 20,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 5,
+      "toolCalls": 2,
+      "toolErrors": 0
+    }
+  },
+  "byWeek": {
+    "2026-W37": {
+      "sessions": 1,
+      "costUsd": 3,
+      "priced": 1,
+      "tokens": {
+        "input": 110,
+        "output": 220,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 30,
+      "wallMin": 60,
+      "turns": 5,
+      "toolCalls": 6,
+      "toolErrors": 1
+    }
+  },
+  "byHost": {
+    "claude": {
+      "sessions": 1,
+      "costUsd": 3,
+      "priced": 1,
+      "tokens": {
+        "input": 110,
+        "output": 220,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 30,
+      "wallMin": 60,
+      "turns": 5,
+      "toolCalls": 6,
+      "toolErrors": 1
+    }
+  },
+  "cases": {
+    "examined": 2,
+    "delivered": 0,
+    "outcomes": {
+      "blocked": 1,
+      "not-started": 1
+    },
+    "reports": 1
+  },
+  "perDelivered": null,
+  "perExamined": {
+    "costUsd": 1.5
+  },
+  "index": [
+    {
+      "host": "claude",
+      "id": "n1",
+      "user": "erin",
+      "role": null,
+      "startedAt": "2026-09-10T09:00:00.000Z",
+      "costUsd": 3,
+      "cases": [
+        "N-1"
+      ]
+    }
+  ],
+  "byBatch": [
+    {
+      "batch": "nb",
+      "cases": 2,
+      "delivered": 0,
+      "costUsd": 3,
+      "activeMin": 30,
+      "perDelivered": null,
+      "gate": null,
+      "drift": true
+    }
+  ],
+  "perCase": [
+    {
+      "batch": "nb",
+      "id": "N-1",
+      "outcome": "blocked",
+      "direct": {
+        "costUsd": null,
+        "tokens": 30,
+        "tok": {
+          "input": 10,
+          "output": 20,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": 5,
+        "dispatches": 1,
+        "fixRounds": 0,
+        "toolCalls": 2,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": 1.5,
+        "tokens": 180,
+        "activeMin": 18
+      }
+    },
+    {
+      "batch": "nb",
+      "id": "N-2",
+      "outcome": null,
+      "direct": {
+        "costUsd": null,
+        "tokens": 0,
+        "tok": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": 0,
+        "dispatches": 0,
+        "fixRounds": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": 1.5,
+        "tokens": 150,
+        "activeMin": 13
+      }
+    }
+  ],
+  "perCaseStats": {
+    "note": "over DELIVERED cases; loaded = direct + even batch-overhead share (allocation)",
+    "loadedCostUsd": null,
+    "loadedActiveMin": null
+  }
+}

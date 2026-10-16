@@ -1,0 +1,185 @@
+{
+  "generated": "2026-10-05T09:03:00.000Z",
+  "window": null,
+  "sessions": 5,
+  "people": 1,
+  "totals": {
+    "sessions": 5,
+    "costUsd": 31,
+    "priced": 5,
+    "tokens": {
+      "input": 500,
+      "output": 1000,
+      "cacheRead": 0,
+      "cacheWrite": 0
+    },
+    "activeMin": 150,
+    "wallMin": 300,
+    "turns": 25,
+    "toolCalls": 30,
+    "toolErrors": 5
+  },
+  "byCase": {},
+  "byIntent": {
+    "undeclared": {
+      "sessions": 5,
+      "costUsd": 31,
+      "priced": 5,
+      "tokens": {
+        "input": 500,
+        "output": 1000,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 150,
+      "wallMin": 300,
+      "turns": 25,
+      "toolCalls": 30,
+      "toolErrors": 5
+    }
+  },
+  "costSources": {
+    "ccusage-metered": 5
+  },
+  "tokensOnly": 0,
+  "byPerson": {
+    "u1": {
+      "sessions": 5,
+      "costUsd": 31,
+      "priced": 5,
+      "tokens": {
+        "input": 500,
+        "output": 1000,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 150,
+      "wallMin": 300,
+      "turns": 25,
+      "toolCalls": 30,
+      "toolErrors": 5
+    }
+  },
+  "byRole": {
+    "(interactive session)": {
+      "units": 5,
+      "tokens": {
+        "input": 500,
+        "output": 1000,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 150,
+      "toolCalls": 30,
+      "toolErrors": 5
+    }
+  },
+  "byDispatchRole": {},
+  "byWeek": {
+    "2026-W37": {
+      "sessions": 4,
+      "costUsd": 27,
+      "priced": 4,
+      "tokens": {
+        "input": 400,
+        "output": 800,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 120,
+      "wallMin": 240,
+      "turns": 20,
+      "toolCalls": 24,
+      "toolErrors": 4
+    },
+    "2026-W38": {
+      "sessions": 1,
+      "costUsd": 4,
+      "priced": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 30,
+      "wallMin": 60,
+      "turns": 5,
+      "toolCalls": 6,
+      "toolErrors": 1
+    }
+  },
+  "byHost": {
+    "claude": {
+      "sessions": 5,
+      "costUsd": 31,
+      "priced": 5,
+      "tokens": {
+        "input": 500,
+        "output": 1000,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 150,
+      "wallMin": 300,
+      "turns": 25,
+      "toolCalls": 30,
+      "toolErrors": 5
+    }
+  },
+  "cases": {
+    "examined": 0,
+    "delivered": 0,
+    "outcomes": {},
+    "reports": 0
+  },
+  "perDelivered": null,
+  "perExamined": null,
+  "index": [
+    {
+      "host": "claude",
+      "id": "d1",
+      "user": "u1",
+      "role": null,
+      "startedAt": "2026-09-11T09:00:00.000Z",
+      "costUsd": 1,
+      "cases": []
+    },
+    {
+      "host": "claude",
+      "id": "d4",
+      "user": "u1",
+      "role": null,
+      "startedAt": "2026-09-11T09:00:00.000Z",
+      "costUsd": 8,
+      "cases": []
+    },
+    {
+      "host": "claude",
+      "id": "d2",
+      "user": "u1",
+      "role": null,
+      "startedAt": "2026-09-12T09:00:00.000Z",
+      "costUsd": 2,
+      "cases": []
+    },
+    {
+      "host": "claude",
+      "id": "d5",
+      "user": "u1",
+      "role": null,
+      "startedAt": "2026-09-12T09:00:00.000Z",
+      "costUsd": 16,
+      "cases": []
+    },
+    {
+      "host": "claude",
+      "id": "d3",
+      "user": "u1",
+      "role": null,
+      "startedAt": "2026-09-14T09:00:00.000Z",
+      "costUsd": 4,
+      "cases": []
+    }
+  ]
+}

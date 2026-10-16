@@ -1,0 +1,17 @@
+{
+  "ledgerLines": 2,
+  "facts": [
+    {
+      "path": "/endedAt",
+      "equals": "2026-10-01T10:11:00.000Z"
+    },
+    {
+      "path": "/turns",
+      "equals": 2
+    },
+    {
+      "path": "/id",
+      "equals": "sr"
+    }
+  ]
+}

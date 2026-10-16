@@ -1,0 +1,11 @@
+{
+  "case": "cov-capture-scope-live",
+  "migrations": [
+    "null-unobservable",
+    "writer"
+  ],
+  "reason": "null-unobservable writes wallMin and activeMin null on the timestamp-less Claude session (Q8b); writer stamps every appended line with writer tokenomics-engine@0.0.0-replay and manifestRevision 1 right after v (map D4). The ledger carries both: the stamped lines with the null fields.",
+  "changed": [
+    ".agents/telemetry/automation/usage-corpus.jsonl"
+  ]
+}

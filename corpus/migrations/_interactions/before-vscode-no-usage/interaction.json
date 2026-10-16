@@ -1,0 +1,11 @@
+{
+  "case": "before-vscode-no-usage",
+  "migrations": [
+    "null-unobservable",
+    "writer"
+  ],
+  "reason": "null-unobservable writes tokens null with tokensAttribution none and toolCalls/skills null on the usage-less VS Code lines vu1 and vu2; writer stamps every appended line with writer tokenomics-engine@0.0.0-replay and manifestRevision 1 right after v (map D4). The ledger carries both: the stamped lines with the null fields.",
+  "changed": [
+    ".agents/telemetry/automation/usage-corpus.jsonl"
+  ]
+}

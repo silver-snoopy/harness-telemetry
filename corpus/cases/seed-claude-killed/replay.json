@@ -1,0 +1,6 @@
+{ "id": "seed-claude-killed", "seed": 1,
+  "identity": { "gitUser": "corpus", "gitEmail": "corpus@example.invalid" },
+  "repo": { "path": "repo", "branch": "feat/384-seed", "files": {} },
+  "stores": [{"from":"inputs/claude/sk.jsonl","to":"home/.claude/projects/{repoKey}/sk.jsonl","mtime":"2026-10-01T10:01:00Z","template":true}],
+  "events": [{"at":"2026-10-01T13:01:00Z","run":"hooks/telemetry-capture.mjs","args":["--sweep","--all"],"stdin":null,"env":{"TOKENOMICS_NO_CCUSAGE":"1"}}],
+  "outputs": [".agents/telemetry",".agents/automation"] }

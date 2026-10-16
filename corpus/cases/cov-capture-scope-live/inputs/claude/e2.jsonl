@@ -1,0 +1,2 @@
+{"type":"user","message":{"role":"user","content":"nostamp SL-6"}}
+{"type":"assistant","message":{"id":"m-e2","model":"claude-haiku-5-5","role":"assistant","content":[{"type":"text","text":"ok"}],"usage":{"input_tokens":3,"output_tokens":3}}}

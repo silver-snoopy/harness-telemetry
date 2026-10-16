@@ -1,0 +1,9 @@
+{
+  "module": "tokenomics",
+  "schema_version": "1.0",
+  "domain": "stories",
+  "manifestRevision": 1,
+  "ratioIntents": [
+    "story"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "id": "reports-location",
+  "item": 10,
+  "spec": "§14.8 item 10, §14.4",
+  "summary": "Non-TA configurations write reports and close-time output to the telemetry branch, while TA keeps its in-tree layout (reports.location \"tree\") until its owner retires it.",
+  "beforeCases": [
+    "foreign-settings",
+    "foreign-null-extension"
+  ],
+  "declared": {
+    "foreign-settings": {
+      "reason": "the present non-TA settings file omits reports.location, so it defaults to telemetry (Q13b): sp1's four close-time renders and both groups' cost.json leave the receipt tree and appear under .agents/telemetry/stories/reports/<group>/, and the close stderr path line names the new path",
+      "changed": [
+        ".agents/telemetry/stories/reports/sp1/batch-report.html",
+        ".agents/telemetry/stories/reports/sp1/batch-report.md",
+        ".agents/telemetry/stories/reports/sp1/batch-tokenomics.html",
+        ".agents/telemetry/stories/reports/sp1/batch-tokenomics.md",
+        ".agents/telemetry/stories/reports/sp1/cost.json",
+        ".agents/telemetry/stories/reports/sp2/cost.json",
+        "__events__/3.stderr"
+      ],
+      "removed": [
+        ".agents/stories/sp1/batch-report.html",
+        ".agents/stories/sp1/batch-report.md",
+        ".agents/stories/sp1/batch-tokenomics.html",
+        ".agents/stories/sp1/batch-tokenomics.md",
+        ".agents/stories/sp1/cost.json",
+        ".agents/stories/sp2/cost.json"
+      ]
+    },
+    "foreign-null-extension": {
+      "reason": "settings {extension: null} is a present file with no reports.location, so it defaults to telemetry (Q13b): the fb group's four renders and cost.json leave .agents/automation/fb/ for .agents/telemetry/automation/reports/fb/, and the close stderr path line names the new path",
+      "changed": [
+        ".agents/telemetry/automation/reports/fb/batch-report.html",
+        ".agents/telemetry/automation/reports/fb/batch-report.md",
+        ".agents/telemetry/automation/reports/fb/batch-tokenomics.html",
+        ".agents/telemetry/automation/reports/fb/batch-tokenomics.md",
+        ".agents/telemetry/automation/reports/fb/cost.json",
+        "__events__/4.stderr"
+      ],
+      "removed": [
+        ".agents/automation/fb/batch-report.html",
+        ".agents/automation/fb/batch-report.md",
+        ".agents/automation/fb/batch-tokenomics.html",
+        ".agents/automation/fb/batch-tokenomics.md",
+        ".agents/automation/fb/cost.json"
+      ]
+    }
+  }
+}

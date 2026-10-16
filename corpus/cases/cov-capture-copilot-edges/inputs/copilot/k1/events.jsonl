@@ -1,0 +1,11 @@
+{"type":"session.start","timestamp":"2026-10-01T10:00:00.000Z","data":{"context":{"cwd":"{repo}"}}}
+{"type":"assistant.message","timestamp":"2026-10-01T10:01:00.000Z"}
+{"type":"subagent.selected","timestamp":"2026-10-01T10:01:00.000Z","data":{"agentName":"lead"}}
+{"type":"subagent.selected","timestamp":"2026-10-01T10:01:00.000Z","data":{}}
+{"type":"skill.invoked","timestamp":"2026-10-01T10:01:00.000Z","data":{"name":"xxx"}}
+{"type":"tool.execution_start","timestamp":"2026-10-01T10:02:00.000Z","data":{}}
+{"type":"tool.execution_complete","timestamp":"2026-10-01T10:02:00.000Z","data":{"success":false}}
+{"type":"user.message","timestamp":"2026-10-01T10:03:00.000Z","data":{"content":"fix KC-1"}}
+{"type":"user.message","timestamp":"2026-10-01T10:03:00.000Z","data":{}}
+{"type":"subagent.completed","timestamp":"2026-10-01T10:04:00.000Z","data":{"toolCallId":"x1","totalTokens":10}}
+{"type":"session.shutdown","timestamp":"2026-10-01T10:05:00.000Z","data":{"totalNanoAiu":1000000000,"modelMetrics":{"gpt-5":{"usage":{"inputTokens":100,"outputTokens":5}},"gpt-mini":{}}}}

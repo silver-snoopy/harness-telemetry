@@ -1,0 +1,10 @@
+{
+  "ledgerLines": 0,
+  "exits": [0],
+  "fileFacts": [
+    { "file": ".agents/telemetry/automation/scopes/cenv.json", "path": "/batch", "equals": "env-1" }
+  ],
+  "textFacts": [
+    { "file": "__events__/0.stderr", "equals": "work-scope: cenv — automation / env-1, 1 case(s)\n" }
+  ]
+}

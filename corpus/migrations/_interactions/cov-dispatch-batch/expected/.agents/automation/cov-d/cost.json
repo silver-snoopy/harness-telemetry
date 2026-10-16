@@ -1,0 +1,634 @@
+{
+ "v": 1,
+ "manifestRevision": 1,
+ "batch": "cov-d",
+ "generatedAt": "2026-10-01T10:50:00.000Z",
+ "sources": {
+  "sessions": 1,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "corpus"
+  ],
+  "costSources": [
+   "ccusage-metered"
+  ],
+  "models": [
+   "claude-opus-5",
+   "claude-sonnet-5"
+  ],
+  "activeMinGrain": "session",
+  "activeMinNote": "active minutes are allocated once, at session grain (spec 5.4): per-case, stage and dispatch-role minutes are not allocated (null, which is not unmeasured); loaded minutes = batch time ÷ cases, an allocation"
+ },
+ "totals": {
+  "costUsd": 0.35,
+  "tokens": 75244,
+  "tokensSplit": {
+   "input": 174,
+   "output": 4350,
+   "cacheRead": 66600,
+   "cacheWrite": 4120
+  },
+  "tokensByModel": {
+   "claude-opus-5": {
+    "input": 65,
+    "output": 1600,
+    "cacheRead": 36000,
+    "cacheWrite": 2800
+   },
+   "claude-sonnet-5": {
+    "input": 59,
+    "output": 2670,
+    "cacheRead": 30500,
+    "cacheWrite": 1310
+   }
+  },
+  "tokensAttribution": "partial",
+  "unattributedUnits": 2,
+  "activeMin": 52,
+  "dispatches": 9,
+  "sessions": 1,
+  "turns": 4,
+  "toolCalls": 14,
+  "toolErrors": 1,
+  "skills": [
+   "brainstorming"
+  ],
+  "unmeasured": {
+   "tokens": 2,
+   "activeMin": 0,
+   "wallMin": 0,
+   "turns": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  }
+ },
+ "byRole": {
+  "analyst": {
+   "costUsd": null,
+   "tokens": 4510,
+   "tok": {
+    "input": 10,
+    "output": 300,
+    "cacheRead": 4000,
+    "cacheWrite": 200
+   },
+   "activeMin": null,
+   "dispatches": 1,
+   "toolCalls": 1,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 0,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "priced": 0,
+   "unpriced": 0
+  },
+  "empty": {
+   "costUsd": null,
+   "tokens": null,
+   "tok": null,
+   "activeMin": null,
+   "dispatches": 1,
+   "toolCalls": 0,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 1,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "priced": 0,
+   "unpriced": 0
+  },
+  "implementer": {
+   "costUsd": null,
+   "tokens": 18695,
+   "tok": {
+    "input": 75,
+    "output": 1730,
+    "cacheRead": 16100,
+    "cacheWrite": 790
+   },
+   "activeMin": null,
+   "dispatches": 3,
+   "toolCalls": 6,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 0,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "priced": 0,
+   "unpriced": 0
+  },
+  "reviewer": {
+   "costUsd": null,
+   "tokens": 3306,
+   "tok": {
+    "input": 6,
+    "output": 200,
+    "cacheRead": 3000,
+    "cacheWrite": 100
+   },
+   "activeMin": null,
+   "dispatches": 1,
+   "toolCalls": 1,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 0,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "priced": 0,
+   "unpriced": 0
+  },
+  "session": {
+   "costUsd": 0.35,
+   "tokens": 45875,
+   "tok": {
+    "input": 75,
+    "output": 1900,
+    "cacheRead": 41000,
+    "cacheWrite": 2900
+   },
+   "activeMin": 52,
+   "dispatches": 0,
+   "toolCalls": 3,
+   "toolErrors": 1,
+   "unmeasured": {
+    "tokens": 0,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "priced": 1,
+   "unpriced": 0
+  },
+  "triage": {
+   "costUsd": null,
+   "tokens": 1164,
+   "tok": {
+    "input": 4,
+    "output": 100,
+    "cacheRead": 1000,
+    "cacheWrite": 60
+   },
+   "activeMin": null,
+   "dispatches": 1,
+   "toolCalls": 1,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 0,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "priced": 0,
+   "unpriced": 0
+  },
+  "workflow-subagent": {
+   "costUsd": null,
+   "tokens": null,
+   "tok": null,
+   "activeMin": null,
+   "dispatches": 1,
+   "toolCalls": 1,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 1,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "priced": 0,
+   "unpriced": 0
+  },
+  "writer": {
+   "costUsd": null,
+   "tokens": 1694,
+   "tok": {
+    "input": 4,
+    "output": 120,
+    "cacheRead": 1500,
+    "cacheWrite": 70
+   },
+   "activeMin": null,
+   "dispatches": 1,
+   "toolCalls": 1,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 0,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "priced": 0,
+   "unpriced": 0
+  }
+ },
+ "byDispatchRole": {
+  "analyst": {
+   "units": 1,
+   "costUsd": 0.01,
+   "priced": 1
+  },
+  "empty": {
+   "units": 1,
+   "costUsd": 0,
+   "priced": 1
+  },
+  "implementer": {
+   "units": 3,
+   "costUsd": 0.28,
+   "priced": 3
+  },
+  "reviewer": {
+   "units": 1,
+   "costUsd": 0,
+   "priced": 1
+  },
+  "triage": {
+   "units": 1,
+   "costUsd": 0,
+   "priced": 1
+  },
+  "workflow-subagent": {
+   "units": 1,
+   "costUsd": 0,
+   "priced": 1
+  },
+  "writer": {
+   "units": 1,
+   "costUsd": 0,
+   "priced": 1
+  }
+ },
+ "overhead": {
+  "note": "batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows",
+  "costUsd": 0.06,
+  "sharePct": 16,
+  "lead": {
+   "costUsd": 0.05,
+   "tokens": 45875,
+   "tok": {
+    "input": 75,
+    "output": 1900,
+    "cacheRead": 41000,
+    "cacheWrite": 2900
+   },
+   "activeMin": 52,
+   "dispatches": 0,
+   "toolCalls": 3,
+   "toolErrors": 1,
+   "unmeasured": {
+    "tokens": 0,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   }
+  },
+  "stages": {
+   "costUsd": 0,
+   "tokens": 2858,
+   "tok": {
+    "input": 8,
+    "output": 220,
+    "cacheRead": 2500,
+    "cacheWrite": 130
+   },
+   "activeMin": null,
+   "dispatches": 4,
+   "toolCalls": 3,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 2,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   }
+  },
+  "byStage": {
+   "triage": {
+    "costUsd": 0,
+    "tokens": 1164,
+    "tok": {
+     "input": 4,
+     "output": 100,
+     "cacheRead": 1000,
+     "cacheWrite": 60
+    },
+    "activeMin": null,
+    "dispatches": 1,
+    "toolCalls": 1,
+    "toolErrors": 0,
+    "unmeasured": {
+     "tokens": 0,
+     "activeMin": 0,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   },
+   "gate": {
+    "costUsd": 0,
+    "tokens": null,
+    "tok": null,
+    "activeMin": null,
+    "dispatches": 1,
+    "toolCalls": 1,
+    "toolErrors": 0,
+    "unmeasured": {
+     "tokens": 1,
+     "activeMin": 0,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   },
+   "report": {
+    "costUsd": 0,
+    "tokens": 1694,
+    "tok": {
+     "input": 4,
+     "output": 120,
+     "cacheRead": 1500,
+     "cacheWrite": 70
+    },
+    "activeMin": null,
+    "dispatches": 1,
+    "toolCalls": 1,
+    "toolErrors": 0,
+    "unmeasured": {
+     "tokens": 0,
+     "activeMin": 0,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   },
+   "other": {
+    "costUsd": 0,
+    "tokens": null,
+    "tok": null,
+    "activeMin": null,
+    "dispatches": 1,
+    "toolCalls": 0,
+    "toolErrors": 0,
+    "unmeasured": {
+     "tokens": 1,
+     "activeMin": 0,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   }
+  }
+ },
+ "rework": {
+  "costUsd": 0,
+  "tokens": 2235,
+  "tok": {
+   "input": 5,
+   "output": 150,
+   "cacheRead": 2000,
+   "cacheWrite": 80
+  },
+  "activeMin": null,
+  "dispatches": 1,
+  "toolCalls": 1,
+  "toolErrors": 0,
+  "unmeasured": {
+   "tokens": 0,
+   "activeMin": 0,
+   "wallMin": 0,
+   "turns": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "note": "fix-round dispatches — the batch's rework bill (already inside per-case direct; shown here as its own lever)"
+ },
+ "outcomes": {
+  "delivered": 2,
+  "blocked": 1
+ },
+ "delivered": 2,
+ "gate": {
+  "verdict": "green"
+ },
+ "records": {
+  "note": "script-authored gate verdicts (gate-runs.jsonl) + declared session outcomes (work-scope) vs the receipt — drift means report.json needs a write-back, records never overwrite it",
+  "declaredOutcomes": {
+   "PROJ-1": "delivered",
+   "PROJ-2": "blocked"
+  },
+  "outcomeDrift": [
+   {
+    "id": "PROJ-2",
+    "receipt": "delivered",
+    "declared": "blocked"
+   }
+  ]
+ },
+ "cases": [
+  {
+   "id": "PROJ-1",
+   "outcome": "delivered",
+   "findings": 1,
+   "direct": {
+    "costUsd": 0.01,
+    "tokens": 4510,
+    "tok": {
+     "input": 10,
+     "output": 300,
+     "cacheRead": 4000,
+     "cacheWrite": 200
+    },
+    "activeMin": null,
+    "dispatches": 1,
+    "fixRounds": 0,
+    "toolCalls": 1,
+    "toolErrors": 0,
+    "unmeasured": {
+     "tokens": 0,
+     "activeMin": 0,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   },
+   "loaded": {
+    "costUsd": 0.03,
+    "tokens": 20754,
+    "activeMin": 17,
+    "unmeasured": {
+     "tokens": 2,
+     "activeMin": 0,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   }
+  },
+  {
+   "id": "PROJ-2",
+   "outcome": "delivered",
+   "findings": 0,
+   "direct": {
+    "costUsd": 0.02,
+    "tokens": 11416,
+    "tok": {
+     "input": 16,
+     "output": 950,
+     "cacheRead": 10000,
+     "cacheWrite": 450
+    },
+    "activeMin": null,
+    "dispatches": 1.5,
+    "fixRounds": 0,
+    "toolCalls": 2,
+    "toolErrors": 0,
+    "unmeasured": {
+     "tokens": 0,
+     "activeMin": 0,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   },
+   "loaded": {
+    "costUsd": 0.04,
+    "tokens": 27660,
+    "activeMin": 17,
+    "unmeasured": {
+     "tokens": 2,
+     "activeMin": 0,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   }
+  },
+  {
+   "id": "PROJ-3",
+   "outcome": "blocked",
+   "findings": 0,
+   "direct": {
+    "costUsd": 0.27,
+    "tokens": 10585,
+    "tok": {
+     "input": 65,
+     "output": 980,
+     "cacheRead": 9100,
+     "cacheWrite": 440
+    },
+    "activeMin": null,
+    "dispatches": 2.5,
+    "fixRounds": 1,
+    "toolCalls": 5,
+    "toolErrors": 0,
+    "unmeasured": {
+     "tokens": 0,
+     "activeMin": 0,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   },
+   "loaded": {
+    "costUsd": 0.29,
+    "tokens": 26829,
+    "activeMin": 17,
+    "unmeasured": {
+     "tokens": 2,
+     "activeMin": 0,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   }
+  }
+ ],
+ "stats": {
+  "note": "direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": {
+   "avg": 0.1,
+   "median": 0.02,
+   "min": 0.01,
+   "max": 0.27,
+   "n": 3
+  },
+  "directTokens": {
+   "avg": 8837,
+   "median": 10585,
+   "min": 4510,
+   "max": 11416,
+   "n": 3
+  },
+  "directActiveMin": null,
+  "loadedCostUsd": {
+   "avg": 0.12,
+   "median": 0.04,
+   "min": 0.03,
+   "max": 0.29,
+   "n": 3
+  },
+  "loadedActiveMin": {
+   "avg": 17,
+   "median": 17,
+   "min": 17,
+   "max": 17,
+   "n": 3
+  }
+ },
+ "averages": {
+  "totalPerDelivered": {
+   "costUsd": 0.17,
+   "note": "whole batch incl. overhead ÷ delivered (delivered/defect-found; legacy automated/merged-sanctioned-red)"
+  },
+  "directPerCase": {
+   "costUsd": 0.1,
+   "note": "avg direct spend of an attributed case — excludes batch overhead"
+  }
+ },
+ "coverage": {
+  "casesAttributed": 3,
+  "casesUnattributed": [],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

@@ -1,0 +1,44 @@
+{
+  "id": "report-conflicts",
+  "item": 22,
+  "spec": "§3.5, §14.8 (owner Q1a slot 22)",
+  "summary": "Engine reports apply §3.5: two lines with an exact (endedAt, capturedAt) tie are a conflict, counted as conflicts: n beside the totals, with a preview total from the lowest-canonical-JSON pick, never first-wins by input order (map R20, O2; owner Q16).",
+  "beforeCases": [
+    "cov-team-report-rollup"
+  ],
+  "declared": {
+    "cov-team-report-rollup": {
+      "reason": "Event 3 (the dedup root) reads the spec 3.5 dedup instead of first-wins: d4 ($8 / $800) and d5 ($16 / $1600, no endedAt or capturedAt) are exact rank ties with different payloads, so both are conflicts — they leave every verified total, breakdown and the index, and the report counts conflicts {sessions 2, costUsd 24, priced 2} beside a preview total that adds each lowest-canonical-JSON pick ($8, $16): 5 sessions, $31. Event 0 (and every report) now reads the deduplicated lines in host:id order (review round 1, I3: output independent of read order), so the by-intent and by-person rows follow key order (m1 automation, m3 docs, then undeclared; bob before the later ids).",
+      "changed": [
+        "__events__/0.stdout",
+        "__events__/3.stdout"
+      ]
+    },
+    "before-ratio-manifest": {
+      "reason": "The deduplicated lines are read in host:id order (review round 1, I3: the report is byte-identical for any read order), so the --json byIntent object lists automation (a1) before story (s1); every figure is unchanged.",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    },
+    "cov-reports-ledger": {
+      "reason": "The period reports of events 4 and 5 read the deduplicated lines in host:id order (review round 1, I3: output independent of read order), so the host list, the by-intent chips and the top case ids follow key order (copilot-vscode before copilot, docs before undeclared, W2-1 among the top five); every total is unchanged.",
+      "changed": [
+        "__events__/4.stdout",
+        "__events__/5.stdout"
+      ]
+    },
+    "cov-team-report-batches": {
+      "reason": "Events 8 and 10 read the deduplicated lines in host:id order (review round 1, I3: output independent of read order), so byCase and the session index list ties in key order (NEG-1 among the top case ids, ng1/ov1/ov2/z1/q1 reordered); no figure changes.",
+      "changed": [
+        "__events__/10.stdout",
+        "__events__/8.stdout"
+      ]
+    },
+    "foreign-settings": {
+      "reason": "Event 4's period report reads the deduplicated lines in host:id order (review round 1, I3: output independent of read order), so the by-intent line lists the undeclared session before the story one; every figure is unchanged.",
+      "changed": [
+        "__events__/4.stdout"
+      ]
+    }
+  }
+}

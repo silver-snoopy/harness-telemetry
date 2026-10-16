@@ -1,0 +1,21 @@
+{
+  "case": "cov-dispatch-batch",
+  "migrations": [
+    "fold-flags",
+    "null-unobservable",
+    "active-minutes",
+    "writer",
+    "role-dollars",
+    "report-revision"
+  ],
+  "reason": "active-minutes allocates the 8-dispatch line's 52 minutes at session grain (lead and session role 52, per-case, stage, byStage, rework and dispatch-role minutes null, loaded 17 per case); null-unobservable adds the per-bucket unmeasured counts. Together cost.json and the live report page carry the session-grain minutes beside all-zero activeMin counts. On the ledger, fold-flags gives the folded agent-gone entry tokensByModel {} and writer stamps every appended line with writer tokenomics-engine@0.0.0-replay and manifestRevision 1 right after v (map D4); the line carries both. role-dollars (item 23, O3) then makes by-role dollars inclusive on the same cost.json files, their batch and tokenomics renders and the batch-cost / --batch / --batches streams: a priced session's parent role carries what the group charges for it (dispatch dollars included, so over priced sessions Σ byRole.costUsd = totals.costUsd), an unpriced session's parent role stays null and counts in its unpriced (byRole {priced, unpriced} session counts; 0/0 = a dispatch-only role, not allocated at this grain), dispatch roles carry no by-role dollars, and a separate byDispatchRole {units, costUsd, priced} breakdown (present, possibly empty) holds the measured per-dispatch dollars; the renders add the inclusive note and the dispatch-dollar table, so the cumulative bytes carry it too. report-revision (item 24, O6) then records the current manifest revision (1: the implied manifest) on the same reports: manifestRevision right after v in every cost.json, the period --json's manifestRevision after generated, the 'manifest revision 1' footer on the batch, tokenomics, period and live renders and in submission.md, and manifestRevision after schema_version in the export runs.json; it adds a field and a footer line and moves no figure, so the cumulative bytes carry its provenance beside every other owner's change.",
+  "changed": [
+    ".agents/automation/cov-d/batch-report.html",
+    ".agents/automation/cov-d/batch-report.md",
+    ".agents/automation/cov-d/batch-tokenomics.html",
+    ".agents/automation/cov-d/batch-tokenomics.md",
+    ".agents/automation/cov-d/cost.json",
+    ".agents/telemetry/automation/reports/cov-d.html",
+    ".agents/telemetry/automation/usage-corpus.jsonl"
+  ]
+}

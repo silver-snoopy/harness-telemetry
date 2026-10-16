@@ -1,0 +1,10 @@
+{
+  "violations": [
+    { "source": "copilot:A", "quantity": "tokens.input", "group": "g1", "rule": "inclusive-dispatch-split", "detail": "tokensBasis inclusive: dispatch tokens are informative and cannot be allocated (spec 3.2.1)" }
+  ],
+  "unallocated": [
+    { "source": "copilot:A", "quantity": "costUsd", "amount": 3, "reason": "not attributed in trace" },
+    { "source": "copilot:A", "quantity": "activeMin", "amount": 30, "reason": "not attributed in trace" },
+    { "source": "copilot:A", "quantity": "tokens.input", "amount": 1000, "reason": "not attributed in trace" }
+  ]
+}

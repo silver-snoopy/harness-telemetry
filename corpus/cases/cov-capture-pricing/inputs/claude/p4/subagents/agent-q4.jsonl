@@ -1,0 +1,2 @@
+{"type":"user","isSidechain":true,"timestamp":"2026-10-01T10:02:00.000Z","message":{"role":"user","content":"implement PR-6"}}
+{"type":"assistant","isSidechain":true,"timestamp":"2026-10-01T10:03:00.000Z","message":{"id":"a-agent-q4","model":"claude-sonnet-5-5","role":"assistant","content":[{"type":"text","text":"ok"}],"usage":{"input_tokens":4,"output_tokens":6}}}

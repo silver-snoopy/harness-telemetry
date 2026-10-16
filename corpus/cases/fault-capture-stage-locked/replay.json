@@ -1,0 +1,85 @@
+{
+ "id": "fault-capture-stage-locked",
+ "seed": 1,
+ "requires": ["non-root"],
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/384-seed",
+  "files": {
+   "claude": "const fs=require('fs');const {join}=require('path');const m='stage.txt';if(fs.existsSync(m)){const s=fs.readFileSync(m,'utf8');const left=fs.existsSync(s);const mode=left?(fs.statSync(s).mode&0o777).toString(8):null;fs.chmodSync(s,0o700);fs.rmSync(s,{recursive:true,force:true});fs.rmSync(m);fs.writeFileSync('stage-observed.json',JSON.stringify({lockedStageLeftBehind:left,lockedStageMode:mode,lockedStageRemoved:!fs.existsSync(s),otherStagesAfterCleanup:fs.readdirSync(process.env.TMPDIR).filter((n)=>n.startsWith('tokenomics-')&&join(process.env.TMPDIR,n)!==process.env.CLAUDE_CONFIG_DIR).length}));}else{fs.writeFileSync(m,process.env.CLAUDE_CONFIG_DIR);fs.chmodSync(process.env.CLAUDE_CONFIG_DIR,0o500);}process.stdout.write('{}');\n",
+   "stage-tmp/.keep": ""
+  }
+ },
+ "stores": [
+  {
+   "from": "inputs/claude/d1/agent-n1.meta.json",
+   "to": "home/.claude/projects/{repoKey}/d1/subagents/agent-n1.meta.json",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d1/agent-n1.jsonl",
+   "to": "home/.claude/projects/{repoKey}/d1/subagents/agent-n1.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d2/agent-n2.meta.json",
+   "to": "home/.claude/projects/{repoKey}/d2/subagents/agent-n2.meta.json",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d2/agent-n2.jsonl",
+   "to": "home/.claude/projects/{repoKey}/d2/subagents/agent-n2.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  }
+ ],
+ "outputs": [
+  ".agents/telemetry",
+  "stage-observed.json"
+ ],
+ "untracked": [
+  {
+   "path": "repo/stage-tmp/xcrun_db",
+   "reason": "Apple's /usr/bin/git shim may create its xcrun cache in $TMPDIR (here repo/stage-tmp) depending on host state; it is host tooling, not reference or engine output (Codex P3-02)"
+  }
+ ],
+ "events": [
+  {
+   "stdin": {
+    "session_id": "d1"
+   },
+   "env": {
+    "TOKENOMICS_CCUSAGE_BIN": "node",
+    "TMPDIR": "stage-tmp"
+   },
+   "at": "2026-10-01T10:31:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--dispatch"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": {
+    "session_id": "d2"
+   },
+   "env": {
+    "TOKENOMICS_CCUSAGE_BIN": "node",
+    "TMPDIR": "stage-tmp"
+   },
+   "at": "2026-10-01T10:32:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--dispatch"
+   ],
+   "captureStderr": true
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+{
+  "ledgerLines": 0,
+  "fileFacts": [
+    { "file": "__events__/2.stdout", "path": "/decision", "equals": "block" },
+    { "file": "__events__/6.stdout", "path": "/decision", "equals": "block" }
+  ]
+}

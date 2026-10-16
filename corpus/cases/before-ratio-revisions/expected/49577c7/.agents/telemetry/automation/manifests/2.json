@@ -1,0 +1,20 @@
+{
+  "module": "tokenomics",
+  "schema_version": "1.0",
+  "domain": "test-automation",
+  "manifestRevision": 2,
+  "receipts": {
+    "source": "files",
+    "root": ".agents/automation",
+    "file": "report.json",
+    "deliveredOutcomes": [
+      "delivered",
+      "defect-found",
+      "automated",
+      "merged-sanctioned-red"
+    ]
+  },
+  "ratioIntents": [
+    "story"
+  ]
+}

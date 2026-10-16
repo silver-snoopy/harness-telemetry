@@ -1,0 +1,73 @@
+{
+  "fileFacts": [
+    {
+      "file": ".agents/telemetry/automation/live/d1.jsonl",
+      "path": "/agentId",
+      "equals": "agent-n1"
+    },
+    {
+      "file": ".agents/telemetry/automation/live/d1.jsonl",
+      "path": "/endedAt",
+      "equals": null
+    },
+    {
+      "file": ".agents/telemetry/automation/live/d1.jsonl",
+      "path": "/costUsd",
+      "absent": true
+    },
+    {
+      "file": ".agents/telemetry/automation/live/d1.jsonl",
+      "path": "/cases",
+      "equals": []
+    },
+    {
+      "file": ".agents/telemetry/automation/live/d2.jsonl",
+      "path": "/cases",
+      "equals": [
+        "DD-1"
+      ]
+    },
+    {
+      "file": ".agents/telemetry/automation/live/cpx.jsonl",
+      "path": "/agentId",
+      "equals": "u1"
+    },
+    {
+      "file": ".agents/telemetry/automation/live/cpx.jsonl",
+      "path": "/role",
+      "equals": "unknown"
+    },
+    {
+      "file": ".agents/telemetry/automation/live/cpx.jsonl",
+      "path": "/endedAt",
+      "equals": null
+    },
+    {
+      "file": "alt/.agents/telemetry/automation/usage-corpus.jsonl",
+      "path": "/id",
+      "equals": "d3"
+    }
+  ],
+  "textFacts": [
+    {
+      "file": "__events__/0.stderr",
+      "equals": ""
+    },
+    {
+      "file": "__events__/4.stderr",
+      "equals": "tokenomics: capture failed (session unaffected): EISDIR: illegal operation on a directory, read\n"
+    },
+    {
+      "file": "__events__/5.stderr",
+      "equals": ""
+    },
+    {
+      "file": "__events__/6.stderr",
+      "equals": ""
+    },
+    {
+      "file": "__events__/7.stderr",
+      "equals": "tokenomics: captured 1 session(s) → .agents/telemetry/automation/usage-corpus.jsonl\n"
+    }
+  ]
+}

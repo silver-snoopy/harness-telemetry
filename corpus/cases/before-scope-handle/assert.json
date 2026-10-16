@@ -1,0 +1,21 @@
+{
+  "ledgerLines": 1,
+  "exits": [0, 0, 0, 1, 0, 0, 1],
+  "facts": [
+    { "path": "/id", "equals": "sh" },
+    { "path": "/scope", "equals": { "intent": "automation", "batch": "hb", "cases": ["X-1", "X-2"], "outcomes": { "X-1": "delivered" } } }
+  ],
+  "fileFacts": [
+    { "file": ".agents/telemetry/automation/scopes/sh.json", "path": "/claimedFrom", "equals": "pending-mupd2d6o-smkm" },
+    { "file": ".agents/telemetry/automation/scopes/sh.json", "path": "/outcomes/X-2", "absent": true },
+    { "file": ".agents/telemetry/automation/scopes/sh.json", "path": "/closedAt", "absent": true },
+    { "file": ".agents/telemetry/automation/scopes/pending-mupd2d6o-smkm.json", "path": "/cases", "equals": ["X-2"] },
+    { "file": ".agents/telemetry/automation/scopes/pending-mupd2d6o-smkm.json", "path": "/batch", "absent": true },
+    { "file": ".agents/telemetry/automation/scopes/pending-mupd2d6o-smkm.json", "path": "/closedAt", "equals": "2026-10-01T10:33:00.000Z" }
+  ],
+  "textFacts": [
+    { "file": "__events__/0.stderr", "equals": "work-scope: pending-mupd2d6o-smkm — automation / hb, 2 case(s)\n" },
+    { "file": "__events__/3.stderr", "equals": "work-scope: no scope declared for session pending-mupd2d6o-smkm — nothing to close\n" },
+    { "file": "__events__/6.stderr", "equals": "work-scope: no scope declared for session pending-mupecnuo-cowx — nothing to close\n" }
+  ]
+}

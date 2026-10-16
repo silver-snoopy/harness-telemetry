@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "manifestRevision": 1,
+  "segment": {
+    "factory_id": "fx-plain",
+    "factory_name": "Plain factory",
+    "stop": "testing",
+    "owner_group": "QA",
+    "work_item_level": "feature",
+    "agent_tool": "claude",
+    "default_method": "metered",
+    "scope": {
+      "includes_subagents": true,
+      "includes_retries": false,
+      "includes_abandoned_runs": false
+    },
+    "currency": "USD",
+    "efficiency_techniques": [
+      "prompt-caching"
+    ],
+    "pipeline": [
+      "analyse"
+    ]
+  },
+  "runs": [
+    {
+      "work_item_ref": "T-p1",
+      "work_item_brief": ""
+    }
+  ]
+}

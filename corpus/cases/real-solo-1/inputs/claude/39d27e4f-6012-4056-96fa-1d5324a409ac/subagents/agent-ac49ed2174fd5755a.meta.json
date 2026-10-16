@@ -1,0 +1,9 @@
+{
+  "agentType": "tech-lead",
+  "description": "xxxx xxxxxx xx xxxxxxx xxx",
+  "toolUseId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "spawnDepth": 1,
+  "requestShape": "xxxxxxxxxx",
+  "requestNonInteractive": true,
+  "model": "opus"
+}

@@ -1,0 +1,312 @@
+{
+  "id": "report-revision",
+  "item": 24,
+  "spec": "§14.4, §14.8 (owner Q1a slot 24)",
+  "summary": "Every engine-written report (period report, cost.json and their renders) records its manifestRevision (§14.4 provenance; map R22, O6; owner Q14c).",
+  "beforeCases": [
+    "cov-team-report-rollup",
+    "cov-dispatch-batch"
+  ],
+  "declared": {
+    "before-dispatch-two-groups": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); its batch-report and batch-tokenomics md/html end with the 'manifest revision 1' footer; the accumulated export runs.json records manifestRevision after schema_version (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/camp/a/batch-report.html",
+        ".agents/automation/camp/a/batch-report.md",
+        ".agents/automation/camp/a/batch-tokenomics.html",
+        ".agents/automation/camp/a/batch-tokenomics.md",
+        ".agents/automation/camp/a/cost.json",
+        ".agents/automation/camp/b/batch-report.html",
+        ".agents/automation/camp/b/batch-report.md",
+        ".agents/automation/camp/b/batch-tokenomics.html",
+        ".agents/automation/camp/b/batch-tokenomics.md",
+        ".agents/automation/camp/b/cost.json",
+        ".agents/telemetry/automation/export/runs.json"
+      ]
+    },
+    "before-export-anon-batch": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); the accumulated export runs.json records manifestRevision after schema_version; the submission runs.json records it too; submission.md ends with the footer (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/b1/cost.json",
+        ".agents/telemetry/automation/export/datasets/fx-qa-01/runs.json",
+        ".agents/telemetry/automation/export/datasets/fx-qa-01/submission.md",
+        ".agents/telemetry/automation/export/runs.json"
+      ]
+    },
+    "before-ids-substring": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); its batch-report and batch-tokenomics md/html end with the 'manifest revision 1' footer; the accumulated export runs.json records manifestRevision after schema_version (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/g1/batch-report.html",
+        ".agents/automation/g1/batch-report.md",
+        ".agents/automation/g1/batch-tokenomics.html",
+        ".agents/automation/g1/batch-tokenomics.md",
+        ".agents/automation/g1/cost.json",
+        ".agents/telemetry/automation/export/runs.json"
+      ]
+    },
+    "before-ratio-manifest": {
+      "reason": "The period report's stdout (--json: manifestRevision right after generated; md/html: the 'manifest revision 1' footer line) records the current manifest's revision (1: the implied manifest), spec 14.4, map O6.",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    },
+    "before-ratio-revisions": {
+      "reason": "The period report's stdout (--json: manifestRevision right after generated; md/html: the 'manifest revision 1' footer line) records the current manifest's revision (1: the implied manifest), spec 14.4, map O6.",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    },
+    "before-report-unknowns": {
+      "reason": "The period report's stdout (--json: manifestRevision right after generated; md/html: the 'manifest revision 1' footer line) records the current manifest's revision (1: the implied manifest), spec 14.4, map O6.",
+      "changed": [
+        "__events__/0.stdout",
+        "__events__/1.stdout"
+      ]
+    },
+    "before-report-windows": {
+      "reason": "The period report's stdout (--json: manifestRevision right after generated; md/html: the 'manifest revision 1' footer line) records the current manifest's revision (1: the implied manifest), spec 14.4, map O6.",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    },
+    "cov-batch-cost-edges": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); the stdout streams of the period report (--json: manifestRevision after generated; md/html: footer line) and of the batch views carry the revision (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/gb-edge/cost.json",
+        ".agents/automation/gb-empty/cost.json",
+        ".agents/automation/gb-priced/cost.json",
+        ".agents/automation/gb-sized/cost.json",
+        "__events__/1.stdout"
+      ]
+    },
+    "cov-copilot-dispatch": {
+      "reason": "The live batch page (telemetry reports/camp-wave-01.html) ends with the 'manifest revision 1' footer line (spec 14.4, map O6).",
+      "changed": [
+        ".agents/telemetry/automation/reports/camp-wave-01.html"
+      ]
+    },
+    "cov-dispatch-batch": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); its batch-report and batch-tokenomics md/html end with the 'manifest revision 1' footer; the live page (telemetry reports/*.html) ends with the footer; the accumulated export runs.json records manifestRevision after schema_version (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/cov-d/batch-report.html",
+        ".agents/automation/cov-d/batch-report.md",
+        ".agents/automation/cov-d/batch-tokenomics.html",
+        ".agents/automation/cov-d/batch-tokenomics.md",
+        ".agents/automation/cov-d/cost.json",
+        ".agents/telemetry/automation/export/runs.json",
+        ".agents/telemetry/automation/reports/cov-d.html"
+      ]
+    },
+    "cov-export-cli": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); the accumulated export runs.json records manifestRevision after schema_version; the submission runs.json records it too; submission.md ends with the footer (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/b1/cost.json",
+        ".agents/automation/b2/cost.json",
+        ".agents/automation/b3/cost.json",
+        ".agents/automation/b4/cost.json",
+        ".agents/telemetry/automation/export/datasets/fx-qa-01/runs.json",
+        ".agents/telemetry/automation/export/datasets/fx-qa-01/submission.md",
+        ".agents/telemetry/automation/export/runs.json"
+      ]
+    },
+    "cov-export-submission-edges": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); the accumulated export runs.json records manifestRevision after schema_version; the submission runs.json records it too; submission.md ends with the footer (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/s1/cost.json",
+        ".agents/telemetry/automation/export/datasets/UNSET-factory-id/runs.json",
+        ".agents/telemetry/automation/export/datasets/UNSET-factory-id/submission.md",
+        ".agents/telemetry/automation/export/runs.json",
+        "plain/.agents/telemetry/automation/export/datasets/fx-plain/runs.json",
+        "plain/.agents/telemetry/automation/export/datasets/fx-plain/submission.md"
+      ]
+    },
+    "cov-reports-ledger": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); its batch-report and batch-tokenomics md/html end with the 'manifest revision 1' footer; the accumulated export runs.json records manifestRevision after schema_version; the stdout streams of the period report (--json: manifestRevision after generated; md/html: footer line) and of the batch views carry the revision (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/camp/wave-01/batch-report.html",
+        ".agents/automation/camp/wave-01/batch-report.md",
+        ".agents/automation/camp/wave-01/batch-tokenomics.html",
+        ".agents/automation/camp/wave-01/batch-tokenomics.md",
+        ".agents/automation/camp/wave-01/cost.json",
+        ".agents/automation/camp/wave-02/cost.json",
+        ".agents/automation/solo/batch-report.html",
+        ".agents/automation/solo/batch-report.md",
+        ".agents/automation/solo/batch-tokenomics.html",
+        ".agents/automation/solo/batch-tokenomics.md",
+        ".agents/automation/solo/cost.json",
+        ".agents/automation/tokonly/cost.json",
+        ".agents/telemetry/automation/export/runs.json",
+        ".agents/telemetry/out.md",
+        "__events__/0.stdout",
+        "__events__/10.stdout",
+        "__events__/11.stdout",
+        "__events__/4.stdout",
+        "__events__/5.stdout",
+        "__events__/6.stdout",
+        "__events__/7.stdout",
+        "__events__/8.stdout",
+        "__events__/9.stdout"
+      ]
+    },
+    "cov-team-report-batches": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); the stdout streams of the period report (--json: manifestRevision after generated; md/html: footer line) and of the batch views carry the revision; the --out report file ends with the footer (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/bt-empty/cost.json",
+        ".agents/automation/bt-gate/cost.json",
+        ".agents/automation/bt-neg/cost.json",
+        ".agents/automation/bt-ovf/cost.json",
+        ".agents/automation/bt-quiet/cost.json",
+        ".agents/automation/bt-sized/cost.json",
+        ".agents/telemetry/sized.md",
+        "__events__/0.stdout",
+        "__events__/1.stdout",
+        "__events__/10.stdout",
+        "__events__/2.stdout",
+        "__events__/3.stdout",
+        "__events__/4.stdout",
+        "__events__/8.stdout",
+        "__events__/9.stdout"
+      ]
+    },
+    "cov-team-report-rollup": {
+      "reason": "The period report's stdout (--json: manifestRevision right after generated; md/html: the 'manifest revision 1' footer line) records the current manifest's revision (1: the implied manifest), spec 14.4, map O6.",
+      "changed": [
+        "__events__/0.stdout",
+        "__events__/1.stdout",
+        "__events__/10.stdout",
+        "__events__/11.stdout",
+        "__events__/12.stdout",
+        "__events__/13.stdout",
+        "__events__/14.stdout",
+        "__events__/15.stdout",
+        "__events__/16.stdout",
+        "__events__/17.stdout",
+        "__events__/18.stdout",
+        "__events__/2.stdout",
+        "__events__/3.stdout",
+        "__events__/4.stdout",
+        "__events__/5.stdout",
+        "__events__/6.stdout",
+        "__events__/7.stdout",
+        "__events__/8.stdout",
+        "__events__/9.stdout"
+      ]
+    },
+    "cov-work-scope-close-faults": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); its batch-report and batch-tokenomics md/html end with the 'manifest revision 1' footer; close-time reports are written with the current revision (1) (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/c1/w/batch-report.html",
+        ".agents/automation/c1/w/batch-report.md",
+        ".agents/automation/c1/w/batch-tokenomics.html",
+        ".agents/automation/c1/w/batch-tokenomics.md",
+        ".agents/automation/c1/w/cost.json",
+        ".agents/automation/c2/w/batch-report.html",
+        ".agents/automation/c2/w/batch-report.md",
+        ".agents/automation/c2/w/batch-tokenomics.html",
+        ".agents/automation/c2/w/batch-tokenomics.md",
+        ".agents/automation/c2/w/cost.json",
+        ".agents/automation/fb1/batch-report.html",
+        ".agents/automation/fb1/batch-report.md",
+        ".agents/automation/fb1/batch-tokenomics.html",
+        ".agents/automation/fb1/batch-tokenomics.md",
+        ".agents/automation/fb1/cost.json",
+        ".agents/automation/fb2/batch-report.html",
+        ".agents/automation/fb2/batch-report.md",
+        ".agents/automation/fb2/batch-tokenomics.html",
+        ".agents/automation/fb2/batch-tokenomics.md",
+        ".agents/automation/fb2/cost.json",
+        ".agents/automation/fb3/cost.json"
+      ]
+    },
+    "fault-batch-cost-empty-repo": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); its batch-report and batch-tokenomics md/html end with the 'manifest revision 1' footer; the accumulated export runs.json records manifestRevision after schema_version; the stdout streams of the period report (--json: manifestRevision after generated; md/html: footer line) and of the batch views carry the revision (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/gb-nr/batch-report.html",
+        ".agents/automation/gb-nr/batch-report.md",
+        ".agents/automation/gb-nr/batch-tokenomics.html",
+        ".agents/automation/gb-nr/batch-tokenomics.md",
+        ".agents/automation/gb-nr/cost.json",
+        ".agents/telemetry/automation/export/runs.json",
+        "__events__/1.stdout"
+      ]
+    },
+    "fault-batch-cost-sizing-locked": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); its batch-report and batch-tokenomics md/html end with the 'manifest revision 1' footer; the accumulated export runs.json records manifestRevision after schema_version (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/sz/batch-report.html",
+        ".agents/automation/sz/batch-report.md",
+        ".agents/automation/sz/batch-tokenomics.html",
+        ".agents/automation/sz/batch-tokenomics.md",
+        ".agents/automation/sz/cost.json",
+        ".agents/telemetry/automation/export/runs.json"
+      ]
+    },
+    "fault-batch-cost-unreadable": {
+      "reason": "The live-session cost.json gains manifestRevision right after v (1: no module.json, the implied manifest), spec 14.4, map O6.",
+      "changed": [
+        ".agents/automation/gb-live/cost.json"
+      ]
+    },
+    "fault-gate-fold-symlink": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); its batch-report and batch-tokenomics md/html end with the 'manifest revision 1' footer; the accumulated export runs.json records manifestRevision after schema_version (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/fs1/batch-report.html",
+        ".agents/automation/fs1/batch-report.md",
+        ".agents/automation/fs1/batch-tokenomics.html",
+        ".agents/automation/fs1/batch-tokenomics.md",
+        ".agents/automation/fs1/cost.json",
+        ".agents/telemetry/automation/export/runs.json"
+      ]
+    },
+    "foreign-null-extension": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); its batch-report and batch-tokenomics md/html end with the 'manifest revision 1' footer; the accumulated export runs.json records manifestRevision after schema_version (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/fb/batch-report.html",
+        ".agents/automation/fb/batch-report.md",
+        ".agents/automation/fb/batch-tokenomics.html",
+        ".agents/automation/fb/batch-tokenomics.md",
+        ".agents/automation/fb/cost.json",
+        ".agents/telemetry/automation/export/runs.json"
+      ]
+    },
+    "foreign-settings": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); its batch-report and batch-tokenomics md/html end with the 'manifest revision 1' footer; the accumulated export runs.json records manifestRevision after schema_version; the stdout streams of the period report (--json: manifestRevision after generated; md/html: footer line) and of the batch views carry the revision (spec 14.4, map O6).",
+      "changed": [
+        ".agents/stories/sp1/batch-report.html",
+        ".agents/stories/sp1/batch-report.md",
+        ".agents/stories/sp1/batch-tokenomics.html",
+        ".agents/stories/sp1/batch-tokenomics.md",
+        ".agents/stories/sp1/cost.json",
+        ".agents/stories/sp2/cost.json",
+        ".agents/telemetry/stories/export/runs.json",
+        "__events__/4.stdout",
+        "__events__/5.stdout",
+        "__events__/6.stdout"
+      ]
+    },
+    "seed-receipts-shared-id": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); its batch-report and batch-tokenomics md/html end with the 'manifest revision 1' footer; the accumulated export runs.json records manifestRevision after schema_version (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/camp/grp-a/batch-report.html",
+        ".agents/automation/camp/grp-a/batch-report.md",
+        ".agents/automation/camp/grp-a/batch-tokenomics.html",
+        ".agents/automation/camp/grp-a/batch-tokenomics.md",
+        ".agents/automation/camp/grp-a/cost.json",
+        ".agents/automation/camp/grp-b/batch-report.html",
+        ".agents/automation/camp/grp-b/batch-report.md",
+        ".agents/automation/camp/grp-b/batch-tokenomics.html",
+        ".agents/automation/camp/grp-b/batch-tokenomics.md",
+        ".agents/automation/camp/grp-b/cost.json",
+        ".agents/telemetry/automation/export/runs.json"
+      ]
+    },
+    "seed-receipts-waves": {
+      "reason": "Each cost.json gains manifestRevision right after v (1: no module.json, the implied manifest); the stdout streams of the period report (--json: manifestRevision after generated; md/html: footer line) and of the batch views carry the revision (spec 14.4, map O6).",
+      "changed": [
+        ".agents/automation/camp/wave-01/cost.json",
+        ".agents/automation/camp/wave-02/cost.json",
+        "__events__/0.stdout"
+      ]
+    }
+  }
+}

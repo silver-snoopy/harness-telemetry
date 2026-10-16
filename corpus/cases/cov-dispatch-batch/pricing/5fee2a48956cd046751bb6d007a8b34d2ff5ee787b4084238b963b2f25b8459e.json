@@ -1,0 +1,94 @@
+{
+  "sessions": [
+    {
+      "sessionId": "cd1",
+      "projectPath": "f0",
+      "inputTokens": 75,
+      "outputTokens": 1900,
+      "cacheReadTokens": 41000,
+      "cacheCreationTokens": 2900,
+      "totalCost": 0.0519,
+      "totalTokens": 45875
+    },
+    {
+      "sessionId": "agent-a1",
+      "projectPath": "f1",
+      "inputTokens": 10,
+      "outputTokens": 300,
+      "cacheReadTokens": 4000,
+      "cacheCreationTokens": 200,
+      "totalCost": 0.00648,
+      "totalTokens": 4510
+    },
+    {
+      "sessionId": "agent-a2",
+      "projectPath": "f2",
+      "inputTokens": 20,
+      "outputTokens": 1500,
+      "cacheReadTokens": 14000,
+      "cacheCreationTokens": 700,
+      "totalCost": 0.029385,
+      "totalTokens": 16220
+    },
+    {
+      "sessionId": "agent-a3",
+      "projectPath": "f3",
+      "inputTokens": 6,
+      "outputTokens": 200,
+      "cacheReadTokens": 3000,
+      "cacheCreationTokens": 100,
+      "totalCost": 0.004293,
+      "totalTokens": 3306
+    },
+    {
+      "sessionId": "agent-a4",
+      "projectPath": "f4",
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "cacheReadTokens": 0,
+      "cacheCreationTokens": 0,
+      "totalCost": 0,
+      "totalTokens": 0
+    },
+    {
+      "sessionId": "agent-a5",
+      "projectPath": "f5",
+      "inputTokens": 5,
+      "outputTokens": 150,
+      "cacheReadTokens": 2000,
+      "cacheCreationTokens": 80,
+      "totalCost": 0.003165,
+      "totalTokens": 2235
+    },
+    {
+      "sessionId": "agent-a6",
+      "projectPath": "f6",
+      "inputTokens": 4,
+      "outputTokens": 100,
+      "cacheReadTokens": 1000,
+      "cacheCreationTokens": 60,
+      "totalCost": 0.002037,
+      "totalTokens": 1164
+    },
+    {
+      "sessionId": "agent-a7",
+      "projectPath": "f7",
+      "inputTokens": 4,
+      "outputTokens": 120,
+      "cacheReadTokens": 1500,
+      "cacheCreationTokens": 70,
+      "totalCost": 0.002525,
+      "totalTokens": 1694
+    },
+    {
+      "sessionId": "agent-a8",
+      "projectPath": "f8",
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "cacheReadTokens": 0,
+      "cacheCreationTokens": 0,
+      "totalCost": 0,
+      "totalTokens": 0
+    }
+  ]
+}

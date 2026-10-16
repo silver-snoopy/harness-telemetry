@@ -1,0 +1,20 @@
+{
+  "fileFacts": [
+    {
+      "file": ".agents/telemetry/automation/live/d1.jsonl",
+      "path": "/agentId",
+      "equals": "agent-n1"
+    },
+    {
+      "file": ".agents/telemetry/automation/live/d1.jsonl",
+      "path": "/costUsd",
+      "absent": true
+    }
+  ],
+  "textFacts": [
+    {
+      "file": "__events__/0.stderr",
+      "equals": "tokenomics: recorded 1 finished dispatch(es) for d1\n"
+    }
+  ]
+}

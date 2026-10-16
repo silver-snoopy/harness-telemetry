@@ -1,0 +1,72 @@
+{
+  "ledgerLines": 0,
+  "fileFacts": [
+    {
+      "file": ".agents/telemetry/automation/scopes/ws1.json",
+      "path": "/intent",
+      "equals": "docs"
+    },
+    {
+      "file": ".agents/telemetry/automation/scopes/ws1.json",
+      "path": "/batch",
+      "equals": "wb"
+    },
+    {
+      "file": ".agents/telemetry/automation/scopes/ws1.json",
+      "path": "/source",
+      "equals": "tms"
+    },
+    {
+      "file": ".agents/telemetry/automation/scopes/ws1.json",
+      "path": "/cases",
+      "equals": [
+        "A-1",
+        "B-2"
+      ]
+    },
+    {
+      "file": ".agents/telemetry/automation/scopes/ws1.json",
+      "path": "/outcomes/A-1/outcome",
+      "equals": "done"
+    },
+    {
+      "file": ".agents/telemetry/automation/scopes/ws1.json",
+      "path": "/outcomes/B-2",
+      "absent": true
+    },
+    {
+      "file": ".agents/telemetry/automation/scopes/ws1.json",
+      "path": "/closedAt",
+      "equals": "2026-10-01T09:06:00.000Z"
+    },
+    {
+      "file": ".agents/telemetry/automation/scopes/ws2.json",
+      "path": "/intent",
+      "equals": "automation"
+    },
+    {
+      "file": ".agents/telemetry/automation/scopes/ws2.json",
+      "path": "/outcomes/C-1/outcome",
+      "equals": "PASS"
+    },
+    {
+      "file": ".agents/telemetry/automation/scopes/ws3.json",
+      "path": "/closedAt",
+      "equals": "2026-10-01T09:09:00.000Z"
+    }
+  ],
+  "textFacts": [
+    {
+      "file": "__events__/10.stdout",
+      "equals": "ws1  docs  wb  2 case(s)  closed\nws2  automation  1 case(s)\nws3  docs  0 case(s)  closed\n"
+    },
+    {
+      "file": "__events__/11.stdout",
+      "equals": "ws2  automation  1 case(s)\n"
+    },
+    {
+      "file": "__events__/12.stdout",
+      "equals": "ws1  docs  wb  2 case(s)  closed\nws2  automation  1 case(s)\nws3  docs  0 case(s)  closed\n"
+    }
+  ]
+}

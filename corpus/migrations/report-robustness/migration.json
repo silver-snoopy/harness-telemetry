@@ -1,0 +1,65 @@
+{
+  "id": "report-robustness",
+  "item": 18,
+  "items": [
+    18,
+    19,
+    20
+  ],
+  "spec": "§14.8 (owner Q1b group: items 18 empty-repo-sizing, 19 zero-session-share, 20 submission-identity)",
+  "summary": "Report robustness: work-scope close --repo \"\" no longer silently skips sizing (R11), a zero-session group renders no NaN% share (R12), and an incomplete export segment renders no `undefined` or $null in submission.md (R18).",
+  "beforeCases": [
+    "fault-batch-cost-empty-repo",
+    "cov-team-report-batches",
+    "cov-export-submission-edges"
+  ],
+  "declared": {
+    "fault-batch-cost-empty-repo": {
+      "reason": "work-scope close --repo \"\" is now a usage error naming --repo (exit 1) instead of silently skipping sizing (item 18).",
+      "changed": [
+        ".agents/telemetry/automation/scopes/q1.json",
+        "__events__/2.stderr"
+      ],
+      "removed": [
+        ".agents/automation/gb-nr/batch-report.html",
+        ".agents/automation/gb-nr/batch-report.md",
+        ".agents/automation/gb-nr/batch-tokenomics.html",
+        ".agents/automation/gb-nr/batch-tokenomics.md",
+        ".agents/automation/gb-nr/cost.json",
+        ".agents/telemetry/automation/export/runs.json"
+      ],
+      "exits": [
+        0,
+        0,
+        1
+      ]
+    },
+    "cov-team-report-batches": {
+      "reason": "A zero-session group renders a dash for its token shares instead of NaN% in the batch tokenomics views (item 19).",
+      "changed": [
+        "__events__/2.stdout"
+      ]
+    },
+    "cov-export-submission-edges": {
+      "reason": "An incomplete segment drops the missing stop and owner from the title and identity row, and an overflowing cost sum renders n/a, never undefined or $null (item 20).",
+      "changed": [
+        ".agents/telemetry/automation/export/datasets/UNSET-factory-id/submission.md"
+      ]
+    },
+    "cov-work-scope-close-faults": {
+      "reason": "The close faults leave zero-session groups whose batch-tokenomics.md printed NaN% token shares; they now render a dash (item 19).",
+      "changed": [
+        ".agents/automation/c1/w/batch-tokenomics.md",
+        ".agents/automation/c2/w/batch-tokenomics.md",
+        ".agents/automation/fb1/batch-tokenomics.md",
+        ".agents/automation/fb2/batch-tokenomics.md"
+      ]
+    },
+    "fault-gate-fold-symlink": {
+      "reason": "The folded-gate group has no captured session, so its batch-tokenomics.md printed NaN% token shares; they now render a dash (item 19).",
+      "changed": [
+        ".agents/automation/fs1/batch-tokenomics.md"
+      ]
+    }
+  }
+}

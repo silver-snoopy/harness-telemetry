@@ -1,0 +1,44 @@
+{
+  "ledgerLines": 3,
+  "facts": [
+    {
+      "path": "/id",
+      "equals": "sB"
+    },
+    {
+      "path": "/scope",
+      "equals": {
+        "intent": "automation",
+        "batch": "nob",
+        "cases": [
+          "SL-2"
+        ]
+      }
+    }
+  ],
+  "fileFacts": [
+    {
+      "file": "alt/.agents/telemetry/automation/usage-corpus.jsonl",
+      "path": "/id",
+      "equals": "sC"
+    }
+  ],
+  "textFacts": [
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "{\"v\":1,\"host\":\"claude\",\"id\":\"e2\","
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"startedAt\":null,\"endedAt\":null,"
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"id\":\"sA\","
+    },
+    {
+      "file": "__events__/6.stderr",
+      "equals": "tokenomics: captured 1 session(s) → .agents/telemetry/automation/usage-corpus.jsonl\n"
+    }
+  ]
+}

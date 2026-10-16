@@ -1,0 +1,1 @@
+{"batch":"b1","integration_branch":"feat/X-cli","work_item_ref":"PROJ-77","gate":{"verdict":"green","runs":3},"cases":[{"id":"X-1","outcome":"delivered"},{"id":"X-2","outcome":"delivered"}]}

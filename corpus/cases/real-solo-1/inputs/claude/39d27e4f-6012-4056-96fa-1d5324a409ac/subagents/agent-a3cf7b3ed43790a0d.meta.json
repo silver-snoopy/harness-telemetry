@@ -1,0 +1,9 @@
+{
+  "agentType": "ba",
+  "description": "xxxxx xxxxxxxxx xxxxxxxxxx xxxxxxxx",
+  "toolUseId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "spawnDepth": 1,
+  "requestShape": "xxxxxxxxxx",
+  "requestNonInteractive": true,
+  "model": "opus"
+}

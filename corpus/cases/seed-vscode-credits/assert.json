@@ -1,0 +1,25 @@
+{
+  "ledgerLines": 1,
+  "facts": [
+    {
+      "path": "/host",
+      "equals": "copilot-vscode"
+    },
+    {
+      "path": "/costUsd",
+      "equals": 0.03
+    },
+    {
+      "path": "/costSource",
+      "equals": "copilot-credits"
+    },
+    {
+      "path": "/toolCalls",
+      "equals": 0
+    },
+    {
+      "path": "/turns",
+      "equals": 1
+    }
+  ]
+}

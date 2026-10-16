@@ -1,0 +1,36 @@
+{
+  "case": "cov-reports-ledger",
+  "migrations": [
+    "null-unobservable",
+    "active-minutes",
+    "report-windows",
+    "report-conflicts",
+    "role-dollars",
+    "report-revision"
+  ],
+  "reason": "active-minutes allocates minutes at session grain (per-item, stage and dispatch-role activeMin null, sources.activeMinGrain noted, loaded = group time / items), and gives the period reports parent-inclusive by-role minutes plus byDispatchRole; null-unobservable adds the per-bucket unmeasured counts to the --json buckets and cost.json. Together each cost.json and period stream carries both: the minute nulls sit beside all-zero activeMin counts, because a not-allocated minute is not unmeasured. report-windows (item 8) rewrites the same period-report streams: the endedAt window, the semantics statement and the spec 5.5 ratio fields, so the cumulative bytes carry all three. report-conflicts (item 22, review round 1 I3) reads the deduplicated lines in host:id order on the same period-report streams, so the cumulative bytes also carry its key-ordered rows; no figure changes. role-dollars (item 23, O3) then makes by-role dollars inclusive on the same cost.json files, their batch and tokenomics renders and the batch-cost / --batch / --batches streams: a priced session's parent role carries what the group charges for it (dispatch dollars included, so over priced sessions Σ byRole.costUsd = totals.costUsd), an unpriced session's parent role stays null and counts in its unpriced (byRole {priced, unpriced} session counts; 0/0 = a dispatch-only role, not allocated at this grain), dispatch roles carry no by-role dollars, and a separate byDispatchRole {units, costUsd, priced} breakdown (present, possibly empty) holds the measured per-dispatch dollars; the renders add the inclusive note and the dispatch-dollar table, so the cumulative bytes carry it too. report-revision (item 24, O6) then records the current manifest revision (1: the implied manifest) on the same reports: manifestRevision right after v in every cost.json, the period --json's manifestRevision after generated, the 'manifest revision 1' footer on the batch, tokenomics, period and live renders and in submission.md, and manifestRevision after schema_version in the export runs.json; it adds a field and a footer line and moves no figure, so the cumulative bytes carry its provenance beside every other owner's change. null-unobservable (Codex B2-07) also makes wave-02's provisional live parent null and unmeasured (tokens, turns, tool counters) instead of an invented zero quad, so the cost.json and the batch-cost streams count it in unmeasured.",
+  "changed": [
+    ".agents/automation/camp/wave-01/batch-report.html",
+    ".agents/automation/camp/wave-01/batch-report.md",
+    ".agents/automation/camp/wave-01/batch-tokenomics.html",
+    ".agents/automation/camp/wave-01/batch-tokenomics.md",
+    ".agents/automation/camp/wave-01/cost.json",
+    ".agents/automation/camp/wave-02/cost.json",
+    ".agents/automation/solo/batch-report.html",
+    ".agents/automation/solo/batch-report.md",
+    ".agents/automation/solo/batch-tokenomics.html",
+    ".agents/automation/solo/batch-tokenomics.md",
+    ".agents/automation/solo/cost.json",
+    ".agents/automation/tokonly/cost.json",
+    ".agents/telemetry/out.md",
+    "__events__/0.stdout",
+    "__events__/10.stdout",
+    "__events__/11.stdout",
+    "__events__/4.stdout",
+    "__events__/5.stdout",
+    "__events__/6.stdout",
+    "__events__/7.stdout",
+    "__events__/8.stdout",
+    "__events__/9.stdout"
+  ]
+}

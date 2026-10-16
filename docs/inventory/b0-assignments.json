@@ -1,0 +1,1694 @@
+{
+  "hooks/otel-sink.mjs:env-var:340c7465a4": {
+    "owner": "engine-config",
+    "target": "env.TOKENOMICS_SINK_IDLE_MS"
+  },
+  "hooks/scope-hook.mjs:path-automation:a141c3cc80": {
+    "owner": "engine-config",
+    "target": "ratioIntents",
+    "note": "INTENTS[0]='automation' is the ratio intent; announce/gate text filters it out of the 'other labels' list"
+  },
+  "hooks/scope-hook.mjs:path-automation:e0db26dd6a": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "hooks/scope-hook.mjs:qa-wording:aa0618862b": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "hooks/scope-hook.mjs:group-wording:aa0618862b": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "hooks/scope-hook.mjs:qa-wording:c8ba160736": {
+    "owner": "engine-config",
+    "target": "vocabulary.item",
+    "note": "`--cases` CLI flag / scope field name — item vocabulary; flag kept verbatim under TA config"
+  },
+  "hooks/scope-hook.mjs:path-automation:a2ee5d47dc": {
+    "owner": "engine-config",
+    "target": "ratioIntents",
+    "note": "names the scoped-ratio intent 'automation' (only intent feeding cost-per-case)"
+  },
+  "hooks/scope-hook.mjs:qa-wording:a2ee5d47dc": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "hooks/scope-hook.mjs:group-wording:a2ee5d47dc": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "hooks/scope-hook.mjs:path-automation:c80d4d9bb9": {
+    "owner": "engine-config",
+    "target": "ratioIntents",
+    "note": "names the scoped-ratio intent 'automation' (only intent feeding cost-per-case)"
+  },
+  "hooks/scope-hook.mjs:qa-wording:c80d4d9bb9": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "hooks/scope-hook.mjs:group-wording:c80d4d9bb9": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "hooks/scope-hook.mjs:receipt-reader:fd7e9582aa": {
+    "owner": "ta-extension",
+    "target": "stopGateCheck",
+    "note": "receiptPathFor definition — only caller is the second stop gate; its root/file literals (:87/:88) stay receipts.root/receipts.file"
+  },
+  "hooks/scope-hook.mjs:path-automation:f3f02f6a9a": {
+    "owner": "engine-config",
+    "target": "receipts.root"
+  },
+  "hooks/scope-hook.mjs:receipt-reader:e7a4e05fdd": {
+    "owner": "engine-config",
+    "target": "receipts.file"
+  },
+  "hooks/scope-hook.mjs:receipt-reader:9712c4588f": {
+    "owner": "retired",
+    "target": "retired: scanner false positive — match is only in the trailing comment '// <campaign>/<wave>/report.json'; the nesting loop it annotates is owned by site :93 (stopGateCheck)"
+  },
+  "hooks/scope-hook.mjs:receipt-reader:16cc67b7c4": {
+    "owner": "ta-extension",
+    "target": "stopGateCheck",
+    "note": "campaign/wave nesting in receiptPathFor — only caller is the second stop gate (gateDecision unclosed branch)"
+  },
+  "hooks/scope-hook.mjs:path-automation:934ff241bb": {
+    "owner": "engine-config",
+    "target": "ratioIntents",
+    "note": "names the scoped-ratio intent 'automation' (only intent feeding cost-per-case) — first stop gate (no scope declared) is engine behaviour"
+  },
+  "hooks/scope-hook.mjs:qa-wording:934ff241bb": {
+    "owner": "engine-config",
+    "target": "vocabulary.item",
+    "note": "`--cases` CLI flag / scope field name — item vocabulary; flag kept verbatim under TA config"
+  },
+  "hooks/scope-hook.mjs:group-wording:934ff241bb": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "hooks/scope-hook.mjs:path-automation:1f97c236af": {
+    "owner": "engine-config",
+    "target": "ratioIntents",
+    "note": "names the scoped-ratio intent 'automation' (only intent feeding cost-per-case)"
+  },
+  "hooks/scope-hook.mjs:receipt-reader:d4ae291f47": {
+    "owner": "ta-extension",
+    "target": "stopGateCheck",
+    "note": "second stop gate (batch receipt written, scope open) — rule 3"
+  },
+  "hooks/scope-hook.mjs:group-wording:ef32bbe488": {
+    "owner": "ta-extension",
+    "target": "stopGateCheck",
+    "note": "second stop gate (batch receipt written, scope open) — rule 3"
+  },
+  "hooks/scope-hook.mjs:path-automation:e0683e5b6a": {
+    "owner": "ta-extension",
+    "target": "stopGateCheck",
+    "note": "second stop gate (batch receipt written, scope open) — rule 3"
+  },
+  "hooks/scope-hook.mjs:receipt-reader:5693c482aa": {
+    "owner": "ta-extension",
+    "target": "stopGateCheck",
+    "note": "second stop gate (batch receipt written, scope open) — rule 3"
+  },
+  "hooks/telemetry-capture.mjs:path-automation:f31063fc5a": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "hooks/telemetry-capture.mjs:path-automation:ff5578ac0a": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "hooks/telemetry-capture.mjs:path-automation:896a40c697": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:47dba68484": {
+    "owner": "engine-config",
+    "target": "ids.patterns"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:b616c818a3": {
+    "owner": "engine-config",
+    "target": "ids.stoplist"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:20e87cff12": {
+    "owner": "engine-config",
+    "target": "ids.max"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:54a71e4977": {
+    "owner": "engine-config",
+    "target": "ids.patterns"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:94e9358035": {
+    "owner": "engine-config",
+    "target": "ids.patterns"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:71a639fe4b": {
+    "owner": "engine-config",
+    "target": "ids.stoplist"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:79a55357c7": {
+    "owner": "engine-config",
+    "target": "ids.max"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:cff97bb6b5": {
+    "owner": "retired",
+    "target": "retired: scanner false positive — match is only in the trailing comment '// … see extractCaseIds'; the code pushes prompt text into caseTexts, mined at site :315 (ids.patterns)"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:d07d3d3da0": {
+    "owner": "engine-config",
+    "target": "ids.patterns"
+  },
+  "hooks/telemetry-capture.mjs:receipt-reader:cfeeff5407": {
+    "owner": "ta-extension",
+    "target": "receiptIds",
+    "note": "Task 10 moves the whole function (incl. unscanned :367 third receipt shape res.units[].ids)"
+  },
+  "hooks/telemetry-capture.mjs:path-automation:c474fc46cf": {
+    "owner": "ta-extension",
+    "target": "receiptIds",
+    "note": "path literal inside a TA-owned function: moves with the function into the extension (rule 3 over rule 1); Task 10: derive the `automation` dir / `.agents/automation` root from settings passed in, not a hard-coded copy"
+  },
+  "hooks/telemetry-capture.mjs:path-automation:98c3c8a1f6": {
+    "owner": "ta-extension",
+    "target": "receiptIds",
+    "note": "path literal inside a TA-owned function: moves with the function into the extension (rule 3 over rule 1); Task 10: derive the `automation` dir / `.agents/automation` root from settings passed in, not a hard-coded copy"
+  },
+  "hooks/telemetry-capture.mjs:receipt-reader:98c3c8a1f6": {
+    "owner": "ta-extension",
+    "target": "receiptIds",
+    "note": "Task 10: derive the `automation` dir / `.agents/automation` root from settings passed in, not a hard-coded copy"
+  },
+  "hooks/telemetry-capture.mjs:receipt-reader:d790f29e02": {
+    "owner": "ta-extension",
+    "target": "receiptIds",
+    "note": "workflow return receipt unit_ids parsing"
+  },
+  "hooks/telemetry-capture.mjs:receipt-reader:52ba8ee762": {
+    "owner": "ta-extension",
+    "target": "receiptIds",
+    "note": "analyst-shaped return cases[].case_id parsing"
+  },
+  "hooks/telemetry-capture.mjs:path-automation:a250c9ee7b": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "hooks/telemetry-capture.mjs:receipt-reader:68ce8b4081": {
+    "owner": "ta-extension",
+    "target": "receiptIds"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:32839da988": {
+    "owner": "engine-config",
+    "target": "ids.patterns"
+  },
+  "hooks/telemetry-capture.mjs:env-var:2a6b7e6489": {
+    "owner": "engine-config",
+    "target": "env.TOKENOMICS_NO_CCUSAGE"
+  },
+  "hooks/telemetry-capture.mjs:env-var:7c67e137e5": {
+    "owner": "engine-config",
+    "target": "env.TOKENOMICS_CCUSAGE_BIN"
+  },
+  "hooks/telemetry-capture.mjs:stage-words:cb323ba27c": {
+    "owner": "ta-extension",
+    "target": "labelFrom",
+    "note": "STAGE_MARKER slices Workflow dispatch labels from the first stage word (label truncation by stage words)"
+  },
+  "hooks/telemetry-capture.mjs:stage-words:f57226f85b": {
+    "owner": "ta-extension",
+    "target": "labelFrom"
+  },
+  "hooks/telemetry-capture.mjs:path-automation:39d777f47d": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:3836c5759d": {
+    "owner": "engine-config",
+    "target": "ids.patterns"
+  },
+  "hooks/telemetry-capture.mjs:receipt-reader:ba0eb87e97": {
+    "owner": "ta-extension",
+    "target": "receiptIds"
+  },
+  "hooks/telemetry-capture.mjs:env-var:536d58bacb": {
+    "owner": "engine-config",
+    "target": "env.TOKENOMICS_CLAUDE_ROOT"
+  },
+  "hooks/telemetry-capture.mjs:env-var:f376acf2f6": {
+    "owner": "engine-config",
+    "target": "env.TOKENOMICS_COPILOT_ROOT"
+  },
+  "hooks/telemetry-capture.mjs:env-var:29ffff3293": {
+    "owner": "engine-config",
+    "target": "env.TOKENOMICS_COPILOT_ROOT"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:38b5f65edb": {
+    "owner": "engine-config",
+    "target": "ids.patterns"
+  },
+  "hooks/telemetry-capture.mjs:env-var:016d3cabea": {
+    "owner": "engine-config",
+    "target": "env.TOKENOMICS_VSCODE_ROOT"
+  },
+  "hooks/telemetry-capture.mjs:env-var:95c0e2ffbb": {
+    "owner": "engine-config",
+    "target": "env.TOKENOMICS_VSCODE_ROOT"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:7708c9941c": {
+    "owner": "engine-config",
+    "target": "ids.patterns"
+  },
+  "hooks/telemetry-capture.mjs:env-var:d228e1af79": {
+    "owner": "engine-config",
+    "target": "env.TOKENOMICS_NO_SINK"
+  },
+  "hooks/telemetry-capture.mjs:path-automation:2cda2a1cfd": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "hooks/telemetry-capture.mjs:env-var:93a6838389": {
+    "owner": "engine-config",
+    "target": "env.TOKENOMICS_NO_BATCH_COST"
+  },
+  "hooks/telemetry-capture.mjs:receipt-reader:76fe45b5c4": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "interface gap: Task 10 decides the signature that lets the hook select matching receipts (same three-way resolve as close)"
+  },
+  "hooks/telemetry-capture.mjs:path-automation:160f067acb": {
+    "owner": "engine-config",
+    "target": "dir",
+    "note": "live batch pages under <dir>/reports/ — the `automation` segment is the telemetry dir"
+  },
+  "hooks/telemetry-capture.mjs:env-var:bbd52c9dd1": {
+    "owner": "engine-config",
+    "target": "env.TOKENOMICS_NO_SYNC"
+  },
+  "scripts/batch-cost.mjs:receipt-reader:876c49e97d": {
+    "owner": "engine-config",
+    "target": "receipts.root"
+  },
+  "scripts/batch-cost.mjs:path-automation:f3f02f6a9a": {
+    "owner": "engine-config",
+    "target": "receipts.root"
+  },
+  "scripts/batch-cost.mjs:receipt-reader:8c6b00ef7c": {
+    "owner": "engine-config",
+    "target": "receipts.root",
+    "note": "receipt walk skips '_'-prefixed TA working dirs (_returns, _gates) and the legacy 'telemetry' dir — TA layout knowledge kept with the receipts-root walk; loadReceipts is the engine's receipts.root reader (foreign receipts come via receipts.command, §14.4)"
+  },
+  "scripts/batch-cost.mjs:receipt-reader:ddb8113123": {
+    "owner": "engine-config",
+    "target": "receipts.file"
+  },
+  "scripts/batch-cost.mjs:path-automation:8ab0fa79f8": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/batch-cost.mjs:gate-records:70d9dc6d58": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "loadGateRuns definition"
+  },
+  "scripts/batch-cost.mjs:gate-records:4b2ae4bd17": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "loadGateRuns — gate-run loading at cost build"
+  },
+  "scripts/batch-cost.mjs:path-automation:37222d25b0": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "path literal inside a TA-owned function: moves with the function into the extension (rule 3 over rule 1); Task 10: derive the `automation` dir / `.agents/automation` root from settings passed in, not a hard-coded copy"
+  },
+  "scripts/batch-cost.mjs:gate-records:37222d25b0": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "Task 10: derive the `automation` dir / `.agents/automation` root from settings passed in, not a hard-coded copy"
+  },
+  "scripts/batch-cost.mjs:gate-records:ab0de88bfa": {
+    "owner": "ta-extension",
+    "target": "onClose",
+    "note": "foldGateRuns — close-time folding"
+  },
+  "scripts/batch-cost.mjs:path-automation:fefdd9ac03": {
+    "owner": "ta-extension",
+    "target": "onClose",
+    "note": "path literal inside a TA-owned function: moves with the function into the extension (rule 3 over rule 1); Task 10: derive the `automation` dir / `.agents/automation` root from settings passed in, not a hard-coded copy"
+  },
+  "scripts/batch-cost.mjs:gate-records:fefdd9ac03": {
+    "owner": "ta-extension",
+    "target": "onClose",
+    "note": "Task 10: derive the `automation` dir / `.agents/automation` root from settings passed in, not a hard-coded copy"
+  },
+  "scripts/batch-cost.mjs:gate-records:b5a3b8f516": {
+    "owner": "ta-extension",
+    "target": "onClose"
+  },
+  "scripts/batch-cost.mjs:gate-records:f120d47a1d": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "declaredOutcomesFor — only consumer is crossCheck / cost.records (reconciliation)"
+  },
+  "scripts/batch-cost.mjs:gate-records:08fbe52e5d": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "crossCheck — receipt vs gate-run/declared-outcome reconciliation"
+  },
+  "scripts/batch-cost.mjs:gate-records:938b2adb80": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:gate-records:4f5842a583": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "crossCheck"
+  },
+  "scripts/batch-cost.mjs:gate-records:52b52ff09f": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "crossCheck"
+  },
+  "scripts/batch-cost.mjs:gate-records:357998db7a": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "crossCheck"
+  },
+  "scripts/batch-cost.mjs:gate-records:201859dc6d": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "crossCheck"
+  },
+  "scripts/batch-cost.mjs:gate-records:4edd6b0372": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "crossCheck"
+  },
+  "scripts/batch-cost.mjs:stage-words:29f40a68fc": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "OVERHEAD_STAGE — the direct/overhead classifier"
+  },
+  "scripts/batch-cost.mjs:stage-words:e0d452b28e": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "FIX_STAGE — fix-round (rework) classification"
+  },
+  "scripts/batch-cost.mjs:stage-words:eb88c08125": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "STAGE_HEAD window the classifier matches in"
+  },
+  "scripts/batch-cost.mjs:stage-words:f3fe376e83": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch"
+  },
+  "scripts/batch-cost.mjs:stage-words:fce47d27e6": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "classify() definition — stage test first, then receipt-id match (the id match is engine join logic that stays when the hook returns direct)"
+  },
+  "scripts/batch-cost.mjs:stage-words:b253cbf5a4": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch"
+  },
+  "scripts/batch-cost.mjs:stage-words:3aa6fe88d2": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "STAGE_KIND overhead stage split"
+  },
+  "scripts/batch-cost.mjs:stage-words:48175a2f50": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "STAGE_KIND overhead stage split (triage/gate/report)"
+  },
+  "scripts/batch-cost.mjs:stage-words:6d4e1b5dc5": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch"
+  },
+  "scripts/batch-cost.mjs:stage-words:cd8d9109f0": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch"
+  },
+  "scripts/batch-cost.mjs:stage-words:9389280faf": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch"
+  },
+  "scripts/batch-cost.mjs:sizing:db1c75bb38": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "loadSizings — predicted size from .agents/estimation"
+  },
+  "scripts/batch-cost.mjs:sizing:682acca5ea": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "path literal inside a TA-owned function: moves with the function into the extension (rule 3 over rule 1) (.agents/estimation)"
+  },
+  "scripts/batch-cost.mjs:receipt-reader:df9bad4ff1": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "case_id read inside loadSizings (estimation rows), not a receipt"
+  },
+  "scripts/batch-cost.mjs:receipt-reader:5e381aad69": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "sizeBaselines walk skips — Task 10 moves the whole function"
+  },
+  "scripts/batch-cost.mjs:sizing:a3ff5dc6bd": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "sizeBaselines — historical cost.json size-class history; Task 10 moves the whole function (sizeBaselines, defined at unscanned :356)"
+  },
+  "scripts/batch-cost.mjs:path-automation:60580b5331": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "path literal inside a TA-owned function: moves with the function into the extension (rule 3 over rule 1) (sizeBaselines walks historical cost.json under the receipts root); Task 10: derive the `automation` dir / `.agents/automation` root from settings passed in, not a hard-coded copy"
+  },
+  "scripts/batch-cost.mjs:sizing:53df385b04": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "MIN_CLASS_N — module constant used only by applySizing"
+  },
+  "scripts/batch-cost.mjs:sizing:e219893c78": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:sizing:8f0745609b": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:sizing:4f449ac8e7": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:sizing:81acfd87f1": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:sizing:3d362443dd": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:qa-wording:eeac8bc733": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "flag detail text produced inside applySizing"
+  },
+  "scripts/batch-cost.mjs:sizing:13b8005a89": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:sizing:69fbb5d14e": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:sizing:7c2a92f72a": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:sizing:b0b82774d1": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:sizing:586ad799ab": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:path-automation:6b4c5d39a0": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "sizing rollup note inside applySizing"
+  },
+  "scripts/batch-cost.mjs:qa-wording:6b4c5d39a0": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "sizing rollup note inside applySizing"
+  },
+  "scripts/batch-cost.mjs:group-wording:6b4c5d39a0": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "sizing rollup note inside applySizing"
+  },
+  "scripts/batch-cost.mjs:sizing:bde77a853c": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:stage-words:11c3924fb2": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "fix-round counting driven by FIX_STAGE (rework classification)"
+  },
+  "scripts/batch-cost.mjs:stage-words:02d86df640": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "byStage buckets = the stage kinds"
+  },
+  "scripts/batch-cost.mjs:stage-words:2801bed933": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "rework bucket (fix-round dispatches)"
+  },
+  "scripts/batch-cost.mjs:stage-words:b39486e8dc": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "call site of classify() in the join"
+  },
+  "scripts/batch-cost.mjs:stage-words:6ff87169bf": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "fix-round counting driven by FIX_STAGE (rework classification)"
+  },
+  "scripts/batch-cost.mjs:stage-words:9c3867076d": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "fix-round counting driven by FIX_STAGE (rework classification)"
+  },
+  "scripts/batch-cost.mjs:stage-words:308b2aae76": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "fix-round counting driven by FIX_STAGE (rework classification)"
+  },
+  "scripts/batch-cost.mjs:stage-words:e5851740af": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch"
+  },
+  "scripts/batch-cost.mjs:stage-words:de61d36624": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "fix-round counting driven by FIX_STAGE (rework classification)"
+  },
+  "scripts/batch-cost.mjs:receipt-reader:7feeaff470": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "receipt cases[].findings copied into the cost row — TA receipt field"
+  },
+  "scripts/batch-cost.mjs:stage-words:2f89c95275": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "fix-round counting driven by FIX_STAGE (rework classification)"
+  },
+  "scripts/batch-cost.mjs:delivered-vocab:549873a9e5": {
+    "owner": "engine-config",
+    "target": "receipts.deliveredOutcomes"
+  },
+  "scripts/batch-cost.mjs:delivered-vocab:71723f9fe6": {
+    "owner": "engine-config",
+    "target": "receipts.deliveredOutcomes"
+  },
+  "scripts/batch-cost.mjs:gate-records:c3962d3a2b": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:gate-records:be4b26c1f1": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "declaredOutcomesFor — only consumer is crossCheck / cost.records (reconciliation)"
+  },
+  "scripts/batch-cost.mjs:gate-records:1750ef73ae": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:gate-records:54c93c9270": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:sizing:95e7ff8486": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:sizing:b13838a056": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:group-wording:d5d1f81bd2": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/batch-cost.mjs:stage-words:035343342e": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "static list of TA overhead stage names; owned with the stage classifier that defines them; line split: 'triage, gate, report' stage list → classifyDispatch; 'per-case' → vocabulary.item; 'batch-level' → vocabulary.group"
+  },
+  "scripts/batch-cost.mjs:qa-wording:035343342e": {
+    "owner": "engine-config",
+    "target": "vocabulary.item",
+    "note": "line split: 'triage, gate, report' stage list → classifyDispatch; 'per-case' → vocabulary.item; 'batch-level' → vocabulary.group"
+  },
+  "scripts/batch-cost.mjs:group-wording:035343342e": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/batch-cost.mjs:stage-words:2d9b420a4a": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch"
+  },
+  "scripts/batch-cost.mjs:stage-words:4b45c3a5bc": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "rework output"
+  },
+  "scripts/batch-cost.mjs:stage-words:9d372f46cb": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "rework note; line split: 'fix-round'/rework → classifyDispatch, 'per-case' → vocabulary.item, 'batch' → vocabulary.group"
+  },
+  "scripts/batch-cost.mjs:qa-wording:9d372f46cb": {
+    "owner": "engine-config",
+    "target": "vocabulary.item",
+    "note": "line split: 'fix-round'/rework → classifyDispatch, 'per-case' → vocabulary.item, 'batch' → vocabulary.group"
+  },
+  "scripts/batch-cost.mjs:group-wording:9d372f46cb": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/batch-cost.mjs:gate-records:b0c84f7ce4": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "receipt.gate copied into cost.json — producer whose readers are enrichGroup/exportRow"
+  },
+  "scripts/batch-cost.mjs:gate-records:982997ec09": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:receipt-reader:6ac7c0b4f3": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "records note (gate-runs + declared outcomes vs receipt)"
+  },
+  "scripts/batch-cost.mjs:gate-records:6ac7c0b4f3": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:gate-records:c887e40ad9": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:gate-records:f5623db62f": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:gate-records:ce51b4a18e": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:sizing:94dba86493": {
+    "owner": "ta-extension",
+    "target": "enrichGroup"
+  },
+  "scripts/batch-cost.mjs:qa-wording:9d0a84b4d1": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/batch-cost.mjs:delivered-vocab:0785400df5": {
+    "owner": "engine-config",
+    "target": "receipts.deliveredOutcomes",
+    "note": "note text names the delivered outcome set (delivered/defect-found; legacy automated/merged-sanctioned-red)"
+  },
+  "scripts/batch-cost.mjs:group-wording:0785400df5": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/batch-cost.mjs:qa-wording:ddb6c8d513": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/batch-cost.mjs:group-wording:ddb6c8d513": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/batch-cost.mjs:receipt-reader:86673af0f0": {
+    "owner": "engine-config",
+    "target": "receipts.root"
+  },
+  "scripts/batch-cost.mjs:receipt-reader:07ee70e383": {
+    "owner": "engine-config",
+    "target": "receipts.root"
+  },
+  "scripts/batch-cost.mjs:path-automation:e90b887e14": {
+    "owner": "engine-config",
+    "target": "receipts.root"
+  },
+  "scripts/batch-cost.mjs:qa-wording:e61182fd07": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:23b359fd83": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "segment work_item_level default 'feature' = TA's batch-as-work-item decision; QA export (rule 6)"
+  },
+  "scripts/build-tokenomics-export.mjs:sizing:fd3d5c7112": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:sizing:39472a6c22": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:sizing:09e39802ab": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:sizing:6e800eebc5": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:delivered-vocab:b04b67dc24": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "rule 6: 'not-started'/'infra-stalled' outcomes excluded from scenarios_authored"
+  },
+  "scripts/build-tokenomics-export.mjs:path-automation:60d1bdacf2": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "string inside the QA export row/notes (rule 6), not the generic export path"
+  },
+  "scripts/build-tokenomics-export.mjs:qa-wording:60d1bdacf2": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "string inside the QA export row/notes (rule 6), not the generic export path"
+  },
+  "scripts/build-tokenomics-export.mjs:group-wording:60d1bdacf2": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "string inside the QA export row/notes (rule 6), not the generic export path"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:148133a220": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:34279a003c": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:73f8e0699e": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:sizing:51213a21db": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:gate-records:b3d5d24107": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "string inside the QA export row/notes (rule 6), not the generic export path — gate verdict in row notes"
+  },
+  "scripts/build-tokenomics-export.mjs:path-automation:671d359c48": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "string inside the QA export row/notes (rule 6), not the generic export path — '.agents/automation/<batch>/cost.json' provenance text in row notes"
+  },
+  "scripts/build-tokenomics-export.mjs:group-wording:671d359c48": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "string inside the QA export row/notes (rule 6), not the generic export path"
+  },
+  "scripts/build-tokenomics-export.mjs:sizing:28ea28eea1": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:group-wording:28ea28eea1": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "string inside the QA export row/notes (rule 6), not the generic export path"
+  },
+  "scripts/build-tokenomics-export.mjs:qa-wording:63f9181945": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "string inside the QA export row/notes (rule 6), not the generic export path"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:63f9181945": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:5277cdace1": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "§7 checklist over QA segment/row fields"
+  },
+  "scripts/build-tokenomics-export.mjs:sizing:41a9ff3050": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:43f459397e": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:b0fefbb6c1": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:sizing:d07a0a642a": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:d72d9310f6": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:path-automation:2b372b8acb": {
+    "owner": "engine-config",
+    "target": "dir",
+    "note": "export dataset path <dir>/export/runs.json — generic export plumbing, not a QA field"
+  },
+  "scripts/build-tokenomics-export.mjs:path-automation:eb88f29d3d": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/build-tokenomics-export.mjs:path-automation:e3a09104b9": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "anonymised QA work_item_brief"
+  },
+  "scripts/build-tokenomics-export.mjs:qa-wording:e3a09104b9": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "anonymised QA work_item_brief"
+  },
+  "scripts/build-tokenomics-export.mjs:group-wording:e3a09104b9": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "anonymised QA work_item_brief"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:e3a09104b9": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "anonymised QA work_item_brief"
+  },
+  "scripts/build-tokenomics-export.mjs:group-wording:8080171aa0": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "anonymiser rewrites the row-notes 'batch slug' text"
+  },
+  "scripts/build-tokenomics-export.mjs:group-wording:1a5bb21269": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "export plumbing error message"
+  },
+  "scripts/build-tokenomics-export.mjs:path-automation:a223922a27": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/build-tokenomics-export.mjs:group-wording:4111215503": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "submission.md text describing the QA telemetry cohort (rule 6)"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:13ae798075": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "submission.md renders the QA segment field"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:8481830162": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "submission.md sums the QA scenarios_* fields"
+  },
+  "scripts/build-tokenomics-export.mjs:qa-wording:e360413db1": {
+    "owner": "engine-config",
+    "target": "vocabulary.item",
+    "note": "--compare renders two cost.json side by side (QA wording, rule 4)"
+  },
+  "scripts/build-tokenomics-export.mjs:qa-wording:90f43b028a": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/build-tokenomics-export.mjs:gate-records:5ec7aadddc": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "rule 6: --compare gate row lives in build-tokenomics-export, matching :133"
+  },
+  "scripts/build-tokenomics-export.mjs:path-automation:564f4a5af3": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:564f4a5af3": {
+    "owner": "ta-extension",
+    "target": "exportRow",
+    "note": "factory-profile.json = QA export identity source (rule 6)"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:c43231b0f9": {
+    "owner": "ta-extension",
+    "target": "exportRow"
+  },
+  "scripts/build-tokenomics-export.mjs:path-automation:2b6d8efa6f": {
+    "owner": "engine-config",
+    "target": "receipts.root"
+  },
+  "scripts/build-tokenomics-export.mjs:group-wording:2b6d8efa6f": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/install-hooks.mjs:path-automation:01ed5c1b41": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/install-hooks.mjs:path-automation:99d98f8ee6": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/install-hooks.mjs:export-qa:e0528cc900": {
+    "owner": "engine-config",
+    "target": "paths.factoryProfile",
+    "note": "flat-era layout migration moves factory-profile.json into <dir>/ — a stored-data path (rule 1); rule 6 is scoped to build-tokenomics-export"
+  },
+  "scripts/install-hooks.mjs:path-automation:5d772d94ea": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/install-hooks.mjs:path-automation:e671659d7b": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/install-hooks.mjs:path-automation:79df1b7930": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/install-hooks.mjs:path-automation:b6c5b81663": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/install-hooks.mjs:path-automation:896a40c697": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/install-hooks.mjs:path-automation:49f951aebc": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/install-hooks.mjs:path-automation:b4234e0b4a": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/install-hooks.mjs:path-automation:3ec7f88fc9": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/install-hooks.mjs:path-automation:83be4efed1": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/team-report.mjs:delivered-vocab:cb77c775e0": {
+    "owner": "engine-config",
+    "target": "receipts.deliveredOutcomes"
+  },
+  "scripts/team-report.mjs:path-automation:b3440d3758": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/team-report.mjs:receipt-reader:8c6b00ef7c": {
+    "owner": "engine-config",
+    "target": "receipts.root",
+    "note": "findReports walk skips '_'-prefixed TA working dirs and the legacy 'telemetry' dir — same call as batch-cost:62"
+  },
+  "scripts/team-report.mjs:receipt-reader:47e6282ca6": {
+    "owner": "engine-config",
+    "target": "receipts.file"
+  },
+  "scripts/team-report.mjs:delivered-vocab:59eb40cdad": {
+    "owner": "engine-config",
+    "target": "receipts.deliveredOutcomes",
+    "note": "default outcome 'not-started' for a receipt row with no outcome — outcome vocabulary kept with receipts.deliveredOutcomes (no dedicated key)"
+  },
+  "scripts/team-report.mjs:path-automation:3221caccb6": {
+    "owner": "engine-config",
+    "target": "ratioIntents",
+    "note": "byIntent.get('automation') — the scoped-ratio figure"
+  },
+  "scripts/team-report.mjs:case-id-miner:e5d043d43d": {
+    "owner": "retired",
+    "target": "retired: scanner false positive — local variable `caseIds = Object.keys(rep.byCase)` in a renderer — no pattern/stoplist/cap; the rendered wording is site :278"
+  },
+  "scripts/team-report.mjs:qa-wording:1de4119a69": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:qa-wording:224549afc8": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:qa-wording:e2b0370eb1": {
+    "owner": "engine-config",
+    "target": "vocabulary.delivered",
+    "note": "'delivered (automated)' label"
+  },
+  "scripts/team-report.mjs:path-automation:296ff9227a": {
+    "owner": "engine-config",
+    "target": "ratioIntents",
+    "note": "names the scoped-ratio intent 'automation' (only intent feeding cost-per-case)"
+  },
+  "scripts/team-report.mjs:qa-wording:296ff9227a": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:qa-wording:9319318ac4": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:group-wording:9319318ac4": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:group-wording:5a39de62f9": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:qa-wording:6d80ef5860": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:group-wording:6d80ef5860": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:qa-wording:23afb7fac4": {
+    "owner": "retired",
+    "target": "retired: scanner false positive — table row of values only (`${b.cases}` property access) — no rendered wording; the header at :298 owns it"
+  },
+  "scripts/team-report.mjs:qa-wording:c9cdef9bf8": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:group-wording:c9cdef9bf8": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:qa-wording:7c0fbdc7a5": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:qa-wording:311d1a8bfa": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:group-wording:13c6b6fd58": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:qa-wording:2e8c7aa96a": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:group-wording:2e8c7aa96a": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:group-wording:86d8aa0bfc": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:group-wording:efac16b6d5": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:qa-wording:e4887c56cd": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:gate-records:6fcb24609d": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders receipt gate verdict / gate-run records — QA gate concept; no render hook in §14.3, owned with gate reconciliation"
+  },
+  "scripts/team-report.mjs:gate-records:f810d69aa4": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders receipt gate verdict / gate-run records — QA gate concept; no render hook in §14.3, owned with gate reconciliation"
+  },
+  "scripts/team-report.mjs:receipt-reader:a2646e3a23": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders gateDrift/outcomeDrift from crossCheck (reconciliation, rule 3)"
+  },
+  "scripts/team-report.mjs:gate-records:a2646e3a23": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders gateDrift/outcomeDrift from crossCheck (reconciliation, rule 3)"
+  },
+  "scripts/team-report.mjs:receipt-reader:00dfd7d6da": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders gateDrift/outcomeDrift from crossCheck (reconciliation, rule 3)"
+  },
+  "scripts/team-report.mjs:gate-records:00dfd7d6da": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders gateDrift/outcomeDrift from crossCheck (reconciliation, rule 3)"
+  },
+  "scripts/team-report.mjs:receipt-reader:39cf6a3050": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders receipt findings + classifier fix-round counts (TA-only fields); qa-wording matched `c.cases` property only; line split: 'Findings reported' + x.findings → enrichGroup; 'fix rounds' + direct.fixRounds → classifyDispatch"
+  },
+  "scripts/team-report.mjs:stage-words:39cf6a3050": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "renders classifier output (fix rounds / byStage); no render hook in §14.3 — owned by the hook that produces it; line split: 'Findings reported' + x.findings → enrichGroup; 'fix rounds' + direct.fixRounds → classifyDispatch"
+  },
+  "scripts/team-report.mjs:qa-wording:39cf6a3050": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders receipt findings + classifier fix-round counts (TA-only fields); qa-wording matched `c.cases` property only; line split: 'Findings reported' + x.findings → enrichGroup; 'fix rounds' + direct.fixRounds → classifyDispatch"
+  },
+  "scripts/team-report.mjs:qa-wording:3a2995618d": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:stage-words:c682331eee": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "static list of TA overhead stage names; owned with the stage classifier that defines them"
+  },
+  "scripts/team-report.mjs:stage-words:d3e092aa85": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "renders classifier output (fix rounds / byStage); no render hook in §14.3 — owned by the hook that produces it"
+  },
+  "scripts/team-report.mjs:stage-words:a9ffaa99ce": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "renders classifier output (fix rounds / byStage); no render hook in §14.3 — owned by the hook that produces it; line split: 'Rework (fix rounds' + c.rework → classifyDispatch; 'per-case direct' → vocabulary.item"
+  },
+  "scripts/team-report.mjs:qa-wording:a9ffaa99ce": {
+    "owner": "engine-config",
+    "target": "vocabulary.item",
+    "note": "line split: 'Rework (fix rounds' + c.rework → classifyDispatch; 'per-case direct' → vocabulary.item"
+  },
+  "scripts/team-report.mjs:qa-wording:af0cb62796": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:qa-wording:fcc2d248d6": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:qa-wording:28b178c70b": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:sizing:40e4da47bf": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:sizing:e1a528264e": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:stage-words:74cca45492": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "renders classifier output (fix rounds / byStage); no render hook in §14.3 — owned by the hook that produces it; header split: 'case' → vocabulary.item; 'size' → enrichGroup; 'fix rounds' → classifyDispatch; 'findings' → enrichGroup"
+  },
+  "scripts/team-report.mjs:qa-wording:74cca45492": {
+    "owner": "engine-config",
+    "target": "vocabulary.item",
+    "note": "header split: 'case' → vocabulary.item; 'size' → enrichGroup; 'fix rounds' → classifyDispatch; 'findings' → enrichGroup"
+  },
+  "scripts/team-report.mjs:stage-words:82cd434cc9": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "renders classifier output (fix rounds / byStage); no render hook in §14.3 — owned by the hook that produces it; header split: 'case' → vocabulary.item; 'fix rounds' → classifyDispatch; 'findings' → enrichGroup"
+  },
+  "scripts/team-report.mjs:qa-wording:82cd434cc9": {
+    "owner": "engine-config",
+    "target": "vocabulary.item",
+    "note": "header split: 'case' → vocabulary.item; 'fix rounds' → classifyDispatch; 'findings' → enrichGroup"
+  },
+  "scripts/team-report.mjs:receipt-reader:05fe288f6d": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders receipt findings per case"
+  },
+  "scripts/team-report.mjs:stage-words:05fe288f6d": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "renders classifier output (fix rounds / byStage); no render hook in §14.3 — owned by the hook that produces it"
+  },
+  "scripts/team-report.mjs:qa-wording:973d4f68ac": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:sizing:1cb7329b36": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:path-automation:b7bb5e2c87": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:qa-wording:1f1fe47251": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:sizing:efc4d99e14": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:qa-wording:efc4d99e14": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:sizing:77bc3c0f41": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:qa-wording:77bc3c0f41": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:group-wording:77bc3c0f41": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:sizing:5bd3dbb6b8": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:receipt-reader:b9276b1c6e": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders receipt findings per case; line split: x.sizing and x.findings → enrichGroup; fixRounds / 'fix' → classifyDispatch"
+  },
+  "scripts/team-report.mjs:stage-words:b9276b1c6e": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "renders classifier output (fix rounds / byStage); no render hook in §14.3 — owned by the hook that produces it; line split: x.sizing and x.findings → enrichGroup; fixRounds / 'fix' → classifyDispatch"
+  },
+  "scripts/team-report.mjs:sizing:b9276b1c6e": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields; line split: x.sizing and x.findings → enrichGroup; fixRounds / 'fix' → classifyDispatch"
+  },
+  "scripts/team-report.mjs:qa-wording:e7c749a522": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:gate-records:741dafbb17": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders receipt gate verdict / gate-run records — QA gate concept; no render hook in §14.3, owned with gate reconciliation"
+  },
+  "scripts/team-report.mjs:stage-words:bad58c6959": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "renders classifier output (fix rounds / byStage); no render hook in §14.3 — owned by the hook that produces it"
+  },
+  "scripts/team-report.mjs:receipt-reader:2affc85094": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders receipt findings"
+  },
+  "scripts/team-report.mjs:stage-words:7c9c0d8016": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "line split: 'Rework' + c.rework → classifyDispatch; 'Avg direct / case' → vocabulary.item"
+  },
+  "scripts/team-report.mjs:qa-wording:7c9c0d8016": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:stage-words:55551fdc26": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "renders classifier output (fix rounds / byStage); no render hook in §14.3 — owned by the hook that produces it"
+  },
+  "scripts/team-report.mjs:qa-wording:196d5a9dff": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:group-wording:a507ea3cca": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:group-wording:e91739f2cc": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:receipt-reader:317dbddb26": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders gateDrift/outcomeDrift from crossCheck (reconciliation, rule 3)"
+  },
+  "scripts/team-report.mjs:gate-records:317dbddb26": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders gateDrift/outcomeDrift from crossCheck (reconciliation, rule 3)"
+  },
+  "scripts/team-report.mjs:receipt-reader:354c2a624d": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders gateDrift/outcomeDrift from crossCheck (reconciliation, rule 3)"
+  },
+  "scripts/team-report.mjs:gate-records:354c2a624d": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders gateDrift/outcomeDrift from crossCheck (reconciliation, rule 3)"
+  },
+  "scripts/team-report.mjs:qa-wording:a94159d70c": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:qa-wording:06482b6c8d": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:group-wording:06482b6c8d": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:sizing:5e8204b81a": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:path-automation:77eb051421": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:sizing:77eb051421": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:qa-wording:77eb051421": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:group-wording:77eb051421": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:qa-wording:9afc304323": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:sizing:8865c27efa": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:qa-wording:8865c27efa": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:sizing:4df322b76f": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:group-wording:f0198f4142": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:group-wording:cf718ee628": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:stage-words:dd6621a4d8": {
+    "owner": "ta-extension",
+    "target": "classifyDispatch",
+    "note": "renders classifier output (fix rounds / byStage); no render hook in §14.3 — owned by the hook that produces it"
+  },
+  "scripts/team-report.mjs:sizing:e0d2934262": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders sizing fields produced by applySizing; no render hook in §14.3 — owned by the hook that produces the fields"
+  },
+  "scripts/team-report.mjs:qa-wording:75935bf8e2": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:group-wording:3fc23d7d44": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:group-wording:046f34bf72": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:qa-wording:f6df416bdf": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:group-wording:f6df416bdf": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:qa-wording:9b87c80364": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:path-automation:f5913ac5a2": {
+    "owner": "engine-config",
+    "target": "ratioIntents",
+    "note": "automationOnlyCostUsd — the scoped-ratio figure"
+  },
+  "scripts/team-report.mjs:qa-wording:f5913ac5a2": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:qa-wording:c25d704c36": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:path-automation:44dafb95a5": {
+    "owner": "engine-config",
+    "target": "ratioIntents",
+    "note": "names the scoped-ratio intent 'automation' (only intent feeding cost-per-case)"
+  },
+  "scripts/team-report.mjs:qa-wording:422ceee8db": {
+    "owner": "engine-config",
+    "target": "vocabulary.delivered",
+    "note": "'delivered / examined' label (match was the `cases.` property; the rendered QA word is 'delivered')"
+  },
+  "scripts/team-report.mjs:group-wording:7624c2365a": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:group-wording:a9a5fedf83": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:qa-wording:b3aa5901d5": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:group-wording:b3aa5901d5": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:qa-wording:e2c87589c8": {
+    "owner": "retired",
+    "target": "retired: scanner false positive — HTML table row of values only (`${b.cases}` property access) — no rendered wording"
+  },
+  "scripts/team-report.mjs:qa-wording:3bec0f9693": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:group-wording:3bec0f9693": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:qa-wording:be26c9c597": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:qa-wording:014584f598": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:group-wording:014584f598": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:path-automation:0f6e029e1b": {
+    "owner": "engine-config",
+    "target": "receipts.root"
+  },
+  "scripts/team-report.mjs:group-wording:0f6e029e1b": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/team-report.mjs:path-automation:a7733e1073": {
+    "owner": "engine-config",
+    "target": "receipts.root"
+  },
+  "scripts/team-report.mjs:gate-records:d12f5afb27": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders receipt gate verdict / gate-run records — QA gate concept; no render hook in §14.3, owned with gate reconciliation (byBatch gate column)"
+  },
+  "scripts/team-report.mjs:gate-records:b5cfc0373b": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "renders gateDrift/outcomeDrift from crossCheck (reconciliation, rule 3) (byBatch drift flag)"
+  },
+  "scripts/team-report.mjs:qa-wording:f13187655d": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/team-report.mjs:group-wording:f13187655d": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/work-scope.mjs:path-automation:e0db26dd6a": {
+    "owner": "engine-config",
+    "target": "dir"
+  },
+  "scripts/work-scope.mjs:path-automation:d98c2fe677": {
+    "owner": "engine-config",
+    "target": "intents.default"
+  },
+  "scripts/work-scope.mjs:intent-default:d98c2fe677": {
+    "owner": "engine-config",
+    "target": "intents.default"
+  },
+  "scripts/work-scope.mjs:path-automation:6ca2577558": {
+    "owner": "engine-config",
+    "target": "intents.default",
+    "note": "self-healing scope record defaults intent to 'automation'"
+  },
+  "scripts/work-scope.mjs:qa-wording:096c45ad2a": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/work-scope.mjs:qa-wording:72d84b7737": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/work-scope.mjs:gate-records:c3f81ad666": {
+    "owner": "ta-extension",
+    "target": "onClose",
+    "note": "imports foldGateRuns for close-time folding"
+  },
+  "scripts/work-scope.mjs:receipt-reader:39b61e588f": {
+    "owner": "ta-extension",
+    "target": "enrichGroup",
+    "note": "interface gap: Task 10 decides the signature that lets the hook select matching receipts (same three-way resolve as close)"
+  },
+  "scripts/work-scope.mjs:path-automation:47c6f2223e": {
+    "owner": "engine-config",
+    "target": "reports.location",
+    "note": "close writes cost.json/batch-report.* and folds gate-runs into .agents/automation/<batch>/ — TA's in-tree report layout (§14.8 item 10)"
+  },
+  "scripts/work-scope.mjs:gate-records:25b13ec8bd": {
+    "owner": "ta-extension",
+    "target": "onClose"
+  },
+  "scripts/work-scope.mjs:qa-wording:9e10233a19": {
+    "owner": "engine-config",
+    "target": "vocabulary.item",
+    "note": "`--cases` CLI flag / scope field name — item vocabulary; flag kept verbatim under TA config"
+  },
+  "scripts/work-scope.mjs:qa-wording:2307ebfcd8": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  },
+  "scripts/work-scope.mjs:path-automation:b6b130e522": {
+    "owner": "engine-config",
+    "target": "receipts.root"
+  },
+  "scripts/work-scope.mjs:receipt-reader:b6b130e522": {
+    "owner": "engine-config",
+    "target": "receipts.file"
+  },
+  "scripts/work-scope.mjs:group-wording:b6b130e522": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/work-scope.mjs:gate-records:0764d4bc0c": {
+    "owner": "ta-extension",
+    "target": "onClose",
+    "note": "close-time recovery advice naming TA artifacts (gate-runs.jsonl, returns/, run journal, orchestration playbook)"
+  },
+  "scripts/work-scope.mjs:path-automation:06b7cee398": {
+    "owner": "ta-extension",
+    "target": "onClose",
+    "note": "close-time recovery advice naming TA artifacts (gate-runs.jsonl, returns/, run journal, orchestration playbook); Task 10: derive the `automation` dir / `.agents/automation` root from settings passed in, not a hard-coded copy"
+  },
+  "scripts/work-scope.mjs:receipt-reader:06b7cee398": {
+    "owner": "ta-extension",
+    "target": "onClose",
+    "note": "close-time recovery advice naming TA artifacts (gate-runs.jsonl, returns/, run journal, orchestration playbook); Task 10: derive the `automation` dir / `.agents/automation` root from settings passed in, not a hard-coded copy"
+  },
+  "scripts/work-scope.mjs:group-wording:ca613b2428": {
+    "owner": "engine-config",
+    "target": "vocabulary.group",
+    "note": "batch/batches as rendered wording"
+  },
+  "scripts/work-scope.mjs:receipt-reader:2f525b636d": {
+    "owner": "ta-extension",
+    "target": "onClose",
+    "note": "close-time drift warning printed by work-scope close (reconciliation output at close)"
+  },
+  "scripts/work-scope.mjs:gate-records:2f525b636d": {
+    "owner": "ta-extension",
+    "target": "onClose",
+    "note": "close-time drift warning printed by work-scope close (reconciliation output at close)"
+  },
+  "scripts/work-scope.mjs:receipt-reader:96973ca15d": {
+    "owner": "ta-extension",
+    "target": "onClose",
+    "note": "close-time drift warning printed by work-scope close (reconciliation output at close)"
+  },
+  "scripts/work-scope.mjs:gate-records:96973ca15d": {
+    "owner": "ta-extension",
+    "target": "onClose",
+    "note": "close-time drift warning printed by work-scope close (reconciliation output at close)"
+  },
+  "scripts/work-scope.mjs:qa-wording:7abb2d94cd": {
+    "owner": "engine-config",
+    "target": "vocabulary.item"
+  }
+}

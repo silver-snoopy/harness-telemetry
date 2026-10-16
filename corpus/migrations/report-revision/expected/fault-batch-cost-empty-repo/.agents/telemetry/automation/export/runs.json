@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "manifestRevision": 1,
+  "segment": {
+    "factory_id": null,
+    "factory_name": null,
+    "stop": "testing",
+    "owner_group": "QA",
+    "work_item_level": "feature",
+    "factory_type": "qa",
+    "agent_tool": "",
+    "default_method": "metered",
+    "scope": {
+      "includes_subagents": true,
+      "includes_retries": true,
+      "includes_abandoned_runs": false
+    },
+    "currency": "USD",
+    "efficiency_techniques": [],
+    "pipeline": []
+  },
+  "runs": [
+    {
+      "work_item_ref": "T-gb-nr",
+      "work_item_level": "feature",
+      "work_item_brief": "Test-automation batch: 1 TMS case(s) through analyse → implement → review → merge → gate; 1 delivered.",
+      "maturity": "pilot",
+      "sessions": 0,
+      "turns": 0,
+      "subagent_dispatches": 0,
+      "orchestrator_cost_pct": 100,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "cache_read": 0,
+        "cache_create": 0
+      },
+      "primary_model": null,
+      "models_used": [],
+      "cost_api_equivalent_usd": null,
+      "cache_read_share_pct": null,
+      "scenarios_authored": 1,
+      "scenarios_automated": 1,
+      "scenarios_executed": 1,
+      "notes": "gate not-run; outcomes: delivered 1. Telemetry cohort: reconstructed from .agents/automation/gb-nr/cost.json (v1); batch slug 'gb-nr'. effort_days unavailable — no scoping verdicts for this batch (run the intake sizing pass). cache_read_share_pct computed from the token quad at public list ratios (in 1x / out 5x / write 1.25x / read 0.1x). scenarios_executed = cases the pipeline analysed live and gated (live execution evidence + N-consecutive gate runs; re-runs not multiplied)."
+    }
+  ]
+}

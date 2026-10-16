@@ -1,0 +1,3 @@
+#!/bin/sh
+# stub: LeRisque has no commit-msg hook at 50615f1; this fixture stands in for a foreign git hook.
+exit 0

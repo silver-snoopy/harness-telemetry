@@ -1,0 +1,8 @@
+{not json
+{"type":"agent-setting","agentSetting":"lead"}
+{"type":"user","timestamp":"2026-10-01T10:00:00.000Z","gitBranch":"feat/CC-1-parse","message":{"role":"user","content":"Plan ISO-8601 CC-2 AB-1 AB-2 AB-3 AB-4 AB-5 AB-6 AB-7 AB-8 AB-9 AB-10 AB-11 AB-12 AB-13 AB-14 AB-15 AB-16 AB-17 AB-18 AB-19 AB-20 AB-21 AB-22 AB-23 AB-24 AB-25 AB-26 AB-27 AB-28 AB-29 AB-30 AB-31 AB-32 AB-33 AB-34 AB-35 AB-36 AB-37 AB-38 AB-39 AB-40 AB-41 AB-42 AB-43 AB-44 AB-45 AB-46 AB-47 AB-48 AB-49 AB-50 AB-51 AB-52"}}
+{"type":"assistant","timestamp":"2026-10-01T10:01:00.000Z","message":{"role":"assistant","content":[{"type":"text","text":"ok"}],"usage":{"input_tokens":5,"output_tokens":7}}}
+{"type":"assistant","timestamp":"2026-10-01T10:02:00.000Z","message":{"id":"m1","role":"assistant","content":[null,{"type":"tool_use","id":"t1","name":"Agent","input":{}}],"usage":{"input_tokens":10,"output_tokens":3}}}
+{"type":"assistant","timestamp":"2026-10-01T10:03:00.000Z","message":{"id":"m1","model":"claude-haiku-5-5","role":"assistant","content":[{"type":"text","text":"ok"}],"usage":{"input_tokens":10,"output_tokens":9}}}
+{"type":"user","timestamp":"2026-10-01T10:04:00.000Z","message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"t1","is_error":true}]}}
+{"type":"user","timestamp":"2026-10-01T10:05:00.000Z","message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"t1","is_error":true}]}}

@@ -1,0 +1,508 @@
+{
+ "v": 1,
+ "manifestRevision": 1,
+ "batch": "solo",
+ "generatedAt": "2026-10-05T09:08:00.000Z",
+ "sources": {
+  "sessions": 2,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "alice"
+  ],
+  "costSources": [
+   "ccusage-metered"
+  ],
+  "models": [
+   "claude-opus-5"
+  ],
+  "sharedSessions": 2,
+  "note": "session-level figures of shared sessions are split evenly across the batches they served",
+  "foreignDispatchesExcluded": 3
+ },
+ "totals": {
+  "costUsd": 2.8,
+  "tokens": 91933,
+  "tokensSplit": {
+   "input": 363,
+   "output": 11925,
+   "cacheRead": 75350,
+   "cacheWrite": 4295
+  },
+  "tokensByModel": {
+   "claude-opus-5": {
+    "input": 100,
+    "output": 2000,
+    "cacheRead": 50000,
+    "cacheWrite": 3000
+   }
+  },
+  "tokensAttribution": "partial",
+  "unattributedUnits": 1,
+  "activeMin": 68,
+  "dispatches": 6.5,
+  "sessions": 2,
+  "turns": 10,
+  "toolCalls": 38,
+  "toolErrors": 1,
+  "skills": [
+   "tdd"
+  ]
+ },
+ "byRole": {
+  "analyst": {
+   "costUsd": 0.5,
+   "tokens": 30100,
+   "tok": {
+    "input": 100,
+    "output": 9000,
+    "cacheRead": 20000,
+    "cacheWrite": 1000
+   },
+   "activeMin": 5,
+   "dispatches": 1,
+   "toolCalls": 4,
+   "toolErrors": 0
+  },
+  "helper": {
+   "costUsd": 0.1,
+   "tokens": 83,
+   "tok": {
+    "input": 3,
+    "output": 25,
+    "cacheRead": 50,
+    "cacheWrite": 5
+   },
+   "activeMin": 3,
+   "dispatches": 0.5,
+   "toolCalls": 2,
+   "toolErrors": 0
+  },
+  "implementer": {
+   "costUsd": 0.95,
+   "tokens": 3560,
+   "tok": {
+    "input": 120,
+    "output": 500,
+    "cacheRead": 2800,
+    "cacheWrite": 140
+   },
+   "activeMin": 10,
+   "dispatches": 2,
+   "toolCalls": 8,
+   "toolErrors": 0
+  },
+  "lead": {
+   "costUsd": 0.85,
+   "tokens": 27550,
+   "tok": {
+    "input": 50,
+    "output": 1000,
+    "cacheRead": 25000,
+    "cacheWrite": 1500
+   },
+   "activeMin": 23,
+   "dispatches": 0,
+   "toolCalls": 6,
+   "toolErrors": 1
+  },
+  "reviewer": {
+   "costUsd": 0.3,
+   "tokens": 2430,
+   "tok": {
+    "input": 30,
+    "output": 300,
+    "cacheRead": 2000,
+    "cacheWrite": 100
+   },
+   "activeMin": 10,
+   "dispatches": 2,
+   "toolCalls": 8,
+   "toolErrors": 0
+  },
+  "session": {
+   "costUsd": 0,
+   "tokens": 27550,
+   "tok": {
+    "input": 50,
+    "output": 1000,
+    "cacheRead": 25000,
+    "cacheWrite": 1500
+   },
+   "activeMin": 13,
+   "dispatches": 0,
+   "toolCalls": 6,
+   "toolErrors": 1
+  },
+  "triage": {
+   "costUsd": 0.1,
+   "tokens": 660,
+   "tok": {
+    "input": 10,
+    "output": 100,
+    "cacheRead": 500,
+    "cacheWrite": 50
+   },
+   "activeMin": 5,
+   "dispatches": 1,
+   "toolCalls": 4,
+   "toolErrors": 0
+  }
+ },
+ "overhead": {
+  "note": "batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows",
+  "costUsd": 1.05,
+  "sharePct": 38,
+  "lead": {
+   "costUsd": 0.85,
+   "tokens": 55100,
+   "tok": {
+    "input": 100,
+    "output": 2000,
+    "cacheRead": 50000,
+    "cacheWrite": 3000
+   },
+   "activeMin": 35,
+   "dispatches": 0,
+   "toolCalls": 12,
+   "toolErrors": 1
+  },
+  "stages": {
+   "costUsd": 0.2,
+   "tokens": 743,
+   "tok": {
+    "input": 13,
+    "output": 125,
+    "cacheRead": 550,
+    "cacheWrite": 55
+   },
+   "activeMin": 8,
+   "dispatches": 1.5,
+   "toolCalls": 6,
+   "toolErrors": 0
+  },
+  "byStage": {
+   "triage": {
+    "costUsd": 0.1,
+    "tokens": 660,
+    "tok": {
+     "input": 10,
+     "output": 100,
+     "cacheRead": 500,
+     "cacheWrite": 50
+    },
+    "activeMin": 5,
+    "dispatches": 1,
+    "toolCalls": 4,
+    "toolErrors": 0
+   },
+   "other": {
+    "costUsd": 0.1,
+    "tokens": 83,
+    "tok": {
+     "input": 3,
+     "output": 25,
+     "cacheRead": 50,
+     "cacheWrite": 5
+    },
+    "activeMin": 3,
+    "dispatches": 0.5,
+    "toolCalls": 2,
+    "toolErrors": 0
+   }
+  }
+ },
+ "rework": {
+  "costUsd": 0.15,
+  "tokens": 1060,
+  "tok": {
+   "input": 20,
+   "output": 200,
+   "cacheRead": 800,
+   "cacheWrite": 40
+  },
+  "activeMin": 5,
+  "dispatches": 1,
+  "toolCalls": 4,
+  "toolErrors": 0,
+  "note": "fix-round dispatches — the batch's rework bill (already inside per-case direct; shown here as its own lever)"
+ },
+ "outcomes": {
+  "delivered": 2,
+  "defect-found": 1
+ },
+ "delivered": 3,
+ "gate": {
+  "verdict": "red"
+ },
+ "records": {
+  "note": "script-authored gate verdicts (gate-runs.jsonl) + declared session outcomes (work-scope) vs the receipt — drift means report.json needs a write-back, records never overwrite it",
+  "gateRuns": {
+   "count": 3,
+   "latest": {
+    "verdict": "green",
+    "at": "2026-10-01T10:00:00Z",
+    "consecutiveGreen": 2
+   }
+  },
+  "declaredOutcomes": {
+   "S-1": "delivered",
+   "S-3": "blocked",
+   "S-4": "delivered"
+  },
+  "gateDrift": {
+   "receipt": "red",
+   "recorded": "green",
+   "at": "2026-10-01T10:00:00Z"
+  },
+  "outcomeDrift": [
+   {
+    "id": "S-3",
+    "receipt": "delivered",
+    "declared": "blocked"
+   },
+   {
+    "id": "S-4",
+    "receipt": null,
+    "declared": "delivered"
+   }
+  ]
+ },
+ "cases": [
+  {
+   "id": "S-1",
+   "outcome": "delivered",
+   "findings": 2,
+   "direct": {
+    "costUsd": 0.65,
+    "tokens": 31160,
+    "tok": {
+     "input": 120,
+     "output": 9200,
+     "cacheRead": 20800,
+     "cacheWrite": 1040
+    },
+    "activeMin": 10,
+    "dispatches": 2,
+    "fixRounds": 1,
+    "toolCalls": 8,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": 0.91,
+    "tokens": 45121,
+    "activeMin": 21
+   },
+   "sizing": {
+    "size": "M",
+    "sp": 3,
+    "estMin": 20,
+    "src": "scores.json",
+    "baseline": {
+     "n": 6,
+     "medianTok": 1900,
+     "p90Tok": 2600,
+     "medianMin": 10,
+     "p90Min": 15
+    },
+    "tokPercentile": 100,
+    "minPercentile": 67,
+    "flag": "above-p90"
+   }
+  },
+  {
+   "id": "S-2",
+   "outcome": "defect-found",
+   "findings": 0,
+   "direct": {
+    "costUsd": 0.8,
+    "tokens": 2500,
+    "tok": {
+     "input": 100,
+     "output": 300,
+     "cacheRead": 2000,
+     "cacheWrite": 100
+    },
+    "activeMin": 5,
+    "dispatches": 1,
+    "fixRounds": 0,
+    "toolCalls": 4,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": 1.06,
+    "tokens": 16461,
+    "activeMin": 16
+   },
+   "sizing": {
+    "size": "M",
+    "sp": 2,
+    "estMin": 10,
+    "src": "scores.json",
+    "baseline": {
+     "n": 6,
+     "medianTok": 1900,
+     "p90Tok": 2600,
+     "medianMin": 10,
+     "p90Min": 15
+    },
+    "tokPercentile": 0,
+    "minPercentile": 17,
+    "flag": "below-p10"
+   }
+  },
+  {
+   "id": "S-3",
+   "outcome": "delivered",
+   "findings": 0,
+   "direct": {
+    "costUsd": 0.3,
+    "tokens": 2430,
+    "tok": {
+     "input": 30,
+     "output": 300,
+     "cacheRead": 2000,
+     "cacheWrite": 100
+    },
+    "activeMin": 10,
+    "dispatches": 2,
+    "fixRounds": 0,
+    "toolCalls": 8,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": 0.56,
+    "tokens": 16391,
+    "activeMin": 21
+   },
+   "sizing": {
+    "size": "S",
+    "sp": 1,
+    "estMin": null,
+    "src": "scores.json",
+    "note": "insufficient S-class history (n=0 < 5) — no deviation verdict"
+   }
+  },
+  {
+   "id": "S-4",
+   "outcome": null,
+   "findings": 0,
+   "direct": {
+    "costUsd": null,
+    "tokens": 0,
+    "tok": {
+     "input": 0,
+     "output": 0,
+     "cacheRead": 0,
+     "cacheWrite": 0
+    },
+    "activeMin": 0,
+    "dispatches": 0,
+    "fixRounds": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": 0.26,
+    "tokens": 13961,
+    "activeMin": 11
+   }
+  }
+ ],
+ "workItemRef": "EPIC-9",
+ "sizing": {
+  "note": "pre-run predicted size (automation-scoping) joined to actuals. Deviations are tokens/time vs the size-class CROSS-BATCH history — analysis pointers, never per-case dollar verdicts (scoping doctrine: per-case $ rank-correlates ~zero with actuals; only batch totals are quotable). Flags feed Mode 4 calibration.",
+  "sized": 3,
+  "bySize": {
+   "M": {
+    "cases": 2,
+    "sp": 5,
+    "estMin": 30,
+    "actualMin": 15,
+    "actualTok": 9720
+   },
+   "S": {
+    "cases": 1,
+    "sp": 1,
+    "estMin": 0,
+    "actualMin": 10,
+    "actualTok": 330
+   }
+  },
+  "estVsActualMin": {
+   "est": 30,
+   "actual": 25,
+   "ratio": 0.83
+  },
+  "flagged": [
+   {
+    "id": "S-1",
+    "size": "M",
+    "flag": "above-p90",
+    "detail": "real-work 9,320 tok (p100) / 10m (p67) vs M-class median 1,900 tok / 10m — review: estimate drift, execution smell, or a mis-sized case"
+   },
+   {
+    "id": "S-2",
+    "size": "M",
+    "flag": "below-p10",
+    "detail": "real-work 400 tok ≤ p10 of M-class — suspiciously cheap: verify coverage was not shortcut"
+   }
+  ]
+ },
+ "stats": {
+  "note": "direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": {
+   "avg": 0.58,
+   "median": 0.65,
+   "min": 0.3,
+   "max": 0.8,
+   "n": 3
+  },
+  "directTokens": {
+   "avg": 12030,
+   "median": 2500,
+   "min": 2430,
+   "max": 31160,
+   "n": 3
+  },
+  "directActiveMin": {
+   "avg": 8,
+   "median": 10,
+   "min": 5,
+   "max": 10,
+   "n": 3
+  },
+  "loadedCostUsd": {
+   "avg": 0.7,
+   "median": 0.74,
+   "min": 0.26,
+   "max": 1.06,
+   "n": 4
+  },
+  "loadedActiveMin": {
+   "avg": 17,
+   "median": 19,
+   "min": 11,
+   "max": 21,
+   "n": 4
+  }
+ },
+ "averages": {
+  "totalPerDelivered": {
+   "costUsd": 0.93,
+   "note": "whole batch incl. overhead ÷ delivered (delivered/defect-found; legacy automated/merged-sanctioned-red)"
+  },
+  "directPerCase": {
+   "costUsd": 0.58,
+   "note": "avg direct spend of an attributed case — excludes batch overhead"
+  }
+ },
+ "coverage": {
+  "casesAttributed": 3,
+  "casesUnattributed": [
+   "S-4"
+  ],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

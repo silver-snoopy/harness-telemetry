@@ -1,0 +1,6 @@
+{
+  "violations": [
+    { "source": "claude:Z", "quantity": "costUsd", "allocated": 5, "available": null }
+  ],
+  "unallocated": []
+}

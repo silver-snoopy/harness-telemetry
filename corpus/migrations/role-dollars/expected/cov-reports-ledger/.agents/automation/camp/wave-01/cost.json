@@ -1,0 +1,259 @@
+{
+ "v": 1,
+ "batch": "camp/wave-01",
+ "generatedAt": "2026-10-05T09:07:00.000Z",
+ "sources": {
+  "sessions": 1,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "alice"
+  ],
+  "costSources": [
+   "ccusage-metered"
+  ],
+  "models": [
+   "claude-opus-5"
+  ],
+  "sharedSessions": 1,
+  "note": "session-level figures of shared sessions are split evenly across the batches they served",
+  "foreignDispatchesExcluded": 2
+ },
+ "totals": {
+  "costUsd": 1.85,
+  "tokens": 38250,
+  "tokensSplit": {
+   "input": 150,
+   "output": 2200,
+   "cacheRead": 34000,
+   "cacheWrite": 1900
+  },
+  "tokensByModel": {
+   "claude-opus-5": {
+    "input": 50,
+    "output": 1000,
+    "cacheRead": 25000,
+    "cacheWrite": 1500
+   }
+  },
+  "activeMin": 28,
+  "dispatches": 1,
+  "sessions": 1,
+  "turns": 5,
+  "toolCalls": 10,
+  "toolErrors": 1,
+  "skills": [
+   "tdd"
+  ]
+ },
+ "byRole": {
+  "implementer": {
+   "costUsd": null,
+   "tokens": 10700,
+   "tok": {
+    "input": 100,
+    "output": 1200,
+    "cacheRead": 9000,
+    "cacheWrite": 400
+   },
+   "activeMin": 5,
+   "dispatches": 1,
+   "toolCalls": 4,
+   "toolErrors": 0,
+   "priced": 0,
+   "unpriced": 0
+  },
+  "lead": {
+   "costUsd": 1.85,
+   "tokens": 27550,
+   "tok": {
+    "input": 50,
+    "output": 1000,
+    "cacheRead": 25000,
+    "cacheWrite": 1500
+   },
+   "activeMin": 23,
+   "dispatches": 0,
+   "toolCalls": 6,
+   "toolErrors": 1,
+   "priced": 1,
+   "unpriced": 0
+  }
+ },
+ "byDispatchRole": {
+  "implementer": {
+   "units": 1,
+   "costUsd": 1,
+   "priced": 1
+  }
+ },
+ "overhead": {
+  "note": "batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows",
+  "costUsd": 0.85,
+  "sharePct": 46,
+  "lead": {
+   "costUsd": 0.85,
+   "tokens": 27550,
+   "tok": {
+    "input": 50,
+    "output": 1000,
+    "cacheRead": 25000,
+    "cacheWrite": 1500
+   },
+   "activeMin": 23,
+   "dispatches": 0,
+   "toolCalls": 6,
+   "toolErrors": 1
+  },
+  "stages": {
+   "costUsd": null,
+   "tokens": 0,
+   "tok": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": 0,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  },
+  "byStage": {}
+ },
+ "outcomes": {
+  "delivered": 1,
+  "blocked": 1
+ },
+ "delivered": 1,
+ "gate": {
+  "verdict": "green"
+ },
+ "cases": [
+  {
+   "id": "W1-1",
+   "outcome": "delivered",
+   "findings": 0,
+   "direct": {
+    "costUsd": 0.5,
+    "tokens": 5350,
+    "tok": {
+     "input": 50,
+     "output": 600,
+     "cacheRead": 4500,
+     "cacheWrite": 200
+    },
+    "activeMin": 3,
+    "dispatches": 0.5,
+    "fixRounds": 0,
+    "toolCalls": 2,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": 0.93,
+    "tokens": 19125,
+    "activeMin": 14
+   },
+   "sizing": {
+    "size": "L",
+    "sp": 8,
+    "estMin": null,
+    "src": "scores.json",
+    "note": "insufficient L-class history (n=0 < 5) — no deviation verdict"
+   }
+  },
+  {
+   "id": "W1-2",
+   "outcome": "blocked",
+   "findings": 0,
+   "direct": {
+    "costUsd": 0.5,
+    "tokens": 5350,
+    "tok": {
+     "input": 50,
+     "output": 600,
+     "cacheRead": 4500,
+     "cacheWrite": 200
+    },
+    "activeMin": 3,
+    "dispatches": 0.5,
+    "fixRounds": 0,
+    "toolCalls": 2,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": 0.93,
+    "tokens": 19125,
+    "activeMin": 14
+   }
+  }
+ ],
+ "sizing": {
+  "note": "pre-run predicted size (automation-scoping) joined to actuals. Deviations are tokens/time vs the size-class CROSS-BATCH history — analysis pointers, never per-case dollar verdicts (scoping doctrine: per-case $ rank-correlates ~zero with actuals; only batch totals are quotable). Flags feed Mode 4 calibration.",
+  "sized": 1,
+  "bySize": {
+   "L": {
+    "cases": 1,
+    "sp": 8,
+    "estMin": 0,
+    "actualMin": 3,
+    "actualTok": 650
+   }
+  },
+  "flagged": []
+ },
+ "stats": {
+  "note": "direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": {
+   "avg": 0.5,
+   "median": 0.5,
+   "min": 0.5,
+   "max": 0.5,
+   "n": 2
+  },
+  "directTokens": {
+   "avg": 5350,
+   "median": 5350,
+   "min": 5350,
+   "max": 5350,
+   "n": 2
+  },
+  "directActiveMin": {
+   "avg": 3,
+   "median": 3,
+   "min": 3,
+   "max": 3,
+   "n": 2
+  },
+  "loadedCostUsd": {
+   "avg": 0.93,
+   "median": 0.93,
+   "min": 0.93,
+   "max": 0.93,
+   "n": 2
+  },
+  "loadedActiveMin": {
+   "avg": 14,
+   "median": 14,
+   "min": 14,
+   "max": 14,
+   "n": 2
+  }
+ },
+ "averages": {
+  "totalPerDelivered": {
+   "costUsd": 1.85,
+   "note": "whole batch incl. overhead ÷ delivered (delivered/defect-found; legacy automated/merged-sanctioned-red)"
+  },
+  "directPerCase": {
+   "costUsd": 0.5,
+   "note": "avg direct spend of an attributed case — excludes batch overhead"
+  }
+ },
+ "coverage": {
+  "casesAttributed": 2,
+  "casesUnattributed": [],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

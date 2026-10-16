@@ -1,0 +1,15 @@
+work-scope: session cd1 — LIVE (nothing written; the ledger updates at session end)
+  scope: automation / cov-d — 4 case(s)  ·  outcomes: PROJ-1=delivered, PROJ-2=blocked, PROJ-9=delivered
+  so far: $0.35  ·  75,244 tokens  ·  52m active  ·  4 turns  ·  3 tool calls (1 err)
+  cases seen: PROJ-1, PROJ-2, PROJ-3, PROJ-9
+  dispatches (9):
+    analyst                       $0.01        4,510 tok    2m    1 tools  analyst PROJ-1
+    implementer                   $0.03       16,220 tok    8m    2 tools  implement PROJ-2, PROJ-3
+    reviewer                      $0.00        3,306 tok    2m    1 tools  review PROJ-2
+    workflow-subagent             $0.00            0 tok    3m    1 tools  Hardening gate for batch cov-d: run every spec
+    implementer                   $0.00        2,235 tok    2m    1 tools  Implementer slot — fix round 2 for PROJ-3 afte
+    triage                        $0.00        1,164 tok    1m    1 tools  triage cov-d batch
+    writer                        $0.00        1,694 tok    2m    1 tools  report writer for cov-d
+    empty                      unpriced            0 tok    0m    0 tools  nothing measurable
+    implementer                   $0.25          240 tok    2m    3 tools  implement PROJ-3 (transcript expired)
+  (dispatch dollars read from the live log — 8/8 recorded by the SubagentStop hook; only the parent was metered here)

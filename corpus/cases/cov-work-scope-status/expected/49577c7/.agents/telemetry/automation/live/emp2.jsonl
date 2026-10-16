@@ -1,0 +1,1 @@
+{"v":1,"session":"emp2","agentId":"agent-x","role":"implementer","label":"implement X-1","cases":["X-1"],"tokens":{"input":5,"output":5,"cacheRead":0,"cacheWrite":0},"activeMin":1,"toolCalls":1,"toolErrors":0,"costUsd":0.1,"endedAt":"2026-10-01T10:12:00.000Z","bytes":9,"at":"2026-10-01T10:12:00.000Z"}

@@ -1,0 +1,53 @@
+{
+  "segment": {
+    "factory_id": null,
+    "factory_name": null,
+    "work_item_level": "feature",
+    "factory_type": "qa",
+    "agent_tool": "claude",
+    "default_method": "metered",
+    "scope": {
+      "includes_subagents": false,
+      "includes_retries": true,
+      "includes_abandoned_runs": true
+    },
+    "currency": "USD",
+    "efficiency_techniques": [],
+    "pipeline": "analyse > implement"
+  },
+  "runs": [
+    {
+      "work_item_ref": "T-WI-001",
+      "work_item_brief": "Test-automation batch (1 cases, S)",
+      "maturity": "pilot",
+      "size_tshirt": "S",
+      "sessions": 1,
+      "turns": 3,
+      "subagent_dispatches": 2,
+      "tokens": {
+        "input": 1,
+        "output": 2,
+        "cache_read": null,
+        "cache_create": 4
+      },
+      "primary_model": "m1",
+      "models_used": [
+        "m1",
+        "m2"
+      ],
+      "cost_api_equivalent_usd": 1e+308,
+      "cache_read_share_pct": 150,
+      "scenarios_authored": 1,
+      "scenarios_automated": null,
+      "scenarios_executed": 1,
+      "notes": "gate green; batch slug 'anonymised' then batch slug 'anonymised'."
+    },
+    {
+      "work_item_ref": "T-WI-002",
+      "cost_api_equivalent_usd": 1e+308,
+      "_tokens_attribution": "none",
+      "work_item_brief": "Test-automation batch (? cases)",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "ledgerLines": 7,
+  "facts": [
+    {
+      "path": "/id",
+      "equals": "k12"
+    },
+    {
+      "path": "/cases",
+      "equals": [
+        "KC-12"
+      ]
+    }
+  ],
+  "textFacts": [
+    {
+      "file": "__events__/0.stderr",
+      "equals": "tokenomics: swept 0 session(s)\n"
+    },
+    {
+      "file": "__events__/1.stderr",
+      "equals": "tokenomics: swept 2 session(s), 3 deferred (bounded — rerun or use --all)\n"
+    },
+    {
+      "file": "__events__/2.stderr",
+      "equals": "tokenomics: swept 3 session(s)\n"
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"id\":\"k1\",\"user\":\"corpus\",\"capturedAt\":\"2026-10-01T10:30:00.000Z\",\"repo\":\"repo\",\"branch\":null,\"role\":\"lead\",\"models\":[\"gpt-5\",\"gpt-mini\"],"
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"turns\":3,\"toolCalls\":1,\"toolErrors\":1,\"tokens\":{\"input\":90,\"output\":5,\"cacheRead\":0,\"cacheWrite\":0},\"costUsd\":0.01,\"costSource\":\"copilot-nano-aiu\",\"cases\":[\"KC-1\"],\"subagents\":[{\"role\":\"unknown\",\"label\":\"\",\"n\":1,\"tokens\":{\"input\":10,"
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"skills\":[\"xxx\"],\"dispatches\":0,\"prompts\":[{\"t\":\"2026-10-01T10:03:00.000Z\",\"text\":\"fix KC-1\"}]}"
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"id\":\"k4\",\"user\":\"corpus\",\"capturedAt\":\"2026-10-01T10:30:00.000Z\",\"repo\":\"repo\",\"branch\":null,\"role\":null,\"models\":[\"gpt-5\"],\"startedAt\":null,\"endedAt\":null,"
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"id\":\"k5\","
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"id\":\"k7\","
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"id\":\"k8\","
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"id\":\"k11\","
+    }
+  ]
+}

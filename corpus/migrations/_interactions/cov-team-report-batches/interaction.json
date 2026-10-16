@@ -1,0 +1,30 @@
+{
+  "case": "cov-team-report-batches",
+  "migrations": [
+    "null-unobservable",
+    "active-minutes",
+    "report-windows",
+    "report-conflicts",
+    "role-dollars",
+    "report-revision",
+    "report-robustness"
+  ],
+  "reason": "active-minutes allocates minutes at session grain (per-item, stage and dispatch-role activeMin null, sources.activeMinGrain noted, loaded = group time / items) in every bt-* cost.json and adds byDispatchRole to the period streams; null-unobservable adds the per-bucket unmeasured counts to the --json buckets. Together the files carry the session-grain minutes with unmeasured objects whose activeMin count stays 0 for the not-allocated fields. report-windows (item 8) rewrites the same period-report streams: the endedAt window, the semantics statement and the spec 5.5 ratio fields, so the cumulative bytes carry all three. report-conflicts (item 22, review round 1 I3) reads the deduplicated lines in host:id order on the same period-report streams, so the cumulative bytes also carry its key-ordered rows; no figure changes. role-dollars (item 23, O3) then makes by-role dollars inclusive on the same cost.json files, their batch and tokenomics renders and the batch-cost / --batch / --batches streams: a priced session's parent role carries what the group charges for it (dispatch dollars included, so over priced sessions Σ byRole.costUsd = totals.costUsd), an unpriced session's parent role stays null and counts in its unpriced (byRole {priced, unpriced} session counts; 0/0 = a dispatch-only role, not allocated at this grain), dispatch roles carry no by-role dollars, and a separate byDispatchRole {units, costUsd, priced} breakdown (present, possibly empty) holds the measured per-dispatch dollars; the renders add the inclusive note and the dispatch-dollar table, so the cumulative bytes carry it too. report-revision (item 24, O6) then records the current manifest revision (1: the implied manifest) on the same reports: manifestRevision right after v in every cost.json, the period --json's manifestRevision after generated, the 'manifest revision 1' footer on the batch, tokenomics, period and live renders and in submission.md, and manifestRevision after schema_version in the export runs.json; it adds a field and a footer line and moves no figure, so the cumulative bytes carry its provenance beside every other owner's change. report-robustness (item 19) renders a dash instead of NaN% in the zero-session batch's tokenomics markdown (event 2), a stream the other migrations also change.",
+  "changed": [
+    ".agents/automation/bt-empty/cost.json",
+    ".agents/automation/bt-gate/cost.json",
+    ".agents/automation/bt-neg/cost.json",
+    ".agents/automation/bt-ovf/cost.json",
+    ".agents/automation/bt-quiet/cost.json",
+    ".agents/automation/bt-sized/cost.json",
+    ".agents/telemetry/sized.md",
+    "__events__/0.stdout",
+    "__events__/1.stdout",
+    "__events__/10.stdout",
+    "__events__/2.stdout",
+    "__events__/3.stdout",
+    "__events__/4.stdout",
+    "__events__/8.stdout",
+    "__events__/9.stdout"
+  ]
+}

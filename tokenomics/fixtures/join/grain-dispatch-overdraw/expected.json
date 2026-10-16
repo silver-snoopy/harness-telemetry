@@ -1,0 +1,13 @@
+{
+  "violations": [
+    { "source": "claude:A", "quantity": "tokens.input", "group": "g1", "rule": "dispatch-overdraw", "detail": "dispatch d1 allocated 25, measured 20" }
+  ],
+  "unallocated": [
+    { "source": "claude:A", "quantity": "costUsd", "amount": 3, "reason": "not attributed in trace" },
+    { "source": "claude:A", "quantity": "activeMin", "amount": 30, "reason": "not attributed in trace" },
+    { "source": "claude:A", "quantity": "tokens.input", "amount": 45, "reason": "not attributed in trace" },
+    { "source": "claude:A", "quantity": "tokens.output", "amount": 17, "reason": "not attributed in trace" },
+    { "source": "claude:A", "quantity": "tokens.cacheRead", "amount": 400, "reason": "not attributed in trace" },
+    { "source": "claude:A", "quantity": "tokens.cacheWrite", "amount": 10, "reason": "not attributed in trace" }
+  ]
+}

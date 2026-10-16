@@ -1,0 +1,6 @@
+{
+  "violations": [],
+  "unallocated": [
+    { "source": "claude:A", "quantity": "activeMin", "amount": 10, "reason": "not attributed in trace" }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "ledgerLines": 4,
+  "facts": [
+    {
+      "path": "/id",
+      "equals": "r1"
+    },
+    {
+      "path": "/cases",
+      "equals": [
+        "GS-5"
+      ]
+    }
+  ],
+  "fileFacts": [
+    {
+      "file": "alt/.agents/telemetry/automation/usage-corpus.jsonl",
+      "path": "/id",
+      "equals": "a1"
+    }
+  ],
+  "textFacts": [
+    {
+      "file": "__events__/0.stderr",
+      "equals": "tokenomics: swept 1 session(s), 2 deferred (bounded — rerun or use --all)\n"
+    },
+    {
+      "file": "__events__/1.stderr",
+      "equals": "tokenomics: swept 2 session(s)\n"
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"id\":\"g1\","
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"id\":\"g2\","
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"id\":\"undefined\","
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "case": "cov-export-submission-edges",
+  "migrations": [
+    "null-unobservable",
+    "active-minutes",
+    "role-dollars",
+    "report-revision",
+    "report-robustness"
+  ],
+  "reason": "active-minutes allocates minutes at session grain (per-item, stage and dispatch-role activeMin null, sources.activeMinGrain noted, loaded = group time / items); null-unobservable adds the per-bucket unmeasured counts to every cost.json bucket. Together the cov-export-submission-edges files carry the session-grain minutes beside all-zero activeMin counts: a not-allocated minute is not unmeasured, so no count is added. role-dollars (item 23, O3) then makes by-role dollars inclusive on the same cost.json files, their batch and tokenomics renders and the batch-cost / --batch / --batches streams: a priced session's parent role carries what the group charges for it (dispatch dollars included, so over priced sessions Σ byRole.costUsd = totals.costUsd), an unpriced session's parent role stays null and counts in its unpriced (byRole {priced, unpriced} session counts; 0/0 = a dispatch-only role, not allocated at this grain), dispatch roles carry no by-role dollars, and a separate byDispatchRole {units, costUsd, priced} breakdown (present, possibly empty) holds the measured per-dispatch dollars; the renders add the inclusive note and the dispatch-dollar table, so the cumulative bytes carry it too. report-revision (item 24, O6) then records the current manifest revision (1: the implied manifest) on the same reports: manifestRevision right after v in every cost.json, the period --json's manifestRevision after generated, the 'manifest revision 1' footer on the batch, tokenomics, period and live renders and in submission.md, and manifestRevision after schema_version in the export runs.json; it adds a field and a footer line and moves no figure, so the cumulative bytes carry its provenance beside every other owner's change. report-robustness (item 20) drops the missing stop and owner from submission.md and renders an overflowing sum as n/a, while report-revision appends the manifest revision footer to the same file; the file differs from either migration alone only by their composition. null-unobservable (B2-06) also reads the submission's hand-accumulated rows by their own fields: a null tokens / turns / dollars row contributes nothing and is counted, so submission.md renders `1 / 2 / 0 / 4 (1 unmeasured)` and `3 (1 unmeasured)` beside the measured partial totals, and `— (1 unpriced)` / `— (1 unmeasured)` in the plain/ copy whose only row is wholly unmeasured; report-robustness' n/a and report-revision's footer compose on the same file in that order (footer after the scrub).",
+  "changed": [
+    ".agents/automation/s1/cost.json",
+    ".agents/telemetry/automation/export/datasets/UNSET-factory-id/submission.md",
+    "plain/.agents/telemetry/automation/export/datasets/fx-plain/submission.md"
+  ]
+}

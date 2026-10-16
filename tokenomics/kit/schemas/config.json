@@ -1,0 +1,9 @@
+{ "type": "object",
+  "properties": {
+    "capturePrompts": {"type":"boolean"}, "priceAtCapture": {"type":"boolean"},
+    "maxSweep": {"type":"integer","minimum":1}, "vscodeUserDataDirs": {"type":"array","items":{"type":"string"}},
+    "otel": {"anyOf":[{"type":"null"},
+      {"type":"object","required":["enabled"],"properties":{"enabled":{"const":false}},"additionalProperties":false},
+      {"type":"object","required":["enabled","endpoint"],"properties":{"enabled":{"const":true},"endpoint":{"type":"string"}},"additionalProperties":true}]}
+  },
+  "additionalProperties": true }

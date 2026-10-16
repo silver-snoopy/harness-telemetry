@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "session": "cp1",
+  "intent": "automation",
+  "batch": "wave-01",
+  "cases": [
+    "CP-1",
+    "CP-2"
+  ],
+  "declaredAt": "2026-10-01T10:00:10.000Z",
+  "updatedAt": "2026-10-01T10:00:10.000Z"
+}

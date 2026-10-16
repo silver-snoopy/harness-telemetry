@@ -1,0 +1,160 @@
+{
+ "id": "cov-capture-copilot-edges",
+ "seed": 1,
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/384-seed",
+  "files": {
+   ".agents/telemetry/automation/config.json": "{\n  \"capturePrompts\": true,\n  \"maxSweep\": 2\n}\n"
+  }
+ },
+ "stores": [
+  {
+   "from": "inputs/copilot/k1/events.jsonl",
+   "to": "home/.copilot/session-state/k1/events.jsonl",
+   "mtime": "2026-10-01T10:05:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/k2/events.jsonl",
+   "to": "home/.copilot/session-state/k2/events.jsonl",
+   "mtime": "2026-10-01T10:05:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/k10/events.jsonl",
+   "to": "home/.copilot/session-state/k10/events.jsonl",
+   "mtime": "2026-10-01T10:05:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/k3/events.jsonl",
+   "to": "home/.copilot/session-state/k3/events.jsonl",
+   "mtime": "2026-10-01T10:05:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/k4/events.jsonl",
+   "to": "home/.copilot/session-state/k4/events.jsonl",
+   "mtime": "2026-10-01T10:05:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/k5/events.jsonl",
+   "to": "home/.copilot/session-state/k5/events.jsonl",
+   "mtime": "2026-10-01T10:05:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/k6/events.jsonl",
+   "to": "home/.copilot/session-state/k6/events.jsonl",
+   "mtime": "2026-10-01T10:05:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/k7/events.jsonl",
+   "to": "home/.copilot/session-state/k7/events.jsonl",
+   "mtime": "2026-10-01T10:05:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/k8/events.jsonl",
+   "to": "home/.copilot/session-state/k8/events.jsonl",
+   "mtime": "2026-10-01T10:05:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/k9/other.txt",
+   "to": "home/.copilot/session-state/k9/other.txt",
+   "mtime": "2026-10-01T10:05:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/k11/events.jsonl",
+   "to": "roots/croot2/k11/events.jsonl",
+   "mtime": "2026-10-01T10:05:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/k12/events.jsonl",
+   "to": "roots/cph/session-state/k12/events.jsonl",
+   "mtime": "2026-10-01T10:05:00.000Z",
+   "template": true
+  }
+ ],
+ "outputs": [
+  ".agents/telemetry",
+  ".agents/automation"
+ ],
+ "events": [
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "TOKENOMICS_COPILOT_ROOT": "../roots/nowhere"
+   },
+   "at": "2026-10-01T10:29:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:30:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:31:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "TOKENOMICS_COPILOT_ROOT": "../roots/croot2"
+   },
+   "at": "2026-10-01T10:32:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "COPILOT_HOME": "../roots/cph"
+   },
+   "at": "2026-10-01T10:33:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--sweep",
+    "--all"
+   ]
+  }
+ ]
+}

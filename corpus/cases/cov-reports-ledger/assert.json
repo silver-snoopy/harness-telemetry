@@ -1,0 +1,12 @@
+{
+  "fileFacts": [
+    { "file": ".agents/automation/solo/cost.json", "path": "/records/gateDrift/recorded", "equals": "green" },
+    { "file": ".agents/automation/solo/cost.json", "path": "/records/gateDrift/receipt", "equals": "red" },
+    { "file": ".agents/automation/solo/cost.json", "path": "/records/declaredOutcomes/S-1", "equals": "delivered" },
+    { "file": ".agents/automation/solo/cost.json", "path": "/cases/0/sizing/flag", "equals": "above-p90" },
+    { "file": ".agents/automation/solo/cost.json", "path": "/cases/1/sizing/flag", "equals": "below-p10" },
+    { "file": ".agents/automation/solo/cost.json", "path": "/sources/foreignDispatchesExcluded", "equals": 3 },
+    { "file": ".agents/automation/camp/wave-01/cost.json", "path": "/sources/sharedSessions", "equals": 1 },
+    { "file": ".agents/automation/tokonly/cost.json", "path": "/stats/directCostUsd", "equals": null }
+  ]
+}

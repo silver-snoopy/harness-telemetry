@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "segment": {
+    "factory_id": "fx-qa-01",
+    "factory_name": "Corpus QA factory",
+    "stop": "testing",
+    "owner_group": "QA",
+    "work_item_level": "feature",
+    "factory_type": "qa",
+    "factory_domain": "payments",
+    "agent_tool": "claude",
+    "default_method": "metered",
+    "scope": {
+      "includes_subagents": true,
+      "includes_retries": true,
+      "includes_abandoned_runs": false
+    },
+    "currency": "USD",
+    "efficiency_techniques": [
+      "prompt-caching",
+      "model-tiering"
+    ],
+    "pipeline": [
+      "analyse",
+      "implement",
+      "review"
+    ],
+    "submitted_by": "corpus-team",
+    "submitted_date": "2026-10-05"
+  },
+  "runs": [
+    {
+      "work_item_ref": "PROJ-77",
+      "work_item_level": "feature",
+      "work_item_brief": "Test-automation batch: 2 TMS case(s) through analyse → implement → review → merge → gate; 2 delivered.",
+      "maturity": "production",
+      "size_tshirt": "M",
+      "effort_days": 1.6,
+      "sessions": 1,
+      "turns": 12,
+      "subagent_dispatches": 0,
+      "orchestrator_cost_pct": 100,
+      "tokens": {
+        "input": 100,
+        "output": 400,
+        "cache_read": 900,
+        "cache_create": 200
+      },
+      "primary_model": "claude-opus-5",
+      "models_used": [
+        "claude-opus-5",
+        "claude-sonnet-5"
+      ],
+      "tokens_by_model": {
+        "claude-opus-5": {
+          "input": 40,
+          "output": 300,
+          "cache_read": 500,
+          "cache_create": 120
+        },
+        "claude-sonnet-5": {
+          "input": 60,
+          "output": 100,
+          "cache_read": 400,
+          "cache_create": 80
+        }
+      },
+      "cost_api_equivalent_usd": 1.25,
+      "cache_read_share_pct": 3.7,
+      "scenarios_authored": 2,
+      "scenarios_automated": 2,
+      "scenarios_executed": 2,
+      "scenario_complexity": "L",
+      "env_setup": "single-fixture",
+      "self_size": "L",
+      "story_points": 13,
+      "notes": "gate green (3x); outcomes: delivered 2. Telemetry cohort: reconstructed from .agents/automation/b1/cost.json (v1); batch slug 'b1'. effort_days derived from scoping SP (13 SP × 1h ÷ 8) — conventional-effort estimate, not a human report. cache_read_share_pct computed from the token quad at public list ratios (in 1x / out 5x / write 1.25x / read 0.1x). scenarios_executed = cases the pipeline analysed live and gated (live execution evidence + N-consecutive gate runs; re-runs not multiplied)."
+    }
+  ]
+}

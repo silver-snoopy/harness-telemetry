@@ -1,0 +1,18 @@
+{
+  "case": "cov-copilot-dispatch",
+  "migrations": [
+    "null-unobservable",
+    "copilot-inclusive",
+    "active-minutes",
+    "writer",
+    "role-dollars",
+    "report-revision",
+    "capture-robustness"
+  ],
+  "reason": "null-unobservable nulls dispatch toolErrors and renders unmeasured counts; copilot-inclusive nulls every dispatch total in the ledger line and the live cp1.jsonl records and counts the session once. Together the ledger line, the live records and the live report carry both effects, and the report shows dispatch tokens as unmeasured, not 0. active-minutes also changes the live page: under null-unobservable the running session's own minutes are null and counted unmeasured (its dispatch minutes overlap and are never summed into session time), and the per-case and dispatch-role minutes read as not allocated, so the page combines all three migrations. With writer, writer stamps every appended line with writer tokenomics-engine@0.0.0-replay and manifestRevision 1 right after v (map D4); the ledger carries all of these effects. role-dollars (item 23, O3) then makes by-role dollars inclusive on the same cost.json files, their batch and tokenomics renders and the batch-cost / --batch / --batches streams: a priced session's parent role carries what the group charges for it (dispatch dollars included, so over priced sessions Σ byRole.costUsd = totals.costUsd), an unpriced session's parent role stays null and counts in its unpriced (byRole {priced, unpriced} session counts; 0/0 = a dispatch-only role, not allocated at this grain), dispatch roles carry no by-role dollars, and a separate byDispatchRole {units, costUsd, priced} breakdown (present, possibly empty) holds the measured per-dispatch dollars; the renders add the inclusive note and the dispatch-dollar table, so the cumulative bytes carry it too. report-revision (item 24, O6) then records the current manifest revision (1: the implied manifest) on the same reports: manifestRevision right after v in every cost.json, the period --json's manifestRevision after generated, the 'manifest revision 1' footer on the batch, tokenomics, period and live renders and in submission.md, and manifestRevision after schema_version in the export runs.json; it adds a field and a footer line and moves no figure, so the cumulative bytes carry its provenance beside every other owner's change. capture-robustness stamps host copilot on each live record, so the live line de-duplicates against the captured session and the live report page drops the double count.",
+  "changed": [
+    ".agents/telemetry/automation/live/cp1.jsonl",
+    ".agents/telemetry/automation/reports/camp-wave-01.html",
+    ".agents/telemetry/automation/usage-corpus.jsonl"
+  ]
+}

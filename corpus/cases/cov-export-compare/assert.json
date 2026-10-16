@@ -1,0 +1,12 @@
+{
+  "textFacts": [
+    {
+      "file": "__events__/0.stdout",
+      "equals": "| metric | ca | cb |\n|---|---|---|\n| cases / delivered | 2 / 2 | 0 / 0 |\n| total cost | $3.50 | n/a |\n| per delivered (incl. overhead) | $1.75 | n/a |\n| avg direct per case | $1.20 | n/a |\n| direct cost avg/median/min–max | $1.20 / $1.10 / $0.90–$1.60 | n/a |\n| overhead share | 31% | n/a |\n| active hours | 1.5 | n/a |\n| gate | green | n/a |\n| sessions / dispatches | 2 / 4 | 1 / 0 |\n"
+    },
+    {
+      "file": "__events__/1.stdout",
+      "equals": "| metric | cb | ca |\n|---|---|---|\n| cases / delivered | 0 / 0 | 2 / 2 |\n| total cost | n/a | $3.50 |\n| per delivered (incl. overhead) | n/a | $1.75 |\n| avg direct per case | n/a | $1.20 |\n| direct cost avg/median/min–max | n/a | $1.20 / $1.10 / $0.90–$1.60 |\n| overhead share | n/a | 31% |\n| active hours | n/a | 1.5 |\n| gate | n/a | green |\n| sessions / dispatches | 1 / 0 | 2 / 4 |\n"
+    }
+  ]
+}

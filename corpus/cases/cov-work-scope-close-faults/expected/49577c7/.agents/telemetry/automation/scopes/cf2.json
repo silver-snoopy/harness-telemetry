@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "session": "cf2",
+  "intent": "automation",
+  "batch": "fb2",
+  "cases": [
+    "A-1"
+  ],
+  "declaredAt": "2026-10-01T09:02:00.000Z",
+  "updatedAt": "2026-10-01T09:03:00.000Z",
+  "closedAt": "2026-10-01T09:03:00.000Z"
+}

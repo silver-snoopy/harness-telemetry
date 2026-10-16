@@ -1,0 +1,9 @@
+{
+  "fileFacts": [
+    {
+      "file": ".agents/automation/sz/cost.json",
+      "path": "/cases/0/sizing/note",
+      "equals": "insufficient M-class history (n=1 < 5) — no deviation verdict"
+    }
+  ]
+}

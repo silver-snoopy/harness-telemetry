@@ -1,0 +1,34 @@
+# Tokenomics — team usage report
+
+Generated: 2026-10-05T09:08:00.000Z  ·  window: — → 2026-10-05T09:08:00.000Z
+
+_Current state, UTC: the per-delivered ratio counts items whose current (winning, spec 5.2) receipt state is delivered, dated by that state's at, inside [since, until); an item delivered, reopened and delivered again counts once, at its latest delivery, so historical ratios can change when items reopen. Limitation: a session's cumulative ledger line counts wholly in the window of its endedAt; no in-window deltas are claimed. Totals and breakdowns cover the sessions whose endedAt lies in the window; sessions without endedAt are outside every window and counted as undated._
+
+## Totals
+
+- Sessions: 0 ()  ·  people: 0
+- Cost (real figures only): n/a from 0 priced session(s)
+- Tokens (incl. sub-agents): total 0  ·  in 0, out 0, cache-read 0, cache-write 0
+- Real work: 0 tokens (in+out)  ·  cache hit rate: n/a
+- Time: 0.0h active  ·  0.0h wall  ·  0 turns  ·  0 tool calls (0 err)
+
+## Cases (from the pipeline's own receipts)
+
+- Examined: 0 unique case(s) across 1 report(s)  ·  **delivered (automated) in the window: 0**
+
+## By person
+
+| person | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+
+## By role
+
+| role | cost | units | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+
+## By week
+
+| week | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+
+_Dollars are session-grain (one figure per session, real sources only), so the role table reports tokens/time — sub-agent roles included. Fork/resume caveat: a forked session replays its parent's records; its ledger line can double-count the replayed tokens._

@@ -1,0 +1,1 @@
+{"v":1,"host":"copilot","id":"A","costUsd":3,"activeMin":30,"tokens":{"input":1500,"output":0,"cacheRead":0,"cacheWrite":0},"tokensBasis":"inclusive","subagents":[{"id":"d1","role":"r","label":"l","n":1,"tokens":null,"activeMin":10,"toolCalls":1,"toolErrors":null}]}

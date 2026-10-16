@@ -1,0 +1,13 @@
+{
+  "case": "before-ratio-revisions",
+  "migrations": [
+    "null-unobservable",
+    "active-minutes",
+    "report-windows",
+    "report-revision"
+  ],
+  "reason": "null-unobservable adds the per-bucket unmeasured counts and active-minutes adds the byDispatchRole breakdown to the same period report --json stream; together the stream carries both changes. report-windows (item 8) rewrites the same period-report streams: the endedAt window, the semantics statement and the spec 5.5 ratio fields, so the cumulative bytes carry all three. report-revision (item 24, O6) then records the current manifest revision (1: the implied manifest) on the same reports: manifestRevision right after v in every cost.json, the period --json's manifestRevision after generated, the 'manifest revision 1' footer on the batch, tokenomics, period and live renders and in submission.md, and manifestRevision after schema_version in the export runs.json; it adds a field and a footer line and moves no figure, so the cumulative bytes carry its provenance beside every other owner's change.",
+  "changed": [
+    "__events__/0.stdout"
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/_run.sh\" block-firewall.py"
+          },
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/_run.sh\" block-unmanaged-issue-create.py"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/_run.sh\" check-stub-patterns.py"
+          },
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/_run.sh\" check-file-budget.py"
+          },
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/_run.sh\" check-silent-catch.py"
+          },
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/_run.sh\" check-non-null-assertion.py"
+          },
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/_run.sh\" check-doc-rot.py"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/_run.sh\" py-syntax-check.py"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "understand-anything@lerisque-ua-pin": true
+  },
+  "permissions": {
+    "deny": [
+      "Skill(understand-anything:understand)",
+      "Skill(understand-anything:understand *)"
+    ]
+  },
+  "extraKnownMarketplaces": {
+    "lerisque-ua-pin": {
+      "source": {
+        "source": "settings",
+        "name": "lerisque-ua-pin",
+        "plugins": [
+          {
+            "name": "understand-anything",
+            "source": {
+              "source": "git-subdir",
+              "url": "https://github.com/Egonex-AI/Understand-Anything.git",
+              "path": "understand-anything-plugin",
+              "ref": "5c3bc1b7fdefd17b19b44420e89d279ded21dce8",
+              "sha": "5c3bc1b7fdefd17b19b44420e89d279ded21dce8"
+            }
+          }
+        ]
+      },
+      "autoUpdate": false
+    }
+  }
+}

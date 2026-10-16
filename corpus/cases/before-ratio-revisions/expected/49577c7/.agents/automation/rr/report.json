@@ -1,0 +1,15 @@
+{
+  "batch": "rr",
+  "cases": [
+    {
+      "id": "RR-1",
+      "outcome": "delivered",
+      "at": "2026-10-03T12:00:00Z"
+    },
+    {
+      "id": "RR-2",
+      "outcome": "delivered",
+      "at": "2026-10-05T12:00:00Z"
+    }
+  ]
+}

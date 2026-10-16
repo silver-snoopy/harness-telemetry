@@ -1,0 +1,21 @@
+{
+  "ledgerLines": 1,
+  "facts": [
+    {
+      "path": "/foldedFromLive",
+      "equals": 1
+    },
+    {
+      "path": "/subagents/0/id",
+      "equals": "a1"
+    },
+    {
+      "path": "/dispatches",
+      "equals": 1
+    },
+    {
+      "path": "/subagents/0/costUsd",
+      "equals": 0.5
+    }
+  ]
+}

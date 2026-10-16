@@ -1,0 +1,12 @@
+{
+  "case": "cov-capture-dispatch-edges",
+  "migrations": [
+    "null-unobservable",
+    "copilot-inclusive",
+    "capture-robustness"
+  ],
+  "reason": "null-unobservable writes the live record's absent counters as null; copilot-inclusive writes its dispatch tokens as null. Together the Copilot live record in cpx.jsonl has null counters and null tokens. capture-robustness adds the host field to the Copilot live record u1 and replaces the EISDIR abort with the skipped-directory note.",
+  "changed": [
+    ".agents/telemetry/automation/live/cpx.jsonl"
+  ]
+}

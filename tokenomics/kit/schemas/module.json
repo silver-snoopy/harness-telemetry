@@ -1,0 +1,10 @@
+{ "type": "object", "required": ["module","schema_version","domain","manifestRevision"],
+  "properties": {
+    "module": {"const":"tokenomics"}, "schema_version": {"type":"string"}, "domain": {"type":"string"},
+    "manifestRevision": {"type":"integer","minimum":1},
+    "receipts": {"type":"object","required":["source","deliveredOutcomes"],
+      "properties": {"source":{"enum":["files","command"]},"root":{"type":"string"},"file":{"type":"string"},
+        "deliveredOutcomes":{"type":"array","items":{"type":"string"}}},"additionalProperties":false},
+    "ratioIntents": {"type":"array","items":{"type":"string"}}
+  },
+  "additionalProperties": false }

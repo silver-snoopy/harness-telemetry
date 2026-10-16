@@ -1,0 +1,131 @@
+{
+  "id": "foreign-settings",
+  "seed": 1,
+  "implOnly": "engine",
+  "identity": {
+    "gitUser": "corpus",
+    "gitEmail": "corpus@example.invalid"
+  },
+  "repo": {
+    "path": "repo",
+    "branch": "feat/issue-101-login",
+    "files": {
+      ".agents/tokenomics/settings.json": "{\"dir\":\"stories\",\"receipts\":{\"root\":\".agents/stories\",\"file\":\"receipt.json\",\"deliveredOutcomes\":[\"done\"]},\"intents\":{\"default\":\"story\"},\"ratioIntents\":[\"story\"],\"ids\":{\"patterns\":[\"\\\\bissue-\\\\d{1,6}\\\\b\"],\"flags\":\"\",\"max\":50,\"stoplist\":[]},\"vocabulary\":{\"item\":\"story\",\"group\":\"sprint\",\"delivered\":\"done\"},\"extension\":null}",
+      ".agents/stories/sp1/receipt.json": "{\"batch\":\"sp1\",\"cases\":[{\"id\":\"issue-101\",\"outcome\":\"done\"}]}",
+      ".agents/stories/sp2/receipt.json": "{\"batch\":\"sp2\",\"cases\":[{\"id\":\"issue-102\",\"outcome\":\"done\"}]}",
+      ".agents/telemetry/stories/usage-alice.jsonl": "{\"v\":1,\"host\":\"claude\",\"user\":\"alice\",\"capturedAt\":\"2026-10-02T00:00:00.000Z\",\"repo\":\"repo\",\"branch\":\"feat/issue-101-login\",\"role\":null,\"models\":[\"claude-opus-5\"],\"startedAt\":\"2026-09-29T09:00:00.000Z\",\"endedAt\":\"2026-09-29T11:00:00.000Z\",\"wallMin\":120,\"activeMin\":60,\"turns\":10,\"toolCalls\":12,\"toolErrors\":1,\"tokens\":{\"input\":100,\"output\":2000,\"cacheRead\":50000,\"cacheWrite\":3000},\"tokensByModel\":{\"claude-opus-5\":{\"input\":100,\"output\":2000,\"cacheRead\":50000,\"cacheWrite\":3000}},\"costSource\":\"ccusage-metered\",\"cases\":[\"issue-101\",\"issue-102\"],\"subagents\":[{\"id\":\"a1\",\"role\":\"implementer\",\"label\":\"implement issue-101\",\"n\":1,\"tokens\":{\"input\":100,\"output\":900,\"cacheRead\":8000,\"cacheWrite\":400},\"tokensByModel\":{},\"activeMin\":5,\"toolCalls\":4,\"toolErrors\":0,\"costUsd\":0.5},{\"id\":\"a2\",\"role\":\"implementer\",\"label\":\"implement issue-102\",\"n\":1,\"tokens\":{\"input\":80,\"output\":700,\"cacheRead\":6000,\"cacheWrite\":300},\"tokensByModel\":{},\"activeMin\":5,\"toolCalls\":4,\"toolErrors\":0,\"costUsd\":0.4},{\"id\":\"a3\",\"role\":\"helper\",\"label\":\"tidy shared fixtures\",\"n\":1,\"tokens\":{\"input\":10,\"output\":100,\"cacheRead\":500,\"cacheWrite\":50},\"tokensByModel\":{},\"activeMin\":2,\"toolCalls\":2,\"toolErrors\":0,\"costUsd\":0.1}],\"skills\":[\"tdd\"],\"dispatches\":3,\"id\":\"sh1\",\"costUsd\":2,\"scope\":{\"intent\":\"story\",\"batch\":\"sp1\",\"cases\":[\"issue-101\"]}}\n"
+    }
+  },
+  "stores": [
+    {
+      "from": "inputs/claude/s1.jsonl",
+      "to": "home/.claude/projects/{repoKey}/s1.jsonl",
+      "mtime": "2026-10-01T10:01:00Z",
+      "template": true
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-10-01T10:30:00Z",
+      "run": "hooks/telemetry-capture.mjs",
+      "args": [
+        "--transcript",
+        "{home}/.claude/projects/{repoKey}/s1.jsonl",
+        "--session",
+        "s1"
+      ],
+      "stdin": null,
+      "env": {
+        "TOKENOMICS_NO_CCUSAGE": "1"
+      }
+    },
+    {
+      "at": "2026-10-01T10:31:00Z",
+      "run": "scripts/work-scope.mjs",
+      "args": [
+        "open",
+        "--session",
+        "fs",
+        "--intent",
+        "story",
+        "--batch",
+        "sp1",
+        "--cases",
+        "issue-101"
+      ],
+      "stdin": null,
+      "env": {
+        "TOKENOMICS_NO_CCUSAGE": "1"
+      },
+      "captureStderr": true
+    },
+    {
+      "at": "2026-10-01T10:32:00Z",
+      "run": "hooks/scope-hook.mjs",
+      "args": [
+        "--announce"
+      ],
+      "stdin": {
+        "session_id": "fs"
+      },
+      "env": {
+        "TOKENOMICS_NO_CCUSAGE": "1"
+      },
+      "captureStdout": true
+    },
+    {
+      "at": "2026-10-01T10:33:00Z",
+      "run": "scripts/work-scope.mjs",
+      "args": [
+        "close",
+        "--session",
+        "fs"
+      ],
+      "stdin": null,
+      "env": {
+        "TOKENOMICS_NO_CCUSAGE": "1"
+      },
+      "captureStderr": true
+    },
+    {
+      "at": "2026-10-01T10:34:00Z",
+      "run": "scripts/team-report.mjs",
+      "args": [],
+      "stdin": null,
+      "env": {
+        "TOKENOMICS_NO_CCUSAGE": "1"
+      },
+      "captureStdout": true
+    },
+    {
+      "at": "2026-10-01T10:35:00Z",
+      "run": "scripts/team-report.mjs",
+      "args": [
+        "--batches"
+      ],
+      "stdin": null,
+      "env": {
+        "TOKENOMICS_NO_CCUSAGE": "1"
+      },
+      "captureStdout": true
+    },
+    {
+      "at": "2026-10-01T10:36:00Z",
+      "run": "scripts/team-report.mjs",
+      "args": [
+        "--batches",
+        "--html"
+      ],
+      "stdin": null,
+      "env": {
+        "TOKENOMICS_NO_CCUSAGE": "1"
+      },
+      "captureStdout": true
+    }
+  ],
+  "outputs": [
+    ".agents/telemetry",
+    ".agents/stories",
+    ".agents/automation"
+  ]
+}

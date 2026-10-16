@@ -1,0 +1,21 @@
+{
+  "id": "exact-ids",
+  "item": 1,
+  "spec": "§14.8 item 1, §10.2",
+  "summary": "Ids match exactly and case-sensitively (§10.2).",
+  "beforeCases": [
+    "before-ids-substring"
+  ],
+  "declared": {
+    "before-ids-substring": {
+      "reason": "Dispatch labels \"implement TC-10\" and \"review tc-1\" matched receipt id TC-1 by case-insensitive substring; as whole case-sensitive tokens they name no receipt id, so both move from the case to overhead stages.",
+      "changed": [
+        ".agents/automation/g1/batch-report.html",
+        ".agents/automation/g1/batch-report.md",
+        ".agents/automation/g1/batch-tokenomics.html",
+        ".agents/automation/g1/batch-tokenomics.md",
+        ".agents/automation/g1/cost.json"
+      ]
+    }
+  }
+}

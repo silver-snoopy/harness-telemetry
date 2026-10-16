@@ -1,0 +1,221 @@
+{
+ "id": "cov-capture-dispatch-edges",
+ "seed": 1,
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/384-seed",
+  "files": {
+   ".agents/telemetry/automation/config.json": "{\n  \"priceAtCapture\": false\n}\n",
+   ".agents/telemetry/automation/scopes/d2.json": "{\n  \"session\": \"d2\",\n  \"intent\": \"automation\",\n  \"cases\": [\n    \"ZZ-9\"\n  ]\n}\n",
+   "alt/.agents/telemetry/automation/live": "x\n",
+   ".agents/telemetry/automation/returns/stray.txt": "x\n",
+   ".agents/automation/_returns/stray.txt": "x\n"
+  }
+ },
+ "stores": [
+  {
+   "from": "inputs/claude/d1.jsonl",
+   "to": "home/.claude/projects/{repoKey}/d1.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d1/subagents/agent-n1.meta.json",
+   "to": "home/.claude/projects/{repoKey}/d1/subagents/agent-n1.meta.json",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d1/subagents/agent-n1.jsonl",
+   "to": "home/.claude/projects/{repoKey}/d1/subagents/agent-n1.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d2.jsonl",
+   "to": "home/.claude/projects/{repoKey}/d2.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d2/subagents/agent-m2.meta.json",
+   "to": "home/.claude/projects/{repoKey}/d2/subagents/agent-m2.meta.json",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d2/subagents/agent-m2.jsonl",
+   "to": "home/.claude/projects/{repoKey}/d2/subagents/agent-m2.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d4.jsonl",
+   "to": "home/.claude/projects/{repoKey}/d4.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d4/subagents/agent-z1.meta.json",
+   "to": "home/.claude/projects/{repoKey}/d4/subagents/agent-z1.meta.json",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d4/subagents/agent-z1.jsonl/keep",
+   "to": "home/.claude/projects/{repoKey}/d4/subagents/agent-z1.jsonl/keep",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d3.jsonl",
+   "to": "home/stage/d3.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d3/subagents/agent-k3.meta.json",
+   "to": "home/stage/d3/subagents/agent-k3.meta.json",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/d3/subagents/agent-k3.jsonl",
+   "to": "home/stage/d3/subagents/agent-k3.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/copilot/cpx/events.jsonl",
+   "to": "home/.copilot/session-state/cpx/events.jsonl",
+   "mtime": "2026-10-01T10:04:00.000Z",
+   "template": true
+  }
+ ],
+ "outputs": [
+  ".agents/telemetry",
+  "alt/.agents/telemetry"
+ ],
+ "events": [
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:30:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--dispatch"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": {
+    "session_id": "d1"
+   },
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:31:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--dispatch"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:32:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--dispatch",
+    "--session",
+    "d2"
+   ]
+  },
+  {
+   "stdin": {
+    "sessionId": "cpx"
+   },
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:33:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--dispatch"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:34:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--dispatch",
+    "--session",
+    "d4"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:35:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--dispatch",
+    "--cwd",
+    "{repo}/alt",
+    "--transcript",
+    "{home}/stage/d3.jsonl",
+    "--session",
+    "d3"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": {
+    "sessionId": "cpx"
+   },
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:36:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--dispatch",
+    "--cwd",
+    "{repo}/alt"
+   ],
+   "captureStderr": true
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:37:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--cwd",
+    "{repo}/alt",
+    "--transcript",
+    "{home}/stage/d3.jsonl",
+    "--session",
+    "d3"
+   ],
+   "captureStderr": true
+  }
+ ]
+}

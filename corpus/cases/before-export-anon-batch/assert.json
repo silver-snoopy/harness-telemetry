@@ -1,0 +1,28 @@
+{
+  "textFacts": [
+    {
+      "file": ".agents/telemetry/automation/export/datasets/fx-qa-01/runs.json",
+      "includes": "reconstructed from .agents/automation/b1/cost.json (v1)"
+    },
+    {
+      "file": ".agents/telemetry/automation/export/datasets/fx-qa-01/runs.json",
+      "includes": "batch slug 'anonymised'"
+    },
+    {
+      "file": "__events__/1.stderr",
+      "equals": "export: submission folder at <REPO>/.agents/telemetry/automation/export/datasets/fx-qa-01 (1 row(s), anonymised)\n"
+    }
+  ],
+  "fileFacts": [
+    {
+      "file": ".agents/telemetry/automation/export/datasets/fx-qa-01/runs.json",
+      "path": "/runs/0/work_item_ref",
+      "equals": "T-WI-001"
+    },
+    {
+      "file": ".agents/telemetry/automation/export/runs.json",
+      "path": "/runs/0/work_item_ref",
+      "equals": "PROJ-77"
+    }
+  ]
+}

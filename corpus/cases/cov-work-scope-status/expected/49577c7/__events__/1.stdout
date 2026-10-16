@@ -1,0 +1,6 @@
+work-scope: session st2 — LIVE (nothing written; the ledger updates at session end)
+  scope: docs — 1 case(s)  ·  outcomes: X-1=done
+  so far: unpriced  ·  0 tokens  ·  1m active  ·  1 turns  ·  0 tool calls (0 err)
+  cases seen: X-1
+  dispatches (0):
+    (none finished yet — a running dispatch has no transcript to read)

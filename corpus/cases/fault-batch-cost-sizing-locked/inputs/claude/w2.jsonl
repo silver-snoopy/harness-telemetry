@@ -1,0 +1,2 @@
+{"type":"user","timestamp":"2026-10-01T10:00:00.000Z","sessionId":"w2","gitBranch":"feat/SZ-1-size","cwd":"{repo}","message":{"role":"user","content":"Automate SZ-1"}}
+{"type":"assistant","timestamp":"2026-10-01T10:05:00.000Z","sessionId":"w2","gitBranch":"feat/SZ-1-size","cwd":"{repo}","message":{"id":"msg_w2","model":"claude-sonnet-5","role":"assistant","content":[{"type":"text","text":"ok"}],"usage":{"input_tokens":10,"output_tokens":200,"cache_read_input_tokens":300,"cache_creation_input_tokens":40}}}

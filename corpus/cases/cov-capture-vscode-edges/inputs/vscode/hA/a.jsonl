@@ -1,0 +1,8 @@
+42
+{"kind":0,"v":{"requests":["str",{"noId":1},{"requestId":"q1"}]}}
+{"k":["requests"],"v":[{"requestId":"q1","promptTokens":100,"completionTokens":20,"modelId":"copilot/gpt-5","elapsedMs":60000,"timestamp":1790848800000,"message":"check QA-1","modeInfo":{"isBuiltin":false,"modeInstructions":{"uri":{"path":"/w/.github/agents/tester.agent.md"}}},"result":{"errorDetails":{"code":"x"}}},{"requestId":"q2","promptTokens":50,"timestamp":1790848860000,"message":{"foo":1}}]}
+{"k":["requests"],"kind":2,"v":[{"requestId":"q3","promptTokens":10,"timestamp":1790848980000,"elapsedMs":0,"modeInfo":{"isBuiltin":true},"message":{"text":"run QA-3"}}]}
+{"k":["requests"],"i":1,"v":[{"requestId":"q2","completionTokens":9}]}
+{"k":"requests,0,copilotCredits","v":2}
+{"k":["requests",4,"promptTokens"],"v":7}
+{"k":["customTitle"],"v":"QA-9 run"}

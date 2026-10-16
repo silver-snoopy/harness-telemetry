@@ -1,0 +1,29 @@
+{
+  "ledgerLines": 0,
+  "exits": [
+    0,
+    0,
+    0,
+    1,
+    1,
+    1
+  ],
+  "textFacts": [
+    {
+      "file": "__events__/0.stdout",
+      "includes": "  scope: docs — 1 case(s)  ·  no outcomes recorded yet\n"
+    },
+    {
+      "file": "__events__/1.stdout",
+      "includes": "  scope: docs — 1 case(s)  ·  outcomes: X-1=done\n"
+    },
+    {
+      "file": "__events__/2.stdout",
+      "includes": "  scope: NOT DECLARED — run `work-scope.mjs open …`"
+    },
+    {
+      "file": "__events__/2.stdout",
+      "includes": "  cases seen: —\n  dispatches (0):\n    (none finished yet — a running dispatch has no transcript to read)"
+    }
+  ]
+}

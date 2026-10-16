@@ -1,0 +1,461 @@
+{
+  "generated": "2026-10-08T09:00:00.000Z",
+  "window": "2026-10-01 → 2026-10-07",
+  "sessions": 2,
+  "people": 2,
+  "totals": {
+    "sessions": 2,
+    "costUsd": 4.5,
+    "priced": 2,
+    "tokens": {
+      "input": 200,
+      "output": 400,
+      "cacheRead": 2000,
+      "cacheWrite": 200
+    },
+    "activeMin": 90,
+    "wallMin": 90,
+    "turns": 8,
+    "toolCalls": 4,
+    "toolErrors": 0
+  },
+  "byCase": {},
+  "byIntent": {
+    "automation": {
+      "sessions": 1,
+      "costUsd": 3,
+      "priced": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 1000,
+        "cacheWrite": 100
+      },
+      "activeMin": 60,
+      "wallMin": 60,
+      "turns": 4,
+      "toolCalls": 2,
+      "toolErrors": 0
+    },
+    "story": {
+      "sessions": 1,
+      "costUsd": 1.5,
+      "priced": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 1000,
+        "cacheWrite": 100
+      },
+      "activeMin": 30,
+      "wallMin": 30,
+      "turns": 4,
+      "toolCalls": 2,
+      "toolErrors": 0
+    }
+  },
+  "costSources": {
+    "ccusage-metered": 1,
+    "copilot-billed": 1
+  },
+  "tokensOnly": 0,
+  "byPerson": {
+    "alice": {
+      "sessions": 1,
+      "costUsd": 3,
+      "priced": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 1000,
+        "cacheWrite": 100
+      },
+      "activeMin": 60,
+      "wallMin": 60,
+      "turns": 4,
+      "toolCalls": 2,
+      "toolErrors": 0
+    },
+    "bob": {
+      "sessions": 1,
+      "costUsd": 1.5,
+      "priced": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 1000,
+        "cacheWrite": 100
+      },
+      "activeMin": 30,
+      "wallMin": 30,
+      "turns": 4,
+      "toolCalls": 2,
+      "toolErrors": 0
+    }
+  },
+  "byRole": {
+    "(interactive session)": {
+      "units": 2,
+      "tokens": {
+        "input": 200,
+        "output": 400,
+        "cacheRead": 2000,
+        "cacheWrite": 200
+      },
+      "activeMin": 90,
+      "toolCalls": 4,
+      "toolErrors": 0
+    }
+  },
+  "byDispatchRole": {},
+  "byWeek": {
+    "2026-W41": {
+      "sessions": 2,
+      "costUsd": 4.5,
+      "priced": 2,
+      "tokens": {
+        "input": 200,
+        "output": 400,
+        "cacheRead": 2000,
+        "cacheWrite": 200
+      },
+      "activeMin": 90,
+      "wallMin": 90,
+      "turns": 8,
+      "toolCalls": 4,
+      "toolErrors": 0
+    }
+  },
+  "byHost": {
+    "claude": {
+      "sessions": 1,
+      "costUsd": 3,
+      "priced": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 1000,
+        "cacheWrite": 100
+      },
+      "activeMin": 60,
+      "wallMin": 60,
+      "turns": 4,
+      "toolCalls": 2,
+      "toolErrors": 0
+    },
+    "copilot": {
+      "sessions": 1,
+      "costUsd": 1.5,
+      "priced": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 1000,
+        "cacheWrite": 100
+      },
+      "activeMin": 30,
+      "wallMin": 30,
+      "turns": 4,
+      "toolCalls": 2,
+      "toolErrors": 0
+    }
+  },
+  "cases": {
+    "examined": 5,
+    "delivered": 3,
+    "outcomes": {
+      "delivered": 3,
+      "in-progress": 1,
+      "blocked": 1
+    },
+    "reports": 7
+  },
+  "perDelivered": {
+    "costUsd": 1.5,
+    "activeMin": 30,
+    "automationOnlyCostUsd": 1
+  },
+  "perExamined": {
+    "costUsd": 0.9
+  },
+  "index": [
+    {
+      "host": "claude",
+      "id": "a1",
+      "user": "alice",
+      "role": null,
+      "startedAt": "2026-10-05T10:00:00.000Z",
+      "costUsd": 3,
+      "cases": []
+    },
+    {
+      "host": "copilot",
+      "id": "c1",
+      "user": "bob",
+      "role": null,
+      "startedAt": "2026-10-06T10:00:00.000Z",
+      "costUsd": 1.5,
+      "cases": []
+    }
+  ],
+  "byBatch": [
+    {
+      "batch": "conf-a",
+      "cases": 1,
+      "delivered": 1,
+      "costUsd": null,
+      "activeMin": 0,
+      "perDelivered": null,
+      "gate": null,
+      "drift": false
+    },
+    {
+      "batch": "conf-b",
+      "cases": 1,
+      "delivered": 0,
+      "costUsd": null,
+      "activeMin": 0,
+      "perDelivered": null,
+      "gate": null,
+      "drift": false
+    },
+    {
+      "batch": "old",
+      "cases": 1,
+      "delivered": 1,
+      "costUsd": null,
+      "activeMin": 0,
+      "perDelivered": null,
+      "gate": null,
+      "drift": false
+    },
+    {
+      "batch": "reopen-a",
+      "cases": 1,
+      "delivered": 1,
+      "costUsd": null,
+      "activeMin": 0,
+      "perDelivered": null,
+      "gate": null,
+      "drift": false
+    },
+    {
+      "batch": "reopen-b",
+      "cases": 1,
+      "delivered": 0,
+      "costUsd": null,
+      "activeMin": 0,
+      "perDelivered": null,
+      "gate": null,
+      "drift": false
+    },
+    {
+      "batch": "undated",
+      "cases": 1,
+      "delivered": 1,
+      "costUsd": null,
+      "activeMin": 0,
+      "perDelivered": null,
+      "gate": null,
+      "drift": false
+    },
+    {
+      "batch": "win",
+      "cases": 1,
+      "delivered": 1,
+      "costUsd": null,
+      "activeMin": 0,
+      "perDelivered": null,
+      "gate": null,
+      "drift": false
+    }
+  ],
+  "perCase": [
+    {
+      "batch": "conf-a",
+      "id": "CON-1",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": null,
+        "tokens": 0,
+        "tok": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": null,
+        "dispatches": 0,
+        "fixRounds": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 0,
+        "activeMin": 0
+      }
+    },
+    {
+      "batch": "old",
+      "id": "OLD-1",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": null,
+        "tokens": 0,
+        "tok": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": null,
+        "dispatches": 0,
+        "fixRounds": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 0,
+        "activeMin": 0
+      }
+    },
+    {
+      "batch": "reopen-a",
+      "id": "REO-1",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": null,
+        "tokens": 0,
+        "tok": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": null,
+        "dispatches": 0,
+        "fixRounds": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 0,
+        "activeMin": 0
+      }
+    },
+    {
+      "batch": "undated",
+      "id": "UND-1",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": null,
+        "tokens": 0,
+        "tok": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": null,
+        "dispatches": 0,
+        "fixRounds": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 0,
+        "activeMin": 0
+      }
+    },
+    {
+      "batch": "win",
+      "id": "WIN-1",
+      "outcome": "delivered",
+      "direct": {
+        "costUsd": null,
+        "tokens": 0,
+        "tok": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": null,
+        "dispatches": 0,
+        "fixRounds": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 0,
+        "activeMin": 0
+      }
+    },
+    {
+      "batch": "conf-b",
+      "id": "CON-1",
+      "outcome": "blocked",
+      "direct": {
+        "costUsd": null,
+        "tokens": 0,
+        "tok": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": null,
+        "dispatches": 0,
+        "fixRounds": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 0,
+        "activeMin": 0
+      }
+    },
+    {
+      "batch": "reopen-b",
+      "id": "REO-1",
+      "outcome": "in-progress",
+      "direct": {
+        "costUsd": null,
+        "tokens": 0,
+        "tok": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "activeMin": null,
+        "dispatches": 0,
+        "fixRounds": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      },
+      "loaded": {
+        "costUsd": null,
+        "tokens": 0,
+        "activeMin": 0
+      }
+    }
+  ],
+  "perCaseStats": {
+    "note": "over DELIVERED cases; loaded = direct + even batch-overhead share (allocation)",
+    "loadedCostUsd": null,
+    "loadedActiveMin": {
+      "avg": 0,
+      "median": 0,
+      "min": 0,
+      "max": 0,
+      "n": 5
+    }
+  }
+}

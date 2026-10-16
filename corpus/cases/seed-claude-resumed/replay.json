@@ -1,0 +1,6 @@
+{ "id": "seed-claude-resumed", "seed": 1,
+  "identity": { "gitUser": "corpus", "gitEmail": "corpus@example.invalid" },
+  "repo": { "path": "repo", "branch": "feat/384-seed", "files": {} },
+  "stores": [{"from":"inputs/claude/v1.jsonl","to":"home/stage/v1/sr.jsonl","mtime":"2026-10-01T10:01:00Z","template":true},{"from":"inputs/claude/v2.jsonl","to":"home/stage/v2/sr.jsonl","mtime":"2026-10-01T10:11:00Z","template":true}],
+  "events": [{"at":"2026-10-01T10:30:00Z","run":"hooks/telemetry-capture.mjs","args":["--transcript","{home}/stage/v1/sr.jsonl","--session","sr"],"stdin":null,"env":{"TOKENOMICS_NO_CCUSAGE":"1"}},{"at":"2026-10-01T10:40:00Z","run":"hooks/telemetry-capture.mjs","args":["--transcript","{home}/stage/v2/sr.jsonl","--session","sr"],"stdin":null,"env":{"TOKENOMICS_NO_CCUSAGE":"1"}}],
+  "outputs": [".agents/telemetry",".agents/automation"] }

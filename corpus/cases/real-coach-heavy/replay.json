@@ -1,0 +1,39 @@
+{
+  "id": "real-coach-heavy",
+  "seed": 1,
+  "identity": {
+    "gitUser": "corpus",
+    "gitEmail": "corpus@example.invalid"
+  },
+  "repo": {
+    "path": "repo",
+    "branch": "main",
+    "files": {}
+  },
+  "stores": [
+    {
+      "from": "inputs/claude/585b79f9-62b2-41f0-a54d-37863ad01119.jsonl",
+      "to": "home/.claude/projects/{repoKey}/585b79f9-62b2-41f0-a54d-37863ad01119.jsonl",
+      "mtime": "2026-09-26T19:30:04.000Z",
+      "template": true
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-09-26T20:00:04.000Z",
+      "run": "hooks/telemetry-capture.mjs",
+      "args": [
+        "--transcript",
+        "{home}/.claude/projects/{repoKey}/585b79f9-62b2-41f0-a54d-37863ad01119.jsonl",
+        "--session",
+        "585b79f9-62b2-41f0-a54d-37863ad01119"
+      ],
+      "stdin": null,
+      "env": {}
+    }
+  ],
+  "outputs": [
+    ".agents/telemetry",
+    ".agents/automation"
+  ]
+}

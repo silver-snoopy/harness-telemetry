@@ -1,0 +1,5 @@
+{
+  "foreign-mixed-roots": { "reason": "P2-05: team-report over a TA root and a foreign-settings root must exit 2; the reference has no settings file concept, so no reference golden can exist" },
+  "foreign-null-extension": { "reason": "settings.json extension null: proves no TA hook runs; the reference cannot load a settings file, so the oracle is the engine golden plus the hook trace" },
+  "foreign-settings": { "reason": "a foreign dir, receipts, ids and vocabulary configuration the reference cannot express; the oracle is the engine golden plus the foreign-wording assertions" }
+}

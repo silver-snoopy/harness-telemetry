@@ -1,0 +1,3 @@
+{"type":"session.start","data":{"context":{"cwd":"{repo}"}}}
+{"type":"user.message","data":{"text":"nostamp KC-4"}}
+{"type":"session.shutdown","data":{"totalNanoAiu":1000000000,"modelMetrics":{"gpt-5":{"usage":{"inputTokens":100,"outputTokens":5}}}}}

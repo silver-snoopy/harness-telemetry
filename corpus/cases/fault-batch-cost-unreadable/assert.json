@@ -1,0 +1,25 @@
+{
+  "exits": [
+    0,
+    1,
+    1
+  ],
+  "textFacts": [
+    {
+      "file": "__events__/2.stderr",
+      "equals": "batch-cost: no receipts under <REPO>/sub/.agents/automation\n"
+    }
+  ],
+  "fileFacts": [
+    {
+      "file": ".agents/automation/gb-live/cost.json",
+      "path": "/sources/sessions",
+      "equals": 1
+    },
+    {
+      "file": ".agents/automation/gb-live/cost.json",
+      "path": "/sources/liveSessions",
+      "absent": true
+    }
+  ]
+}

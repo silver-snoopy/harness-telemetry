@@ -1,0 +1,167 @@
+{
+ "id": "cov-capture-scope-live",
+ "seed": 1,
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/384-seed",
+  "files": {
+   ".agents/automation/rb/report.json": "{\n  \"batch\": \"rb\",\n  \"gate\": {\n    \"verdict\": \"green\"\n  },\n  \"cases\": [\n    {\n      \"id\": \"SL-1\",\n      \"outcome\": \"delivered\"\n    }\n  ]\n}\n",
+   ".agents/telemetry/automation/scopes/sA.json": "{\n  \"session\": \"sA\",\n  \"intent\": \"story\",\n  \"cases\": [\n    \"SL-9\"\n  ]\n}\n",
+   ".agents/telemetry/automation/scopes/sB.json": "{\n  \"session\": \"sB\",\n  \"intent\": \"automation\",\n  \"batch\": \"nob\",\n  \"cases\": [\n    \"SL-2\"\n  ]\n}\n",
+   "alt/.agents/automation/rb/report.json": "{\n  \"batch\": \"rb\",\n  \"gate\": {\n    \"verdict\": \"green\"\n  },\n  \"cases\": [\n    {\n      \"id\": \"SL-1\",\n      \"outcome\": \"delivered\"\n    }\n  ]\n}\n",
+   "alt/.agents/telemetry/automation/scopes/sC.json": "{\n  \"session\": \"sC\",\n  \"intent\": \"automation\",\n  \"batch\": \"rb\",\n  \"cases\": [\n    \"SL-1\"\n  ]\n}\n",
+   "alt/.agents/telemetry/automation/reports": "not a directory\n"
+  }
+ },
+ "stores": [
+  {
+   "from": "inputs/claude/e1.jsonl",
+   "to": "home/.claude/projects/{repoKey}/e1.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/e2.jsonl",
+   "to": "home/.claude/projects/{repoKey}/e2.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/sA.jsonl",
+   "to": "home/stage/sA.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/sB.jsonl",
+   "to": "home/stage/sB.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/sC.jsonl",
+   "to": "home/stage/sC.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  }
+ ],
+ "outputs": [
+  ".agents/telemetry",
+  ".agents/automation",
+  "alt/.agents/telemetry/automation/usage-corpus.jsonl"
+ ],
+ "events": [
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:30:00Z",
+   "run": "scripts/work-scope.mjs",
+   "args": [
+    "open",
+    "--session",
+    "e1",
+    "--intent",
+    "automation",
+    "--batch",
+    "nob2"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:31:00Z",
+   "run": "scripts/work-scope.mjs",
+   "args": [
+    "close",
+    "--session",
+    "e1"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:32:00Z",
+   "run": "scripts/work-scope.mjs",
+   "args": [
+    "open",
+    "--session",
+    "e2",
+    "--intent",
+    "automation",
+    "--batch",
+    "nob2"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:33:00Z",
+   "run": "scripts/work-scope.mjs",
+   "args": [
+    "close",
+    "--session",
+    "e2"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "TOKENOMICS_NO_BATCH_COST": "0"
+   },
+   "at": "2026-10-01T10:34:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/sA.jsonl",
+    "--session",
+    "sA"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "TOKENOMICS_NO_BATCH_COST": "0"
+   },
+   "at": "2026-10-01T10:35:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/sB.jsonl",
+    "--session",
+    "sB"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1",
+    "TOKENOMICS_NO_BATCH_COST": "0"
+   },
+   "at": "2026-10-01T10:36:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/sC.jsonl",
+    "--session",
+    "sC",
+    "--cwd",
+    "{repo}/alt"
+   ],
+   "captureStderr": true
+  }
+ ]
+}

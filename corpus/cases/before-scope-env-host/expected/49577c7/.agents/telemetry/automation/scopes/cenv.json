@@ -1,0 +1,11 @@
+{
+  "v": 1,
+  "session": "cenv",
+  "intent": "automation",
+  "batch": "env-1",
+  "cases": [
+    "CE-1"
+  ],
+  "declaredAt": "2026-10-01T09:59:00.000Z",
+  "updatedAt": "2026-10-01T09:59:00.000Z"
+}

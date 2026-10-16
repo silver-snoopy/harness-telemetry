@@ -1,0 +1,210 @@
+{
+ "v": 1,
+ "manifestRevision": 1,
+ "batch": "sp1",
+ "generatedAt": "2026-10-01T10:36:00.000Z",
+ "sources": {
+  "sessions": 1,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "alice"
+  ],
+  "costSources": [
+   "ccusage-metered"
+  ],
+  "models": [
+   "claude-opus-5"
+  ],
+  "sharedSessions": 1,
+  "note": "session-level figures of shared sessions are split evenly across the sprints they served",
+  "foreignDispatchesExcluded": 1
+ },
+ "totals": {
+  "costUsd": 1.05,
+  "tokens": 37280,
+  "tokensSplit": {
+   "input": 155,
+   "output": 1950,
+   "cacheRead": 33250,
+   "cacheWrite": 1925
+  },
+  "tokensByModel": {
+   "claude-opus-5": {
+    "input": 50,
+    "output": 1000,
+    "cacheRead": 25000,
+    "cacheWrite": 1500
+   }
+  },
+  "activeMin": 30,
+  "dispatches": 1.5,
+  "sessions": 1,
+  "turns": 5,
+  "toolCalls": 11,
+  "toolErrors": 1,
+  "skills": [
+   "tdd"
+  ]
+ },
+ "byRole": {
+  "helper": {
+   "costUsd": 0.05,
+   "tokens": 330,
+   "tok": {
+    "input": 5,
+    "output": 50,
+    "cacheRead": 250,
+    "cacheWrite": 25
+   },
+   "activeMin": 1,
+   "dispatches": 0.5,
+   "toolCalls": 1,
+   "toolErrors": 0
+  },
+  "implementer": {
+   "costUsd": 0.5,
+   "tokens": 9400,
+   "tok": {
+    "input": 100,
+    "output": 900,
+    "cacheRead": 8000,
+    "cacheWrite": 400
+   },
+   "activeMin": 5,
+   "dispatches": 1,
+   "toolCalls": 4,
+   "toolErrors": 0
+  },
+  "session": {
+   "costUsd": 0.5,
+   "tokens": 27550,
+   "tok": {
+    "input": 50,
+    "output": 1000,
+    "cacheRead": 25000,
+    "cacheWrite": 1500
+   },
+   "activeMin": 24,
+   "dispatches": 0,
+   "toolCalls": 6,
+   "toolErrors": 1
+  }
+ },
+ "overhead": {
+  "note": "sprint-level work (lead thread) — shown once, never smeared into per-story rows",
+  "costUsd": 0.55,
+  "sharePct": 52,
+  "lead": {
+   "costUsd": 0.5,
+   "tokens": 27550,
+   "tok": {
+    "input": 50,
+    "output": 1000,
+    "cacheRead": 25000,
+    "cacheWrite": 1500
+   },
+   "activeMin": 24,
+   "dispatches": 0,
+   "toolCalls": 6,
+   "toolErrors": 1
+  },
+  "stages": {
+   "costUsd": 0.05,
+   "tokens": 330,
+   "tok": {
+    "input": 5,
+    "output": 50,
+    "cacheRead": 250,
+    "cacheWrite": 25
+   },
+   "activeMin": 1,
+   "dispatches": 0.5,
+   "toolCalls": 1,
+   "toolErrors": 0
+  }
+ },
+ "outcomes": {
+  "done": 1
+ },
+ "delivered": 1,
+ "cases": [
+  {
+   "id": "issue-101",
+   "outcome": "done",
+   "direct": {
+    "costUsd": 0.5,
+    "tokens": 9400,
+    "tok": {
+     "input": 100,
+     "output": 900,
+     "cacheRead": 8000,
+     "cacheWrite": 400
+    },
+    "activeMin": 5,
+    "dispatches": 1,
+    "toolCalls": 4,
+    "toolErrors": 0
+   },
+   "loaded": {
+    "costUsd": 1.05,
+    "tokens": 37280,
+    "activeMin": 30
+   }
+  }
+ ],
+ "stats": {
+  "note": "direct = per-story measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": {
+   "avg": 0.5,
+   "median": 0.5,
+   "min": 0.5,
+   "max": 0.5,
+   "n": 1
+  },
+  "directTokens": {
+   "avg": 9400,
+   "median": 9400,
+   "min": 9400,
+   "max": 9400,
+   "n": 1
+  },
+  "directActiveMin": {
+   "avg": 5,
+   "median": 5,
+   "min": 5,
+   "max": 5,
+   "n": 1
+  },
+  "loadedCostUsd": {
+   "avg": 1.05,
+   "median": 1.05,
+   "min": 1.05,
+   "max": 1.05,
+   "n": 1
+  },
+  "loadedActiveMin": {
+   "avg": 30,
+   "median": 30,
+   "min": 30,
+   "max": 30,
+   "n": 1
+  }
+ },
+ "averages": {
+  "totalPerDelivered": {
+   "costUsd": 1.05,
+   "note": "whole sprint incl. overhead ÷ delivered (done)"
+  },
+  "directPerCase": {
+   "costUsd": 0.5,
+   "note": "avg direct spend of an attributed story — excludes sprint overhead"
+  }
+ },
+ "coverage": {
+  "casesAttributed": 1,
+  "casesUnattributed": [],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

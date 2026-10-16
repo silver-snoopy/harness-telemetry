@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0",
+  "manifestRevision": 1,
+  "segment": {
+    "factory_id": null,
+    "factory_name": null,
+    "stop": "testing",
+    "owner_group": "QA",
+    "work_item_level": "feature",
+    "factory_type": "qa",
+    "agent_tool": "claude",
+    "default_method": "metered",
+    "scope": {
+      "includes_subagents": true,
+      "includes_retries": true,
+      "includes_abandoned_runs": false
+    },
+    "currency": "USD",
+    "efficiency_techniques": [],
+    "pipeline": []
+  },
+  "runs": [
+    {
+      "work_item_ref": "T-camp/wave-01",
+      "work_item_level": "feature",
+      "work_item_brief": "Test-automation batch: 2 TMS case(s) through analyse → implement → review → merge → gate; 1 delivered.",
+      "maturity": "pilot",
+      "size_tshirt": "S",
+      "effort_days": 1,
+      "sessions": 1,
+      "turns": 5,
+      "subagent_dispatches": 1,
+      "orchestrator_cost_pct": 45.9,
+      "tokens": {
+        "input": 150,
+        "output": 2200,
+        "cache_read": 34000,
+        "cache_create": 1900
+      },
+      "primary_model": "claude-opus-5",
+      "models_used": [
+        "claude-opus-5"
+      ],
+      "tokens_by_model": {
+        "claude-opus-5": {
+          "input": 50,
+          "output": 1000,
+          "cache_read": 25000,
+          "cache_create": 1500
+        }
+      },
+      "cost_api_equivalent_usd": 1.85,
+      "cache_read_share_pct": 20.1,
+      "scenarios_authored": 2,
+      "scenarios_automated": 1,
+      "scenarios_executed": 2,
+      "scenario_complexity": "L",
+      "self_size": "L",
+      "story_points": 8,
+      "notes": "gate green; outcomes: delivered 1, blocked 1. Telemetry cohort: reconstructed from .agents/automation/camp/wave-01/cost.json (v1); batch slug 'camp/wave-01'. effort_days derived from scoping SP (8 SP × 1h ÷ 8) — conventional-effort estimate, not a human report. cache_read_share_pct computed from the token quad at public list ratios (in 1x / out 5x / write 1.25x / read 0.1x). scenarios_executed = cases the pipeline analysed live and gated (live execution evidence + N-consecutive gate runs; re-runs not multiplied)."
+    },
+    {
+      "work_item_ref": "EPIC-9",
+      "work_item_level": "feature",
+      "work_item_brief": "Test-automation batch: 4 TMS case(s) through analyse → implement → review → merge → gate; 3 delivered.",
+      "maturity": "pilot",
+      "size_tshirt": "S",
+      "effort_days": 0.8,
+      "sessions": 2,
+      "turns": 10,
+      "subagent_dispatches": 6.5,
+      "orchestrator_cost_pct": 30.4,
+      "tokens": {
+        "input": 363,
+        "output": 11925,
+        "cache_read": 75350,
+        "cache_create": 4295
+      },
+      "primary_model": "claude-opus-5",
+      "models_used": [
+        "claude-opus-5"
+      ],
+      "tokens_by_model": {
+        "claude-opus-5": {
+          "input": 100,
+          "output": 2000,
+          "cache_read": 50000,
+          "cache_create": 3000
+        }
+      },
+      "cost_api_equivalent_usd": 2.8,
+      "cache_read_share_pct": 10.3,
+      "scenarios_authored": 4,
+      "scenarios_automated": 3,
+      "scenarios_executed": 4,
+      "scenario_complexity": "M",
+      "self_size": "M",
+      "story_points": 6,
+      "_tokens_attribution": "partial",
+      "notes": "gate red; outcomes: delivered 2, defect-found 1. TOKEN ATTRIBUTION PARTIAL: 1 unit(s) reported no usage — totals are a floor. Telemetry cohort: reconstructed from .agents/automation/solo/cost.json (v1); batch slug 'solo'. effort_days derived from scoping SP (6 SP × 1h ÷ 8) — conventional-effort estimate, not a human report. cache_read_share_pct computed from the token quad at public list ratios (in 1x / out 5x / write 1.25x / read 0.1x). scenarios_executed = cases the pipeline analysed live and gated (live execution evidence + N-consecutive gate runs; re-runs not multiplied)."
+    }
+  ]
+}

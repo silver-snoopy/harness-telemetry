@@ -1,0 +1,352 @@
+<!doctype html><meta charset="utf-8"><title>Batch cost — camp/wave-01</title><style>
+:root{color-scheme:light;--page:#f9f9f7;--surface:#fcfcfb;--text-primary:#0b0b0b;--text-secondary:#52514e;--text-muted:#898781;--gridline:#e1e0d9;--border:rgba(11,11,11,0.10);--series-1:#2a78d6;--series-2:#eb6834;--series-3:#1baf7a;--series-4:#eda100;--warn:#c53030;--ok:#2f855a}
+html[data-theme="dark"]{color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#898781;--gridline:#2c2c2a;--border:rgba(255,255,255,0.10);--series-1:#3987e5;--series-2:#d95926;--series-3:#199e70;--series-4:#c98500;--warn:#e06c6c;--ok:#48a06f}
+*{box-sizing:border-box}
+body{font:14px/1.5 -apple-system,"Segoe UI",sans-serif;color:var(--text-primary);background:var(--page);max-width:1120px;margin:0 auto;padding:1.8rem 1.2rem 3rem}
+h1{font-size:1.35rem;margin:0 0 .2rem}
+.meta{color:var(--text-muted);font-size:.85rem;margin:0 0 1.1rem}
+section{margin-top:1.1rem}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:.8rem}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;min-width:0}
+.kpi-card h3{margin:0 0 .55rem;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);font-weight:600}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .7rem}
+.stat{display:flex;flex-direction:column;min-width:0}
+.stat-label{font-size:.74rem;color:var(--text-secondary)}
+.stat-sub{color:var(--text-muted);font-weight:400}
+.stat-value{font-size:1.02rem;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.3;overflow-wrap:anywhere}
+.stat-value-sm{font-size:.84rem;font-weight:500}
+.kpi-callout{margin-top:.65rem;padding:.45rem .6rem;background:var(--page);border:1px solid var(--gridline);border-radius:7px;font-size:.81rem;color:var(--text-secondary)}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem;overflow-x:auto;min-width:0}
+.panel h2{margin:0;font-size:1rem}
+.panel-sub{margin:.15rem 0 .75rem;color:var(--text-muted);font-size:.84rem}
+.stacked-bar{display:flex;height:18px;border-radius:5px;overflow:hidden;background:var(--gridline)}
+.bar-seg{height:100%}
+.s-in{background:var(--series-1)}.s-out{background:var(--series-2)}.s-cr{background:var(--series-3)}.s-cw{background:var(--series-4)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.35rem 1rem;margin-top:.6rem}
+.legend-item{display:flex;align-items:center;gap:.4rem;font-size:.82rem;min-width:0;flex-wrap:wrap}
+.legend-swatch{width:10px;height:10px;border-radius:3px;flex:none}
+.legend-label{color:var(--text-secondary)}
+.legend-value{margin-left:auto;font-variant-numeric:tabular-nums}
+.legend-pct{color:var(--text-muted)}
+.row{display:grid;grid-template-columns:minmax(130px,210px) minmax(140px,1fr) minmax(200px,240px);gap:.7rem;align-items:center;margin:.32rem 0}
+.row .lbl{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .track{background:var(--gridline);border-radius:4px;height:15px}
+.row .bar{background:var(--series-1);height:15px;border-radius:4px}
+.row .stacked{display:flex;overflow:hidden;height:15px;border-radius:4px}
+.row .num{font-size:.84rem;font-variant-numeric:tabular-nums}
+.sub{color:var(--text-muted)}
+.oc{font-size:.72rem;border:1px solid var(--gridline);border-radius:8px;padding:0 .4rem;margin-left:.35rem;color:var(--text-muted);display:inline-block}
+.oc-automated{color:var(--ok);border-color:var(--ok)}.oc-blocked{color:var(--warn);border-color:var(--warn)}
+.callout-warn{margin-top:.8rem;color:var(--warn);border:1px solid var(--warn);border-radius:7px;padding:.5rem .7rem;font-size:.86rem;background:var(--surface)}
+.note{color:var(--text-muted);font-size:.84rem}
+table{border-collapse:collapse;width:100%;font-size:.87rem;margin:.4rem 0}
+th{text-align:left;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--gridline);padding:.3rem .5rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+td{border-bottom:1px solid var(--gridline);padding:.3rem .5rem;font-variant-numeric:tabular-nums}
+.chip{font-size:.8rem;border:1px solid var(--gridline);border-radius:8px;padding:.1rem .5rem;margin-right:.4rem;color:var(--text-secondary);display:inline-block}
+.share-cell{display:flex;align-items:center;gap:.45rem;min-width:140px}
+.share-bar-track{flex:1;height:8px;border-radius:4px;background:var(--gridline);overflow:hidden}
+.share-bar-fill{height:8px;border-radius:4px;background:var(--series-1)}
+.share-bar-label{font-size:.8rem;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:640px){.row{grid-template-columns:110px 1fr}.row .num{grid-column:1/-1}}
+</style>
+  <h1>Batch cost — camp/wave-01</h1>
+  <p class="meta">Delivery view · generated 2026-10-05T09:06:00.000Z · 1 session(s) on claude · sources: ccusage-metered · models: claude-opus-5</p>
+  <section class="kpi-row"><div class="kpi-card"><h3>Delivery</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Delivered / cases</span><span class="stat-value">1/2</span></div><div class="stat"><span class="stat-label">Gate</span><span class="stat-value">green</span></div><div class="stat"><span class="stat-label">Fix rounds</span><span class="stat-value">0</span></div><div class="stat"><span class="stat-label">Findings</span><span class="stat-value">0</span></div></div><div class="kpi-callout"><span class="oc oc-delivered">delivered 1</span> <span class="oc oc-blocked">blocked 1</span></div></div><div class="kpi-card"><h3>Cost</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Total <span class="stat-sub">measured</span></span><span class="stat-value">$1.85</span></div><div class="stat"><span class="stat-label">Per delivered <span class="stat-sub">incl. overhead</span></span><span class="stat-value">$1.85</span></div><div class="stat"><span class="stat-label">Overhead <span class="stat-sub">lead+stages, once</span></span><span class="stat-value">$0.85 <span class="stat-sub">(46%)</span></span></div><div class="stat"><span class="stat-label">Avg direct / case</span><span class="stat-value">$0.50</span></div></div></div><div class="kpi-card"><h3>Tokens</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Total <span class="stat-sub">incl. cache replay</span></span><span class="stat-value">38,250</span></div><div class="stat"><span class="stat-label">Real work <span class="stat-sub">in+out</span></span><span class="stat-value">2,350</span></div><div class="stat"><span class="stat-label">Cache read</span><span class="stat-value">34,000</span></div><div class="stat"><span class="stat-label">Cache hit rate</span><span class="stat-value">94.3%</span></div></div><div class="kpi-callout">cache write 1,900 · ~83.6% of prompt cost saved by cache — composition in <strong>batch-tokenomics.html</strong></div></div><div class="kpi-card"><h3>Activity</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Turns</span><span class="stat-value">5</span></div><div class="stat"><span class="stat-label">Tool calls</span><span class="stat-value">10 <span class="stat-sub">(1 err, 90% ok)</span></span></div><div class="stat"><span class="stat-label">Dispatches</span><span class="stat-value">1</span></div><div class="stat"><span class="stat-label">Active time <span class="stat-sub">(session grain — not split per case, stage or dispatch)</span></span><span class="stat-value">0.5h</span></div></div><div class="kpi-callout">skills: tdd</div></div></section>
+  
+  <p class="note">1 session(s) also served other batches — session-level figures split evenly; 2 other-batch dispatch(es) excluded.</p>
+  
+  
+  <section class="panel"><h2>Per case — direct, measured</h2>
+  <p class="panel-sub">Batch overhead is NOT in these bars — it is the labelled figure above, shown once instead of smeared. Clustered cases are an even split of their shared dispatches. Loaded minutes are batch time ÷ cases (session grain), an allocation.</p>
+  
+    <div class="row"><div class="lbl" title="delivered">W1-1<span class="oc oc-delivered">delivered</span></div>
+    <div class="track"><div class="bar" style="width:50%"></div></div>
+    <div class="num">$0.50<span class="sub"> · size L · loaded $0.93 · — (loaded 15m) · no fix</span></div></div>
+    <div class="row"><div class="lbl" title="blocked">W1-2<span class="oc oc-blocked">blocked</span></div>
+    <div class="track"><div class="bar" style="width:50%"></div></div>
+    <div class="num">$0.50<span class="sub"> · loaded $0.93 · — (loaded 15m) · no fix</span></div></div></section>
+  <section class="panel"><h2>Spread</h2>
+  <p>Direct cost: avg $0.50 · median $0.50 · min $0.50 · max $0.50<br>Loaded cost (direct + even overhead share — allocation, not measurement): avg $0.93 · median $0.93 · min $0.93 · max $0.93<br>Tokens: avg 5,350 · median 5,350 · min 5,350 · max 5,350<br>Active time: session grain, none per case · loaded: avg 15m · median 15m · min 15m · max 15m</p></section>
+  <section class="panel"><h2>By role</h2><p class="panel-sub">role cost = the parent session's role, inclusive of its dispatches; — (n unpriced) = n parent session(s) without dollars; — = not allocated at this grain: a dispatch-only role has no parent-session dollars (its dispatch dollars are the separate breakdown, never added to a role or the total)</p>
+    <div class="row"><div class="lbl">implementer</div>
+    <div class="track"><div class="bar" style="width:38.83847549909255%"></div></div>
+    <div class="num">—<span class="sub"> · 1 disp · — · 4 tools (0)</span></div></div>
+    <div class="row"><div class="lbl">lead</div>
+    <div class="track"><div class="bar" style="width:100%"></div></div>
+    <div class="num">$1.85<span class="sub"> · — disp · 30m · 6 tools (1)</span></div></div></section>
+  <section class="panel"><h2>Dispatch dollars by role</h2><p class="panel-sub">measured per-dispatch dollars by dispatch role — already inside the parent role and the total, so never added to them</p>
+    <div class="row"><div class="lbl">implementer</div><div class="num">$1.00<span class="sub"> · 1 disp · 1 of 1 priced</span></div></div></section>
+  <section class="panel"><h2>By size — predicted vs actual</h2>
+  <p class="panel-sub">Pre-run size (automation-scoping) against actuals. Deviations are tokens/time analysis pointers — never per-case dollar verdicts.</p>
+  <table><tr><th>size</th><th>cases</th><th>ΣSP</th><th>est min</th><th>actual min</th><th>actual rw tok</th></tr>
+  <tr><td>L</td><td>1</td><td>8</td><td>—</td><td>15</td><td>650</td></tr></table>
+  </section>
+  
+  <p class="meta">manifest revision 1</p>
+<!doctype html><meta charset="utf-8"><title>Batch cost — camp/wave-02</title><style>
+:root{color-scheme:light;--page:#f9f9f7;--surface:#fcfcfb;--text-primary:#0b0b0b;--text-secondary:#52514e;--text-muted:#898781;--gridline:#e1e0d9;--border:rgba(11,11,11,0.10);--series-1:#2a78d6;--series-2:#eb6834;--series-3:#1baf7a;--series-4:#eda100;--warn:#c53030;--ok:#2f855a}
+html[data-theme="dark"]{color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#898781;--gridline:#2c2c2a;--border:rgba(255,255,255,0.10);--series-1:#3987e5;--series-2:#d95926;--series-3:#199e70;--series-4:#c98500;--warn:#e06c6c;--ok:#48a06f}
+*{box-sizing:border-box}
+body{font:14px/1.5 -apple-system,"Segoe UI",sans-serif;color:var(--text-primary);background:var(--page);max-width:1120px;margin:0 auto;padding:1.8rem 1.2rem 3rem}
+h1{font-size:1.35rem;margin:0 0 .2rem}
+.meta{color:var(--text-muted);font-size:.85rem;margin:0 0 1.1rem}
+section{margin-top:1.1rem}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:.8rem}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;min-width:0}
+.kpi-card h3{margin:0 0 .55rem;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);font-weight:600}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .7rem}
+.stat{display:flex;flex-direction:column;min-width:0}
+.stat-label{font-size:.74rem;color:var(--text-secondary)}
+.stat-sub{color:var(--text-muted);font-weight:400}
+.stat-value{font-size:1.02rem;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.3;overflow-wrap:anywhere}
+.stat-value-sm{font-size:.84rem;font-weight:500}
+.kpi-callout{margin-top:.65rem;padding:.45rem .6rem;background:var(--page);border:1px solid var(--gridline);border-radius:7px;font-size:.81rem;color:var(--text-secondary)}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem;overflow-x:auto;min-width:0}
+.panel h2{margin:0;font-size:1rem}
+.panel-sub{margin:.15rem 0 .75rem;color:var(--text-muted);font-size:.84rem}
+.stacked-bar{display:flex;height:18px;border-radius:5px;overflow:hidden;background:var(--gridline)}
+.bar-seg{height:100%}
+.s-in{background:var(--series-1)}.s-out{background:var(--series-2)}.s-cr{background:var(--series-3)}.s-cw{background:var(--series-4)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.35rem 1rem;margin-top:.6rem}
+.legend-item{display:flex;align-items:center;gap:.4rem;font-size:.82rem;min-width:0;flex-wrap:wrap}
+.legend-swatch{width:10px;height:10px;border-radius:3px;flex:none}
+.legend-label{color:var(--text-secondary)}
+.legend-value{margin-left:auto;font-variant-numeric:tabular-nums}
+.legend-pct{color:var(--text-muted)}
+.row{display:grid;grid-template-columns:minmax(130px,210px) minmax(140px,1fr) minmax(200px,240px);gap:.7rem;align-items:center;margin:.32rem 0}
+.row .lbl{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .track{background:var(--gridline);border-radius:4px;height:15px}
+.row .bar{background:var(--series-1);height:15px;border-radius:4px}
+.row .stacked{display:flex;overflow:hidden;height:15px;border-radius:4px}
+.row .num{font-size:.84rem;font-variant-numeric:tabular-nums}
+.sub{color:var(--text-muted)}
+.oc{font-size:.72rem;border:1px solid var(--gridline);border-radius:8px;padding:0 .4rem;margin-left:.35rem;color:var(--text-muted);display:inline-block}
+.oc-automated{color:var(--ok);border-color:var(--ok)}.oc-blocked{color:var(--warn);border-color:var(--warn)}
+.callout-warn{margin-top:.8rem;color:var(--warn);border:1px solid var(--warn);border-radius:7px;padding:.5rem .7rem;font-size:.86rem;background:var(--surface)}
+.note{color:var(--text-muted);font-size:.84rem}
+table{border-collapse:collapse;width:100%;font-size:.87rem;margin:.4rem 0}
+th{text-align:left;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--gridline);padding:.3rem .5rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+td{border-bottom:1px solid var(--gridline);padding:.3rem .5rem;font-variant-numeric:tabular-nums}
+.chip{font-size:.8rem;border:1px solid var(--gridline);border-radius:8px;padding:.1rem .5rem;margin-right:.4rem;color:var(--text-secondary);display:inline-block}
+.share-cell{display:flex;align-items:center;gap:.45rem;min-width:140px}
+.share-bar-track{flex:1;height:8px;border-radius:4px;background:var(--gridline);overflow:hidden}
+.share-bar-fill{height:8px;border-radius:4px;background:var(--series-1)}
+.share-bar-label{font-size:.8rem;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:640px){.row{grid-template-columns:110px 1fr}.row .num{grid-column:1/-1}}
+</style>
+  <h1>Batch cost — camp/wave-02</h1>
+  <p class="meta">Delivery view · generated 2026-10-05T09:06:00.000Z · 2 session(s) on claude · sources: ccusage-metered · models: claude-opus-5</p>
+  <section class="kpi-row"><div class="kpi-card"><h3>Delivery</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Delivered / cases</span><span class="stat-value">1/1</span></div><div class="stat"><span class="stat-label">Gate</span><span class="stat-value">n/a</span></div><div class="stat"><span class="stat-label">Fix rounds</span><span class="stat-value">0</span></div><div class="stat"><span class="stat-label">Findings</span><span class="stat-value">0</span></div></div><div class="kpi-callout"><span class="oc oc-automated">automated 1</span></div></div><div class="kpi-card"><h3>Cost</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Total <span class="stat-sub">measured</span></span><span class="stat-value">$1.90</span></div><div class="stat"><span class="stat-label">Per delivered <span class="stat-sub">incl. overhead</span></span><span class="stat-value">$1.90</span></div><div class="stat"><span class="stat-label">Overhead <span class="stat-sub">lead+stages, once</span></span><span class="stat-value">$0.60 <span class="stat-sub">(32%)</span></span></div><div class="stat"><span class="stat-label">Avg direct / case</span><span class="stat-value">$1.30</span></div></div></div><div class="kpi-card"><h3>Tokens</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Total <span class="stat-sub">incl. cache replay</span></span><span class="stat-value">62,960</span></div><div class="stat"><span class="stat-label">Real work <span class="stat-sub">in+out</span></span><span class="stat-value">3,140</span></div><div class="stat"><span class="stat-label">Cache read</span><span class="stat-value">56,500</span></div><div class="stat"><span class="stat-label">Cache hit rate</span><span class="stat-value">94.2%</span></div></div><div class="kpi-callout">cache write 3,320 · ~83.4% of prompt cost saved by cache — composition in <strong>batch-tokenomics.html</strong></div></div><div class="kpi-card"><h3>Activity</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Turns</span><span class="stat-value">10 (1 unmeasured)</span></div><div class="stat"><span class="stat-label">Tool calls</span><span class="stat-value">19 (2 unmeasured) <span class="stat-sub">(1 err (2 unmeasured), 95% ok)</span></span></div><div class="stat"><span class="stat-label">Dispatches</span><span class="stat-value">3</span></div><div class="stat"><span class="stat-label">Active time <span class="stat-sub">(session grain — not split per case, stage or dispatch)</span></span><span class="stat-value">1.0h (1 unmeasured)</span></div></div><div class="kpi-callout">skills: tdd</div></div></section>
+  <p class="callout-warn">⏳ LIVE / PROVISIONAL — 1 session(s) still running. Finished dispatches are counted; their lead thread is not measured yet, so these totals are a floor.</p>
+  
+  
+  
+  <section class="panel"><h2>Per case — direct, measured</h2>
+  <p class="panel-sub">Batch overhead is NOT in these bars — it is the labelled figure above, shown once instead of smeared. Clustered cases are an even split of their shared dispatches. Loaded minutes are batch time ÷ cases (session grain), an allocation.</p>
+  
+    <div class="row"><div class="lbl" title="automated">W2-1<span class="oc oc-automated">automated</span></div>
+    <div class="track"><div class="bar" style="width:100%"></div></div>
+    <div class="num">$1.30<span class="sub"> · loaded $1.90 · — (loaded 60m (1 unmeasured)) · no fix</span></div></div></section>
+  <section class="panel"><h2>Spread</h2>
+  <p>Direct cost: avg $1.30 · median $1.30 · min $1.30 · max $1.30<br>Loaded cost (direct + even overhead share — allocation, not measurement): avg $1.90 · median $1.90 · min $1.90 · max $1.90<br>Tokens: avg 7,860 · median 7,860 · min 7,860 · max 7,860<br>Active time: session grain, none per case · loaded: avg 60m · median 60m · min 60m · max 60m</p></section>
+  <section class="panel"><h2>By role</h2><p class="panel-sub">role cost = the parent session's role, inclusive of its dispatches; — (n unpriced) = n parent session(s) without dollars; — = not allocated at this grain: a dispatch-only role has no parent-session dollars (its dispatch dollars are the separate breakdown, never added to a role or the total)</p>
+    <div class="row"><div class="lbl">implementer</div>
+    <div class="track"><div class="bar" style="width:14.264972776769511%"></div></div>
+    <div class="num">—<span class="sub"> · 2 disp · — · 7 tools (0)</span></div></div>
+    <div class="row"><div class="lbl">reviewer</div>
+    <div class="track"><div class="bar" style="width:1%"></div></div>
+    <div class="num">—<span class="sub"> · 1 disp · — · — (1 unmeasured) tools (— (1 unmeasured))</span></div></div>
+    <div class="row"><div class="lbl">session</div>
+    <div class="track"><div class="bar" style="width:100%"></div></div>
+    <div class="num">$1.90<span class="sub"> · — disp · 60m (1 unmeasured) · 12 (1 unmeasured) tools (1 (1 unmeasured))</span></div></div></section>
+  <section class="panel"><h2>Dispatch dollars by role</h2><p class="panel-sub">measured per-dispatch dollars by dispatch role — already inside the parent role and the total, so never added to them</p>
+    <div class="row"><div class="lbl">implementer</div><div class="num">$1.30<span class="sub"> · 2 disp · 2 of 2 priced</span></div></div>
+    <div class="row"><div class="lbl">reviewer</div><div class="num">— (1 unpriced)<span class="sub"> · 1 disp · 0 of 1 priced</span></div></div></section>
+  
+  
+  <p class="meta">manifest revision 1</p>
+<!doctype html><meta charset="utf-8"><title>Batch cost — solo</title><style>
+:root{color-scheme:light;--page:#f9f9f7;--surface:#fcfcfb;--text-primary:#0b0b0b;--text-secondary:#52514e;--text-muted:#898781;--gridline:#e1e0d9;--border:rgba(11,11,11,0.10);--series-1:#2a78d6;--series-2:#eb6834;--series-3:#1baf7a;--series-4:#eda100;--warn:#c53030;--ok:#2f855a}
+html[data-theme="dark"]{color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#898781;--gridline:#2c2c2a;--border:rgba(255,255,255,0.10);--series-1:#3987e5;--series-2:#d95926;--series-3:#199e70;--series-4:#c98500;--warn:#e06c6c;--ok:#48a06f}
+*{box-sizing:border-box}
+body{font:14px/1.5 -apple-system,"Segoe UI",sans-serif;color:var(--text-primary);background:var(--page);max-width:1120px;margin:0 auto;padding:1.8rem 1.2rem 3rem}
+h1{font-size:1.35rem;margin:0 0 .2rem}
+.meta{color:var(--text-muted);font-size:.85rem;margin:0 0 1.1rem}
+section{margin-top:1.1rem}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:.8rem}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;min-width:0}
+.kpi-card h3{margin:0 0 .55rem;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);font-weight:600}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .7rem}
+.stat{display:flex;flex-direction:column;min-width:0}
+.stat-label{font-size:.74rem;color:var(--text-secondary)}
+.stat-sub{color:var(--text-muted);font-weight:400}
+.stat-value{font-size:1.02rem;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.3;overflow-wrap:anywhere}
+.stat-value-sm{font-size:.84rem;font-weight:500}
+.kpi-callout{margin-top:.65rem;padding:.45rem .6rem;background:var(--page);border:1px solid var(--gridline);border-radius:7px;font-size:.81rem;color:var(--text-secondary)}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem;overflow-x:auto;min-width:0}
+.panel h2{margin:0;font-size:1rem}
+.panel-sub{margin:.15rem 0 .75rem;color:var(--text-muted);font-size:.84rem}
+.stacked-bar{display:flex;height:18px;border-radius:5px;overflow:hidden;background:var(--gridline)}
+.bar-seg{height:100%}
+.s-in{background:var(--series-1)}.s-out{background:var(--series-2)}.s-cr{background:var(--series-3)}.s-cw{background:var(--series-4)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.35rem 1rem;margin-top:.6rem}
+.legend-item{display:flex;align-items:center;gap:.4rem;font-size:.82rem;min-width:0;flex-wrap:wrap}
+.legend-swatch{width:10px;height:10px;border-radius:3px;flex:none}
+.legend-label{color:var(--text-secondary)}
+.legend-value{margin-left:auto;font-variant-numeric:tabular-nums}
+.legend-pct{color:var(--text-muted)}
+.row{display:grid;grid-template-columns:minmax(130px,210px) minmax(140px,1fr) minmax(200px,240px);gap:.7rem;align-items:center;margin:.32rem 0}
+.row .lbl{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .track{background:var(--gridline);border-radius:4px;height:15px}
+.row .bar{background:var(--series-1);height:15px;border-radius:4px}
+.row .stacked{display:flex;overflow:hidden;height:15px;border-radius:4px}
+.row .num{font-size:.84rem;font-variant-numeric:tabular-nums}
+.sub{color:var(--text-muted)}
+.oc{font-size:.72rem;border:1px solid var(--gridline);border-radius:8px;padding:0 .4rem;margin-left:.35rem;color:var(--text-muted);display:inline-block}
+.oc-automated{color:var(--ok);border-color:var(--ok)}.oc-blocked{color:var(--warn);border-color:var(--warn)}
+.callout-warn{margin-top:.8rem;color:var(--warn);border:1px solid var(--warn);border-radius:7px;padding:.5rem .7rem;font-size:.86rem;background:var(--surface)}
+.note{color:var(--text-muted);font-size:.84rem}
+table{border-collapse:collapse;width:100%;font-size:.87rem;margin:.4rem 0}
+th{text-align:left;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--gridline);padding:.3rem .5rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+td{border-bottom:1px solid var(--gridline);padding:.3rem .5rem;font-variant-numeric:tabular-nums}
+.chip{font-size:.8rem;border:1px solid var(--gridline);border-radius:8px;padding:.1rem .5rem;margin-right:.4rem;color:var(--text-secondary);display:inline-block}
+.share-cell{display:flex;align-items:center;gap:.45rem;min-width:140px}
+.share-bar-track{flex:1;height:8px;border-radius:4px;background:var(--gridline);overflow:hidden}
+.share-bar-fill{height:8px;border-radius:4px;background:var(--series-1)}
+.share-bar-label{font-size:.8rem;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:640px){.row{grid-template-columns:110px 1fr}.row .num{grid-column:1/-1}}
+</style>
+  <h1>Batch cost — solo</h1>
+  <p class="meta">Delivery view · generated 2026-10-05T09:06:00.000Z · 2 session(s) on claude · sources: ccusage-metered · models: claude-opus-5</p>
+  <section class="kpi-row"><div class="kpi-card"><h3>Delivery</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Delivered / cases</span><span class="stat-value">3/4</span></div><div class="stat"><span class="stat-label">Gate</span><span class="stat-value">red</span></div><div class="stat"><span class="stat-label">Fix rounds</span><span class="stat-value">1</span></div><div class="stat"><span class="stat-label">Findings</span><span class="stat-value">2</span></div></div><div class="kpi-callout"><span class="oc oc-delivered">delivered 2</span> <span class="oc oc-defect-found">defect-found 1</span></div></div><div class="kpi-card"><h3>Cost</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Total <span class="stat-sub">measured</span></span><span class="stat-value">$2.80</span></div><div class="stat"><span class="stat-label">Per delivered <span class="stat-sub">incl. overhead</span></span><span class="stat-value">$0.93</span></div><div class="stat"><span class="stat-label">Overhead <span class="stat-sub">lead+stages, once</span></span><span class="stat-value">$1.05 <span class="stat-sub">(38%)</span></span></div><div class="stat"><span class="stat-label">Rework</span><span class="stat-value">$0.15</span></div></div><div class="kpi-callout">by stage: lead $0.85 · triage $0.10 · other $0.10</div></div><div class="kpi-card"><h3>Tokens</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Total <span class="stat-sub">incl. cache replay</span></span><span class="stat-value">91,933</span></div><div class="stat"><span class="stat-label">Real work <span class="stat-sub">in+out</span></span><span class="stat-value">12,288</span></div><div class="stat"><span class="stat-label">Cache read</span><span class="stat-value">75,350</span></div><div class="stat"><span class="stat-label">Cache hit rate</span><span class="stat-value">94.2%</span></div></div><div class="kpi-callout">cache write 4,295 · ~83.4% of prompt cost saved by cache — composition in <strong>batch-tokenomics.html</strong></div></div><div class="kpi-card"><h3>Activity</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Turns</span><span class="stat-value">10</span></div><div class="stat"><span class="stat-label">Tool calls</span><span class="stat-value">38 <span class="stat-sub">(1 err, 97% ok)</span></span></div><div class="stat"><span class="stat-label">Dispatches</span><span class="stat-value">7</span></div><div class="stat"><span class="stat-label">Active time <span class="stat-sub">(session grain — not split per case, stage or dispatch)</span></span><span class="stat-value">1.0h</span></div></div><div class="kpi-callout">skills: tdd</div></div></section>
+  
+  <p class="note">2 session(s) also served other batches — session-level figures split evenly; 3 other-batch dispatch(es) excluded.</p>
+  <p class="callout-warn">⚠ GATE DRIFT — receipt says 'red' but the recorded verdict is 'green' (2026-10-01T10:00:00Z): write the verdict back into report.json</p>
+  <p class="callout-warn">⚠ OUTCOME DRIFT — S-3: receipt=delivered declared=blocked; S-4: receipt=— declared=delivered — reconcile report.json</p>
+  <section class="panel"><h2>Per case — direct, measured</h2>
+  <p class="panel-sub">Batch overhead is NOT in these bars — it is the labelled figure above, shown once instead of smeared. Clustered cases are an even split of their shared dispatches. Loaded minutes are batch time ÷ cases (session grain), an allocation.</p>
+  
+    <div class="row"><div class="lbl" title="delivered">S-1<span class="oc oc-delivered">delivered</span></div>
+    <div class="track"><div class="bar" style="width:65%"></div></div>
+    <div class="num">$0.65<span class="sub"> · size M ⚠ · loaded $0.91 · — (loaded 15m) · 1 fix · 2 findings</span></div></div>
+    <div class="row"><div class="lbl" title="defect-found">S-2<span class="oc oc-defect-found">defect-found</span></div>
+    <div class="track"><div class="bar" style="width:80%"></div></div>
+    <div class="num">$0.80<span class="sub"> · size M ⚠ · loaded $1.06 · — (loaded 15m) · no fix</span></div></div>
+    <div class="row"><div class="lbl" title="delivered">S-3<span class="oc oc-delivered">delivered</span></div>
+    <div class="track"><div class="bar" style="width:30%"></div></div>
+    <div class="num">$0.30<span class="sub"> · size S · loaded $0.56 · — (loaded 15m) · no fix</span></div></div>
+    <div class="row"><div class="lbl" title="">S-4<span class="oc oc-"></span></div>
+    <div class="track"><div class="bar" style="width:1%"></div></div>
+    <div class="num">$0.00<span class="sub"> · loaded $0.26 · — (loaded 15m) · no fix</span></div></div></section>
+  <section class="panel"><h2>Spread</h2>
+  <p>Direct cost: avg $0.58 · median $0.65 · min $0.30 · max $0.80<br>Loaded cost (direct + even overhead share — allocation, not measurement): avg $0.70 · median $0.74 · min $0.26 · max $1.06<br>Tokens: avg 12,030 · median 2,500 · min 2,430 · max 31,160<br>Active time: session grain, none per case · loaded: avg 15m · median 15m · min 15m · max 15m</p></section>
+  <section class="panel"><h2>By role</h2><p class="panel-sub">role cost = the parent session's role, inclusive of its dispatches; — (n unpriced) = n parent session(s) without dollars; — = not allocated at this grain: a dispatch-only role has no parent-session dollars (its dispatch dollars are the separate breakdown, never added to a role or the total)</p>
+    <div class="row"><div class="lbl">analyst</div>
+    <div class="track"><div class="bar" style="width:100%"></div></div>
+    <div class="num">—<span class="sub"> · 1 disp · — · 4 tools (0)</span></div></div>
+    <div class="row"><div class="lbl">helper</div>
+    <div class="track"><div class="bar" style="width:1%"></div></div>
+    <div class="num">—<span class="sub"> · 0.5 disp · — · 2 tools (0)</span></div></div>
+    <div class="row"><div class="lbl">implementer</div>
+    <div class="track"><div class="bar" style="width:11.827242524916944%"></div></div>
+    <div class="num">—<span class="sub"> · 2 disp · — · 8 tools (0)</span></div></div>
+    <div class="row"><div class="lbl">lead</div>
+    <div class="track"><div class="bar" style="width:91.5282392026578%"></div></div>
+    <div class="num">$1.15<span class="sub"> · — disp · 30m · 6 tools (1)</span></div></div>
+    <div class="row"><div class="lbl">reviewer</div>
+    <div class="track"><div class="bar" style="width:8.073089700996677%"></div></div>
+    <div class="num">—<span class="sub"> · 2 disp · — · 8 tools (0)</span></div></div>
+    <div class="row"><div class="lbl">session</div>
+    <div class="track"><div class="bar" style="width:91.5282392026578%"></div></div>
+    <div class="num">$1.65<span class="sub"> · — disp · 30m · 6 tools (1)</span></div></div>
+    <div class="row"><div class="lbl">triage</div>
+    <div class="track"><div class="bar" style="width:2.1926910299003324%"></div></div>
+    <div class="num">—<span class="sub"> · 1 disp · — · 4 tools (0)</span></div></div></section>
+  <section class="panel"><h2>Dispatch dollars by role</h2><p class="panel-sub">measured per-dispatch dollars by dispatch role — already inside the parent role and the total, so never added to them</p>
+    <div class="row"><div class="lbl">analyst</div><div class="num">$0.50<span class="sub"> · 1 disp · 1 of 1 priced</span></div></div>
+    <div class="row"><div class="lbl">helper</div><div class="num">$0.10<span class="sub"> · 0.5 disp · 0.5 of 0.5 priced</span></div></div>
+    <div class="row"><div class="lbl">implementer</div><div class="num">$0.95<span class="sub"> · 2 disp · 2 of 2 priced</span></div></div>
+    <div class="row"><div class="lbl">reviewer</div><div class="num">$0.30<span class="sub"> · 2 disp · 1 of 2 priced</span></div></div>
+    <div class="row"><div class="lbl">triage</div><div class="num">$0.10<span class="sub"> · 1 disp · 1 of 1 priced</span></div></div></section>
+  <section class="panel"><h2>By size — predicted vs actual</h2>
+  <p class="panel-sub">Pre-run size (automation-scoping) against actuals · batch grain: 30m predicted / 45m actual (allocated: batch time ÷ cases) (×1.5). Deviations are tokens/time analysis pointers — never per-case dollar verdicts.</p>
+  <table><tr><th>size</th><th>cases</th><th>ΣSP</th><th>est min</th><th>actual min</th><th>actual rw tok</th></tr>
+  <tr><td>M</td><td>2</td><td>5</td><td>30</td><td>30</td><td>9,720</td></tr><tr><td>S</td><td>1</td><td>1</td><td>—</td><td>15</td><td>330</td></tr></table>
+  <p class="callout-warn">⚠ S-1 (M, above-p90): real-work 9,320 tok (p100) vs M-class median 1,900 tok — review: estimate drift, execution smell, or a mis-sized case</p><p class="callout-warn">⚠ S-2 (M, below-p10): real-work 400 tok ≤ p10 of M-class — suspiciously cheap: verify coverage was not shortcut</p></section>
+  <p class="note">Unattributed (no captured dispatch named them): S-4</p>
+  <p class="meta">manifest revision 1</p>
+<!doctype html><meta charset="utf-8"><title>Batch cost — tokonly</title><style>
+:root{color-scheme:light;--page:#f9f9f7;--surface:#fcfcfb;--text-primary:#0b0b0b;--text-secondary:#52514e;--text-muted:#898781;--gridline:#e1e0d9;--border:rgba(11,11,11,0.10);--series-1:#2a78d6;--series-2:#eb6834;--series-3:#1baf7a;--series-4:#eda100;--warn:#c53030;--ok:#2f855a}
+html[data-theme="dark"]{color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--text-primary:#fff;--text-secondary:#c3c2b7;--text-muted:#898781;--gridline:#2c2c2a;--border:rgba(255,255,255,0.10);--series-1:#3987e5;--series-2:#d95926;--series-3:#199e70;--series-4:#c98500;--warn:#e06c6c;--ok:#48a06f}
+*{box-sizing:border-box}
+body{font:14px/1.5 -apple-system,"Segoe UI",sans-serif;color:var(--text-primary);background:var(--page);max-width:1120px;margin:0 auto;padding:1.8rem 1.2rem 3rem}
+h1{font-size:1.35rem;margin:0 0 .2rem}
+.meta{color:var(--text-muted);font-size:.85rem;margin:0 0 1.1rem}
+section{margin-top:1.1rem}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:.8rem}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;min-width:0}
+.kpi-card h3{margin:0 0 .55rem;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);font-weight:600}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .7rem}
+.stat{display:flex;flex-direction:column;min-width:0}
+.stat-label{font-size:.74rem;color:var(--text-secondary)}
+.stat-sub{color:var(--text-muted);font-weight:400}
+.stat-value{font-size:1.02rem;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.3;overflow-wrap:anywhere}
+.stat-value-sm{font-size:.84rem;font-weight:500}
+.kpi-callout{margin-top:.65rem;padding:.45rem .6rem;background:var(--page);border:1px solid var(--gridline);border-radius:7px;font-size:.81rem;color:var(--text-secondary)}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem;overflow-x:auto;min-width:0}
+.panel h2{margin:0;font-size:1rem}
+.panel-sub{margin:.15rem 0 .75rem;color:var(--text-muted);font-size:.84rem}
+.stacked-bar{display:flex;height:18px;border-radius:5px;overflow:hidden;background:var(--gridline)}
+.bar-seg{height:100%}
+.s-in{background:var(--series-1)}.s-out{background:var(--series-2)}.s-cr{background:var(--series-3)}.s-cw{background:var(--series-4)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.35rem 1rem;margin-top:.6rem}
+.legend-item{display:flex;align-items:center;gap:.4rem;font-size:.82rem;min-width:0;flex-wrap:wrap}
+.legend-swatch{width:10px;height:10px;border-radius:3px;flex:none}
+.legend-label{color:var(--text-secondary)}
+.legend-value{margin-left:auto;font-variant-numeric:tabular-nums}
+.legend-pct{color:var(--text-muted)}
+.row{display:grid;grid-template-columns:minmax(130px,210px) minmax(140px,1fr) minmax(200px,240px);gap:.7rem;align-items:center;margin:.32rem 0}
+.row .lbl{font-family:ui-monospace,SFMono-Regular,monospace;font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .track{background:var(--gridline);border-radius:4px;height:15px}
+.row .bar{background:var(--series-1);height:15px;border-radius:4px}
+.row .stacked{display:flex;overflow:hidden;height:15px;border-radius:4px}
+.row .num{font-size:.84rem;font-variant-numeric:tabular-nums}
+.sub{color:var(--text-muted)}
+.oc{font-size:.72rem;border:1px solid var(--gridline);border-radius:8px;padding:0 .4rem;margin-left:.35rem;color:var(--text-muted);display:inline-block}
+.oc-automated{color:var(--ok);border-color:var(--ok)}.oc-blocked{color:var(--warn);border-color:var(--warn)}
+.callout-warn{margin-top:.8rem;color:var(--warn);border:1px solid var(--warn);border-radius:7px;padding:.5rem .7rem;font-size:.86rem;background:var(--surface)}
+.note{color:var(--text-muted);font-size:.84rem}
+table{border-collapse:collapse;width:100%;font-size:.87rem;margin:.4rem 0}
+th{text-align:left;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--gridline);padding:.3rem .5rem;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+td{border-bottom:1px solid var(--gridline);padding:.3rem .5rem;font-variant-numeric:tabular-nums}
+.chip{font-size:.8rem;border:1px solid var(--gridline);border-radius:8px;padding:.1rem .5rem;margin-right:.4rem;color:var(--text-secondary);display:inline-block}
+.share-cell{display:flex;align-items:center;gap:.45rem;min-width:140px}
+.share-bar-track{flex:1;height:8px;border-radius:4px;background:var(--gridline);overflow:hidden}
+.share-bar-fill{height:8px;border-radius:4px;background:var(--series-1)}
+.share-bar-label{font-size:.8rem;color:var(--text-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:640px){.row{grid-template-columns:110px 1fr}.row .num{grid-column:1/-1}}
+</style>
+  <h1>Batch cost — tokonly</h1>
+  <p class="meta">Delivery view · generated 2026-10-05T09:06:00.000Z · 1 session(s) on copilot · sources: tokens only · models: —</p>
+  <section class="kpi-row"><div class="kpi-card"><h3>Delivery</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Delivered / cases</span><span class="stat-value">1/1</span></div><div class="stat"><span class="stat-label">Gate</span><span class="stat-value">n/a</span></div><div class="stat"><span class="stat-label">Fix rounds</span><span class="stat-value">0</span></div><div class="stat"><span class="stat-label">Findings</span><span class="stat-value">0</span></div></div><div class="kpi-callout"><span class="oc oc-delivered">delivered 1</span></div></div><div class="kpi-card"><h3>Cost</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Total <span class="stat-sub">measured</span></span><span class="stat-value">n/a</span></div><div class="stat"><span class="stat-label">Per delivered <span class="stat-sub">incl. overhead</span></span><span class="stat-value">n/a</span></div><div class="stat"><span class="stat-label">Overhead <span class="stat-sub">lead+stages, once</span></span><span class="stat-value">n/a</span></div><div class="stat"><span class="stat-label">Avg direct / case</span><span class="stat-value">n/a</span></div></div></div><div class="kpi-card"><h3>Tokens</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Total <span class="stat-sub">incl. cache replay</span></span><span class="stat-value">1,600</span></div><div class="stat"><span class="stat-label">Real work <span class="stat-sub">in+out</span></span><span class="stat-value">1,600</span></div><div class="stat"><span class="stat-label">Cache read</span><span class="stat-value">0</span></div><div class="stat"><span class="stat-label">Cache hit rate</span><span class="stat-value">0.0%</span></div></div><div class="kpi-callout">cache write 0 · ~0.0% of prompt cost saved by cache — composition in <strong>batch-tokenomics.html</strong></div></div><div class="kpi-card"><h3>Activity</h3><div class="kpi-grid"><div class="stat"><span class="stat-label">Turns</span><span class="stat-value">10</span></div><div class="stat"><span class="stat-label">Tool calls</span><span class="stat-value">20 <span class="stat-sub">(1 err, 95% ok)</span></span></div><div class="stat"><span class="stat-label">Dispatches</span><span class="stat-value">2</span></div><div class="stat"><span class="stat-label">Active time <span class="stat-sub">(session grain — not split per case, stage or dispatch)</span></span><span class="stat-value">1.0h</span></div></div><div class="kpi-callout">skills: tdd</div></div></section>
+  
+  
+  
+  
+  <section class="panel"><h2>Per case — direct, measured (tokens: no per-dispatch dollars on this host)</h2>
+  <p class="panel-sub">Batch overhead is NOT in these bars — it is the labelled figure above, shown once instead of smeared. Clustered cases are an even split of their shared dispatches. Loaded minutes are batch time ÷ cases (session grain), an allocation.</p>
+  
+    <div class="row"><div class="lbl" title="delivered">T-1<span class="oc oc-delivered">delivered</span></div>
+    <div class="track"><div class="bar" style="width:100%"></div></div>
+    <div class="num">1k tok<span class="sub"> · — (loaded 60m) · no fix</span></div></div></section>
+  <section class="panel"><h2>Spread</h2>
+  <p>Tokens: avg 700 · median 700 · min 700 · max 700<br>Active time: session grain, none per case · loaded: avg 60m · median 60m · min 60m · max 60m</p></section>
+  <section class="panel"><h2>By role</h2><p class="panel-sub">role cost = the parent session's role, inclusive of its dispatches; — (n unpriced) = n parent session(s) without dollars; — = not allocated at this grain: a dispatch-only role has no parent-session dollars (its dispatch dollars are the separate breakdown, never added to a role or the total)</p>
+    <div class="row"><div class="lbl">tester</div>
+    <div class="track"><div class="bar" style="width:100%"></div></div>
+    <div class="num">— (1 unpriced)<span class="sub"> · 2 disp · 60m · 20 tools (1)</span></div></div></section>
+  <section class="panel"><h2>Dispatch dollars by role</h2><p class="panel-sub">measured per-dispatch dollars by dispatch role — already inside the parent role and the total, so never added to them</p>
+    <div class="row"><div class="lbl">tester</div><div class="num">— (2 unpriced)<span class="sub"> · 2 disp · 0 of 2 priced</span></div></div></section>
+  
+  
+  <p class="meta">manifest revision 1</p>

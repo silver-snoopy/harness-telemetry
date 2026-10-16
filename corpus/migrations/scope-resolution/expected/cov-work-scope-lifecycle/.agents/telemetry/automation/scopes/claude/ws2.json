@@ -1,0 +1,16 @@
+{
+  "v": 1,
+  "session": "ws2",
+  "intent": "automation",
+  "cases": [
+    "C-1"
+  ],
+  "declaredAt": "2026-10-01T09:05:00.000Z",
+  "outcomes": {
+    "C-1": {
+      "outcome": "PASS",
+      "at": "2026-10-01T09:05:00.000Z"
+    }
+  },
+  "updatedAt": "2026-10-01T09:05:00.000Z"
+}

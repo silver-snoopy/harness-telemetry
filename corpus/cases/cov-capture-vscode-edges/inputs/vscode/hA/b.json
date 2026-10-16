@@ -1,0 +1,15 @@
+{
+  "requests": [
+    {
+      "requestId": "w1",
+      "promptTokens": 10,
+      "timestamp": 1790935200000,
+      "modeInfo": {
+        "isBuiltin": false
+      },
+      "message": {
+        "text": "whole QB-1"
+      }
+    }
+  ]
+}

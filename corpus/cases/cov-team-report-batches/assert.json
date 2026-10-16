@@ -1,0 +1,217 @@
+{
+  "exits": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0
+  ],
+  "textFacts": [
+    {
+      "file": "__events__/0.stdout",
+      "includes": "- Gate: green (3 runs)"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "includes": "- Gate record (script-authored): red at ? (1 run record(s))"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "includes": "cache 2.8M read / 0 write"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "includes": "- Cases: 2  ·  **delivered: 0**\n- Findings reported"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "includes": "| QUIET-1 | — | n/a | n/a | 0 (incl. cache) |"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "includes": "| S | 1 | — | — | 4 | 280 |"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "includes": "- Activity: 5 turns  ·  0 tool calls (0 err)"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "includes": "- Cases: 0  ·  **delivered: 0**"
+    },
+    {
+      "file": "__events__/1.stdout",
+      "includes": "Gate <span class=\"stat-sub\">(3 runs)</span>"
+    },
+    {
+      "file": "__events__/1.stdout",
+      "includes": "recorded verdict is 'red' (?)"
+    },
+    {
+      "file": "__events__/1.stdout",
+      "includes": "Active time: n/a</p>"
+    },
+    {
+      "file": "__events__/1.stdout",
+      "includes": "Active time: avg 9m"
+    },
+    {
+      "file": "__events__/1.stdout",
+      "includes": "<td>S</td><td>1</td><td>—</td><td>—</td><td>4</td>"
+    },
+    {
+      "file": "__events__/1.stdout",
+      "includes": "<span class=\"stat-value\">0 <span class=\"stat-sub\">(0 err)</span></span>"
+    },
+    {
+      "file": "__events__/2.stdout",
+      "includes": "| real work: input | 0 | NaN% |"
+    },
+    {
+      "file": "__events__/2.stdout",
+      "includes": "| analyst | n/a | 0 | 0 | 0 | n/a |"
+    },
+    {
+      "file": "__events__/2.stdout",
+      "includes": "| claude-opus-5 | 1,000 | 4,000 | 0 | 2.5M | 2,505,000 |"
+    },
+    {
+      "file": "__events__/3.stdout",
+      "includes": "<div class=\"stacked-bar\"><div class=\"bar-seg s-in\""
+    },
+    {
+      "file": "__events__/3.stdout",
+      "includes": "title=\"cache read · 0.1×: 2,843,000 (99.8%)\"></div></div>"
+    },
+    {
+      "file": "__events__/2.stdout",
+      "includes": "| NEG-1 | n/a | 1,000 | 0 | 0 | 0 | 1,000 | 0.0% | 0.0% |"
+    },
+    {
+      "file": "__events__/2.stdout",
+      "includes": "| **total** | **0** | 100% |"
+    },
+    {
+      "file": "__events__/3.stdout",
+      "includes": "<div class=\"share-bar-fill\" style=\"width:0.5%\"></div></div><span class=\"share-bar-label\">0.0%</span>"
+    },
+    {
+      "file": "__events__/0.stdout",
+      "includes": "- Active-time spread: avg 5m · median 5m · min 5m · max 5m\n- Direct token spread"
+    },
+    {
+      "file": "__events__/8.stdout",
+      "includes": "| bt-gate | 2 | 2 | $10.00 | $5.00 | 1.0h | green | ⚠️ |"
+    },
+    {
+      "file": "__events__/8.stdout",
+      "includes": "| bt-sized | 2 | 1 | $5.00 | $5.00 | 0.3h | — | ⚠️ |"
+    },
+    {
+      "file": "__events__/8.stdout",
+      "includes": "| bt-empty | 0 | 0 | n/a | n/a | 0.0h | — | — |"
+    },
+    {
+      "file": "__events__/8.stdout",
+      "includes": "| QUIET-1 | bt-quiet | — | n/a | n/a | 6m |"
+    },
+    {
+      "file": "__events__/9.stdout",
+      "includes": "<td>bt-sized</td><td>2</td><td>1</td><td>$5.00</td><td>$5.00</td><td>0.3h</td><td>—</td><td>⚠️</td>"
+    },
+    {
+      "file": ".agents/telemetry/sized.md",
+      "includes": "# Batch cost — bt-sized"
+    },
+    {
+      "file": ".agents/telemetry/sized.md",
+      "includes": "OUTCOME DRIFT"
+    },
+    {
+      "file": "__events__/6.stderr",
+      "equals": "team-report: no receipts for batch 'no-such-batch' under <REPO>/.agents/automation\n"
+    },
+    {
+      "file": "__events__/7.stderr",
+      "equals": "team-report: no receipts under <REPO>/empty/.agents/automation\n"
+    }
+  ],
+  "fileFacts": [
+    {
+      "file": "__events__/4.stdout",
+      "path": "/batch",
+      "equals": "bt-gate"
+    },
+    {
+      "file": "__events__/4.stdout",
+      "path": "/records/gateDrift/recorded",
+      "equals": "red"
+    },
+    {
+      "file": "__events__/4.stdout",
+      "path": "/records/gateDrift/at",
+      "equals": null
+    },
+    {
+      "file": "__events__/4.stdout",
+      "path": "/records/gateRuns/latest/at",
+      "equals": null
+    },
+    {
+      "file": "__events__/4.stdout",
+      "path": "/gate/runs",
+      "equals": 3
+    },
+    {
+      "file": "__events__/10.stdout",
+      "path": "/byBatch/4/batch",
+      "equals": "bt-quiet"
+    },
+    {
+      "file": "__events__/10.stdout",
+      "path": "/byBatch/5/batch",
+      "equals": "bt-sized"
+    },
+    {
+      "file": "__events__/10.stdout",
+      "path": "/byBatch/5/drift",
+      "equals": true
+    },
+    {
+      "file": "__events__/10.stdout",
+      "path": "/byBatch/4/drift",
+      "equals": false
+    },
+    {
+      "file": "__events__/10.stdout",
+      "path": "/perCase/6/id",
+      "equals": "QUIET-1"
+    },
+    {
+      "file": "__events__/10.stdout",
+      "path": "/perCase/6/loaded/costUsd",
+      "equals": null
+    },
+    {
+      "file": "__events__/10.stdout",
+      "path": "/perCase/7/id",
+      "equals": "QUIET-2"
+    },
+    {
+      "file": ".agents/automation/bt-sized/cost.json",
+      "path": "/records/outcomeDrift/0/declared",
+      "equals": "delivered"
+    },
+    {
+      "file": ".agents/automation/bt-sized/cost.json",
+      "path": "/records/gateDrift",
+      "absent": true
+    }
+  ]
+}

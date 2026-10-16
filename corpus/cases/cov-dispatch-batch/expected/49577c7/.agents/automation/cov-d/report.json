@@ -1,0 +1,1 @@
+{"batch":"cov-d","integration_branch":"feat/PROJ-1-cov","gate":{"verdict":"green"},"cases":[{"id":"PROJ-1","outcome":"delivered","findings":[{}]},{"id":"PROJ-2","outcome":"delivered"},{"id":"PROJ-3","outcome":"blocked"}]}

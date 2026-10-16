@@ -1,0 +1,12 @@
+{
+  "case": "cov-capture-copilot-edges",
+  "migrations": [
+    "null-unobservable",
+    "copilot-inclusive",
+    "writer"
+  ],
+  "reason": "null-unobservable writes the k4 timestamp-less minutes as null and dispatch counters as null; copilot-inclusive adds tokensBasis inclusive to every Copilot line and un-nets k1. Together each line carries both the null counters and the inclusive basis. With writer, writer stamps every appended line with writer tokenomics-engine@0.0.0-replay and manifestRevision 1 right after v (map D4); the ledger carries all of these effects.",
+  "changed": [
+    ".agents/telemetry/automation/usage-corpus.jsonl"
+  ]
+}

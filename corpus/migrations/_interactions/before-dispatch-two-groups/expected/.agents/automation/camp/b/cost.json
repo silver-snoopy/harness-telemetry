@@ -1,0 +1,244 @@
+{
+ "v": 1,
+ "manifestRevision": 1,
+ "batch": "camp/b",
+ "generatedAt": "2026-10-01T10:30:00.000Z",
+ "sources": {
+  "sessions": 1,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "corpus"
+  ],
+  "costSources": [],
+  "models": [
+   "claude-haiku-5-5"
+  ],
+  "sharedSessions": 1,
+  "note": "session-level figures of shared sessions are split evenly across the batches they served",
+  "sharedDispatches": 1,
+  "sharedDispatchesNote": "a dispatch that is the work of k batches is split evenly (1/k) across them, so it is counted once in total",
+  "activeMinGrain": "session",
+  "activeMinNote": "active minutes are allocated once, at session grain (spec 5.4): per-case, stage and dispatch-role minutes are not allocated (null, which is not unmeasured); loaded minutes = batch time ÷ cases, an allocation"
+ },
+ "totals": {
+  "costUsd": null,
+  "tokens": 390,
+  "tokensSplit": {
+   "input": 10,
+   "output": 40,
+   "cacheRead": 300,
+   "cacheWrite": 40
+  },
+  "tokensByModel": {
+   "claude-haiku-5-5": {
+    "input": 10,
+    "output": 40,
+    "cacheRead": 300,
+    "cacheWrite": 40
+   }
+  },
+  "activeMin": 4,
+  "dispatches": 0.5,
+  "sessions": 1,
+  "turns": 1,
+  "toolCalls": 0,
+  "toolErrors": 0,
+  "skills": [],
+  "unmeasured": {
+   "tokens": 0,
+   "activeMin": 0,
+   "wallMin": 0,
+   "turns": 0,
+   "toolCalls": 0,
+   "toolErrors": 0
+  }
+ },
+ "byRole": {
+  "implementer": {
+   "costUsd": null,
+   "tokens": 205,
+   "tok": {
+    "input": 5,
+    "output": 30,
+    "cacheRead": 150,
+    "cacheWrite": 20
+   },
+   "activeMin": null,
+   "dispatches": 0.5,
+   "toolCalls": 0,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 0,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "priced": 0,
+   "unpriced": 0
+  },
+  "session": {
+   "costUsd": null,
+   "tokens": 185,
+   "tok": {
+    "input": 5,
+    "output": 10,
+    "cacheRead": 150,
+    "cacheWrite": 20
+   },
+   "activeMin": 4,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 0,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "priced": 0,
+   "unpriced": 1
+  }
+ },
+ "byDispatchRole": {
+  "implementer": {
+   "units": 0.5,
+   "costUsd": null,
+   "priced": 0
+  }
+ },
+ "overhead": {
+  "note": "batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows",
+  "costUsd": null,
+  "sharePct": null,
+  "lead": {
+   "costUsd": null,
+   "tokens": 185,
+   "tok": {
+    "input": 5,
+    "output": 10,
+    "cacheRead": 150,
+    "cacheWrite": 20
+   },
+   "activeMin": 4,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 0,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   }
+  },
+  "stages": {
+   "costUsd": null,
+   "tokens": 0,
+   "tok": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": null,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 0,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   }
+  },
+  "byStage": {}
+ },
+ "outcomes": {
+  "delivered": 1
+ },
+ "delivered": 1,
+ "gate": {
+  "verdict": "green"
+ },
+ "cases": [
+  {
+   "id": "TC-2",
+   "outcome": "delivered",
+   "findings": 0,
+   "direct": {
+    "costUsd": null,
+    "tokens": 205,
+    "tok": {
+     "input": 5,
+     "output": 30,
+     "cacheRead": 150,
+     "cacheWrite": 20
+    },
+    "activeMin": null,
+    "dispatches": 0.5,
+    "fixRounds": 0,
+    "toolCalls": 0,
+    "toolErrors": 0,
+    "unmeasured": {
+     "tokens": 0,
+     "activeMin": 0,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   },
+   "loaded": {
+    "costUsd": null,
+    "tokens": 390,
+    "activeMin": 4,
+    "unmeasured": {
+     "tokens": 0,
+     "activeMin": 0,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   }
+  }
+ ],
+ "stats": {
+  "note": "direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": null,
+  "directTokens": {
+   "avg": 205,
+   "median": 205,
+   "min": 205,
+   "max": 205,
+   "n": 1
+  },
+  "directActiveMin": null,
+  "loadedCostUsd": null,
+  "loadedActiveMin": {
+   "avg": 4,
+   "median": 4,
+   "min": 4,
+   "max": 4,
+   "n": 1
+  }
+ },
+ "averages": {
+  "totalPerDelivered": null,
+  "directPerCase": null
+ },
+ "coverage": {
+  "casesAttributed": 1,
+  "casesUnattributed": [],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

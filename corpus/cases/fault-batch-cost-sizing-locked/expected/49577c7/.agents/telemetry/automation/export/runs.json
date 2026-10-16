@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "segment": {
+    "factory_id": null,
+    "factory_name": null,
+    "stop": "testing",
+    "owner_group": "QA",
+    "work_item_level": "feature",
+    "factory_type": "qa",
+    "agent_tool": "claude",
+    "default_method": "metered",
+    "scope": {
+      "includes_subagents": true,
+      "includes_retries": true,
+      "includes_abandoned_runs": false
+    },
+    "currency": "USD",
+    "efficiency_techniques": [],
+    "pipeline": []
+  },
+  "runs": [
+    {
+      "work_item_ref": "T-sz",
+      "work_item_level": "feature",
+      "work_item_brief": "Test-automation batch: 1 TMS case(s) through analyse → implement → review → merge → gate; 1 delivered.",
+      "maturity": "pilot",
+      "size_tshirt": "XS",
+      "effort_days": 0.4,
+      "sessions": 1,
+      "turns": 1,
+      "subagent_dispatches": 0,
+      "orchestrator_cost_pct": 100,
+      "tokens": {
+        "input": 10,
+        "output": 200,
+        "cache_read": 300,
+        "cache_create": 40
+      },
+      "primary_model": "claude-sonnet-5",
+      "models_used": [
+        "claude-sonnet-5"
+      ],
+      "tokens_by_model": {
+        "claude-sonnet-5": {
+          "input": 10,
+          "output": 200,
+          "cache_read": 300,
+          "cache_create": 40
+        }
+      },
+      "cost_api_equivalent_usd": null,
+      "cache_read_share_pct": 2.8,
+      "scenarios_authored": 1,
+      "scenarios_automated": 1,
+      "scenarios_executed": 1,
+      "scenario_complexity": "M",
+      "self_size": "M",
+      "story_points": 3,
+      "notes": "gate not-run; outcomes: delivered 1. Telemetry cohort: reconstructed from .agents/automation/sz/cost.json (v1); batch slug 'sz'. effort_days derived from scoping SP (3 SP × 1h ÷ 8) — conventional-effort estimate, not a human report. cache_read_share_pct computed from the token quad at public list ratios (in 1x / out 5x / write 1.25x / read 0.1x). scenarios_executed = cases the pipeline analysed live and gated (live execution evidence + N-consecutive gate runs; re-runs not multiplied)."
+    }
+  ]
+}

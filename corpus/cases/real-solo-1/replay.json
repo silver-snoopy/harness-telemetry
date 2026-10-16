@@ -1,0 +1,105 @@
+{
+  "id": "real-solo-1",
+  "seed": 1,
+  "identity": {
+    "gitUser": "corpus",
+    "gitEmail": "corpus@example.invalid"
+  },
+  "repo": {
+    "path": "repo",
+    "branch": "main",
+    "files": {}
+  },
+  "stores": [
+    {
+      "from": "inputs/claude/39d27e4f-6012-4056-96fa-1d5324a409ac.jsonl",
+      "to": "home/.claude/projects/{repoKey}/39d27e4f-6012-4056-96fa-1d5324a409ac.jsonl",
+      "mtime": "2026-09-14T06:04:26.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-a3cf7b3ed43790a0d.jsonl",
+      "to": "home/.claude/projects/{repoKey}/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-a3cf7b3ed43790a0d.jsonl",
+      "mtime": "2026-09-10T07:13:42.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-a3cf7b3ed43790a0d.meta.json",
+      "to": "home/.claude/projects/{repoKey}/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-a3cf7b3ed43790a0d.meta.json",
+      "mtime": "2026-09-10T07:04:59.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-ac49ed2174fd5755a.jsonl",
+      "to": "home/.claude/projects/{repoKey}/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-ac49ed2174fd5755a.jsonl",
+      "mtime": "2026-09-09T16:51:52.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-ac49ed2174fd5755a.meta.json",
+      "to": "home/.claude/projects/{repoKey}/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-ac49ed2174fd5755a.meta.json",
+      "mtime": "2026-09-09T16:45:44.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-ace1bc510f01d58c7.jsonl",
+      "to": "home/.claude/projects/{repoKey}/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-ace1bc510f01d58c7.jsonl",
+      "mtime": "2026-09-10T07:14:10.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-ace1bc510f01d58c7.meta.json",
+      "to": "home/.claude/projects/{repoKey}/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-ace1bc510f01d58c7.meta.json",
+      "mtime": "2026-09-10T07:05:44.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-ae0b80429dad1af61.jsonl",
+      "to": "home/.claude/projects/{repoKey}/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-ae0b80429dad1af61.jsonl",
+      "mtime": "2026-09-10T07:09:02.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-ae0b80429dad1af61.meta.json",
+      "to": "home/.claude/projects/{repoKey}/39d27e4f-6012-4056-96fa-1d5324a409ac/subagents/agent-ae0b80429dad1af61.meta.json",
+      "mtime": "2026-09-10T07:06:22.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/39d27e4f-6012-4056-96fa-1d5324a409ac/tool-results/b3l62tswm.txt",
+      "to": "home/.claude/projects/{repoKey}/39d27e4f-6012-4056-96fa-1d5324a409ac/tool-results/b3l62tswm.txt",
+      "mtime": "2026-09-10T07:06:33.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/39d27e4f-6012-4056-96fa-1d5324a409ac/tool-results/b6ruruamw.txt",
+      "to": "home/.claude/projects/{repoKey}/39d27e4f-6012-4056-96fa-1d5324a409ac/tool-results/b6ruruamw.txt",
+      "mtime": "2026-09-10T07:05:09.000Z",
+      "template": true
+    },
+    {
+      "from": "inputs/claude/39d27e4f-6012-4056-96fa-1d5324a409ac/tool-results/bpalwjr2q.txt",
+      "to": "home/.claude/projects/{repoKey}/39d27e4f-6012-4056-96fa-1d5324a409ac/tool-results/bpalwjr2q.txt",
+      "mtime": "2026-09-10T07:05:04.000Z",
+      "template": true
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-09-14T06:34:26.000Z",
+      "run": "hooks/telemetry-capture.mjs",
+      "args": [
+        "--transcript",
+        "{home}/.claude/projects/{repoKey}/39d27e4f-6012-4056-96fa-1d5324a409ac.jsonl",
+        "--session",
+        "39d27e4f-6012-4056-96fa-1d5324a409ac"
+      ],
+      "stdin": null,
+      "env": {}
+    }
+  ],
+  "outputs": [
+    ".agents/telemetry",
+    ".agents/automation"
+  ]
+}

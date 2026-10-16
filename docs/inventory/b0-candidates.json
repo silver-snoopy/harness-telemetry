@@ -1,0 +1,2599 @@
+[
+  {
+    "id": "hooks/otel-sink.mjs:env-var:340c7465a4",
+    "file": "hooks/otel-sink.mjs",
+    "line": 98,
+    "category": "env-var",
+    "snippet": "idleMs: Number(process.env.TOKENOMICS_SINK_IDLE_MS || arg('--idle-ms', 30 * 60 * 1000)),"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:path-automation:a141c3cc80",
+    "file": "hooks/scope-hook.mjs",
+    "line": 46,
+    "category": "path-automation",
+    "snippet": "export const INTENTS = ['automation', 'manual-testing', 'investigation', 'framework', 'onboarding', 'docs', 'other'];"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:path-automation:e0db26dd6a",
+    "file": "hooks/scope-hook.mjs",
+    "line": 48,
+    "category": "path-automation",
+    "snippet": "export function scopesDir(repo) { return join(repo, '.agents', 'telemetry', 'automation', 'scopes'); }"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:qa-wording:aa0618862b",
+    "file": "hooks/scope-hook.mjs",
+    "line": 65,
+    "category": "qa-wording",
+    "snippet": "return `tokenomics scope [session ${sid}]: ${scope.intent}${scope.batch ? ` / batch ${scope.batch}` : ''} — ${scope.cases.length} case(s)`"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:group-wording:aa0618862b",
+    "file": "hooks/scope-hook.mjs",
+    "line": 65,
+    "category": "group-wording",
+    "snippet": "return `tokenomics scope [session ${sid}]: ${scope.intent}${scope.batch ? ` / batch ${scope.batch}` : ''} — ${scope.cases.length} case(s)`"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:qa-wording:c8ba160736",
+    "file": "hooks/scope-hook.mjs",
+    "line": 69,
+    "category": "qa-wording",
+    "snippet": "+ `\\`node ${scopeScriptPath(repo, scriptUrl)} open --session ${sid} --intent <intent> [--batch <slug> --cases <ID,ID,…>]\\`. `"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:path-automation:a2ee5d47dc",
+    "file": "hooks/scope-hook.mjs",
+    "line": 70,
+    "category": "path-automation",
+    "snippet": "+ `Batch work: \\`--intent automation\\` WITH batch + cases (only this intent feeds cost-per-case). Anything else: pick the honest label — `"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:qa-wording:a2ee5d47dc",
+    "file": "hooks/scope-hook.mjs",
+    "line": 70,
+    "category": "qa-wording",
+    "snippet": "+ `Batch work: \\`--intent automation\\` WITH batch + cases (only this intent feeds cost-per-case). Anything else: pick the honest label — `"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:group-wording:a2ee5d47dc",
+    "file": "hooks/scope-hook.mjs",
+    "line": 70,
+    "category": "group-wording",
+    "snippet": "+ `Batch work: \\`--intent automation\\` WITH batch + cases (only this intent feeds cost-per-case). Anything else: pick the honest label — `"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:path-automation:c80d4d9bb9",
+    "file": "hooks/scope-hook.mjs",
+    "line": 71,
+    "category": "path-automation",
+    "snippet": "+ `${INTENTS.filter((i) => i !== 'automation').join(', ')} — or your own; no batch/cases needed. Then record results as they become true: `"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:qa-wording:c80d4d9bb9",
+    "file": "hooks/scope-hook.mjs",
+    "line": 71,
+    "category": "qa-wording",
+    "snippet": "+ `${INTENTS.filter((i) => i !== 'automation').join(', ')} — or your own; no batch/cases needed. Then record results as they become true: `"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:group-wording:c80d4d9bb9",
+    "file": "hooks/scope-hook.mjs",
+    "line": 71,
+    "category": "group-wording",
+    "snippet": "+ `${INTENTS.filter((i) => i !== 'automation').join(', ')} — or your own; no batch/cases needed. Then record results as they become true: `"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:receipt-reader:fd7e9582aa",
+    "file": "hooks/scope-hook.mjs",
+    "line": 86,
+    "category": "receipt-reader",
+    "snippet": "export function receiptPathFor(repo, batch) {"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:path-automation:f3f02f6a9a",
+    "file": "hooks/scope-hook.mjs",
+    "line": 87,
+    "category": "path-automation",
+    "snippet": "const root = join(repo, '.agents', 'automation');"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:receipt-reader:e7a4e05fdd",
+    "file": "hooks/scope-hook.mjs",
+    "line": 88,
+    "category": "receipt-reader",
+    "snippet": "const direct = join(root, ...String(batch).split('/'), 'report.json');"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:receipt-reader:9712c4588f",
+    "file": "hooks/scope-hook.mjs",
+    "line": 92,
+    "category": "receipt-reader",
+    "snippet": "for (const n of names) {                                  // <campaign>/<wave>/report.json"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:receipt-reader:16cc67b7c4",
+    "file": "hooks/scope-hook.mjs",
+    "line": 93,
+    "category": "receipt-reader",
+    "snippet": "const nested = join(root, n, String(batch), 'report.json');"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:path-automation:934ff241bb",
+    "file": "hooks/scope-hook.mjs",
+    "line": 133,
+    "category": "path-automation",
+    "snippet": "+ `--intent automation --batch <slug> --cases <ID,ID,…>\\` for batch work — or, for anything else, the same command with the honest label and no batch/cases `"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:qa-wording:934ff241bb",
+    "file": "hooks/scope-hook.mjs",
+    "line": 133,
+    "category": "qa-wording",
+    "snippet": "+ `--intent automation --batch <slug> --cases <ID,ID,…>\\` for batch work — or, for anything else, the same command with the honest label and no batch/cases `"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:group-wording:934ff241bb",
+    "file": "hooks/scope-hook.mjs",
+    "line": 133,
+    "category": "group-wording",
+    "snippet": "+ `--intent automation --batch <slug> --cases <ID,ID,…>\\` for batch work — or, for anything else, the same command with the honest label and no batch/cases `"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:path-automation:1f97c236af",
+    "file": "hooks/scope-hook.mjs",
+    "line": 134,
+    "category": "path-automation",
+    "snippet": "+ `(${INTENTS.filter((i) => i !== 'automation').join(' / ')}, or your own). Then finish your reply.`,"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:receipt-reader:d4ae291f47",
+    "file": "hooks/scope-hook.mjs",
+    "line": 138,
+    "category": "receipt-reader",
+    "snippet": "if (scope.batch && !scope.closedAt && receiptPathFor(repo, scope.batch) && !askedOnce('unclosed')) {"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:group-wording:ef32bbe488",
+    "file": "hooks/scope-hook.mjs",
+    "line": 141,
+    "category": "group-wording",
+    "snippet": "reason: `Batch '${scope.batch}' has written its receipt but this session's scope is still open — the batch report does not exist yet. `"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:path-automation:e0683e5b6a",
+    "file": "hooks/scope-hook.mjs",
+    "line": 143,
+    "category": "path-automation",
+    "snippet": "+ `\\`node ${scopeScriptPath(repo, scriptUrl)} close --session ${sid}\\` — it captures this session's spend, renders .agents/automation/${scope.batch}/batch-repor"
+  },
+  {
+    "id": "hooks/scope-hook.mjs:receipt-reader:5693c482aa",
+    "file": "hooks/scope-hook.mjs",
+    "line": 144,
+    "category": "receipt-reader",
+    "snippet": "+ `and cross-checks the receipt against the recorded gate verdicts (a DRIFT warning means report.json still needs its write-back). Then finish your reply.`,"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:path-automation:f31063fc5a",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 68,
+    "category": "path-automation",
+    "snippet": "const p = join(repo, '.agents', 'telemetry', 'automation', 'config.json');"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:path-automation:ff5578ac0a",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 99,
+    "category": "path-automation",
+    "snippet": "return join(repo, '.agents', 'telemetry', 'automation', `usage-${slug}.jsonl`);"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:path-automation:896a40c697",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 104,
+    "category": "path-automation",
+    "snippet": "const dir = join(repo, '.agents', 'telemetry', 'automation');"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:case-id-miner:47dba68484",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 207,
+    "category": "case-id-miner",
+    "snippet": "const CASE_ID_RE = /\\b[A-Z][A-Z0-9]{1,9}-[A-Z]?\\d{1,6}\\b(?!-\\d)/g;"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:case-id-miner:b616c818a3",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 208,
+    "category": "case-id-miner",
+    "snippet": "const CASE_ID_STOP = new Set(['ISO', 'SHA', 'UTF', 'GPT', 'RFC', 'HTTP', 'HTTPS', 'TLS', 'SSL', 'AES', 'MD', 'CVE', 'OAUTH', 'IPV', 'ERR']);"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:case-id-miner:20e87cff12",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 209,
+    "category": "case-id-miner",
+    "snippet": "const CASE_ID_MAX = 50;"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:case-id-miner:54a71e4977",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 210,
+    "category": "case-id-miner",
+    "snippet": "export function extractCaseIds(...texts) {"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:case-id-miner:94e9358035",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 214,
+    "category": "case-id-miner",
+    "snippet": "for (const m of t.match(CASE_ID_RE) ?? []) {"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:case-id-miner:71a639fe4b",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 215,
+    "category": "case-id-miner",
+    "snippet": "if (CASE_ID_STOP.has(m.split('-')[0])) continue;"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:case-id-miner:79a55357c7",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 217,
+    "category": "case-id-miner",
+    "snippet": "if (out.size >= CASE_ID_MAX) return [...out].sort();"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:case-id-miner:cff97bb6b5",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 281,
+    "category": "case-id-miner",
+    "snippet": "caseTexts.push(p); // ids only are kept from this — see extractCaseIds"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:case-id-miner:d07d3d3da0",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 315,
+    "category": "case-id-miner",
+    "snippet": "const caseIds = extractCaseIds(branch, firstText, ...caseTexts);"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:receipt-reader:cfeeff5407",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 350,
+    "category": "receipt-reader",
+    "snippet": "export function receiptCaseIds(repo, agentId) {"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:path-automation:c474fc46cf",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 353,
+    "category": "path-automation",
+    "snippet": "join(repo, '.agents', 'telemetry', 'automation', 'returns'),"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:path-automation:98c3c8a1f6",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 354,
+    "category": "path-automation",
+    "snippet": "join(repo, '.agents', 'automation', '_returns'),"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:receipt-reader:98c3c8a1f6",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 354,
+    "category": "receipt-reader",
+    "snippet": "join(repo, '.agents', 'automation', '_returns'),"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:receipt-reader:d790f29e02",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 365,
+    "category": "receipt-reader",
+    "snippet": "const ids = Array.isArray(res.unit_ids) ? res.unit_ids"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:receipt-reader:52ba8ee762",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 366,
+    "category": "receipt-reader",
+    "snippet": ": Array.isArray(res.cases) ? res.cases.map((c) => c?.case_id).filter(Boolean)"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:path-automation:a250c9ee7b",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 387,
+    "category": "path-automation",
+    "snippet": "return join(repo, '.agents', 'telemetry', 'automation', 'live', `${String(sessionId).replace(/[^A-Za-z0-9._-]/g, '')}.jsonl`);"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:receipt-reader:68ce8b4081",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 441,
+    "category": "receipt-reader",
+    "snippet": "cases: receiptCaseIds(repo, meta.id) ?? scoped(sp.caseIds),"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:case-id-miner:32839da988",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 523,
+    "category": "case-id-miner",
+    "snippet": "label: deriveLabel(description, ''), cases: extractCaseIds(description),"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:env-var:2a6b7e6489",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 558,
+    "category": "env-var",
+    "snippet": "if (env.TOKENOMICS_NO_CCUSAGE === '1') return unpriced;"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:env-var:7c67e137e5",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 569,
+    "category": "env-var",
+    "snippet": "const bin = env.TOKENOMICS_CCUSAGE_BIN || 'npx';"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:stage-words:cb323ba27c",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 613,
+    "category": "stage-words",
+    "snippet": "const STAGE_MARKER = /\\b(triage|analyst|implement\\w*|combined|review\\w*|fix round|carve|merge|hardening gate|mini-gate|gate for batch|report writer|write the re"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:stage-words:f57226f85b",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 618,
+    "category": "stage-words",
+    "snippet": "const m = STAGE_MARKER.exec(t);"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:path-automation:39d777f47d",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 633,
+    "category": "path-automation",
+    "snippet": "const dir = join(repo, '.agents', 'telemetry', 'automation', 'scopes');"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:case-id-miner:3836c5759d",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 733,
+    "category": "case-id-miner",
+    "snippet": "const mined = extractCaseIds("
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:receipt-reader:ba0eb87e97",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 788,
+    "category": "receipt-reader",
+    "snippet": "...((() => { const ids = receiptCaseIds(repo, s.id) ?? scopedIds(s.caseIds); return ids?.length ? { cases: ids } : {}; })()),"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:env-var:536d58bacb",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 837,
+    "category": "env-var",
+    "snippet": "if (env.TOKENOMICS_CLAUDE_ROOT) return [env.TOKENOMICS_CLAUDE_ROOT];"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:env-var:f376acf2f6",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 849,
+    "category": "env-var",
+    "snippet": "if (env.TOKENOMICS_COPILOT_ROOT) {"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:env-var:29ffff3293",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 850,
+    "category": "env-var",
+    "snippet": "return existsSync(env.TOKENOMICS_COPILOT_ROOT) ? [env.TOKENOMICS_COPILOT_ROOT] : [];"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:case-id-miner:38b5f65edb",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 990,
+    "category": "case-id-miner",
+    "snippet": "cases: [...new Set([...extractCaseIds(branch, ...caseTexts), ...(scope?.cases ?? [])])].sort(),"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:env-var:016d3cabea",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 1009,
+    "category": "env-var",
+    "snippet": "if (env.TOKENOMICS_VSCODE_ROOT) {"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:env-var:95c0e2ffbb",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 1010,
+    "category": "env-var",
+    "snippet": "return existsSync(env.TOKENOMICS_VSCODE_ROOT) ? [env.TOKENOMICS_VSCODE_ROOT] : [];"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:case-id-miner:7708c9941c",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 1145,
+    "category": "case-id-miner",
+    "snippet": "cases: extractCaseIds(title, ...reqs.map((r) => r.messageText)),"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:env-var:d228e1af79",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 1345,
+    "category": "env-var",
+    "snippet": "if (cfg.otel?.enabled && env.TOKENOMICS_NO_SINK !== '1') ensureSink(cfg.otel, env);"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:path-automation:2cda2a1cfd",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 1417,
+    "category": "path-automation",
+    "snippet": "process.stderr.write(`tokenomics: captured ${captured + r.captured} session(s) → .agents/telemetry/automation/usage-${me}.jsonl\\n`);"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:env-var:93a6838389",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 1433,
+    "category": "env-var",
+    "snippet": "if (env.TOKENOMICS_NO_BATCH_COST === '1') return null;"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:receipt-reader:76fe45b5c4",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 1443,
+    "category": "receipt-reader",
+    "snippet": ".filter((c) => c.batch === scope.batch || c.batch.endsWith(`/${scope.batch}`));"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:path-automation:160f067acb",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 1446,
+    "category": "path-automation",
+    "snippet": "const dir = join(repo, '.agents', 'telemetry', 'automation', 'reports');"
+  },
+  {
+    "id": "hooks/telemetry-capture.mjs:env-var:bbd52c9dd1",
+    "file": "hooks/telemetry-capture.mjs",
+    "line": 1465,
+    "category": "env-var",
+    "snippet": "if (env.TOKENOMICS_NO_SYNC === '1') return false;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:receipt-reader:876c49e97d",
+    "file": "scripts/batch-cost.mjs",
+    "line": 45,
+    "category": "receipt-reader",
+    "snippet": "export function loadReceipts(repo, { batch } = {}) {"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:path-automation:f3f02f6a9a",
+    "file": "scripts/batch-cost.mjs",
+    "line": 46,
+    "category": "path-automation",
+    "snippet": "const root = join(repo, '.agents', 'automation');"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:receipt-reader:8c6b00ef7c",
+    "file": "scripts/batch-cost.mjs",
+    "line": 62,
+    "category": "receipt-reader",
+    "snippet": "if (entry.name === 'telemetry' || entry.name.startsWith('_') || entry.name.startsWith('.')) continue;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:receipt-reader:ddb8113123",
+    "file": "scripts/batch-cost.mjs",
+    "line": 65,
+    "category": "receipt-reader",
+    "snippet": "else if (entry.name === 'report.json') {"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:path-automation:8ab0fa79f8",
+    "file": "scripts/batch-cost.mjs",
+    "line": 92,
+    "category": "path-automation",
+    "snippet": "const dir = join(repo, '.agents', 'telemetry', 'automation', 'live');"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:70d9dc6d58",
+    "file": "scripts/batch-cost.mjs",
+    "line": 138,
+    "category": "gate-records",
+    "snippet": "export function loadGateRuns(dir, { repo = null, slug = null } = {}) {"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:4b2ae4bd17",
+    "file": "scripts/batch-cost.mjs",
+    "line": 139,
+    "category": "gate-records",
+    "snippet": "const files = [dir && join(dir, 'gate-runs.jsonl')];"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:path-automation:37222d25b0",
+    "file": "scripts/batch-cost.mjs",
+    "line": 140,
+    "category": "path-automation",
+    "snippet": "if (repo && slug) files.push(join(repo, '.agents', 'telemetry', 'automation', 'gate-runs', `${slug}.jsonl`));"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:37222d25b0",
+    "file": "scripts/batch-cost.mjs",
+    "line": 140,
+    "category": "gate-records",
+    "snippet": "if (repo && slug) files.push(join(repo, '.agents', 'telemetry', 'automation', 'gate-runs', `${slug}.jsonl`));"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:ab0de88bfa",
+    "file": "scripts/batch-cost.mjs",
+    "line": 161,
+    "category": "gate-records",
+    "snippet": "export function foldGateRuns(repo, slug, dir) {"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:path-automation:fefdd9ac03",
+    "file": "scripts/batch-cost.mjs",
+    "line": 162,
+    "category": "path-automation",
+    "snippet": "const src = join(repo, '.agents', 'telemetry', 'automation', 'gate-runs', `${slug}.jsonl`);"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:fefdd9ac03",
+    "file": "scripts/batch-cost.mjs",
+    "line": 162,
+    "category": "gate-records",
+    "snippet": "const src = join(repo, '.agents', 'telemetry', 'automation', 'gate-runs', `${slug}.jsonl`);"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:b5a3b8f516",
+    "file": "scripts/batch-cost.mjs",
+    "line": 164,
+    "category": "gate-records",
+    "snippet": "const dst = join(dir, 'gate-runs.jsonl');"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:f120d47a1d",
+    "file": "scripts/batch-cost.mjs",
+    "line": 176,
+    "category": "gate-records",
+    "snippet": "export function declaredOutcomesFor(receipt, slug, scopes) {"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:08fbe52e5d",
+    "file": "scripts/batch-cost.mjs",
+    "line": 198,
+    "category": "gate-records",
+    "snippet": "export function crossCheck(receipt, gateRuns, declared) {"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:938b2adb80",
+    "file": "scripts/batch-cost.mjs",
+    "line": 199,
+    "category": "gate-records",
+    "snippet": "const latest = gateRuns.length ? gateRuns[gateRuns.length - 1] : null;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:4f5842a583",
+    "file": "scripts/batch-cost.mjs",
+    "line": 200,
+    "category": "gate-records",
+    "snippet": "const receiptVerdict = receipt.gate?.verdict ?? null;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:52b52ff09f",
+    "file": "scripts/batch-cost.mjs",
+    "line": 201,
+    "category": "gate-records",
+    "snippet": "const gateDrift = latest && latest.verdict !== receiptVerdict"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:357998db7a",
+    "file": "scripts/batch-cost.mjs",
+    "line": 204,
+    "category": "gate-records",
+    "snippet": "const outcomeDrift = [];"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:201859dc6d",
+    "file": "scripts/batch-cost.mjs",
+    "line": 207,
+    "category": "gate-records",
+    "snippet": "if (d && d !== (c.outcome ?? null)) outcomeDrift.push({ id: c.id, receipt: c.outcome ?? null, declared: d });"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:4edd6b0372",
+    "file": "scripts/batch-cost.mjs",
+    "line": 209,
+    "category": "gate-records",
+    "snippet": "return { gateDrift, outcomeDrift };"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:29f40a68fc",
+    "file": "scripts/batch-cost.mjs",
+    "line": 216,
+    "category": "stage-words",
+    "snippet": "const OVERHEAD_STAGE = /\\btriage\\b|hardening gate|mini-gate|gate for batch|^gate[:\\s]|report writer|write the report|^report[:\\s]|diagnostician|stabiliz\\w+ (?:d"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:e0d452b28e",
+    "file": "scripts/batch-cost.mjs",
+    "line": 217,
+    "category": "stage-words",
+    "snippet": "const FIX_STAGE = /^fix[:\\s]|fix round/i;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:eb88c08125",
+    "file": "scripts/batch-cost.mjs",
+    "line": 227,
+    "category": "stage-words",
+    "snippet": "const STAGE_HEAD = 48;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:f3fe376e83",
+    "file": "scripts/batch-cost.mjs",
+    "line": 228,
+    "category": "stage-words",
+    "snippet": "const stageHead = (label) => String(label || '').slice(0, STAGE_HEAD);"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:fce47d27e6",
+    "file": "scripts/batch-cost.mjs",
+    "line": 237,
+    "category": "stage-words",
+    "snippet": "export function classify(label, ids, declared = []) {"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:b253cbf5a4",
+    "file": "scripts/batch-cost.mjs",
+    "line": 238,
+    "category": "stage-words",
+    "snippet": "if (OVERHEAD_STAGE.test(stageHead(label))) return { kind: 'overhead', ids: [] };"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:3aa6fe88d2",
+    "file": "scripts/batch-cost.mjs",
+    "line": 304,
+    "category": "stage-words",
+    "snippet": "const STAGE_KIND = ["
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:48175a2f50",
+    "file": "scripts/batch-cost.mjs",
+    "line": 305,
+    "category": "stage-words",
+    "snippet": "['triage', /\\btriage\\b/i],"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:6d4e1b5dc5",
+    "file": "scripts/batch-cost.mjs",
+    "line": 306,
+    "category": "stage-words",
+    "snippet": "['gate', /hardening gate|mini-gate|gate for batch|^gate[:\\s]/i],"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:cd8d9109f0",
+    "file": "scripts/batch-cost.mjs",
+    "line": 307,
+    "category": "stage-words",
+    "snippet": "['report', /report writer|write the report|^report[:\\s]/i],"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:9389280faf",
+    "file": "scripts/batch-cost.mjs",
+    "line": 309,
+    "category": "stage-words",
+    "snippet": "const stageKindOf = (label) => (STAGE_KIND.find(([, re]) => re.test(stageHead(label)))?.[0] ?? 'other');"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:db1c75bb38",
+    "file": "scripts/batch-cost.mjs",
+    "line": 327,
+    "category": "sizing",
+    "snippet": "export function loadSizings(repo) {"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:682acca5ea",
+    "file": "scripts/batch-cost.mjs",
+    "line": 329,
+    "category": "sizing",
+    "snippet": "const dir = join(repo, '.agents', 'estimation');"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:receipt-reader:df9bad4ff1",
+    "file": "scripts/batch-cost.mjs",
+    "line": 337,
+    "category": "receipt-reader",
+    "snippet": "const id = r?.id ?? r?.case_id;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:receipt-reader:5e381aad69",
+    "file": "scripts/batch-cost.mjs",
+    "line": 362,
+    "category": "receipt-reader",
+    "snippet": "if (e.isDirectory() && !e.name.startsWith('.') && !e.name.startsWith('_') && e.name !== 'telemetry') walk(full);"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:a3ff5dc6bd",
+    "file": "scripts/batch-cost.mjs",
+    "line": 367,
+    "category": "sizing",
+    "snippet": "const size = x?.sizing?.size;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:path-automation:60580b5331",
+    "file": "scripts/batch-cost.mjs",
+    "line": 377,
+    "category": "path-automation",
+    "snippet": "walk(join(repo, '.agents', 'automation'));"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:53df385b04",
+    "file": "scripts/batch-cost.mjs",
+    "line": 382,
+    "category": "sizing",
+    "snippet": "const MIN_CLASS_N = 5;   // below this, history can't support a percentile verdict"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:e219893c78",
+    "file": "scripts/batch-cost.mjs",
+    "line": 385,
+    "category": "sizing",
+    "snippet": "export function applySizing(casesOut, sizings, baselines) {"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:8f0745609b",
+    "file": "scripts/batch-cost.mjs",
+    "line": 386,
+    "category": "sizing",
+    "snippet": "if (!sizings?.size) return null;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:4f449ac8e7",
+    "file": "scripts/batch-cost.mjs",
+    "line": 387,
+    "category": "sizing",
+    "snippet": "const bySize = {};"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:81acfd87f1",
+    "file": "scripts/batch-cost.mjs",
+    "line": 391,
+    "category": "sizing",
+    "snippet": "const s = sizings.get(c.id);"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:3d362443dd",
+    "file": "scripts/batch-cost.mjs",
+    "line": 399,
+    "category": "sizing",
+    "snippet": "if (hist && n >= MIN_CLASS_N) {"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:qa-wording:eeac8bc733",
+    "file": "scripts/batch-cost.mjs",
+    "line": 414,
+    "category": "qa-wording",
+    "snippet": "? `real-work ${rw?.toLocaleString?.() ?? rw} tok (p${dev.tokPercentile ?? '—'}) / ${min}m (p${dev.minPercentile ?? '—'}) vs ${s.size}-class median ${medTok?.toL"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:13b8005a89",
+    "file": "scripts/batch-cost.mjs",
+    "line": 419,
+    "category": "sizing",
+    "snippet": "dev.note = `insufficient ${s.size}-class history (n=${n ?? 0} < ${MIN_CLASS_N}) — no deviation verdict`;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:69fbb5d14e",
+    "file": "scripts/batch-cost.mjs",
+    "line": 421,
+    "category": "sizing",
+    "snippet": "c.sizing = dev;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:7c2a92f72a",
+    "file": "scripts/batch-cost.mjs",
+    "line": 422,
+    "category": "sizing",
+    "snippet": "const agg = (bySize[s.size] ??= { cases: 0, sp: 0, estMin: 0, actualMin: 0, actualTok: 0 });"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:b0b82774d1",
+    "file": "scripts/batch-cost.mjs",
+    "line": 426,
+    "category": "sizing",
+    "snippet": "const estTotal = Object.values(bySize).reduce((a, b) => a + b.estMin, 0);"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:586ad799ab",
+    "file": "scripts/batch-cost.mjs",
+    "line": 427,
+    "category": "sizing",
+    "snippet": "const actTotal = Object.values(bySize).reduce((a, b) => a + b.actualMin, 0);"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:path-automation:6b4c5d39a0",
+    "file": "scripts/batch-cost.mjs",
+    "line": 429,
+    "category": "path-automation",
+    "snippet": "note: 'pre-run predicted size (automation-scoping) joined to actuals. Deviations are tokens/time vs the size-class CROSS-BATCH history — analysis pointers, neve"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:qa-wording:6b4c5d39a0",
+    "file": "scripts/batch-cost.mjs",
+    "line": 429,
+    "category": "qa-wording",
+    "snippet": "note: 'pre-run predicted size (automation-scoping) joined to actuals. Deviations are tokens/time vs the size-class CROSS-BATCH history — analysis pointers, neve"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:group-wording:6b4c5d39a0",
+    "file": "scripts/batch-cost.mjs",
+    "line": 429,
+    "category": "group-wording",
+    "snippet": "note: 'pre-run predicted size (automation-scoping) joined to actuals. Deviations are tokens/time vs the size-class CROSS-BATCH history — analysis pointers, neve"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:bde77a853c",
+    "file": "scripts/batch-cost.mjs",
+    "line": 430,
+    "category": "sizing",
+    "snippet": "sized, bySize,"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:11c3924fb2",
+    "file": "scripts/batch-cost.mjs",
+    "line": 470,
+    "category": "stage-words",
+    "snippet": "const perCase = new Map(ids.map((id) => [id, { ...emptyBucket(), fixRounds: 0 }]));"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:02d86df640",
+    "file": "scripts/batch-cost.mjs",
+    "line": 472,
+    "category": "stage-words",
+    "snippet": "const byStage = { triage: emptyBucket(), gate: emptyBucket(), report: emptyBucket(), other: emptyBucket() };"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:2801bed933",
+    "file": "scripts/batch-cost.mjs",
+    "line": 473,
+    "category": "stage-words",
+    "snippet": "const rework = emptyBucket();"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:b39486e8dc",
+    "file": "scripts/batch-cost.mjs",
+    "line": 560,
+    "category": "stage-words",
+    "snippet": "const { kind, ids: matched } = classify(s.label, ids, s.cases || []);"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:6ff87169bf",
+    "file": "scripts/batch-cost.mjs",
+    "line": 563,
+    "category": "stage-words",
+    "snippet": "const isFix = FIX_STAGE.test(stageHead(s.label));"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:9c3867076d",
+    "file": "scripts/batch-cost.mjs",
+    "line": 564,
+    "category": "stage-words",
+    "snippet": "if (isFix) addTo(rework, m, w);"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:308b2aae76",
+    "file": "scripts/batch-cost.mjs",
+    "line": 569,
+    "category": "stage-words",
+    "snippet": "if (isFix) row.fixRounds += share;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:e5851740af",
+    "file": "scripts/batch-cost.mjs",
+    "line": 573,
+    "category": "stage-words",
+    "snippet": "addTo(byStage[stageKindOf(s.label)], m, w);"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:de61d36624",
+    "file": "scripts/batch-cost.mjs",
+    "line": 579,
+    "category": "stage-words",
+    "snippet": "const d = perCase.get(c.id) ?? { ...emptyBucket(), fixRounds: 0 };"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:receipt-reader:7feeaff470",
+    "file": "scripts/batch-cost.mjs",
+    "line": 582,
+    "category": "receipt-reader",
+    "snippet": "findings: Array.isArray(c.findings) ? c.findings.length : 0,"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:2f89c95275",
+    "file": "scripts/batch-cost.mjs",
+    "line": 587,
+    "category": "stage-words",
+    "snippet": "dispatches: Math.round(d.dispatches * 100) / 100, fixRounds: Math.round(d.fixRounds * 100) / 100,"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:delivered-vocab:549873a9e5",
+    "file": "scripts/batch-cost.mjs",
+    "line": 597,
+    "category": "delivered-vocab",
+    "snippet": "const delivered = num(outcomes.delivered) + num(outcomes['defect-found'])"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:delivered-vocab:71723f9fe6",
+    "file": "scripts/batch-cost.mjs",
+    "line": 598,
+    "category": "delivered-vocab",
+    "snippet": "+ num(outcomes.automated) + num(outcomes['merged-sanctioned-red']);"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:c3962d3a2b",
+    "file": "scripts/batch-cost.mjs",
+    "line": 603,
+    "category": "gate-records",
+    "snippet": "const gateRuns = loadGateRuns(dir, { repo, slug });"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:be4b26c1f1",
+    "file": "scripts/batch-cost.mjs",
+    "line": 604,
+    "category": "gate-records",
+    "snippet": "const declared = declaredOutcomesFor(receipt, slug, scopes);"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:1750ef73ae",
+    "file": "scripts/batch-cost.mjs",
+    "line": 605,
+    "category": "gate-records",
+    "snippet": "const { gateDrift, outcomeDrift } = crossCheck(receipt, gateRuns, declared);"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:54c93c9270",
+    "file": "scripts/batch-cost.mjs",
+    "line": 606,
+    "category": "gate-records",
+    "snippet": "const latestGate = gateRuns.length ? gateRuns[gateRuns.length - 1] : null;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:95e7ff8486",
+    "file": "scripts/batch-cost.mjs",
+    "line": 634,
+    "category": "sizing",
+    "snippet": "const sizings0 = repo ? loadSizings(repo) : null;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:b13838a056",
+    "file": "scripts/batch-cost.mjs",
+    "line": 635,
+    "category": "sizing",
+    "snippet": "const sizingRollup = sizings0?.size ? applySizing(casesOut, sizings0, sizeBaselines(repo, { excludeSlug: slug })) : null;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:group-wording:d5d1f81bd2",
+    "file": "scripts/batch-cost.mjs",
+    "line": 652,
+    "category": "group-wording",
+    "snippet": "...(sharedSessions ? { sharedSessions, note: 'session-level figures of shared sessions are split evenly across the batches they served' } : {}),"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:035343342e",
+    "file": "scripts/batch-cost.mjs",
+    "line": 667,
+    "category": "stage-words",
+    "snippet": "note: 'batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows',"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:qa-wording:035343342e",
+    "file": "scripts/batch-cost.mjs",
+    "line": 667,
+    "category": "qa-wording",
+    "snippet": "note: 'batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows',"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:group-wording:035343342e",
+    "file": "scripts/batch-cost.mjs",
+    "line": 667,
+    "category": "group-wording",
+    "snippet": "note: 'batch-level work (lead thread, triage, gate, report) — shown once, never smeared into per-case rows',"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:2d9b420a4a",
+    "file": "scripts/batch-cost.mjs",
+    "line": 672,
+    "category": "stage-words",
+    "snippet": "byStage: Object.fromEntries(Object.entries(byStage).filter(([, b]) => b.dispatches > 0).map(([k, b]) => [k, bucketOut(b)])),"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:4b45c3a5bc",
+    "file": "scripts/batch-cost.mjs",
+    "line": 674,
+    "category": "stage-words",
+    "snippet": "...(rework.dispatches > 0 ? {"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:stage-words:9d372f46cb",
+    "file": "scripts/batch-cost.mjs",
+    "line": 675,
+    "category": "stage-words",
+    "snippet": "rework: { ...bucketOut(rework), note: 'fix-round dispatches — the batch\\'s rework bill (already inside per-case direct; shown here as its own lever)' },"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:qa-wording:9d372f46cb",
+    "file": "scripts/batch-cost.mjs",
+    "line": 675,
+    "category": "qa-wording",
+    "snippet": "rework: { ...bucketOut(rework), note: 'fix-round dispatches — the batch\\'s rework bill (already inside per-case direct; shown here as its own lever)' },"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:group-wording:9d372f46cb",
+    "file": "scripts/batch-cost.mjs",
+    "line": 675,
+    "category": "group-wording",
+    "snippet": "rework: { ...bucketOut(rework), note: 'fix-round dispatches — the batch\\'s rework bill (already inside per-case direct; shown here as its own lever)' },"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:b0c84f7ce4",
+    "file": "scripts/batch-cost.mjs",
+    "line": 678,
+    "category": "gate-records",
+    "snippet": "gate: receipt.gate ?? null,"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:982997ec09",
+    "file": "scripts/batch-cost.mjs",
+    "line": 679,
+    "category": "gate-records",
+    "snippet": "...(gateRuns.length || Object.keys(declared).length ? {"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:receipt-reader:6ac7c0b4f3",
+    "file": "scripts/batch-cost.mjs",
+    "line": 681,
+    "category": "receipt-reader",
+    "snippet": "note: 'script-authored gate verdicts (gate-runs.jsonl) + declared session outcomes (work-scope) vs the receipt — drift means report.json needs a write-back, rec"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:6ac7c0b4f3",
+    "file": "scripts/batch-cost.mjs",
+    "line": 681,
+    "category": "gate-records",
+    "snippet": "note: 'script-authored gate verdicts (gate-runs.jsonl) + declared session outcomes (work-scope) vs the receipt — drift means report.json needs a write-back, rec"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:c887e40ad9",
+    "file": "scripts/batch-cost.mjs",
+    "line": 682,
+    "category": "gate-records",
+    "snippet": "...(latestGate ? { gateRuns: { count: gateRuns.length, latest: { verdict: latestGate.verdict, at: latestGate.at ?? null, consecutiveGreen: latestGate.consecutiv"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:f5623db62f",
+    "file": "scripts/batch-cost.mjs",
+    "line": 684,
+    "category": "gate-records",
+    "snippet": "...(gateDrift ? { gateDrift } : {}),"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:gate-records:ce51b4a18e",
+    "file": "scripts/batch-cost.mjs",
+    "line": 685,
+    "category": "gate-records",
+    "snippet": "...(outcomeDrift.length ? { outcomeDrift } : {}),"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:sizing:94dba86493",
+    "file": "scripts/batch-cost.mjs",
+    "line": 690,
+    "category": "sizing",
+    "snippet": "...(sizingRollup ? { sizing: sizingRollup } : {}),"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:qa-wording:9d0a84b4d1",
+    "file": "scripts/batch-cost.mjs",
+    "line": 692,
+    "category": "qa-wording",
+    "snippet": "note: 'direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)',"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:delivered-vocab:0785400df5",
+    "file": "scripts/batch-cost.mjs",
+    "line": 701,
+    "category": "delivered-vocab",
+    "snippet": "? { costUsd: round2(totals.costUsd / delivered), note: 'whole batch incl. overhead ÷ delivered (delivered/defect-found; legacy automated/merged-sanctioned-red)'"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:group-wording:0785400df5",
+    "file": "scripts/batch-cost.mjs",
+    "line": 701,
+    "category": "group-wording",
+    "snippet": "? { costUsd: round2(totals.costUsd / delivered), note: 'whole batch incl. overhead ÷ delivered (delivered/defect-found; legacy automated/merged-sanctioned-red)'"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:qa-wording:ddb6c8d513",
+    "file": "scripts/batch-cost.mjs",
+    "line": 703,
+    "category": "qa-wording",
+    "snippet": "? { costUsd: round2(attributed.reduce((a, c) => a + num(c.direct.costUsd), 0) / attributed.length), note: 'avg direct spend of an attributed case — excludes bat"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:group-wording:ddb6c8d513",
+    "file": "scripts/batch-cost.mjs",
+    "line": 703,
+    "category": "group-wording",
+    "snippet": "? { costUsd: round2(attributed.reduce((a, c) => a + num(c.direct.costUsd), 0) / attributed.length), note: 'avg direct spend of an attributed case — excludes bat"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:receipt-reader:86673af0f0",
+    "file": "scripts/batch-cost.mjs",
+    "line": 725,
+    "category": "receipt-reader",
+    "snippet": "const receipts = loadReceipts(repo, { batch });"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:receipt-reader:07ee70e383",
+    "file": "scripts/batch-cost.mjs",
+    "line": 729,
+    "category": "receipt-reader",
+    "snippet": "const all = batch ? loadReceipts(repo) : receipts;"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:path-automation:e90b887e14",
+    "file": "scripts/batch-cost.mjs",
+    "line": 758,
+    "category": "path-automation",
+    "snippet": "if (!results.length) { console.error(`batch-cost: no receipts under ${join(repo, '.agents', 'automation')}`); process.exit(1); }"
+  },
+  {
+    "id": "scripts/batch-cost.mjs:qa-wording:e61182fd07",
+    "file": "scripts/batch-cost.mjs",
+    "line": 760,
+    "category": "qa-wording",
+    "snippet": "else for (const r of results) console.error(`batch-cost: ${r.batch} — ${r.sources.sessions} session(s), ${r.cases.length} case(s), total ${r.totals.costUsd != n"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:23b359fd83",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 66,
+    "category": "export-qa",
+    "snippet": "work_item_level: profile.work_item_level ?? 'feature',"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:sizing:fd3d5c7112",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 83,
+    "category": "sizing",
+    "snippet": "const sz = cost.sizing ?? null;"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:sizing:39472a6c22",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 86,
+    "category": "sizing",
+    "snippet": "const caseSp = sz ? Object.values(sz.bySize).reduce((a, b) => a + num(b.sp), 0) : null;"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:sizing:09e39802ab",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 89,
+    "category": "sizing",
+    "snippet": "? Object.entries(sz.bySize).sort((a, b) => b[1].cases - a[1].cases || SIZE_ORDER.indexOf(b[0]) - SIZE_ORDER.indexOf(a[0]))[0]?.[0] ?? null"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:sizing:6e800eebc5",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 92,
+    "category": "sizing",
+    "snippet": "? [...SIZE_ORDER].reverse().find((k) => sz.bySize[k]) ?? null"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:delivered-vocab:b04b67dc24",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 94,
+    "category": "delivered-vocab",
+    "snippet": "const notStarted = num(cost.outcomes?.['not-started']) + num(cost.outcomes?.['infra-stalled']);"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:path-automation:60d1bdacf2",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 106,
+    "category": "path-automation",
+    "snippet": "work_item_brief: `Test-automation batch: ${cost.cases.length} TMS case(s) through analyse → implement → review → merge → gate; ${cost.delivered} delivered.`,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:qa-wording:60d1bdacf2",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 106,
+    "category": "qa-wording",
+    "snippet": "work_item_brief: `Test-automation batch: ${cost.cases.length} TMS case(s) through analyse → implement → review → merge → gate; ${cost.delivered} delivered.`,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:group-wording:60d1bdacf2",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 106,
+    "category": "group-wording",
+    "snippet": "work_item_brief: `Test-automation batch: ${cost.cases.length} TMS case(s) through analyse → implement → review → merge → gate; ${cost.delivered} delivered.`,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:148133a220",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 124,
+    "category": "export-qa",
+    "snippet": "scenarios_authored: authored,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:34279a003c",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 125,
+    "category": "export-qa",
+    "snippet": "scenarios_automated: cost.delivered,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:73f8e0699e",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 126,
+    "category": "export-qa",
+    "snippet": "scenarios_executed: authored,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:sizing:51213a21db",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 130,
+    "category": "sizing",
+    "snippet": "...(caseSp ? { story_points: caseSp } : {}),"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:gate-records:b3d5d24107",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 133,
+    "category": "gate-records",
+    "snippet": "`gate ${cost.gate?.verdict ?? 'not-run'}${cost.gate?.runs ? ` (${cost.gate.runs}x)` : ''}; outcomes: ${oc || '—'}.`,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:path-automation:671d359c48",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 135,
+    "category": "path-automation",
+    "snippet": "`Telemetry cohort: reconstructed from .agents/automation/${cost.batch}/cost.json (v${cost.v}); batch slug '${cost.batch}'.`,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:group-wording:671d359c48",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 135,
+    "category": "group-wording",
+    "snippet": "`Telemetry cohort: reconstructed from .agents/automation/${cost.batch}/cost.json (v${cost.v}); batch slug '${cost.batch}'.`,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:sizing:28ea28eea1",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 136,
+    "category": "sizing",
+    "snippet": "effortDays != null ? `effort_days derived from scoping SP (${caseSp} SP × 1h ÷ 8) — conventional-effort estimate, not a human report.` : 'effort_days unavailabl"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:group-wording:28ea28eea1",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 136,
+    "category": "group-wording",
+    "snippet": "effortDays != null ? `effort_days derived from scoping SP (${caseSp} SP × 1h ÷ 8) — conventional-effort estimate, not a human report.` : 'effort_days unavailabl"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:qa-wording:63f9181945",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 138,
+    "category": "qa-wording",
+    "snippet": "'scenarios_executed = cases the pipeline analysed live and gated (live execution evidence + N-consecutive gate runs; re-runs not multiplied).',"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:63f9181945",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 138,
+    "category": "export-qa",
+    "snippet": "'scenarios_executed = cases the pipeline analysed live and gated (live execution evidence + N-consecutive gate runs; re-runs not multiplied).',"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:5277cdace1",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 147,
+    "category": "export-qa",
+    "snippet": "if (!segment.stop || !segment.owner_group || !segment.work_item_level) missing.push('segment.stop/owner_group/work_item_level');"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:sizing:41a9ff3050",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 149,
+    "category": "sizing",
+    "snippet": "if (row.effort_days == null) missing.push('effort_days (run the intake sizing pass)');"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:43f459397e",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 151,
+    "category": "export-qa",
+    "snippet": "if (row.maturity === 'pilot' && !('maturity' in (segment._profileKeys ?? {}))) defaulted.push('maturity=pilot (set it in factory-profile.json)');"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:b0fefbb6c1",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 156,
+    "category": "export-qa",
+    "snippet": "for (const f of ['scenarios_authored', 'scenarios_automated', 'scenarios_executed']) if (row[f] == null) missing.push(f);"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:sizing:d07a0a642a",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 157,
+    "category": "sizing",
+    "snippet": "if (!row.scenario_complexity) missing.push('scenario_complexity (from sizing verdicts)');"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:d72d9310f6",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 158,
+    "category": "export-qa",
+    "snippet": "if (!row.env_setup) missing.push('env_setup (set it in factory-profile.json: trivial|single-fixture|multi-fixture|external-deps|full-env)');"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:path-automation:2b372b8acb",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 165,
+    "category": "path-automation",
+    "snippet": "export function exportPath(repo) { return join(repo, '.agents', 'telemetry', 'automation', 'export', 'runs.json'); }"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:path-automation:eb88f29d3d",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 179,
+    "category": "path-automation",
+    "snippet": "mkdirSync(join(repo, '.agents', 'telemetry', 'automation', 'export'), { recursive: true });"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:path-automation:e3a09104b9",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 190,
+    "category": "path-automation",
+    "snippet": "work_item_brief: `Test-automation batch (${r.scenarios_executed ?? '?'} cases${r.size_tshirt ? `, ${r.size_tshirt}` : ''})`,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:qa-wording:e3a09104b9",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 190,
+    "category": "qa-wording",
+    "snippet": "work_item_brief: `Test-automation batch (${r.scenarios_executed ?? '?'} cases${r.size_tshirt ? `, ${r.size_tshirt}` : ''})`,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:group-wording:e3a09104b9",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 190,
+    "category": "group-wording",
+    "snippet": "work_item_brief: `Test-automation batch (${r.scenarios_executed ?? '?'} cases${r.size_tshirt ? `, ${r.size_tshirt}` : ''})`,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:e3a09104b9",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 190,
+    "category": "export-qa",
+    "snippet": "work_item_brief: `Test-automation batch (${r.scenarios_executed ?? '?'} cases${r.size_tshirt ? `, ${r.size_tshirt}` : ''})`,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:group-wording:8080171aa0",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 191,
+    "category": "group-wording",
+    "snippet": "notes: (r.notes ?? '').replace(/batch slug '[^']*'/g, \"batch slug 'anonymised'\"),"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:group-wording:1a5bb21269",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 199,
+    "category": "group-wording",
+    "snippet": "if (!doc?.runs?.length) return { error: `no accumulated runs at ${path} — close a batch first (or run --batch <slug>)` };"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:path-automation:a223922a27",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 202,
+    "category": "path-automation",
+    "snippet": "const dir = join(repo, '.agents', 'telemetry', 'automation', 'export', 'datasets', id);"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:group-wording:4111215503",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 211,
+    "category": "group-wording",
+    "snippet": "'*Paired with the machine-readable [`runs.json`](./runs.json) (identical numbers). Telemetry cohort: every row is reconstructed from the pipeline\\'s own per-bat"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:13ae798075",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 216,
+    "category": "export-qa",
+    "snippet": "`| **Work-item level** | \\`${finalDoc.segment.work_item_level}\\` |`,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:8481830162",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 224,
+    "category": "export-qa",
+    "snippet": "`| Scenarios authored / automated / executed | ${sum('scenarios_authored')} / ${sum('scenarios_automated')} / ${sum('scenarios_executed')} |`,"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:qa-wording:e360413db1",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 246,
+    "category": "qa-wording",
+    "snippet": "row('cases / delivered', `${a.cases.length} / ${a.delivered}`, `${b.cases.length} / ${b.delivered}`),"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:qa-wording:90f43b028a",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 249,
+    "category": "qa-wording",
+    "snippet": "row('avg direct per case', usd(a.averages.directPerCase?.costUsd), usd(b.averages.directPerCase?.costUsd)),"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:gate-records:5ec7aadddc",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 253,
+    "category": "gate-records",
+    "snippet": "row('gate', a.gate?.verdict ?? 'n/a', b.gate?.verdict ?? 'n/a'),"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:path-automation:564f4a5af3",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 259,
+    "category": "path-automation",
+    "snippet": "const path = override ?? join(repo, '.agents', 'telemetry', 'automation', 'factory-profile.json');"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:564f4a5af3",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 259,
+    "category": "export-qa",
+    "snippet": "const path = override ?? join(repo, '.agents', 'telemetry', 'automation', 'factory-profile.json');"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:export-qa:c43231b0f9",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 281,
+    "category": "export-qa",
+    "snippet": "if (!profile.factory_id) console.error(`export: no factory profile at ${profilePath} — identity fields will be null (copy the skill's templates/factory-profile."
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:path-automation:2b6d8efa6f",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 291,
+    "category": "path-automation",
+    "snippet": "if (!cost) { console.error(`export: no receipt for batch '${batch}' under ${join(repo, '.agents', 'automation')}`); return 1; }"
+  },
+  {
+    "id": "scripts/build-tokenomics-export.mjs:group-wording:2b6d8efa6f",
+    "file": "scripts/build-tokenomics-export.mjs",
+    "line": 291,
+    "category": "group-wording",
+    "snippet": "if (!cost) { console.error(`export: no receipt for batch '${batch}' under ${join(repo, '.agents', 'automation')}`); return 1; }"
+  },
+  {
+    "id": "scripts/install-hooks.mjs:path-automation:01ed5c1b41",
+    "file": "scripts/install-hooks.mjs",
+    "line": 297,
+    "category": "path-automation",
+    "snippet": "One subfolder per factory — \\`automation/\\` is the test-automation factory's;"
+  },
+  {
+    "id": "scripts/install-hooks.mjs:path-automation:99d98f8ee6",
+    "file": "scripts/install-hooks.mjs",
+    "line": 436,
+    "category": "path-automation",
+    "snippet": "const auto = join(root, 'automation');"
+  },
+  {
+    "id": "scripts/install-hooks.mjs:export-qa:e0528cc900",
+    "file": "scripts/install-hooks.mjs",
+    "line": 437,
+    "category": "export-qa",
+    "snippet": "const OLD_FILES = (n) => /^usage-.*\\.jsonl$/.test(n) || n === 'config.json' || n === 'factory-profile.json';"
+  },
+  {
+    "id": "scripts/install-hooks.mjs:path-automation:5d772d94ea",
+    "file": "scripts/install-hooks.mjs",
+    "line": 510,
+    "category": "path-automation",
+    "snippet": "'.agents/telemetry/automation/live/',"
+  },
+  {
+    "id": "scripts/install-hooks.mjs:path-automation:e671659d7b",
+    "file": "scripts/install-hooks.mjs",
+    "line": 511,
+    "category": "path-automation",
+    "snippet": "'.agents/telemetry/automation/scopes/.pending-*',"
+  },
+  {
+    "id": "scripts/install-hooks.mjs:path-automation:79df1b7930",
+    "file": "scripts/install-hooks.mjs",
+    "line": 512,
+    "category": "path-automation",
+    "snippet": "'.agents/telemetry/automation/scopes/.nagged-*',"
+  },
+  {
+    "id": "scripts/install-hooks.mjs:path-automation:b6c5b81663",
+    "file": "scripts/install-hooks.mjs",
+    "line": 513,
+    "category": "path-automation",
+    "snippet": "'.agents/telemetry/automation/scopes/.unclosed-*',"
+  },
+  {
+    "id": "scripts/install-hooks.mjs:path-automation:896a40c697",
+    "file": "scripts/install-hooks.mjs",
+    "line": 538,
+    "category": "path-automation",
+    "snippet": "const dir = join(repo, '.agents', 'telemetry', 'automation');"
+  },
+  {
+    "id": "scripts/install-hooks.mjs:path-automation:49f951aebc",
+    "file": "scripts/install-hooks.mjs",
+    "line": 579,
+    "category": "path-automation",
+    "snippet": "const giOk = gi.includes('.agents/telemetry/automation/live/');"
+  },
+  {
+    "id": "scripts/install-hooks.mjs:path-automation:b4234e0b4a",
+    "file": "scripts/install-hooks.mjs",
+    "line": 620,
+    "category": "path-automation",
+    "snippet": "const scopeDir = join(repo, '.agents', 'telemetry', 'automation', 'scopes');"
+  },
+  {
+    "id": "scripts/install-hooks.mjs:path-automation:3ec7f88fc9",
+    "file": "scripts/install-hooks.mjs",
+    "line": 761,
+    "category": "path-automation",
+    "snippet": "if (migrated) process.stderr.write(`tokenomics: migrated ${migrated} old-layout telemetry entr${migrated === 1 ? 'y' : 'ies'} → .agents/telemetry/automation/\\n`"
+  },
+  {
+    "id": "scripts/install-hooks.mjs:path-automation:83be4efed1",
+    "file": "scripts/install-hooks.mjs",
+    "line": 765,
+    "category": "path-automation",
+    "snippet": "process.stderr.write('\\ntokenomics: telemetry set up as a submodule (.agents/telemetry → branch \\'telemetry\\', same repo; this factory writes automation/)\\n'"
+  },
+  {
+    "id": "scripts/team-report.mjs:delivered-vocab:cb77c775e0",
+    "file": "scripts/team-report.mjs",
+    "line": 29,
+    "category": "delivered-vocab",
+    "snippet": "const DELIVERED_OUTCOMES = ['delivered', 'defect-found', 'automated', 'merged-sanctioned-red'];"
+  },
+  {
+    "id": "scripts/team-report.mjs:path-automation:b3440d3758",
+    "file": "scripts/team-report.mjs",
+    "line": 38,
+    "category": "path-automation",
+    "snippet": "for (const dir of [join(root, '.agents', 'telemetry', 'automation'), root]) {"
+  },
+  {
+    "id": "scripts/team-report.mjs:receipt-reader:8c6b00ef7c",
+    "file": "scripts/team-report.mjs",
+    "line": 132,
+    "category": "receipt-reader",
+    "snippet": "if (entry.name === 'telemetry' || entry.name.startsWith('_') || entry.name.startsWith('.')) continue;"
+  },
+  {
+    "id": "scripts/team-report.mjs:receipt-reader:47e6282ca6",
+    "file": "scripts/team-report.mjs",
+    "line": 135,
+    "category": "receipt-reader",
+    "snippet": "else if (entry.name === 'report.json') out.push(p);"
+  },
+  {
+    "id": "scripts/team-report.mjs:delivered-vocab:59eb40cdad",
+    "file": "scripts/team-report.mjs",
+    "line": 151,
+    "category": "delivered-vocab",
+    "snippet": "if (row?.id) latest.set(row.id, typeof row.outcome === 'string' && row.outcome ? row.outcome : 'not-started');"
+  },
+  {
+    "id": "scripts/team-report.mjs:path-automation:3221caccb6",
+    "file": "scripts/team-report.mjs",
+    "line": 246,
+    "category": "path-automation",
+    "snippet": "...(byIntent.get('automation')?.priced ? { automationOnlyCostUsd: byIntent.get('automation').costUsd / cases.delivered } : {}),"
+  },
+  {
+    "id": "scripts/team-report.mjs:case-id-miner:e5d043d43d",
+    "file": "scripts/team-report.mjs",
+    "line": 276,
+    "category": "case-id-miner",
+    "snippet": "const caseIds = Object.keys(rep.byCase ?? {});"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:1de4119a69",
+    "file": "scripts/team-report.mjs",
+    "line": 278,
+    "category": "qa-wording",
+    "snippet": "out.push(`- Case ids named in sessions: ${caseIds.length} distinct (sessions-per-case in the --json \\`byCase\\`; top: ${caseIds.slice(0, 5).join(', ')})`);"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:224549afc8",
+    "file": "scripts/team-report.mjs",
+    "line": 286,
+    "category": "qa-wording",
+    "snippet": "out.push('## Cases (from the pipeline\\'s own receipts)', '');"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:e2b0370eb1",
+    "file": "scripts/team-report.mjs",
+    "line": 288,
+    "category": "qa-wording",
+    "snippet": "out.push(`- Examined: ${rep.cases.examined} unique case(s) across ${rep.cases.reports} report(s)  ·  **delivered (automated): ${rep.cases.delivered}**`);"
+  },
+  {
+    "id": "scripts/team-report.mjs:path-automation:296ff9227a",
+    "file": "scripts/team-report.mjs",
+    "line": 291,
+    "category": "path-automation",
+    "snippet": "out.push(`- Per delivered case: ${usd(rep.perDelivered.costUsd)}  ·  ${rep.perDelivered.activeMin} active min${rep.perDelivered.automationOnlyCostUsd != null ? "
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:296ff9227a",
+    "file": "scripts/team-report.mjs",
+    "line": 291,
+    "category": "qa-wording",
+    "snippet": "out.push(`- Per delivered case: ${usd(rep.perDelivered.costUsd)}  ·  ${rep.perDelivered.activeMin} active min${rep.perDelivered.automationOnlyCostUsd != null ? "
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:9319318ac4",
+    "file": "scripts/team-report.mjs",
+    "line": 292,
+    "category": "qa-wording",
+    "snippet": "out.push('  (spend in the window ÷ delivered cases in the receipts — align the window to the batch for a per-batch figure)');"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:9319318ac4",
+    "file": "scripts/team-report.mjs",
+    "line": 292,
+    "category": "group-wording",
+    "snippet": "out.push('  (spend in the window ÷ delivered cases in the receipts — align the window to the batch for a per-batch figure)');"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:5a39de62f9",
+    "file": "scripts/team-report.mjs",
+    "line": 297,
+    "category": "group-wording",
+    "snippet": "out.push('## By batch', '');"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:6d80ef5860",
+    "file": "scripts/team-report.mjs",
+    "line": 298,
+    "category": "qa-wording",
+    "snippet": "out.push('| batch | cases | delivered | total | per delivered | active | gate | drift |', '|---|---|---|---|---|---|---|---|');"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:6d80ef5860",
+    "file": "scripts/team-report.mjs",
+    "line": 298,
+    "category": "group-wording",
+    "snippet": "out.push('| batch | cases | delivered | total | per delivered | active | gate | drift |', '|---|---|---|---|---|---|---|---|');"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:23afb7fac4",
+    "file": "scripts/team-report.mjs",
+    "line": 300,
+    "category": "qa-wording",
+    "snippet": "out.push(`| ${b.batch} | ${b.cases} | ${b.delivered} | ${usd(b.costUsd)} | ${usd(b.perDelivered)} | ${hours(b.activeMin)} | ${b.gate ?? '—'} | ${b.drift ? '⚠️' "
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:c9cdef9bf8",
+    "file": "scripts/team-report.mjs",
+    "line": 306,
+    "category": "qa-wording",
+    "snippet": "out.push('## Per case — every batch\\'s cost.json rows (delivered first)', '');"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:c9cdef9bf8",
+    "file": "scripts/team-report.mjs",
+    "line": 306,
+    "category": "group-wording",
+    "snippet": "out.push('## Per case — every batch\\'s cost.json rows (delivered first)', '');"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:7c0fbdc7a5",
+    "file": "scripts/team-report.mjs",
+    "line": 308,
+    "category": "qa-wording",
+    "snippet": "out.push(`- Delivered-case loaded cost: ${s4(rep.perCaseStats.loadedCostUsd, (x) => usd(x))}`);"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:311d1a8bfa",
+    "file": "scripts/team-report.mjs",
+    "line": 309,
+    "category": "qa-wording",
+    "snippet": "out.push(`- Delivered-case loaded time: ${s4(rep.perCaseStats.loadedActiveMin, (x) => `${Math.round(x)}m`)}`);"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:13c6b6fd58",
+    "file": "scripts/team-report.mjs",
+    "line": 310,
+    "category": "group-wording",
+    "snippet": "out.push('  (loaded = direct measured work + an even share of the batch overhead — an allocation, labelled as such)', '');"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:2e8c7aa96a",
+    "file": "scripts/team-report.mjs",
+    "line": 312,
+    "category": "qa-wording",
+    "snippet": "out.push('| case | batch | outcome | direct | loaded | active (loaded) |', '|---|---|---|---|---|---|');"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:2e8c7aa96a",
+    "file": "scripts/team-report.mjs",
+    "line": 312,
+    "category": "group-wording",
+    "snippet": "out.push('| case | batch | outcome | direct | loaded | active (loaded) |', '|---|---|---|---|---|---|');"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:86d8aa0bfc",
+    "file": "scripts/team-report.mjs",
+    "line": 377,
+    "category": "group-wording",
+    "snippet": "const out = [`# Batch cost — ${c.batch}`, '',"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:efac16b6d5",
+    "file": "scripts/team-report.mjs",
+    "line": 380,
+    "category": "group-wording",
+    "snippet": "if (c.sources.sharedSessions) out.push(`_${c.sources.sharedSessions} session(s) also served other batches — their session-level figures are split evenly${c.sour"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:e4887c56cd",
+    "file": "scripts/team-report.mjs",
+    "line": 383,
+    "category": "qa-wording",
+    "snippet": "out.push(`- Cases: ${c.cases.length}  ·  **delivered: ${c.delivered}**${oc ? `  ·  ${oc}` : ''}`);"
+  },
+  {
+    "id": "scripts/team-report.mjs:gate-records:6fcb24609d",
+    "file": "scripts/team-report.mjs",
+    "line": 384,
+    "category": "gate-records",
+    "snippet": "if (c.gate) out.push(`- Gate: ${c.gate.verdict}${c.gate.runs ? ` (${c.gate.runs} runs)` : ''}`);"
+  },
+  {
+    "id": "scripts/team-report.mjs:gate-records:f810d69aa4",
+    "file": "scripts/team-report.mjs",
+    "line": 385,
+    "category": "gate-records",
+    "snippet": "if (c.records?.gateRuns) out.push(`- Gate record (script-authored): ${c.records.gateRuns.latest.verdict} at ${c.records.gateRuns.latest.at ?? '?'} (${c.records."
+  },
+  {
+    "id": "scripts/team-report.mjs:receipt-reader:a2646e3a23",
+    "file": "scripts/team-report.mjs",
+    "line": 386,
+    "category": "receipt-reader",
+    "snippet": "if (c.records?.gateDrift) out.push(`- ⚠️ **GATE DRIFT**: receipt says \\`${c.records.gateDrift.receipt ?? 'not-run'}\\` but the recorded verdict is \\`${c.records."
+  },
+  {
+    "id": "scripts/team-report.mjs:gate-records:a2646e3a23",
+    "file": "scripts/team-report.mjs",
+    "line": 386,
+    "category": "gate-records",
+    "snippet": "if (c.records?.gateDrift) out.push(`- ⚠️ **GATE DRIFT**: receipt says \\`${c.records.gateDrift.receipt ?? 'not-run'}\\` but the recorded verdict is \\`${c.records."
+  },
+  {
+    "id": "scripts/team-report.mjs:receipt-reader:00dfd7d6da",
+    "file": "scripts/team-report.mjs",
+    "line": 387,
+    "category": "receipt-reader",
+    "snippet": "if (c.records?.outcomeDrift?.length) out.push(`- ⚠️ **OUTCOME DRIFT** (${c.records.outcomeDrift.length}): ${c.records.outcomeDrift.map((d) => `${d.id} receipt=$"
+  },
+  {
+    "id": "scripts/team-report.mjs:gate-records:00dfd7d6da",
+    "file": "scripts/team-report.mjs",
+    "line": 387,
+    "category": "gate-records",
+    "snippet": "if (c.records?.outcomeDrift?.length) out.push(`- ⚠️ **OUTCOME DRIFT** (${c.records.outcomeDrift.length}): ${c.records.outcomeDrift.map((d) => `${d.id} receipt=$"
+  },
+  {
+    "id": "scripts/team-report.mjs:receipt-reader:39cf6a3050",
+    "file": "scripts/team-report.mjs",
+    "line": 388,
+    "category": "receipt-reader",
+    "snippet": "out.push(`- Findings reported: ${c.cases.reduce((n, x) => n + x.findings, 0)}  ·  fix rounds: ${c.cases.reduce((n, x) => n + x.direct.fixRounds, 0)}`, '');"
+  },
+  {
+    "id": "scripts/team-report.mjs:stage-words:39cf6a3050",
+    "file": "scripts/team-report.mjs",
+    "line": 388,
+    "category": "stage-words",
+    "snippet": "out.push(`- Findings reported: ${c.cases.reduce((n, x) => n + x.findings, 0)}  ·  fix rounds: ${c.cases.reduce((n, x) => n + x.direct.fixRounds, 0)}`, '');"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:39cf6a3050",
+    "file": "scripts/team-report.mjs",
+    "line": 388,
+    "category": "qa-wording",
+    "snippet": "out.push(`- Findings reported: ${c.cases.reduce((n, x) => n + x.findings, 0)}  ·  fix rounds: ${c.cases.reduce((n, x) => n + x.direct.fixRounds, 0)}`, '');"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:3a2995618d",
+    "file": "scripts/team-report.mjs",
+    "line": 391,
+    "category": "qa-wording",
+    "snippet": "out.push(`- Total: ${usd(c.totals.costUsd)}  ·  ${hours(c.totals.activeMin)} active (cases ${c.cases.reduce((n, x) => n + num(x.direct.activeMin), 0)}m · lead $"
+  },
+  {
+    "id": "scripts/team-report.mjs:stage-words:c682331eee",
+    "file": "scripts/team-report.mjs",
+    "line": 399,
+    "category": "stage-words",
+    "snippet": "out.push(`- Overhead (lead + triage + gate + report, shown once): ${usd(c.overhead.costUsd)}${c.overhead.sharePct != null ? ` (${c.overhead.sharePct}%)` : ''}`)"
+  },
+  {
+    "id": "scripts/team-report.mjs:stage-words:d3e092aa85",
+    "file": "scripts/team-report.mjs",
+    "line": 400,
+    "category": "stage-words",
+    "snippet": "const bs = c.overhead.byStage;"
+  },
+  {
+    "id": "scripts/team-report.mjs:stage-words:a9ffaa99ce",
+    "file": "scripts/team-report.mjs",
+    "line": 402,
+    "category": "stage-words",
+    "snippet": "if (c.rework) out.push(`- Rework (fix rounds — already inside per-case direct): ${usd(c.rework.costUsd)}  ·  ${c.rework.dispatches} dispatch(es)  ·  ${c.rework."
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:a9ffaa99ce",
+    "file": "scripts/team-report.mjs",
+    "line": 402,
+    "category": "qa-wording",
+    "snippet": "if (c.rework) out.push(`- Rework (fix rounds — already inside per-case direct): ${usd(c.rework.costUsd)}  ·  ${c.rework.dispatches} dispatch(es)  ·  ${c.rework."
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:af0cb62796",
+    "file": "scripts/team-report.mjs",
+    "line": 403,
+    "category": "qa-wording",
+    "snippet": "if (c.averages.totalPerDelivered) out.push(`- **Per delivered case (incl. overhead): ${usd(c.averages.totalPerDelivered.costUsd)}**`);"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:fcc2d248d6",
+    "file": "scripts/team-report.mjs",
+    "line": 404,
+    "category": "qa-wording",
+    "snippet": "if (c.averages.directPerCase) out.push(`- Avg direct per case (excl. overhead): ${usd(c.averages.directPerCase.costUsd)}`);"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:28b178c70b",
+    "file": "scripts/team-report.mjs",
+    "line": 411,
+    "category": "qa-wording",
+    "snippet": "out.push('', '## Per case (direct = measured; loaded = direct + even overhead share, an allocation)', '');"
+  },
+  {
+    "id": "scripts/team-report.mjs:sizing:40e4da47bf",
+    "file": "scripts/team-report.mjs",
+    "line": 412,
+    "category": "sizing",
+    "snippet": "const sized = !!c.sizing;   // no scoping ran -> no size column at all"
+  },
+  {
+    "id": "scripts/team-report.mjs:sizing:e1a528264e",
+    "file": "scripts/team-report.mjs",
+    "line": 413,
+    "category": "sizing",
+    "snippet": "const sz = (x) => (x.sizing ? `${x.sizing.size}${x.sizing.flag ? ' ⚠' : ''}` : '—');"
+  },
+  {
+    "id": "scripts/team-report.mjs:stage-words:74cca45492",
+    "file": "scripts/team-report.mjs",
+    "line": 415,
+    "category": "stage-words",
+    "snippet": "? '| case | size | outcome | direct cost | loaded | real-work tok | active | loaded act. | dispatches | tools (err) | fix rounds | findings |'"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:74cca45492",
+    "file": "scripts/team-report.mjs",
+    "line": 415,
+    "category": "qa-wording",
+    "snippet": "? '| case | size | outcome | direct cost | loaded | real-work tok | active | loaded act. | dispatches | tools (err) | fix rounds | findings |'"
+  },
+  {
+    "id": "scripts/team-report.mjs:stage-words:82cd434cc9",
+    "file": "scripts/team-report.mjs",
+    "line": 416,
+    "category": "stage-words",
+    "snippet": ": '| case | outcome | direct cost | loaded | real-work tok | active | loaded act. | dispatches | tools (err) | fix rounds | findings |',"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:82cd434cc9",
+    "file": "scripts/team-report.mjs",
+    "line": 416,
+    "category": "qa-wording",
+    "snippet": ": '| case | outcome | direct cost | loaded | real-work tok | active | loaded act. | dispatches | tools (err) | fix rounds | findings |',"
+  },
+  {
+    "id": "scripts/team-report.mjs:receipt-reader:05fe288f6d",
+    "file": "scripts/team-report.mjs",
+    "line": 419,
+    "category": "receipt-reader",
+    "snippet": "out.push(`| ${x.id} | ${sized ? `${sz(x)} | ` : ''}${x.outcome ?? '—'} | ${usd(x.direct.costUsd)} | ${usd(x.loaded?.costUsd)} | ${rwCell(x.direct.tok, x.direct."
+  },
+  {
+    "id": "scripts/team-report.mjs:stage-words:05fe288f6d",
+    "file": "scripts/team-report.mjs",
+    "line": 419,
+    "category": "stage-words",
+    "snippet": "out.push(`| ${x.id} | ${sized ? `${sz(x)} | ` : ''}${x.outcome ?? '—'} | ${usd(x.direct.costUsd)} | ${usd(x.loaded?.costUsd)} | ${rwCell(x.direct.tok, x.direct."
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:973d4f68ac",
+    "file": "scripts/team-report.mjs",
+    "line": 421,
+    "category": "qa-wording",
+    "snippet": "out.push('', '_Cases analysed/built as one cluster share its measured dispatches — their rows are an even split, not per-case measurement (fractional `dispatche"
+  },
+  {
+    "id": "scripts/team-report.mjs:sizing:1cb7329b36",
+    "file": "scripts/team-report.mjs",
+    "line": 422,
+    "category": "sizing",
+    "snippet": "if (c.sizing) {"
+  },
+  {
+    "id": "scripts/team-report.mjs:path-automation:b7bb5e2c87",
+    "file": "scripts/team-report.mjs",
+    "line": 423,
+    "category": "path-automation",
+    "snippet": "out.push('', '## By size — predicted (automation-scoping) vs actual', '');"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:1f1fe47251",
+    "file": "scripts/team-report.mjs",
+    "line": 424,
+    "category": "qa-wording",
+    "snippet": "out.push('| size | cases | ΣSP | est min | actual min | actual rw tok |', '|---|---|---|---|---|---|');"
+  },
+  {
+    "id": "scripts/team-report.mjs:sizing:efc4d99e14",
+    "file": "scripts/team-report.mjs",
+    "line": 425,
+    "category": "sizing",
+    "snippet": "for (const [k, b] of Object.entries(c.sizing.bySize)) out.push(`| ${k} | ${b.cases} | ${b.sp || '—'} | ${b.estMin || '—'} | ${b.actualMin} | ${b.actualTok.toLoc"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:efc4d99e14",
+    "file": "scripts/team-report.mjs",
+    "line": 425,
+    "category": "qa-wording",
+    "snippet": "for (const [k, b] of Object.entries(c.sizing.bySize)) out.push(`| ${k} | ${b.cases} | ${b.sp || '—'} | ${b.estMin || '—'} | ${b.actualMin} | ${b.actualTok.toLoc"
+  },
+  {
+    "id": "scripts/team-report.mjs:sizing:77bc3c0f41",
+    "file": "scripts/team-report.mjs",
+    "line": 426,
+    "category": "sizing",
+    "snippet": "if (c.sizing.estVsActualMin) out.push('', `**Estimate vs actual (batch grain): ${c.sizing.estVsActualMin.est}m predicted / ${c.sizing.estVsActualMin.actual}m ac"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:77bc3c0f41",
+    "file": "scripts/team-report.mjs",
+    "line": 426,
+    "category": "qa-wording",
+    "snippet": "if (c.sizing.estVsActualMin) out.push('', `**Estimate vs actual (batch grain): ${c.sizing.estVsActualMin.est}m predicted / ${c.sizing.estVsActualMin.actual}m ac"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:77bc3c0f41",
+    "file": "scripts/team-report.mjs",
+    "line": 426,
+    "category": "group-wording",
+    "snippet": "if (c.sizing.estVsActualMin) out.push('', `**Estimate vs actual (batch grain): ${c.sizing.estVsActualMin.est}m predicted / ${c.sizing.estVsActualMin.actual}m ac"
+  },
+  {
+    "id": "scripts/team-report.mjs:sizing:5bd3dbb6b8",
+    "file": "scripts/team-report.mjs",
+    "line": 427,
+    "category": "sizing",
+    "snippet": "for (const f of c.sizing.flagged) out.push(`- ⚠ **${f.id}** (${f.size}, ${f.flag}): ${f.detail}`);"
+  },
+  {
+    "id": "scripts/team-report.mjs:receipt-reader:b9276b1c6e",
+    "file": "scripts/team-report.mjs",
+    "line": 533,
+    "category": "receipt-reader",
+    "snippet": "<div class=\"num\">${fmtV(val(x))}<span class=\"sub\"> · ${x.sizing ? `size ${esc(x.sizing.size)}${x.sizing.flag ? ' ⚠' : ''} · ` : ''}${x.loaded?.costUsd != null ?"
+  },
+  {
+    "id": "scripts/team-report.mjs:stage-words:b9276b1c6e",
+    "file": "scripts/team-report.mjs",
+    "line": 533,
+    "category": "stage-words",
+    "snippet": "<div class=\"num\">${fmtV(val(x))}<span class=\"sub\"> · ${x.sizing ? `size ${esc(x.sizing.size)}${x.sizing.flag ? ' ⚠' : ''} · ` : ''}${x.loaded?.costUsd != null ?"
+  },
+  {
+    "id": "scripts/team-report.mjs:sizing:b9276b1c6e",
+    "file": "scripts/team-report.mjs",
+    "line": 533,
+    "category": "sizing",
+    "snippet": "<div class=\"num\">${fmtV(val(x))}<span class=\"sub\"> · ${x.sizing ? `size ${esc(x.sizing.size)}${x.sizing.flag ? ' ⚠' : ''} · ` : ''}${x.loaded?.costUsd != null ?"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:e7c749a522",
+    "file": "scripts/team-report.mjs",
+    "line": 540,
+    "category": "qa-wording",
+    "snippet": "statCell('Delivered / cases', `${c.delivered}/${c.cases.length}`),"
+  },
+  {
+    "id": "scripts/team-report.mjs:gate-records:741dafbb17",
+    "file": "scripts/team-report.mjs",
+    "line": 541,
+    "category": "gate-records",
+    "snippet": "statCell(`Gate${c.gate?.runs ? ` <span class=\"stat-sub\">(${c.gate.runs} runs)</span>` : ''}`, c.gate ? esc(c.gate.verdict) : 'n/a'),"
+  },
+  {
+    "id": "scripts/team-report.mjs:stage-words:bad58c6959",
+    "file": "scripts/team-report.mjs",
+    "line": 542,
+    "category": "stage-words",
+    "snippet": "statCell('Fix rounds', fmtInt(c.cases.reduce((n, x) => n + x.direct.fixRounds, 0))),"
+  },
+  {
+    "id": "scripts/team-report.mjs:receipt-reader:2affc85094",
+    "file": "scripts/team-report.mjs",
+    "line": 543,
+    "category": "receipt-reader",
+    "snippet": "statCell('Findings', fmtInt(c.cases.reduce((n, x) => n + x.findings, 0))),"
+  },
+  {
+    "id": "scripts/team-report.mjs:stage-words:7c9c0d8016",
+    "file": "scripts/team-report.mjs",
+    "line": 549,
+    "category": "stage-words",
+    "snippet": "c.rework ? statCell('Rework', usd(c.rework.costUsd)) : statCell('Avg direct / case', c.averages.directPerCase ? usd(c.averages.directPerCase.costUsd) : 'n/a'),"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:7c9c0d8016",
+    "file": "scripts/team-report.mjs",
+    "line": 549,
+    "category": "qa-wording",
+    "snippet": "c.rework ? statCell('Rework', usd(c.rework.costUsd)) : statCell('Avg direct / case', c.averages.directPerCase ? usd(c.averages.directPerCase.costUsd) : 'n/a'),"
+  },
+  {
+    "id": "scripts/team-report.mjs:stage-words:55551fdc26",
+    "file": "scripts/team-report.mjs",
+    "line": 550,
+    "category": "stage-words",
+    "snippet": "], c.overhead.byStage && Object.keys(c.overhead.byStage).length ? `by stage: lead ${usd(c.overhead.lead.costUsd)}${Object.entries(c.overhead.byStage).map(([k, b"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:196d5a9dff",
+    "file": "scripts/team-report.mjs",
+    "line": 562,
+    "category": "qa-wording",
+    "snippet": "statCell(`Active time <span class=\"stat-sub\">(cases ${c.cases.reduce((n, x) => n + num(x.direct.activeMin), 0)}m · lead ${num(c.overhead?.lead?.activeMin)}m · s"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:a507ea3cca",
+    "file": "scripts/team-report.mjs",
+    "line": 566,
+    "category": "group-wording",
+    "snippet": "<h1>Batch cost — ${esc(c.batch)}</h1>"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:e91739f2cc",
+    "file": "scripts/team-report.mjs",
+    "line": 570,
+    "category": "group-wording",
+    "snippet": "${c.sources.sharedSessions ? `<p class=\"note\">${c.sources.sharedSessions} session(s) also served other batches — session-level figures split evenly${c.sources.f"
+  },
+  {
+    "id": "scripts/team-report.mjs:receipt-reader:317dbddb26",
+    "file": "scripts/team-report.mjs",
+    "line": 571,
+    "category": "receipt-reader",
+    "snippet": "${c.records?.gateDrift ? `<p class=\"callout-warn\">⚠ GATE DRIFT — receipt says '${esc(c.records.gateDrift.receipt ?? 'not-run')}' but the recorded verdict is '${"
+  },
+  {
+    "id": "scripts/team-report.mjs:gate-records:317dbddb26",
+    "file": "scripts/team-report.mjs",
+    "line": 571,
+    "category": "gate-records",
+    "snippet": "${c.records?.gateDrift ? `<p class=\"callout-warn\">⚠ GATE DRIFT — receipt says '${esc(c.records.gateDrift.receipt ?? 'not-run')}' but the recorded verdict is '${"
+  },
+  {
+    "id": "scripts/team-report.mjs:receipt-reader:354c2a624d",
+    "file": "scripts/team-report.mjs",
+    "line": 572,
+    "category": "receipt-reader",
+    "snippet": "${c.records?.outcomeDrift?.length ? `<p class=\"callout-warn\">⚠ OUTCOME DRIFT — ${c.records.outcomeDrift.map((d) => `${esc(d.id)}: receipt=${esc(d.receipt ?? '—'"
+  },
+  {
+    "id": "scripts/team-report.mjs:gate-records:354c2a624d",
+    "file": "scripts/team-report.mjs",
+    "line": 572,
+    "category": "gate-records",
+    "snippet": "${c.records?.outcomeDrift?.length ? `<p class=\"callout-warn\">⚠ OUTCOME DRIFT — ${c.records.outcomeDrift.map((d) => `${esc(d.id)}: receipt=${esc(d.receipt ?? '—'"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:a94159d70c",
+    "file": "scripts/team-report.mjs",
+    "line": 573,
+    "category": "qa-wording",
+    "snippet": "<section class=\"panel\"><h2>Per case — direct, measured${priced ? '' : ' (tokens: no per-dispatch dollars on this host)'}</h2>"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:06482b6c8d",
+    "file": "scripts/team-report.mjs",
+    "line": 574,
+    "category": "qa-wording",
+    "snippet": "<p class=\"panel-sub\">Batch overhead is NOT in these bars — it is the labelled figure above, shown once instead of smeared. Clustered cases are an even split of "
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:06482b6c8d",
+    "file": "scripts/team-report.mjs",
+    "line": 574,
+    "category": "group-wording",
+    "snippet": "<p class=\"panel-sub\">Batch overhead is NOT in these bars — it is the labelled figure above, shown once instead of smeared. Clustered cases are an even split of "
+  },
+  {
+    "id": "scripts/team-report.mjs:sizing:5e8204b81a",
+    "file": "scripts/team-report.mjs",
+    "line": 586,
+    "category": "sizing",
+    "snippet": "${c.sizing ? `<section class=\"panel\"><h2>By size — predicted vs actual</h2>"
+  },
+  {
+    "id": "scripts/team-report.mjs:path-automation:77eb051421",
+    "file": "scripts/team-report.mjs",
+    "line": 587,
+    "category": "path-automation",
+    "snippet": "<p class=\"panel-sub\">Pre-run size (automation-scoping) against actuals${c.sizing.estVsActualMin ? ` · batch grain: ${c.sizing.estVsActualMin.est}m predicted / $"
+  },
+  {
+    "id": "scripts/team-report.mjs:sizing:77eb051421",
+    "file": "scripts/team-report.mjs",
+    "line": 587,
+    "category": "sizing",
+    "snippet": "<p class=\"panel-sub\">Pre-run size (automation-scoping) against actuals${c.sizing.estVsActualMin ? ` · batch grain: ${c.sizing.estVsActualMin.est}m predicted / $"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:77eb051421",
+    "file": "scripts/team-report.mjs",
+    "line": 587,
+    "category": "qa-wording",
+    "snippet": "<p class=\"panel-sub\">Pre-run size (automation-scoping) against actuals${c.sizing.estVsActualMin ? ` · batch grain: ${c.sizing.estVsActualMin.est}m predicted / $"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:77eb051421",
+    "file": "scripts/team-report.mjs",
+    "line": 587,
+    "category": "group-wording",
+    "snippet": "<p class=\"panel-sub\">Pre-run size (automation-scoping) against actuals${c.sizing.estVsActualMin ? ` · batch grain: ${c.sizing.estVsActualMin.est}m predicted / $"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:9afc304323",
+    "file": "scripts/team-report.mjs",
+    "line": 588,
+    "category": "qa-wording",
+    "snippet": "<table><tr><th>size</th><th>cases</th><th>ΣSP</th><th>est min</th><th>actual min</th><th>actual rw tok</th></tr>"
+  },
+  {
+    "id": "scripts/team-report.mjs:sizing:8865c27efa",
+    "file": "scripts/team-report.mjs",
+    "line": 589,
+    "category": "sizing",
+    "snippet": "${Object.entries(c.sizing.bySize).map(([k, b]) => `<tr><td>${esc(k)}</td><td>${b.cases}</td><td>${b.sp || '—'}</td><td>${b.estMin || '—'}</td><td>${b.actualMin}"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:8865c27efa",
+    "file": "scripts/team-report.mjs",
+    "line": 589,
+    "category": "qa-wording",
+    "snippet": "${Object.entries(c.sizing.bySize).map(([k, b]) => `<tr><td>${esc(k)}</td><td>${b.cases}</td><td>${b.sp || '—'}</td><td>${b.estMin || '—'}</td><td>${b.actualMin}"
+  },
+  {
+    "id": "scripts/team-report.mjs:sizing:4df322b76f",
+    "file": "scripts/team-report.mjs",
+    "line": 590,
+    "category": "sizing",
+    "snippet": "${c.sizing.flagged.map((f) => `<p class=\"callout-warn\">⚠ ${esc(f.id)} (${esc(f.size)}, ${esc(f.flag)}): ${esc(f.detail)}</p>`).join('')}</section>` : ''}"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:f0198f4142",
+    "file": "scripts/team-report.mjs",
+    "line": 602,
+    "category": "group-wording",
+    "snippet": "const out = [`# Batch tokenomics — ${c.batch}`, '',"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:cf718ee628",
+    "file": "scripts/team-report.mjs",
+    "line": 639,
+    "category": "group-wording",
+    "snippet": "out.push(`Lead: ${usd(lead.costUsd)}${c.overhead.sharePct != null ? ` — overhead incl. stages is ${c.overhead.sharePct}% of the batch` : ''} · real work ${realW"
+  },
+  {
+    "id": "scripts/team-report.mjs:stage-words:dd6621a4d8",
+    "file": "scripts/team-report.mjs",
+    "line": 642,
+    "category": "stage-words",
+    "snippet": "const stages = Object.entries(c.overhead?.byStage ?? {}).filter(([, b]) => b.tok);"
+  },
+  {
+    "id": "scripts/team-report.mjs:sizing:e0d2934262",
+    "file": "scripts/team-report.mjs",
+    "line": 648,
+    "category": "sizing",
+    "snippet": "if (c.sizing?.flagged?.length) {"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:75935bf8e2",
+    "file": "scripts/team-report.mjs",
+    "line": 655,
+    "category": "qa-wording",
+    "snippet": "out.push('## Per case (direct; clustered cases are an even split)', '', '| case | cost | input | output | cache write | cache read | total | hit rate | share |'"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:3fc23d7d44",
+    "file": "scripts/team-report.mjs",
+    "line": 700,
+    "category": "group-wording",
+    "snippet": "<h1>Batch tokenomics — ${esc(c.batch)}</h1>"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:046f34bf72",
+    "file": "scripts/team-report.mjs",
+    "line": 709,
+    "category": "group-wording",
+    "snippet": "<p class=\"panel-sub\">${usd(lead.costUsd)} · real work ${kTok(realWork(lead.tok))} · cache hit ${pct(cacheHitRate(lead.tok))}${c.overhead.sharePct != null ? ` · "
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:f6df416bdf",
+    "file": "scripts/team-report.mjs",
+    "line": 718,
+    "category": "qa-wording",
+    "snippet": "${cased.length ? `<section class=\"panel\"><h2>Per case</h2><p class=\"panel-sub\">Direct spend only; clustered cases are an even split of their shared dispatches. "
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:f6df416bdf",
+    "file": "scripts/team-report.mjs",
+    "line": 718,
+    "category": "group-wording",
+    "snippet": "${cased.length ? `<section class=\"panel\"><h2>Per case</h2><p class=\"panel-sub\">Direct spend only; clustered cases are an even split of their shared dispatches. "
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:9b87c80364",
+    "file": "scripts/team-report.mjs",
+    "line": 719,
+    "category": "qa-wording",
+    "snippet": "<table><tr><th>case</th><th>cost</th><th>input</th><th>output</th><th>cache write</th><th>cache read</th><th>total</th><th>hit rate</th><th>share</th></tr>"
+  },
+  {
+    "id": "scripts/team-report.mjs:path-automation:f5913ac5a2",
+    "file": "scripts/team-report.mjs",
+    "line": 743,
+    "category": "path-automation",
+    "snippet": "rep.perDelivered ? statCell('Per delivered case', usd(rep.perDelivered.automationOnlyCostUsd ?? rep.perDelivered.costUsd)) : statCell('Per delivered case', 'n/a"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:f5913ac5a2",
+    "file": "scripts/team-report.mjs",
+    "line": 743,
+    "category": "qa-wording",
+    "snippet": "rep.perDelivered ? statCell('Per delivered case', usd(rep.perDelivered.automationOnlyCostUsd ?? rep.perDelivered.costUsd)) : statCell('Per delivered case', 'n/a"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:c25d704c36",
+    "file": "scripts/team-report.mjs",
+    "line": 744,
+    "category": "qa-wording",
+    "snippet": "rep.perExamined ? statCell('Per case examined', usd(rep.perExamined.costUsd)) : statCell('People', fmtInt(rep.people)),"
+  },
+  {
+    "id": "scripts/team-report.mjs:path-automation:44dafb95a5",
+    "file": "scripts/team-report.mjs",
+    "line": 745,
+    "category": "path-automation",
+    "snippet": "], rep.perDelivered?.automationOnlyCostUsd != null ? `automation-intent spend only; all-spend ${usd(rep.perDelivered.costUsd)}` : (Object.keys(rep.costSources ?"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:422ceee8db",
+    "file": "scripts/team-report.mjs",
+    "line": 753,
+    "category": "qa-wording",
+    "snippet": "statCell('delivered / examined', `${cases.delivered}/${cases.examined}`),"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:7624c2365a",
+    "file": "scripts/team-report.mjs",
+    "line": 755,
+    "category": "group-wording",
+    "snippet": "statCell('Batches', fmtInt(rep.byBatch?.length ?? 0)),"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:a9a5fedf83",
+    "file": "scripts/team-report.mjs",
+    "line": 771,
+    "category": "group-wording",
+    "snippet": "${rep.byBatch?.length ? `<section class=\"panel\"><h2>By batch</h2>"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:b3aa5901d5",
+    "file": "scripts/team-report.mjs",
+    "line": 772,
+    "category": "qa-wording",
+    "snippet": "<table><tr><th>batch</th><th>cases</th><th>delivered</th><th>total</th><th>per delivered</th><th>active</th><th>gate</th><th>drift</th></tr>"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:b3aa5901d5",
+    "file": "scripts/team-report.mjs",
+    "line": 772,
+    "category": "group-wording",
+    "snippet": "<table><tr><th>batch</th><th>cases</th><th>delivered</th><th>total</th><th>per delivered</th><th>active</th><th>gate</th><th>drift</th></tr>"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:e2c87589c8",
+    "file": "scripts/team-report.mjs",
+    "line": 773,
+    "category": "qa-wording",
+    "snippet": "${rep.byBatch.map((b) => `<tr><td>${esc(b.batch)}</td><td>${b.cases}</td><td>${b.delivered}</td><td>${usd(b.costUsd)}</td><td>${usd(b.perDelivered)}</td><td>${h"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:3bec0f9693",
+    "file": "scripts/team-report.mjs",
+    "line": 774,
+    "category": "qa-wording",
+    "snippet": "${rep.perCase?.length ? `<section class=\"panel\"><h2>Per case — cost.json rows across batches (delivered first)</h2>"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:3bec0f9693",
+    "file": "scripts/team-report.mjs",
+    "line": 774,
+    "category": "group-wording",
+    "snippet": "${rep.perCase?.length ? `<section class=\"panel\"><h2>Per case — cost.json rows across batches (delivered first)</h2>"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:be26c9c597",
+    "file": "scripts/team-report.mjs",
+    "line": 775,
+    "category": "qa-wording",
+    "snippet": "${rep.perCaseStats?.loadedCostUsd ? `<p class=\"panel-sub\">Delivered-case loaded cost: avg ${usd(rep.perCaseStats.loadedCostUsd.avg)} · median ${usd(rep.perCaseS"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:014584f598",
+    "file": "scripts/team-report.mjs",
+    "line": 776,
+    "category": "qa-wording",
+    "snippet": "<table><tr><th>case</th><th>batch</th><th>outcome</th><th>direct</th><th>loaded</th><th>active (loaded)</th></tr>"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:014584f598",
+    "file": "scripts/team-report.mjs",
+    "line": 776,
+    "category": "group-wording",
+    "snippet": "<table><tr><th>case</th><th>batch</th><th>outcome</th><th>direct</th><th>loaded</th><th>active (loaded)</th></tr>"
+  },
+  {
+    "id": "scripts/team-report.mjs:path-automation:0f6e029e1b",
+    "file": "scripts/team-report.mjs",
+    "line": 802,
+    "category": "path-automation",
+    "snippet": "if (!results.length) { process.stderr.write(`team-report: no receipts${batch ? ` for batch '${batch}'` : ''} under ${join(roots[0], '.agents', 'automation')}\\n`"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:0f6e029e1b",
+    "file": "scripts/team-report.mjs",
+    "line": 802,
+    "category": "group-wording",
+    "snippet": "if (!results.length) { process.stderr.write(`team-report: no receipts${batch ? ` for batch '${batch}'` : ''} under ${join(roots[0], '.agents', 'automation')}\\n`"
+  },
+  {
+    "id": "scripts/team-report.mjs:path-automation:a7733e1073",
+    "file": "scripts/team-report.mjs",
+    "line": 820,
+    "category": "path-automation",
+    "snippet": ": roots.map((r) => join(r, '.agents', 'automation'));"
+  },
+  {
+    "id": "scripts/team-report.mjs:gate-records:d12f5afb27",
+    "file": "scripts/team-report.mjs",
+    "line": 837,
+    "category": "gate-records",
+    "snippet": "gate: c.gate?.verdict ?? null,"
+  },
+  {
+    "id": "scripts/team-report.mjs:gate-records:b5cfc0373b",
+    "file": "scripts/team-report.mjs",
+    "line": 838,
+    "category": "gate-records",
+    "snippet": "drift: !!(c.records?.gateDrift || c.records?.outcomeDrift?.length),"
+  },
+  {
+    "id": "scripts/team-report.mjs:qa-wording:f13187655d",
+    "file": "scripts/team-report.mjs",
+    "line": 851,
+    "category": "qa-wording",
+    "snippet": "note: 'over DELIVERED cases; loaded = direct + even batch-overhead share (allocation)',"
+  },
+  {
+    "id": "scripts/team-report.mjs:group-wording:f13187655d",
+    "file": "scripts/team-report.mjs",
+    "line": 851,
+    "category": "group-wording",
+    "snippet": "note: 'over DELIVERED cases; loaded = direct + even batch-overhead share (allocation)',"
+  },
+  {
+    "id": "scripts/work-scope.mjs:path-automation:e0db26dd6a",
+    "file": "scripts/work-scope.mjs",
+    "line": 42,
+    "category": "path-automation",
+    "snippet": "export function scopesDir(repo) { return join(repo, '.agents', 'telemetry', 'automation', 'scopes'); }"
+  },
+  {
+    "id": "scripts/work-scope.mjs:path-automation:d98c2fe677",
+    "file": "scripts/work-scope.mjs",
+    "line": 61,
+    "category": "path-automation",
+    "snippet": "intent: intent ?? prev.intent ?? 'automation',"
+  },
+  {
+    "id": "scripts/work-scope.mjs:intent-default:d98c2fe677",
+    "file": "scripts/work-scope.mjs",
+    "line": 61,
+    "category": "intent-default",
+    "snippet": "intent: intent ?? prev.intent ?? 'automation',"
+  },
+  {
+    "id": "scripts/work-scope.mjs:path-automation:6ca2577558",
+    "file": "scripts/work-scope.mjs",
+    "line": 81,
+    "category": "path-automation",
+    "snippet": "const scope = readJson(path) ?? { v: SCOPE_VERSION, session: sid, intent: 'automation', cases: [], declaredAt: now };"
+  },
+  {
+    "id": "scripts/work-scope.mjs:qa-wording:096c45ad2a",
+    "file": "scripts/work-scope.mjs",
+    "line": 172,
+    "category": "qa-wording",
+    "snippet": "out.push(`  scope: ${scope.intent}${scope.batch ? ` / ${scope.batch}` : ''} — ${scope.cases.length} case(s)${oc ? `  ·  outcomes: ${oc}` : '  ·  no outcomes rec"
+  },
+  {
+    "id": "scripts/work-scope.mjs:qa-wording:72d84b7737",
+    "file": "scripts/work-scope.mjs",
+    "line": 177,
+    "category": "qa-wording",
+    "snippet": "out.push(`  cases seen: ${line.cases.length ? line.cases.join(', ') : '—'}`);"
+  },
+  {
+    "id": "scripts/work-scope.mjs:gate-records:c3f81ad666",
+    "file": "scripts/work-scope.mjs",
+    "line": 209,
+    "category": "gate-records",
+    "snippet": "const { updateBatchCosts, foldGateRuns } = await import('./batch-cost.mjs');"
+  },
+  {
+    "id": "scripts/work-scope.mjs:receipt-reader:39b61e588f",
+    "file": "scripts/work-scope.mjs",
+    "line": 216,
+    "category": "receipt-reader",
+    "snippet": "const matches = all.filter((c) => c.batch === scope.batch || c.batch.endsWith(`/${scope.batch}`));"
+  },
+  {
+    "id": "scripts/work-scope.mjs:path-automation:47c6f2223e",
+    "file": "scripts/work-scope.mjs",
+    "line": 221,
+    "category": "path-automation",
+    "snippet": "const dir = join(repo, '.agents', 'automation', ...c.batch.split('/'));"
+  },
+  {
+    "id": "scripts/work-scope.mjs:gate-records:25b13ec8bd",
+    "file": "scripts/work-scope.mjs",
+    "line": 224,
+    "category": "gate-records",
+    "snippet": "try { foldGateRuns(repo, c.batch, dir); } catch { /* record survives on the telemetry side */ }"
+  },
+  {
+    "id": "scripts/work-scope.mjs:qa-wording:9e10233a19",
+    "file": "scripts/work-scope.mjs",
+    "line": 266,
+    "category": "qa-wording",
+    "snippet": "cases: (arg('--cases') ?? '').split(',').map((s) => s.trim()).filter(Boolean),"
+  },
+  {
+    "id": "scripts/work-scope.mjs:qa-wording:2307ebfcd8",
+    "file": "scripts/work-scope.mjs",
+    "line": 269,
+    "category": "qa-wording",
+    "snippet": "process.stderr.write(`work-scope: ${scope.session} — ${scope.intent}${scope.batch ? ` / ${scope.batch}` : ''}, ${scope.cases.length} case(s)\\n`);"
+  },
+  {
+    "id": "scripts/work-scope.mjs:path-automation:b6b130e522",
+    "file": "scripts/work-scope.mjs",
+    "line": 295,
+    "category": "path-automation",
+    "snippet": "`work-scope: ⚠ NO RECEIPT for batch '${scope.batch}' — .agents/automation/${scope.batch}/report.json is missing, so no batch report was written.\\n`"
+  },
+  {
+    "id": "scripts/work-scope.mjs:receipt-reader:b6b130e522",
+    "file": "scripts/work-scope.mjs",
+    "line": 295,
+    "category": "receipt-reader",
+    "snippet": "`work-scope: ⚠ NO RECEIPT for batch '${scope.batch}' — .agents/automation/${scope.batch}/report.json is missing, so no batch report was written.\\n`"
+  },
+  {
+    "id": "scripts/work-scope.mjs:group-wording:b6b130e522",
+    "file": "scripts/work-scope.mjs",
+    "line": 295,
+    "category": "group-wording",
+    "snippet": "`work-scope: ⚠ NO RECEIPT for batch '${scope.batch}' — .agents/automation/${scope.batch}/report.json is missing, so no batch report was written.\\n`"
+  },
+  {
+    "id": "scripts/work-scope.mjs:gate-records:0764d4bc0c",
+    "file": "scripts/work-scope.mjs",
+    "line": 296,
+    "category": "gate-records",
+    "snippet": "+ '  The receipt is an agent write; an interrupted run leaves none. Rebuild it from what IS on disk — gate-runs.jsonl (script-authored verdicts),\\n'"
+  },
+  {
+    "id": "scripts/work-scope.mjs:path-automation:06b7cee398",
+    "file": "scripts/work-scope.mjs",
+    "line": 297,
+    "category": "path-automation",
+    "snippet": "+ '  .agents/telemetry/automation/returns/ (per-dispatch returns; legacy _returns/), the run journal and git — see the orchestration playbook § Interruption and"
+  },
+  {
+    "id": "scripts/work-scope.mjs:receipt-reader:06b7cee398",
+    "file": "scripts/work-scope.mjs",
+    "line": 297,
+    "category": "receipt-reader",
+    "snippet": "+ '  .agents/telemetry/automation/returns/ (per-dispatch returns; legacy _returns/), the run journal and git — see the orchestration playbook § Interruption and"
+  },
+  {
+    "id": "scripts/work-scope.mjs:group-wording:ca613b2428",
+    "file": "scripts/work-scope.mjs",
+    "line": 302,
+    "category": "group-wording",
+    "snippet": "process.stderr.write(`work-scope: batch report → ${path}\\n`);"
+  },
+  {
+    "id": "scripts/work-scope.mjs:receipt-reader:2f525b636d",
+    "file": "scripts/work-scope.mjs",
+    "line": 304,
+    "category": "receipt-reader",
+    "snippet": "if (r?.gateDrift) process.stderr.write(`work-scope: ⚠ GATE DRIFT on ${cost.batch} — receipt '${r.gateDrift.receipt ?? 'not-run'}' vs recorded '${r.gateDrift.rec"
+  },
+  {
+    "id": "scripts/work-scope.mjs:gate-records:2f525b636d",
+    "file": "scripts/work-scope.mjs",
+    "line": 304,
+    "category": "gate-records",
+    "snippet": "if (r?.gateDrift) process.stderr.write(`work-scope: ⚠ GATE DRIFT on ${cost.batch} — receipt '${r.gateDrift.receipt ?? 'not-run'}' vs recorded '${r.gateDrift.rec"
+  },
+  {
+    "id": "scripts/work-scope.mjs:receipt-reader:96973ca15d",
+    "file": "scripts/work-scope.mjs",
+    "line": 305,
+    "category": "receipt-reader",
+    "snippet": "if (r?.outcomeDrift?.length) process.stderr.write(`work-scope: ⚠ OUTCOME DRIFT on ${cost.batch} (${r.outcomeDrift.map((d) => `${d.id}: receipt=${d.receipt ?? '—"
+  },
+  {
+    "id": "scripts/work-scope.mjs:gate-records:96973ca15d",
+    "file": "scripts/work-scope.mjs",
+    "line": 305,
+    "category": "gate-records",
+    "snippet": "if (r?.outcomeDrift?.length) process.stderr.write(`work-scope: ⚠ OUTCOME DRIFT on ${cost.batch} (${r.outcomeDrift.map((d) => `${d.id}: receipt=${d.receipt ?? '—"
+  },
+  {
+    "id": "scripts/work-scope.mjs:qa-wording:7abb2d94cd",
+    "file": "scripts/work-scope.mjs",
+    "line": 322,
+    "category": "qa-wording",
+    "snippet": "process.stdout.write(`${s.session}  ${s.intent}${s.batch ? `  ${s.batch}` : ''}  ${s.cases.length} case(s)${s.closedAt ? '  closed' : ''}\\n`);"
+  }
+]

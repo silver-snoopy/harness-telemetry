@@ -1,0 +1,180 @@
+{
+  "generated": "2026-10-05T09:14:00.000Z",
+  "window": null,
+  "sessions": 1,
+  "people": 1,
+  "totals": {
+    "sessions": 1,
+    "costUsd": 5,
+    "priced": 1,
+    "tokens": {
+      "input": 100,
+      "output": 200,
+      "cacheRead": 0,
+      "cacheWrite": 0
+    },
+    "activeMin": 30,
+    "wallMin": 60,
+    "turns": 5,
+    "toolCalls": 6,
+    "toolErrors": 1,
+    "unmeasured": {
+      "tokens": 0,
+      "activeMin": 0,
+      "wallMin": 0,
+      "turns": 0,
+      "toolCalls": 0,
+      "toolErrors": 0
+    }
+  },
+  "byCase": {},
+  "byIntent": {
+    "undeclared": {
+      "sessions": 1,
+      "costUsd": 5,
+      "priced": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 30,
+      "wallMin": 60,
+      "turns": 5,
+      "toolCalls": 6,
+      "toolErrors": 1,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "costSources": {
+    "ccusage-metered": 1
+  },
+  "tokensOnly": 0,
+  "byPerson": {
+    "u1": {
+      "sessions": 1,
+      "costUsd": 5,
+      "priced": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 30,
+      "wallMin": 60,
+      "turns": 5,
+      "toolCalls": 6,
+      "toolErrors": 1,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "byRole": {
+    "(interactive session)": {
+      "units": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 30,
+      "toolCalls": 6,
+      "toolErrors": 1,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "byWeek": {
+    "2026-W37": {
+      "sessions": 1,
+      "costUsd": 5,
+      "priced": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 30,
+      "wallMin": 60,
+      "turns": 5,
+      "toolCalls": 6,
+      "toolErrors": 1,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "byHost": {
+    "claude": {
+      "sessions": 1,
+      "costUsd": 5,
+      "priced": 1,
+      "tokens": {
+        "input": 100,
+        "output": 200,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      },
+      "activeMin": 30,
+      "wallMin": 60,
+      "turns": 5,
+      "toolCalls": 6,
+      "toolErrors": 1,
+      "unmeasured": {
+        "tokens": 0,
+        "activeMin": 0,
+        "wallMin": 0,
+        "turns": 0,
+        "toolCalls": 0,
+        "toolErrors": 0
+      }
+    }
+  },
+  "cases": {
+    "examined": 0,
+    "delivered": 0,
+    "outcomes": {},
+    "reports": 1
+  },
+  "perDelivered": null,
+  "perExamined": null,
+  "index": [
+    {
+      "host": "claude",
+      "id": "b1",
+      "user": "u1",
+      "role": null,
+      "startedAt": "2026-09-10T09:00:00.000Z",
+      "costUsd": 5,
+      "cases": []
+    }
+  ]
+}

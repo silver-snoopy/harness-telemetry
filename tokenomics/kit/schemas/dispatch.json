@@ -1,0 +1,17 @@
+{ "$defs": { "quad": { "type": "object", "required": ["input","output","cacheRead","cacheWrite"],
+    "properties": { "input": {"type":"integer","minimum":0}, "output": {"type":"integer","minimum":0}, "cacheRead": {"type":"integer","minimum":0}, "cacheWrite": {"type":"integer","minimum":0} },
+    "additionalProperties": false },
+    "count": { "type": ["integer","null"], "minimum": 0 } },
+  "type": "object",
+  "required": ["role","label","n","tokens","activeMin","toolCalls","toolErrors"],
+  "properties": {
+    "id": {"type":"string"}, "role": {"type":"string"}, "label": {"type":"string","maxLength":160},
+    "n": {"const": 1},
+    "tokens": {"anyOf": [{"$ref":"#/$defs/quad"}, {"type":"null"}]},
+    "tokensByModel": {"type":"object","additionalProperties": {"$ref":"#/$defs/quad"}},
+    "activeMin": {"$ref":"#/$defs/count"}, "toolCalls": {"$ref":"#/$defs/count"}, "toolErrors": {"$ref":"#/$defs/count"},
+    "cases": {"type":"array","items":{"type":"string"}},
+    "costUsd": {"type":"number","minimum":0},
+    "tokensAttributed": {"const": false}
+  },
+  "additionalProperties": false }

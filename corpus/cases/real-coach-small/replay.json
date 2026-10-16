@@ -1,0 +1,39 @@
+{
+  "id": "real-coach-small",
+  "seed": 1,
+  "identity": {
+    "gitUser": "corpus",
+    "gitEmail": "corpus@example.invalid"
+  },
+  "repo": {
+    "path": "repo",
+    "branch": "docs/coach-android-adr-027-evidence-bar",
+    "files": {}
+  },
+  "stores": [
+    {
+      "from": "inputs/claude/331f763c-83f2-4b6e-b81b-7515dcb0d7d1.jsonl",
+      "to": "home/.claude/projects/{repoKey}/331f763c-83f2-4b6e-b81b-7515dcb0d7d1.jsonl",
+      "mtime": "2026-09-10T17:04:08.000Z",
+      "template": true
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-09-10T17:34:08.000Z",
+      "run": "hooks/telemetry-capture.mjs",
+      "args": [
+        "--transcript",
+        "{home}/.claude/projects/{repoKey}/331f763c-83f2-4b6e-b81b-7515dcb0d7d1.jsonl",
+        "--session",
+        "331f763c-83f2-4b6e-b81b-7515dcb0d7d1"
+      ],
+      "stdin": null,
+      "env": {}
+    }
+  ],
+  "outputs": [
+    ".agents/telemetry",
+    ".agents/automation"
+  ]
+}

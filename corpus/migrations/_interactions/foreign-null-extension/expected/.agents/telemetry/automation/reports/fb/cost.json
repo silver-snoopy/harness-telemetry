@@ -1,0 +1,220 @@
+{
+ "v": 1,
+ "manifestRevision": 1,
+ "batch": "fb",
+ "generatedAt": "2026-10-01T10:33:00.000Z",
+ "sources": {
+  "sessions": 1,
+  "hosts": [
+   "claude"
+  ],
+  "users": [
+   "live"
+  ],
+  "costSources": [],
+  "models": [],
+  "liveSessions": 1,
+  "liveNote": "PROVISIONAL — a session is still running: its finished dispatches are counted, its own lead thread is not yet measured, so these totals are a floor. Re-run once it ends.",
+  "activeMinGrain": "session",
+  "activeMinNote": "active minutes are allocated once, at session grain (spec 5.4): per-case, stage and dispatch-role minutes are not allocated (null, which is not unmeasured); loaded minutes = batch time ÷ cases, an allocation"
+ },
+ "totals": {
+  "costUsd": null,
+  "tokens": 2412,
+  "tokensSplit": {
+   "input": 12,
+   "output": 300,
+   "cacheRead": 2000,
+   "cacheWrite": 100
+  },
+  "tokensByModel": {
+   "claude-sonnet-5": {
+    "input": 12,
+    "output": 300,
+    "cacheRead": 2000,
+    "cacheWrite": 100
+   }
+  },
+  "tokensAttribution": "partial",
+  "unattributedUnits": 1,
+  "activeMin": null,
+  "dispatches": 1,
+  "sessions": 1,
+  "turns": null,
+  "toolCalls": 1,
+  "toolErrors": 0,
+  "skills": [],
+  "unmeasured": {
+   "tokens": 1,
+   "activeMin": 1,
+   "wallMin": 0,
+   "turns": 1,
+   "toolCalls": 1,
+   "toolErrors": 1
+  }
+ },
+ "byRole": {
+  "implementer": {
+   "costUsd": null,
+   "tokens": 2412,
+   "tok": {
+    "input": 12,
+    "output": 300,
+    "cacheRead": 2000,
+    "cacheWrite": 100
+   },
+   "activeMin": null,
+   "dispatches": 1,
+   "toolCalls": 1,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 0,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   },
+   "priced": 0,
+   "unpriced": 0
+  },
+  "session": {
+   "costUsd": null,
+   "tokens": null,
+   "tok": null,
+   "activeMin": null,
+   "dispatches": 0,
+   "toolCalls": null,
+   "toolErrors": null,
+   "unmeasured": {
+    "tokens": 1,
+    "activeMin": 1,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 1,
+    "toolErrors": 1
+   },
+   "priced": 0,
+   "unpriced": 1
+  }
+ },
+ "byDispatchRole": {
+  "implementer": {
+   "units": 1,
+   "costUsd": null,
+   "priced": 0
+  }
+ },
+ "overhead": {
+  "note": "batch-level work (lead thread) — shown once, never smeared into per-case rows",
+  "costUsd": null,
+  "sharePct": null,
+  "lead": {
+   "costUsd": null,
+   "tokens": null,
+   "tok": null,
+   "activeMin": null,
+   "dispatches": 0,
+   "toolCalls": null,
+   "toolErrors": null,
+   "unmeasured": {
+    "tokens": 1,
+    "activeMin": 1,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 1,
+    "toolErrors": 1
+   }
+  },
+  "stages": {
+   "costUsd": null,
+   "tokens": 0,
+   "tok": {
+    "input": 0,
+    "output": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+   },
+   "activeMin": null,
+   "dispatches": 0,
+   "toolCalls": 0,
+   "toolErrors": 0,
+   "unmeasured": {
+    "tokens": 0,
+    "activeMin": 0,
+    "wallMin": 0,
+    "turns": 0,
+    "toolCalls": 0,
+    "toolErrors": 0
+   }
+  }
+ },
+ "outcomes": {
+  "delivered": 1
+ },
+ "delivered": 1,
+ "cases": [
+  {
+   "id": "FX-1",
+   "outcome": "delivered",
+   "direct": {
+    "costUsd": null,
+    "tokens": 2412,
+    "tok": {
+     "input": 12,
+     "output": 300,
+     "cacheRead": 2000,
+     "cacheWrite": 100
+    },
+    "activeMin": null,
+    "dispatches": 1,
+    "toolCalls": 1,
+    "toolErrors": 0,
+    "unmeasured": {
+     "tokens": 0,
+     "activeMin": 0,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   },
+   "loaded": {
+    "costUsd": null,
+    "tokens": 2412,
+    "activeMin": null,
+    "unmeasured": {
+     "tokens": 1,
+     "activeMin": 1,
+     "wallMin": 0,
+     "turns": 0,
+     "toolCalls": 0,
+     "toolErrors": 0
+    }
+   }
+  }
+ ],
+ "stats": {
+  "note": "direct = per-case measured values only; loaded = direct + even overhead share (allocation, not measurement)",
+  "directCostUsd": null,
+  "directTokens": {
+   "avg": 2412,
+   "median": 2412,
+   "min": 2412,
+   "max": 2412,
+   "n": 1
+  },
+  "directActiveMin": null,
+  "loadedCostUsd": null,
+  "loadedActiveMin": null
+ },
+ "averages": {
+  "totalPerDelivered": null,
+  "directPerCase": null
+ },
+ "coverage": {
+  "casesAttributed": 1,
+  "casesUnattributed": [],
+  "note": "unattributed = no dispatch label named this id in any matched session (interrupted capture, or work not yet swept)"
+ }
+}

@@ -1,0 +1,74 @@
+# Tokenomics — team usage report
+
+Generated: 2026-10-01T10:34:00.000Z  ·  window: 2026-09-29T11:00:00.000Z → 2026-10-01T10:34:00.000Z
+
+_Current state, UTC: the per-delivered ratio counts items whose current (winning, spec 5.2) receipt state is delivered, dated by that state's at, inside [since, until); an item delivered, reopened and delivered again counts once, at its latest delivery, so historical ratios can change when items reopen. Limitation: a session's cumulative ledger line counts wholly in the window of its endedAt; no in-window deltas are claimed. Totals and breakdowns cover the sessions whose endedAt lies in the window; sessions without endedAt are outside every window and counted as undated._
+
+## Totals
+
+- Sessions: 2 (claude 2)  ·  people: 2
+- Cost (real figures only): $2.00 from 1 priced session(s) (ccusage-metered ×1)  ·  ⚠️ 1 session(s) tokens-only (no real dollar — never estimated)
+- Tokens (incl. sub-agents): total 72,610  ·  in 300, out 3,720, cache-read 64,800, cache-write 3,790
+- Real work: 4,020 tokens (in+out)  ·  cache hit rate: 94.1%
+- Time: 1.0h active  ·  2.0h wall  ·  11 turns  ·  12 tool calls (1 err)
+- Story ids named in sessions: 2 distinct (sessions-per-story in the --json `byCase`; top: issue-101, issue-102)
+- By declared intent: undeclared n/a (1)  ·  story $2.00 (1)
+
+## Stories (from the pipeline's own receipts)
+
+- Examined: 2 unique story(s) across 2 report(s)  ·  **done in the window: 0**  ·  2 delivered without `at` (unwindowed, excluded)
+- Outcomes (current state): done 2
+
+## By sprint
+
+| sprint | stories | delivered | total | per delivered | active |
+|---|---|---|---|---|---|
+| sp1 | 1 | 1 | $1.05 | $1.05 | 0.5h |
+| sp2 | 1 | 1 | $0.95 | $0.95 | 0.5h |
+
+## Per story — every sprint's cost.json rows (delivered first)
+
+- Delivered-story loaded cost: avg $1.00 · median $1.00 · min $0.95 · max $1.05 (n=2)
+- Delivered-story loaded time: avg 30m · median 30m · min 30m · max 30m (n=2)
+  (loaded = direct measured work + an even share of the sprint overhead — an allocation, labelled as such)
+
+| story | sprint | outcome | direct | loaded | active (loaded) |
+|---|---|---|---|---|---|
+| issue-101 | sp1 | done | $0.50 | $1.05 | 30m |
+| issue-102 | sp2 | done | $0.40 | $0.95 | 30m |
+
+## By person
+
+| person | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| alice | $2.00 | 1 | 290/3,700 | 1.0h | 12 (1) |
+| corpus | n/a | 1 | 10/20 | 0.0h | 0 (0) |
+
+## By role
+
+| role | cost | units | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| (interactive session) | (session-grain) | 2 | 110/2,020 | 1.0h | 12 (1) |
+| implementer | (session-grain) | 2 | 180/1,600 | — | 8 (0) |
+| helper | (session-grain) | 1 | 10/100 | — | 2 (0) |
+
+_— = not allocated at this grain: a dispatch-only role has no parent-session minutes (its dispatch minutes are in the next table)._
+
+## Dispatch minutes by role
+
+_Measured per dispatch. Dispatches overlap their parent session and each other, so these minutes are not part of any total; the by-role table gives each parent role its full session minutes (spec 5.4)._
+
+| role | dispatches | active |
+|---|---|---|
+| helper | 1 | 2m |
+| implementer | 2 | 10m |
+
+## By week
+
+| week | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| 2026-W40 | $2.00 | 2 | 300/3,720 | 1.0h | 12 (1) |
+
+_Dollars are session-grain (one figure per session, real sources only), so the role table reports tokens/time — sub-agent roles included. Fork/resume caveat: a forked session replays its parent's records; its ledger line can double-count the replayed tokens._
+
+manifest revision 1

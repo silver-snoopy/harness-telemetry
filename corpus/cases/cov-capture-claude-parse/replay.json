@@ -1,0 +1,163 @@
+{
+ "id": "cov-capture-claude-parse",
+ "seed": 1,
+ "identity": {
+  "gitUser": "corpus",
+  "gitEmail": "corpus@example.invalid"
+ },
+ "repo": {
+  "path": "repo",
+  "branch": "feat/CC-1-parse",
+  "files": {
+   ".agents/telemetry/automation/config.json": "{\n  \"capturePrompts\": true\n}\n",
+   ".agents/telemetry/automation/scopes/s1.json": "{\n  \"session\": \"s1\"\n}\n",
+   ".agents/telemetry/automation/live/s1.jsonl": "{\"agentId\":\"agent-r1\",\"role\":\"implementer\"}\n",
+   ".agents/telemetry/automation/returns/stray.txt": "x\n",
+   ".agents/telemetry/automation/returns/run1/agent-r1.json/keep": "",
+   ".agents/telemetry/automation/returns/run1/agent-r2.json": "{\n  \"result\": {\n    \"note\": \"x\"\n  }\n}\n"
+  }
+ },
+ "stores": [
+  {
+   "from": "inputs/claude/s1.jsonl",
+   "to": "home/stage/s1.jsonl",
+   "mtime": "2026-10-01T10:05:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/s1/subagents/agent-r1.meta.json",
+   "to": "home/stage/s1/subagents/agent-r1.meta.json",
+   "mtime": "2026-10-01T10:02:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/s1/subagents/agent-r1.jsonl",
+   "to": "home/stage/s1/subagents/agent-r1.jsonl",
+   "mtime": "2026-10-01T10:02:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/s1/subagents/agent-x9.meta.json",
+   "to": "home/stage/s1/subagents/agent-x9.meta.json",
+   "mtime": "2026-10-01T10:03:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/s1/subagents/agent-d1.meta.json",
+   "to": "home/stage/s1/subagents/agent-d1.meta.json",
+   "mtime": "2026-10-01T10:03:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/s1/subagents/agent-d1.jsonl/keep",
+   "to": "home/stage/s1/subagents/agent-d1.jsonl/keep",
+   "mtime": "2026-10-01T10:03:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/s4.jsonl",
+   "to": "home/stage/s4.jsonl",
+   "mtime": "2026-10-01T10:03:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/s4/subagents/agent-r2.meta.txt",
+   "to": "home/stage/s4/subagents/agent-r2.meta.json",
+   "mtime": "2026-10-01T10:03:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/s4/subagents/agent-r2.jsonl",
+   "to": "home/stage/s4/subagents/agent-r2.jsonl",
+   "mtime": "2026-10-01T10:03:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/s5.jsonl",
+   "to": "home/stage/s5.jsonl",
+   "mtime": "2026-10-01T10:03:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/s5/subagents/n0.meta.json",
+   "to": "home/stage/s5/subagents/.meta.json",
+   "mtime": "2026-10-01T10:03:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/s5/subagents/n0.jsonl",
+   "to": "home/stage/s5/subagents/.jsonl",
+   "mtime": "2026-10-01T10:03:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/s2.jsonl",
+   "to": "home/stage/s2.jsonl",
+   "mtime": "2026-10-01T10:06:00.000Z",
+   "template": true
+  },
+  {
+   "from": "inputs/claude/s3.jsonl",
+   "to": "home/.claude/projects/{repoKey}/s3.jsonl",
+   "mtime": "2026-10-01T10:01:00.000Z",
+   "template": true
+  }
+ ],
+ "outputs": [
+  ".agents/telemetry",
+  ".agents/automation"
+ ],
+ "events": [
+  {
+   "stdin": {
+    "transcript_path": "{home}/stage/s2.jsonl"
+   },
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:30:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": []
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:31:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/s4.jsonl",
+    "--session",
+    "s4"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:32:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/s5.jsonl",
+    "--session",
+    "s5"
+   ]
+  },
+  {
+   "stdin": null,
+   "env": {
+    "TOKENOMICS_NO_CCUSAGE": "1"
+   },
+   "at": "2026-10-01T10:33:00Z",
+   "run": "hooks/telemetry-capture.mjs",
+   "args": [
+    "--transcript",
+    "{home}/stage/s1.jsonl"
+   ]
+  }
+ ]
+}

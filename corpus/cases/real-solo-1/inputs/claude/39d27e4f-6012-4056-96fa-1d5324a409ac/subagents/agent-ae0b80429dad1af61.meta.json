@@ -1,0 +1,9 @@
+{
+  "agentType": "Explore",
+  "description": "xxx xxxxxxxxxxx xxx xxxxxxxxxxx",
+  "toolUseId": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "parentAgentId": "xxxxxxxxxxxxxxxxx",
+  "spawnDepth": 2,
+  "requestShape": "xxxxxxxxxx",
+  "requestNonInteractive": true
+}

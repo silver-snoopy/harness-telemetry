@@ -1,0 +1,50 @@
+{
+  "id": "copilot-inclusive",
+  "item": 3,
+  "spec": "§14.8 item 3, §10.1, §3.2.1",
+  "summary": "Copilot records carry tokensBasis \"inclusive\", and dispatch totals are no longer stored as measured input (§10.1, P14).",
+  "beforeCases": [
+    "seed-copilot-cli",
+    "cov-copilot-dispatch"
+  ],
+  "declared": {
+    "seed-copilot-cli": {
+      "reason": "The Copilot line is stored on the inclusive basis: tokensBasis inclusive follows tokens, the session input is the host total (1500, no longer netted to 1000), and the dispatch's single cache-inclusive total is dropped (tokens null, Q6).",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-copilot-no-usage": {
+      "reason": "The Copilot line gains tokensBasis inclusive and its dispatch total is dropped (tokens null, Q6). The session quad stays 0 because the host gave no usage, but it is no longer clamped from 0 minus the dispatch total; item 4 later makes it null.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-copilot-dispatch": {
+      "reason": "Ledger line gains tokensBasis inclusive with the un-netted input (2500, was 1499) and null dispatch tokens; every live dispatch record in cp1.jsonl writes tokens null; the rendered live report counts the session once and shows no dispatch tokens.",
+      "changed": [
+        ".agents/telemetry/automation/live/cp1.jsonl",
+        ".agents/telemetry/automation/reports/camp-wave-01.html",
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-copilot-edges": {
+      "reason": "Every Copilot line gains tokensBasis inclusive after tokens; the sub-agent line k1 stores the host total un-netted (input 100, was 90) with its dispatch tokens null, the other sessions have no dispatches and differ only by the basis key.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "before-scope-precedence": {
+      "reason": "The Copilot line of this case (host copilot, id sp) gains tokensBasis inclusive after tokens; it has no dispatches, so nothing else changes, and the Claude line of the same ledger is untouched.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-dispatch-edges": {
+      "reason": "The live dispatch record u1 of the Copilot session cpx writes tokens null instead of its cache-inclusive total parked in input (50), per Q6; its counters are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/live/cpx.jsonl"
+      ]
+    }
+  }
+}

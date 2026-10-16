@@ -1,0 +1,38 @@
+{
+  "id": "foreign-mixed-roots",
+  "seed": 1,
+  "implOnly": "engine",
+  "identity": {
+    "gitUser": "corpus",
+    "gitEmail": "corpus@example.invalid"
+  },
+  "repo": {
+    "path": "repo",
+    "branch": "main",
+    "files": {
+      ".agents/telemetry/automation/usage-alice.jsonl": "{\"v\":1,\"host\":\"claude\",\"user\":\"alice\",\"capturedAt\":\"2026-10-02T00:00:00.000Z\",\"repo\":\"repo\",\"branch\":\"main\",\"role\":null,\"models\":[\"claude-opus-5\"],\"startedAt\":\"2026-09-29T09:00:00.000Z\",\"endedAt\":\"2026-09-29T10:00:00.000Z\",\"wallMin\":60,\"activeMin\":30,\"turns\":4,\"toolCalls\":5,\"toolErrors\":0,\"tokens\":{\"input\":100,\"output\":1000,\"cacheRead\":20000,\"cacheWrite\":1000},\"tokensByModel\":{\"claude-opus-5\":{\"input\":100,\"output\":1000,\"cacheRead\":20000,\"cacheWrite\":1000}},\"costSource\":\"ccusage-metered\",\"cases\":[],\"subagents\":[],\"skills\":[],\"dispatches\":0,\"id\":\"m1\",\"costUsd\":1,\"scope\":{\"intent\":\"undeclared\",\"cases\":[]}}\n",
+      "alt/.agents/tokenomics/settings.json": "{\"dir\":\"stories\",\"extension\":null,\"vocabulary\":{\"item\":\"story\",\"group\":\"sprint\"}}"
+    }
+  },
+  "stores": [],
+  "events": [
+    {
+      "at": "2026-10-05T09:00:00Z",
+      "run": "scripts/team-report.mjs",
+      "args": [
+        "{repo}",
+        "{repo}/alt"
+      ],
+      "stdin": null,
+      "env": {
+        "TOKENOMICS_NO_CCUSAGE": "1"
+      },
+      "captureStderr": true,
+      "captureStdout": true
+    }
+  ],
+  "outputs": [
+    ".agents/telemetry",
+    "alt/.agents"
+  ]
+}

@@ -1,0 +1,86 @@
+# Tokenomics — team usage report
+
+Generated: 2026-10-05T09:08:00.000Z  ·  window: 2026-09-10T10:00:00.000Z → 2026-10-05T09:08:00.000Z
+
+_Current state, UTC: the per-delivered ratio counts items whose current (winning, spec 5.2) receipt state is delivered, dated by that state's at, inside [since, until); an item delivered, reopened and delivered again counts once, at its latest delivery, so historical ratios can change when items reopen. Limitation: a session's cumulative ledger line counts wholly in the window of its endedAt; no in-window deltas are claimed. Totals and breakdowns cover the sessions whose endedAt lies in the window; sessions without endedAt are outside every window and counted as undated._
+
+## Totals
+
+- Sessions: 6 (claude 5, copilot 1)  ·  people: 1
+- Cost (real figures only): $15.00 from 2 priced session(s) (ccusage-metered ×2)  ·  ⚠️ 4 session(s) tokens-only (no real dollar — never estimated)
+- Tokens (incl. sub-agents): total 2,860,480  ·  in 2,040, out 7,340, cache-read 2,851,000, cache-write 100
+- Real work: 9,380 tokens (in+out)  ·  cache hit rate: 99.9%
+- Time: Infinityh active  ·  6.0h wall  ·  30 turns  ·  44 tool calls (6 err)
+- Case ids named in sessions: 6 distinct (sessions-per-case in the --json `byCase`; top: OVF-1, GATE-1, GATE-2, NEG-1, SIZED-1)
+
+## Cases (from the pipeline's own receipts)
+
+- Examined: 8 unique case(s) across 6 report(s)  ·  **delivered (automated) in the window: 0**  ·  5 delivered without `at` (unwindowed, excluded)
+- Outcomes (current state): delivered 4  ·  not-started 2  ·  defect-found 1  ·  blocked 1
+
+## By batch
+
+| batch | cases | delivered | total | per delivered | active | gate | drift |
+|---|---|---|---|---|---|---|---|
+| bt-empty | 0 | 0 | n/a | n/a | 0.0h | — | — |
+| bt-gate | 2 | 2 | $10.00 | $5.00 | 1.0h | green | ⚠️ |
+| bt-neg | 1 | 1 | n/a | n/a | 0.5h | — | — |
+| bt-ovf | 1 | 1 | n/a | n/a | Infinityh | — | — |
+| bt-quiet | 2 | 0 | n/a | n/a | 0.2h | — | — |
+| bt-sized | 2 | 1 | $5.00 | $5.00 | 0.3h | — | ⚠️ |
+
+## Per case — every batch's cost.json rows (delivered first)
+
+- Delivered-case loaded cost: avg $4.00 · median $3.85 · min $2.00 · max $6.15 (n=3)
+- Delivered-case loaded time: avg 25m · median 30m · min 10m · max 30m (n=4)
+  (loaded = direct measured work + an even share of the batch overhead — an allocation, labelled as such)
+
+| case | batch | outcome | direct | loaded | active (loaded) |
+|---|---|---|---|---|---|
+| GATE-1 | bt-gate | delivered | $3.00 | $6.15 | 30m |
+| GATE-2 | bt-gate | defect-found | $0.70 | $3.85 | 30m |
+| SIZED-2 | bt-sized | delivered | $0.50 | $2.00 | 10m |
+| NEG-1 | bt-neg | delivered | n/a | n/a | 30m |
+| OVF-1 | bt-ovf | delivered | n/a | n/a | Infinitym |
+| SIZED-1 | bt-sized | blocked | $1.50 | $3.00 | 10m |
+| QUIET-1 | bt-quiet | — | n/a | n/a | 5m |
+| QUIET-2 | bt-quiet | — | n/a | n/a | 5m |
+
+## By person
+
+| person | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| u1 | $15.00 | 6 | 2,040/7,340 | Infinityh | 44 (6) |
+
+## By role
+
+| role | cost | units | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| (interactive session) | (session-grain) | 6 | 550/5,320 | Infinityh | 44 (6) |
+| implementer | (session-grain) | 6 | 1,440/1,820 | — | 17 (0) |
+| reviewer | (session-grain) | 1 | 30/120 | — | 2 (0) |
+| triage | (session-grain) | 1 | 20/80 | — | 1 (0) |
+| analyst | (session-grain) | 1 | 0/0 | — | 0 (0) |
+
+_— = not allocated at this grain: a dispatch-only role has no parent-session minutes (its dispatch minutes are in the next table)._
+
+## Dispatch minutes by role
+
+_Measured per dispatch. Dispatches overlap their parent session and each other, so these minutes are not part of any total; the by-role table gives each parent role its full session minutes (spec 5.4)._
+
+| role | dispatches | active |
+|---|---|---|
+| analyst | 1 | 2m |
+| implementer | 6 | 36m |
+| reviewer | 1 | 3m |
+| triage | 1 | 2m |
+
+## By week
+
+| week | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| 2026-W37 | $15.00 | 6 | 2,040/7,340 | Infinityh | 44 (6) |
+
+_Dollars are session-grain (one figure per session, real sources only), so the role table reports tokens/time — sub-agent roles included. Fork/resume caveat: a forked session replays its parent's records; its ledger line can double-count the replayed tokens._
+
+manifest revision 1

@@ -1,0 +1,117 @@
+{
+  "ledgerLines": 5,
+  "facts": [
+    {
+      "path": "/id",
+      "equals": "s1"
+    },
+    {
+      "path": "/role",
+      "equals": "lead"
+    },
+    {
+      "path": "/foldedFromLive",
+      "absent": true
+    },
+    {
+      "path": "/tokens",
+      "equals": {
+        "input": 15,
+        "output": 16,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      }
+    },
+    {
+      "path": "/tokensByModel",
+      "equals": {
+        "claude-haiku-5-5": {
+          "input": 10,
+          "output": 9,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        }
+      }
+    },
+    {
+      "path": "/toolErrors",
+      "equals": 1
+    },
+    {
+      "path": "/dispatches",
+      "equals": 1
+    },
+    {
+      "path": "/dispatched",
+      "equals": [
+        {
+          "type": "unknown",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "path": "/scope",
+      "equals": {
+        "intent": "undeclared",
+        "cases": []
+      }
+    },
+    {
+      "path": "/cases/0",
+      "equals": "AB-1"
+    },
+    {
+      "path": "/cases/49",
+      "equals": "CC-2"
+    },
+    {
+      "path": "/cases/50",
+      "absent": true
+    },
+    {
+      "path": "/subagents/0/id",
+      "equals": "agent-r1"
+    },
+    {
+      "path": "/subagents/0/cases",
+      "equals": [
+        "CC-3"
+      ]
+    },
+    {
+      "path": "/subagents/1",
+      "absent": true
+    },
+    {
+      "path": "/prompts/0/t",
+      "equals": "2026-10-01T10:00:00.000Z"
+    }
+  ],
+  "textFacts": [
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"id\":\"s2\",\"user\":\"corpus\",\"capturedAt\":\"2026-10-01T10:30:00.000Z\",\"repo\":\"repo\",\"branch\":null,\"role\":null,\"models\":[],\"startedAt\":null,\"endedAt\":null,"
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"tokens\":null,\"tokensAttributed\":false,\"tokensAttribution\":\"none\""
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"id\":\"s3\","
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"tokensAttribution\":\"partial\""
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"subagents\":[{\"id\":\"agent-r2\",\"role\":\"unknown\",\"label\":\"review CC-4 diff\",\"n\":1,\"tokens\":null,\"tokensAttributed\":false,"
+    },
+    {
+      "file": ".agents/telemetry/automation/usage-corpus.jsonl",
+      "includes": "\"subagents\":[{\"role\":\"helper\",\"label\":\"helper CC-7 pass\",\"n\":1,"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "ledgerLines": 1,
+  "facts": [
+    {
+      "path": "/host",
+      "equals": "copilot"
+    }
+  ]
+}

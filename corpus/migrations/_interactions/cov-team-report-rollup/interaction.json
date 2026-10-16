@@ -1,0 +1,32 @@
+{
+  "case": "cov-team-report-rollup",
+  "migrations": [
+    "null-unobservable",
+    "active-minutes",
+    "report-windows",
+    "report-conflicts",
+    "report-revision"
+  ],
+  "reason": "active-minutes gives the rollup's parent roles their full session minutes and moves dispatch minutes into byDispatchRole (null in byRole); null-unobservable adds the per-bucket unmeasured counts to the --json buckets, so the new byDispatchRole buckets carry an unmeasured object too. Together each stream shows both changes. report-windows (item 8) rewrites the same period-report streams: the endedAt window, the semantics statement and the spec 5.5 ratio fields, so the cumulative bytes carry all three. report-conflicts (item 22) rewrites event 3, the dedup root: d4's exact tie is a spec 3.5 conflict that leaves the totals and is counted as conflicts beside a preview total; d5's tied lines have no endedAt, and a conflict takes precedence over undated (review round 1, I2), so event 3 counts both d4 and d5 as conflicts with their picks in the preview and event 3 reports no undated sessions (undated counts only unconflicted lines); every stream also reads the lines in host:id order (I3). report-revision (item 24, O6) then records the current manifest revision (1: the implied manifest) on the same reports: manifestRevision right after v in every cost.json, the period --json's manifestRevision after generated, the 'manifest revision 1' footer on the batch, tokenomics, period and live renders and in submission.md, and manifestRevision after schema_version in the export runs.json; it adds a field and a footer line and moves no figure, so the cumulative bytes carry its provenance beside every other owner's change.",
+  "changed": [
+    "__events__/0.stdout",
+    "__events__/1.stdout",
+    "__events__/10.stdout",
+    "__events__/11.stdout",
+    "__events__/12.stdout",
+    "__events__/13.stdout",
+    "__events__/14.stdout",
+    "__events__/15.stdout",
+    "__events__/16.stdout",
+    "__events__/17.stdout",
+    "__events__/18.stdout",
+    "__events__/2.stdout",
+    "__events__/3.stdout",
+    "__events__/4.stdout",
+    "__events__/5.stdout",
+    "__events__/6.stdout",
+    "__events__/7.stdout",
+    "__events__/8.stdout",
+    "__events__/9.stdout"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "fileFacts": [
+    {
+      "file": "__events__/1.stdout",
+      "path": "/cases/0/sizing/size",
+      "equals": "M"
+    },
+    {
+      "file": ".agents/automation/gb-nr/cost.json",
+      "path": "/cases/0/id",
+      "equals": "Q-1"
+    },
+    {
+      "file": ".agents/automation/gb-nr/cost.json",
+      "path": "/sizing",
+      "absent": true
+    },
+    {
+      "file": ".agents/automation/gb-nr/cost.json",
+      "path": "/cases/0/sizing",
+      "absent": true
+    }
+  ]
+}

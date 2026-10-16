@@ -1,0 +1,10 @@
+[
+  {
+    "mode": "reference",
+    "path": "r"
+  },
+  {
+    "mode": "port",
+    "path": "p"
+  }
+]

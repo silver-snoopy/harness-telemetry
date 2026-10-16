@@ -1,0 +1,20 @@
+{
+  "ledgerLines": 1,
+  "facts": [
+    { "path": "/foldedFromLive", "equals": 1 },
+    { "path": "/dispatches", "equals": 9 },
+    { "path": "/subagents/0/cases", "equals": ["PROJ-1"] },
+    { "path": "/subagents/1/cases", "equals": ["PROJ-2", "PROJ-3"] },
+    { "path": "/subagents/2/cases", "equals": ["PROJ-2"] },
+    { "path": "/subagents/3/tokensAttributed", "equals": false },
+    { "path": "/subagents/4/cases", "equals": ["PROJ-3"] },
+    { "path": "/subagents/8/id", "equals": "agent-gone" },
+    { "path": "/subagents/8/costUsd", "equals": 0.25 },
+    { "path": "/scope/outcomes/PROJ-2", "equals": "blocked" },
+    { "path": "/cases", "equals": ["PROJ-1", "PROJ-2", "PROJ-3", "PROJ-9"] }
+  ],
+  "fileFacts": [
+    { "file": ".agents/automation/cov-d/cost.json", "path": "/records/outcomeDrift/0/id", "equals": "PROJ-2" },
+    { "file": ".agents/automation/cov-d/cost.json", "path": "/delivered", "equals": 2 }
+  ]
+}

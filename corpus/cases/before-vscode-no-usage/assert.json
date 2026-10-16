@@ -1,0 +1,16 @@
+{
+  "ledgerLines": 2,
+  "facts": [
+    { "path": "/id", "equals": "vu2" },
+    { "path": "/tokens", "equals": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 } },
+    { "path": "/tokensAttribution", "absent": true },
+    { "path": "/toolCalls", "equals": 0 },
+    { "path": "/skills", "equals": [] },
+    { "path": "/costUsd", "equals": null },
+    { "path": "/costSource", "equals": "none" }
+  ],
+  "textFacts": [
+    { "file": ".agents/telemetry/automation/usage-corpus.jsonl", "includes": "\"id\":\"vu1\"," },
+    { "file": ".agents/telemetry/automation/usage-corpus.jsonl", "includes": "\"toolCalls\":0,\"toolErrors\":0,\"tokens\":{\"input\":0,\"output\":0,\"cacheRead\":0,\"cacheWrite\":0},\"costUsd\":0.02,\"costSource\":\"copilot-credits\"," }
+  ]
+}

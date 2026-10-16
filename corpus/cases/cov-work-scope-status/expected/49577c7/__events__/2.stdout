@@ -1,0 +1,6 @@
+work-scope: session st3 — LIVE (nothing written; the ledger updates at session end)
+  scope: NOT DECLARED — run `work-scope.mjs open …` (this session's spend will land unattributed)
+  so far: unpriced  ·  0 tokens  ·  1m active  ·  1 turns  ·  0 tool calls (0 err)
+  cases seen: —
+  dispatches (0):
+    (none finished yet — a running dispatch has no transcript to read)

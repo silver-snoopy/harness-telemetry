@@ -1,0 +1,344 @@
+[
+  {
+    "v": 1,
+    "host": "claude",
+    "id": "e199df71-fb25-4903-909c-eeeac5d881e3",
+    "user": "corpus",
+    "capturedAt": "2026-10-06T18:53:42.000Z",
+    "repo": "repo",
+    "branch": "chore/delivery-monitor-0.2.0",
+    "role": null,
+    "models": [
+      "claude-opus-5-5"
+    ],
+    "startedAt": "2026-10-06T04:55:45.010Z",
+    "endedAt": "2026-10-06T18:22:08.054Z",
+    "wallMin": 806,
+    "activeMin": 97,
+    "turns": 128,
+    "toolCalls": 121,
+    "toolErrors": 4,
+    "tokens": {
+      "input": 266,
+      "output": 116805,
+      "cacheRead": 29270506,
+      "cacheWrite": 818660
+    },
+    "tokensByModel": {
+      "claude-opus-5-5": {
+        "input": 266,
+        "output": 116805,
+        "cacheRead": 29270506,
+        "cacheWrite": 818660
+      }
+    },
+    "costUsd": 22.290880399999995,
+    "costSource": "ccusage-metered",
+    "cases": [],
+    "subagents": [
+      {
+        "id": "agent-a1b692ba931d38aec",
+        "role": "workflow-subagent",
+        "n": 1,
+        "tokens": {
+          "input": 8,
+          "output": 3716,
+          "cacheRead": 330420,
+          "cacheWrite": 89423
+        },
+        "tokensByModel": {
+          "claude-opus-5-5": {
+            "input": 8,
+            "output": 3716,
+            "cacheRead": 330420,
+            "cacheWrite": 89423
+          }
+        },
+        "activeMin": 1,
+        "toolCalls": 4,
+        "toolErrors": 0,
+        "costUsd": 0.5875509999999999
+      },
+      {
+        "id": "agent-a1d4a967f1445b2e7",
+        "role": "workflow-subagent",
+        "n": 1,
+        "tokens": {
+          "input": 4,
+          "output": 2994,
+          "cacheRead": 101911,
+          "cacheWrite": 104587
+        },
+        "tokensByModel": {
+          "claude-opus-5-5": {
+            "input": 4,
+            "output": 2994,
+            "cacheRead": 101911,
+            "cacheWrite": 104587
+          }
+        },
+        "activeMin": 1,
+        "toolCalls": 2,
+        "toolErrors": 0,
+        "costUsd": 0.6032132000000001
+      },
+      {
+        "id": "agent-a2a2b8a6d89987576",
+        "role": "workflow-subagent",
+        "n": 1,
+        "tokens": {
+          "input": 6,
+          "output": 3512,
+          "cacheRead": 224642,
+          "cacheWrite": 88902
+        },
+        "tokensByModel": {
+          "claude-opus-5-5": {
+            "input": 6,
+            "output": 3512,
+            "cacheRead": 224642,
+            "cacheWrite": 88902
+          }
+        },
+        "activeMin": 1,
+        "toolCalls": 3,
+        "toolErrors": 0,
+        "costUsd": 0.5597023999999999
+      },
+      {
+        "id": "agent-a2d2dd0494e074583",
+        "role": "workflow-subagent",
+        "n": 1,
+        "tokens": {
+          "input": 4,
+          "output": 3845,
+          "cacheRead": 119111,
+          "cacheWrite": 88449
+        },
+        "tokensByModel": {
+          "claude-opus-5-5": {
+            "input": 4,
+            "output": 3845,
+            "cacheRead": 119111,
+            "cacheWrite": 88449
+          }
+        },
+        "activeMin": 1,
+        "toolCalls": 2,
+        "toolErrors": 0,
+        "costUsd": 0.5429832
+      },
+      {
+        "id": "agent-a34fb0e49327dd9a3",
+        "role": "workflow-subagent",
+        "n": 1,
+        "tokens": {
+          "input": 4,
+          "output": 3096,
+          "cacheRead": 119040,
+          "cacheWrite": 87923
+        },
+        "tokensByModel": {
+          "claude-opus-5-5": {
+            "input": 4,
+            "output": 3096,
+            "cacheRead": 119040,
+            "cacheWrite": 87923
+          }
+        },
+        "activeMin": 1,
+        "toolCalls": 2,
+        "toolErrors": 0,
+        "costUsd": 0.525359
+      },
+      {
+        "id": "agent-a7f928e8825cd8763",
+        "role": "workflow-subagent",
+        "n": 1,
+        "tokens": {
+          "input": 20,
+          "output": 7956,
+          "cacheRead": 1026770,
+          "cacheWrite": 103327
+        },
+        "tokensByModel": {
+          "claude-opus-5-5": {
+            "input": 20,
+            "output": 7956,
+            "cacheRead": 1026770,
+            "cacheWrite": 103327
+          }
+        },
+        "activeMin": 2,
+        "toolCalls": 9,
+        "toolErrors": 0,
+        "costUsd": 0.8811890000000001
+      },
+      {
+        "id": "agent-a92413ea5789926dd",
+        "role": "workflow-subagent",
+        "n": 1,
+        "tokens": {
+          "input": 6,
+          "output": 3474,
+          "cacheRead": 223845,
+          "cacheWrite": 88241
+        },
+        "tokensByModel": {
+          "claude-opus-5-5": {
+            "input": 6,
+            "output": 3474,
+            "cacheRead": 223845,
+            "cacheWrite": 88241
+          }
+        },
+        "activeMin": 1,
+        "toolCalls": 3,
+        "toolErrors": 0,
+        "costUsd": 0.555478
+      },
+      {
+        "id": "agent-aa09aa34fb6498029",
+        "role": "workflow-subagent",
+        "n": 1,
+        "tokens": {
+          "input": 6,
+          "output": 3793,
+          "cacheRead": 224303,
+          "cacheWrite": 89414
+        },
+        "tokensByModel": {
+          "claude-opus-5-5": {
+            "input": 6,
+            "output": 3793,
+            "cacheRead": 224303,
+            "cacheWrite": 89414
+          }
+        },
+        "activeMin": 1,
+        "toolCalls": 3,
+        "toolErrors": 0,
+        "costUsd": 0.5678146000000001
+      },
+      {
+        "id": "agent-aa340f08148ff81b7",
+        "role": "workflow-subagent",
+        "n": 1,
+        "tokens": {
+          "input": 6,
+          "output": 3825,
+          "cacheRead": 225272,
+          "cacheWrite": 89675
+        },
+        "tokensByModel": {
+          "claude-opus-5-5": {
+            "input": 6,
+            "output": 3825,
+            "cacheRead": 225272,
+            "cacheWrite": 89675
+          }
+        },
+        "activeMin": 1,
+        "toolCalls": 3,
+        "toolErrors": 0,
+        "costUsd": 0.5699534
+      },
+      {
+        "id": "agent-ab571c34eb32806bb",
+        "role": "workflow-subagent",
+        "n": 1,
+        "tokens": {
+          "input": 6,
+          "output": 3933,
+          "cacheRead": 224430,
+          "cacheWrite": 90678
+        },
+        "tokensByModel": {
+          "claude-opus-5-5": {
+            "input": 6,
+            "output": 3933,
+            "cacheRead": 224430,
+            "cacheWrite": 90678
+          }
+        },
+        "activeMin": 1,
+        "toolCalls": 3,
+        "toolErrors": 0,
+        "costUsd": 0.57696
+      },
+      {
+        "id": "agent-abbe86ac60477a854",
+        "role": "workflow-subagent",
+        "n": 1,
+        "tokens": {
+          "input": 4,
+          "output": 3049,
+          "cacheRead": 119066,
+          "cacheWrite": 88629
+        },
+        "tokensByModel": {
+          "claude-opus-5-5": {
+            "input": 4,
+            "output": 3049,
+            "cacheRead": 119066,
+            "cacheWrite": 88629
+          }
+        },
+        "activeMin": 1,
+        "toolCalls": 2,
+        "toolErrors": 0,
+        "costUsd": 0.5279542
+      },
+      {
+        "id": "agent-aefd2188ed3fcc3b2",
+        "role": "workflow-subagent",
+        "n": 1,
+        "tokens": {
+          "input": 4,
+          "output": 3263,
+          "cacheRead": 118970,
+          "cacheWrite": 87456
+        },
+        "tokensByModel": {
+          "claude-opus-5-5": {
+            "input": 4,
+            "output": 3263,
+            "cacheRead": 118970,
+            "cacheWrite": 87456
+          }
+        },
+        "activeMin": 1,
+        "toolCalls": 2,
+        "toolErrors": 0,
+        "costUsd": 0.52635
+      },
+      {
+        "id": "agent-af30c9f81db7b3e27",
+        "role": "workflow-subagent",
+        "n": 1,
+        "tokens": {
+          "input": 4,
+          "output": 3144,
+          "cacheRead": 119006,
+          "cacheWrite": 87826
+        },
+        "tokensByModel": {
+          "claude-opus-5-5": {
+            "input": 4,
+            "output": 3144,
+            "cacheRead": 119006,
+            "cacheWrite": 87826
+          }
+        },
+        "activeMin": 1,
+        "toolCalls": 2,
+        "toolErrors": 0,
+        "costUsd": 0.5258272
+      }
+    ],
+    "skills": [
+      "plugin-authoring"
+    ],
+    "dispatches": 13
+  }
+]

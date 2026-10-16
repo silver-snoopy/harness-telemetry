@@ -1,0 +1,53 @@
+# Tokenomics — team usage report
+
+Generated: 2026-10-05T09:06:00.000Z
+
+## Totals
+
+- Sessions: 1 (claude 1)  ·  people: 1
+- Cost (real figures only): $3.00 from 1 priced session(s) (ccusage-metered ×1)
+- Tokens (incl. sub-agents): total 330  ·  in 110, out 220, cache-read 0, cache-write 0
+- Real work: 330 tokens (in+out)  ·  cache hit rate: 0.0%
+- Time: 0.5h active  ·  1.0h wall  ·  5 turns  ·  6 tool calls (1 err)
+- Case ids named in sessions: 1 distinct (sessions-per-case in the --json `byCase`; top: N-1)
+
+## Cases (from the pipeline's own receipts)
+
+- Examined: 2 unique case(s) across 1 report(s)  ·  **delivered (automated): 0**
+- Outcomes: blocked 1  ·  not-started 1
+
+## By batch
+
+| batch | cases | delivered | total | per delivered | active | gate | drift |
+|---|---|---|---|---|---|---|---|
+| nb | 2 | 0 | $3.00 | n/a | 0.5h | — | ⚠️ |
+
+## Per case — every batch's cost.json rows (delivered first)
+
+| case | batch | outcome | direct | loaded | active (loaded) |
+|---|---|---|---|---|---|
+| N-1 | nb | blocked | n/a | $1.50 | 18m |
+| N-2 | nb | — | n/a | $1.50 | 13m |
+
+## By person
+
+| person | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| erin | $3.00 | 1 | 110/220 | 0.5h | 6 (1) |
+
+## By role
+
+| role | cost | units | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| (interactive session) | (session-grain) | 1 | 100/200 | 0.4h | 6 (1) |
+| implementer | (session-grain) | 1 | 10/20 | 0.1h | 2 (0) |
+
+## By week
+
+| week | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| 2026-W37 | $3.00 | 1 | 110/220 | 0.5h | 6 (1) |
+
+_Dollars are session-grain (one figure per session, real sources only), so the role table reports tokens/time — sub-agent roles included. Fork/resume caveat: a forked session replays its parent's records; its ledger line can double-count the replayed tokens._
+
+manifest revision 1

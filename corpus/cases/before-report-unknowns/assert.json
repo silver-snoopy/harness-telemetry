@@ -1,0 +1,12 @@
+{
+  "fileFacts": [
+    { "file": "__events__/0.stdout", "path": "/sessions", "equals": 2 },
+    { "file": "__events__/0.stdout", "path": "/totals/activeMin", "equals": 20 },
+    { "file": "__events__/0.stdout", "path": "/totals/tokens/input", "equals": 100 },
+    { "file": "__events__/0.stdout", "path": "/tokensOnly", "equals": 1 },
+    { "file": "__events__/0.stdout", "path": "/byRole/(interactive session)/units", "equals": 2 },
+    { "file": "__events__/0.stdout", "path": "/byRole/(interactive session)/activeMin", "equals": 20 },
+    { "file": "__events__/1.stdout", "path": "/totals/activeMin", "equals": 20 },
+    { "file": "__events__/1.stdout", "path": "/totals/unattributedUnits", "equals": 1 }
+  ]
+}

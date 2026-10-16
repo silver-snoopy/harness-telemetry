@@ -1,0 +1,3 @@
+{ "module": "tokenomics", "schema_version": "1.0", "domain": "fixture", "manifestRevision": 1,
+  "receipts": { "source": "files", "root": ".agents/automation", "file": "report.json", "deliveredOutcomes": ["delivered"] },
+  "ratioIntents": ["story"] }

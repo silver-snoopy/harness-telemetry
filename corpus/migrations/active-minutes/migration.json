@@ -1,0 +1,256 @@
+{
+  "id": "active-minutes",
+  "item": 7,
+  "spec": "§14.8 item 7, §5.4",
+  "summary": "Active minutes are no longer partitioned across dispatches (§5.4).",
+  "beforeCases": [
+    "cov-dispatch-batch"
+  ],
+  "declared": {
+    "before-dispatch-two-groups": {
+      "reason": "The dispatch implement TC-1 TC-2 no longer carries minutes into camp/a and camp/b: each group gets the line's minutes / 2 at session grain (4 after rounding) on the lead and in totals, per-case direct and dispatch-role activeMin become null and loaded minutes are group time / cases; the batch renders follow.",
+      "changed": [
+        ".agents/automation/camp/a/batch-report.html",
+        ".agents/automation/camp/a/batch-report.md",
+        ".agents/automation/camp/a/cost.json",
+        ".agents/automation/camp/b/batch-report.html",
+        ".agents/automation/camp/b/batch-report.md",
+        ".agents/automation/camp/b/cost.json"
+      ]
+    },
+    "before-export-anon-batch": {
+      "reason": "The exported batch's cost.json allocates minutes at session grain: every cost.json gains sources.activeMinGrain 'session' with its note, and its per-case direct, stage, byStage/rework and dispatch-role activeMin become null (not allocated at dispatch grain, no unmeasured count), and TA sizing's actualMin becomes null.",
+      "changed": [
+        ".agents/automation/b1/cost.json"
+      ]
+    },
+    "before-ids-substring": {
+      "reason": "Group g1's minutes are now the line's minutes at session grain (7) instead of the parent remainder plus the matched dispatch, so the TC-10 dispatch no longer moves minutes; per-case direct and dispatch-role activeMin become null and loaded minutes are group time / cases; the batch renders follow.",
+      "changed": [
+        ".agents/automation/g1/batch-report.html",
+        ".agents/automation/g1/batch-report.md",
+        ".agents/automation/g1/cost.json"
+      ]
+    },
+    "before-ratio-manifest": {
+      "reason": "The period report --json stream gains the active-minutes byDispatchRole breakdown and the parent role's minutes are no longer reduced by dispatch minutes; the embedded per-case rows carry direct activeMin null.",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    },
+    "before-report-unknowns": {
+      "reason": "The period report --json streams gain the byDispatchRole breakdown and the embedded cost.json rows allocate minutes at session grain: per-case direct activeMin becomes null and sources.activeMinGrain is noted.",
+      "changed": [
+        "__events__/0.stdout",
+        "__events__/1.stdout"
+      ]
+    },
+    "before-report-windows": {
+      "reason": "The period report --json stream gains the byDispatchRole breakdown and its embedded per-case rows carry direct activeMin null, because minutes are allocated at session grain (spec 5.4).",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    },
+    "cov-batch-cost-edges": {
+      "reason": "Every batch-cost --json group allocates minutes at session grain: every cost.json gains sources.activeMinGrain 'session' with its note, and its per-case direct, stage, byStage/rework and dispatch-role activeMin become null (not allocated at dispatch grain, no unmeasured count); loaded minutes become group time / cases.",
+      "changed": [
+        ".agents/automation/gb-edge/cost.json",
+        ".agents/automation/gb-empty/cost.json",
+        ".agents/automation/gb-priced/cost.json",
+        ".agents/automation/gb-sized/cost.json",
+        "__events__/1.stdout"
+      ]
+    },
+    "cov-copilot-dispatch": {
+      "reason": "The live report page now shows minutes at session grain: per-case and dispatch-role minutes read as not allocated, the provisional session's own minutes stay the reference 0 (the running lead thread is not measured; dispatch minutes overlap and are never summed into it), and loaded minutes become group time / cases.",
+      "changed": [
+        ".agents/telemetry/automation/reports/camp-wave-01.html"
+      ]
+    },
+    "cov-dispatch-batch": {
+      "reason": "The 8-dispatch line's 52 minutes are now allocated once at session grain: overhead.lead and the session role carry all 52 instead of the 30-minute remainder, per-case direct, stages, TA byStage, rework and dispatch-role activeMin become null, stats.directActiveMin null and loaded minutes 17 per case (52 / 3); the batch renders and the live report page follow.",
+      "changed": [
+        ".agents/automation/cov-d/batch-report.html",
+        ".agents/automation/cov-d/batch-report.md",
+        ".agents/automation/cov-d/cost.json",
+        ".agents/telemetry/automation/reports/cov-d.html"
+      ]
+    },
+    "cov-export-cli": {
+      "reason": "Each exported batch's cost.json allocates minutes at session grain: every cost.json gains sources.activeMinGrain 'session' with its note, and its per-case direct, stage, byStage/rework and dispatch-role activeMin become null (not allocated at dispatch grain, no unmeasured count), and TA sizing's actualMin becomes null.",
+      "changed": [
+        ".agents/automation/b1/cost.json",
+        ".agents/automation/b2/cost.json",
+        ".agents/automation/b3/cost.json",
+        ".agents/automation/b4/cost.json"
+      ]
+    },
+    "cov-export-submission-edges": {
+      "reason": "The submitted batch's cost.json allocates minutes at session grain: every cost.json gains sources.activeMinGrain 'session' with its note, and its per-case direct, stage, byStage/rework and dispatch-role activeMin become null (not allocated at dispatch grain, no unmeasured count).",
+      "changed": [
+        ".agents/automation/s1/cost.json"
+      ]
+    },
+    "cov-reports-ledger": {
+      "reason": "Batch minutes are allocated at session grain: solo's total drops from 68 to 60 (excluded foreign dispatches no longer move minutes), per-case direct, stage and dispatch-role minutes become null, loaded minutes become group time / cases, TA sizing's batch-grain estimate vs actual sums the loaded minutes (labelled an allocation, no per-case minute percentile); the period reports give parent roles full session minutes and list dispatch minutes in their own byDispatchRole breakdown.",
+      "changed": [
+        ".agents/automation/camp/wave-01/batch-report.html",
+        ".agents/automation/camp/wave-01/batch-report.md",
+        ".agents/automation/camp/wave-01/cost.json",
+        ".agents/automation/camp/wave-02/cost.json",
+        ".agents/automation/solo/batch-report.html",
+        ".agents/automation/solo/batch-report.md",
+        ".agents/automation/solo/batch-tokenomics.html",
+        ".agents/automation/solo/batch-tokenomics.md",
+        ".agents/automation/solo/cost.json",
+        ".agents/automation/tokonly/cost.json",
+        ".agents/telemetry/out.md",
+        "__events__/0.stdout",
+        "__events__/10.stdout",
+        "__events__/11.stdout",
+        "__events__/4.stdout",
+        "__events__/5.stdout",
+        "__events__/6.stdout",
+        "__events__/7.stdout",
+        "__events__/8.stdout",
+        "__events__/9.stdout"
+      ]
+    },
+    "cov-team-report-batches": {
+      "reason": "Period and batch reports allocate minutes at session grain: cost.json per-case, stage, byStage, rework and dispatch-role activeMin become null with sources.activeMinGrain noted, loaded minutes become group time / cases, TA sizing's actual minutes become null, and the period streams carry the parent-inclusive by-role minutes plus the byDispatchRole breakdown.",
+      "changed": [
+        ".agents/automation/bt-empty/cost.json",
+        ".agents/automation/bt-gate/cost.json",
+        ".agents/automation/bt-neg/cost.json",
+        ".agents/automation/bt-ovf/cost.json",
+        ".agents/automation/bt-quiet/cost.json",
+        ".agents/automation/bt-sized/cost.json",
+        ".agents/telemetry/sized.md",
+        "__events__/0.stdout",
+        "__events__/1.stdout",
+        "__events__/10.stdout",
+        "__events__/4.stdout",
+        "__events__/8.stdout",
+        "__events__/9.stdout"
+      ]
+    },
+    "cov-team-report-rollup": {
+      "reason": "The period report's by-role parent minutes are now the session's full activeMin (no dispatch minutes subtracted) and dispatch roles move their measured minutes to a separate byDispatchRole breakdown (null in byRole), in the --json, Markdown and HTML streams of every rollup event.",
+      "changed": [
+        "__events__/0.stdout",
+        "__events__/1.stdout",
+        "__events__/10.stdout",
+        "__events__/11.stdout",
+        "__events__/12.stdout",
+        "__events__/13.stdout",
+        "__events__/14.stdout",
+        "__events__/15.stdout",
+        "__events__/16.stdout",
+        "__events__/17.stdout",
+        "__events__/18.stdout",
+        "__events__/2.stdout",
+        "__events__/3.stdout",
+        "__events__/4.stdout",
+        "__events__/5.stdout",
+        "__events__/6.stdout",
+        "__events__/7.stdout",
+        "__events__/8.stdout",
+        "__events__/9.stdout"
+      ]
+    },
+    "cov-work-scope-close-faults": {
+      "reason": "Each close-written cost.json allocates minutes at session grain: every cost.json gains sources.activeMinGrain 'session' with its note, and its per-case direct, stage, byStage/rework and dispatch-role activeMin become null (not allocated at dispatch grain, no unmeasured count); the batch renders replace the items/lead/stages minute breakdown with the session-grain label.",
+      "changed": [
+        ".agents/automation/c1/w/batch-report.html",
+        ".agents/automation/c1/w/batch-report.md",
+        ".agents/automation/c1/w/cost.json",
+        ".agents/automation/c2/w/batch-report.html",
+        ".agents/automation/c2/w/batch-report.md",
+        ".agents/automation/c2/w/cost.json",
+        ".agents/automation/fb1/batch-report.html",
+        ".agents/automation/fb1/batch-report.md",
+        ".agents/automation/fb1/cost.json",
+        ".agents/automation/fb2/batch-report.html",
+        ".agents/automation/fb2/batch-report.md",
+        ".agents/automation/fb2/cost.json",
+        ".agents/automation/fb3/cost.json"
+      ]
+    },
+    "fault-batch-cost-empty-repo": {
+      "reason": "The no-repo group's cost.json, its renders and the batch-cost --json stream allocate minutes at session grain: every cost.json gains sources.activeMinGrain 'session' with its note, and its per-case direct, stage, byStage/rework and dispatch-role activeMin become null (not allocated at dispatch grain, no unmeasured count).",
+      "changed": [
+        ".agents/automation/gb-nr/batch-report.html",
+        ".agents/automation/gb-nr/batch-report.md",
+        ".agents/automation/gb-nr/cost.json",
+        "__events__/1.stdout"
+      ]
+    },
+    "fault-batch-cost-sizing-locked": {
+      "reason": "The sized group's cost.json allocates minutes at session grain: every cost.json gains sources.activeMinGrain 'session' with its note, and its per-case direct, stage, byStage/rework and dispatch-role activeMin become null (not allocated at dispatch grain, no unmeasured count), and TA sizing's actualMin for the size class becomes null (no per-case minutes exist); the batch renders follow.",
+      "changed": [
+        ".agents/automation/sz/batch-report.html",
+        ".agents/automation/sz/batch-report.md",
+        ".agents/automation/sz/cost.json"
+      ]
+    },
+    "fault-batch-cost-unreadable": {
+      "reason": "The readable live group's cost.json allocates minutes at session grain: every cost.json gains sources.activeMinGrain 'session' with its note, and its per-case direct, stage, byStage/rework and dispatch-role activeMin become null (not allocated at dispatch grain, no unmeasured count).",
+      "changed": [
+        ".agents/automation/gb-live/cost.json"
+      ]
+    },
+    "fault-gate-fold-symlink": {
+      "reason": "The fs1 cost.json and its renders allocate minutes at session grain: every cost.json gains sources.activeMinGrain 'session' with its note, and its per-case direct, stage, byStage/rework and dispatch-role activeMin become null (not allocated at dispatch grain, no unmeasured count); the renders show the session-grain label instead of the items/lead/stages breakdown.",
+      "changed": [
+        ".agents/automation/fs1/batch-report.html",
+        ".agents/automation/fs1/batch-report.md",
+        ".agents/automation/fs1/cost.json"
+      ]
+    },
+    "foreign-null-extension": {
+      "reason": "Without an extension the engine still allocates minutes at session grain: the lead and session role carry the line's minutes, the dispatch's minutes leave the item row and its role (activeMin null) and the batch renders show the session-grain label.",
+      "changed": [
+        ".agents/automation/fb/batch-report.html",
+        ".agents/automation/fb/batch-report.md",
+        ".agents/automation/fb/cost.json"
+      ]
+    },
+    "foreign-settings": {
+      "reason": "Both sprint cost.json files and the foreign-vocabulary period reports allocate minutes at session grain: sp1's lead and session role carry the line's full minutes, per-story direct and dispatch-role activeMin become null, and the period streams carry parent-inclusive by-role minutes with a byDispatchRole breakdown.",
+      "changed": [
+        ".agents/stories/sp1/batch-report.html",
+        ".agents/stories/sp1/batch-report.md",
+        ".agents/stories/sp1/cost.json",
+        ".agents/stories/sp2/cost.json",
+        "__events__/4.stdout",
+        "__events__/5.stdout",
+        "__events__/6.stdout"
+      ]
+    },
+    "seed-receipts-shared-id": {
+      "reason": "The 7-minute line (5 parent + 2 dispatch) is no longer partitioned: each of camp/grp-a and camp/grp-b gets 7 / 2 at session grain (4 after rounding) on the lead and in totals, the TC-1 dispatch's minutes no longer reach the case rows (direct activeMin null, loaded 4), and the batch renders say the minutes sit at session grain.",
+      "changed": [
+        ".agents/automation/camp/grp-a/batch-report.html",
+        ".agents/automation/camp/grp-a/batch-report.md",
+        ".agents/automation/camp/grp-a/cost.json",
+        ".agents/automation/camp/grp-b/batch-report.html",
+        ".agents/automation/camp/grp-b/batch-report.md",
+        ".agents/automation/camp/grp-b/cost.json"
+      ]
+    },
+    "seed-receipts-waves": {
+      "reason": "Both wave cost.json files and the batch-cost --json stream allocate minutes at session grain: every cost.json gains sources.activeMinGrain 'session' with its note, and its per-case direct, stage, byStage/rework and dispatch-role activeMin become null (not allocated at dispatch grain, no unmeasured count); loaded minutes become wave time / cases.",
+      "changed": [
+        ".agents/automation/camp/wave-01/cost.json",
+        ".agents/automation/camp/wave-02/cost.json",
+        "__events__/0.stdout"
+      ]
+    },
+    "before-ratio-revisions": {
+      "reason": "The period report --json stream of the new before-case gains the byDispatchRole breakdown and its embedded per-case rows carry direct activeMin null, because minutes are allocated at session grain (spec 5.4).",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    }
+  }
+}

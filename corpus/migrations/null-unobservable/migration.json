@@ -1,0 +1,290 @@
+{
+  "id": "null-unobservable",
+  "item": 4,
+  "spec": "§14.8 item 4, §10.5, §3.2",
+  "summary": "Counters and usage the host does not expose are written as null instead of a number (§10.5), and aggregates count them as unmeasured instead of adding zero (§3.2.1).",
+  "beforeCases": [
+    "seed-copilot-no-usage",
+    "seed-vscode-credits",
+    "seed-vscode-no-credits",
+    "before-vscode-no-usage",
+    "before-report-unknowns"
+  ],
+  "declared": {
+    "seed-copilot-no-usage": {
+      "reason": "The shutdown's modelMetrics carry no usage: line tokens become null instead of a zero quad, and tokensAttribution is partial (attributionOf over parent and dispatch: tc1's totalTokens is measured). subagent.completed exposes no error count, so subagents[0].toolErrors is null.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-vscode-credits": {
+      "reason": "VS Code exposes neither tool calls nor skills (spec 7.2): the line writes toolCalls null and skills null instead of 0 and []. Tokens, credits, minutes and the cache categories (Q8a) are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-vscode-no-credits": {
+      "reason": "VS Code exposes neither tool calls nor skills (spec 7.2): the line writes toolCalls null and skills null instead of 0 and []. Its prompt tokens are measured, so tokens stay a quad with no attribution flag.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "before-vscode-no-usage": {
+      "reason": "No request of vu1 or vu2 carries promptTokens or completionTokens: both lines write tokens null with tokensAttribution none instead of a zero quad, and toolCalls / skills null (not observable on VS Code).",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "seed-copilot-cli": {
+      "reason": "subagent.completed carries no error count, so every Copilot dispatch entry writes toolErrors null instead of 0; the events carry durationMs and totalToolCalls, so activeMin and toolCalls stay measured.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-copilot-dispatch": {
+      "reason": "Copilot dispatch records and entries write toolErrors null always, and activeMin / toolCalls null where subagent.completed lacks durationMs / totalToolCalls, in live/cp1.jsonl and the ledger; the live page prints those as unmeasured; the provisional live parent is null too (Codex B2-07), so its session role row reads \"0 (1 unmeasured) tools\" in the live page.",
+      "changed": [
+        ".agents/telemetry/automation/live/cp1.jsonl",
+        ".agents/telemetry/automation/reports/camp-wave-01.html",
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-copilot-edges": {
+      "reason": "The completed sub-agent k1 lacks durationMs and totalToolCalls, so its activeMin, toolCalls and toolErrors are null; session k4 carries no timestamps, so its wallMin and activeMin are null (Q8b) instead of 0.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-vscode-edges": {
+      "reason": "Every VS Code line (both ledgers) writes toolCalls null and skills null; the timestamp-less session g writes wallMin and activeMin null (Q8b). Its known re-append on every sweep is unchanged reference behaviour.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl",
+        "alt/.agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-claude-parse": {
+      "reason": "The two timestamp-less Claude sessions (the SessionEnd stdin session and the sweep-captured one) write wallMin and activeMin null instead of 0 (Q8b); nothing else on the lines changes.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-capture-scope-live": {
+      "reason": "The timestamp-less Claude session writes wallMin and activeMin null instead of 0 (Q8b); its scope, tokens and counters are unchanged.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-reports-ledger": {
+      "reason": "O1 reader half: dispatch b3 of s-a2 (tokens null) is counted as unmeasured instead of folding a zero quad into the period report (events 4-12: byRole.reviewer and the totals gain unmeasured.tokens 1, markdown and HTML say \"1 unmeasured\") and the join (events 0-1, cost.json); every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d); wave-02's reviewer role, all unmeasured, reads null. The provisional live parent of wave-02 is null and unmeasured, not a zero quad (Codex B2-07). Case rows carry loaded.unmeasured, and the period report by-group rows (byBatch) carry their group totals unmeasured counts.",
+      "changed": [
+        ".agents/automation/camp/wave-01/cost.json",
+        ".agents/automation/camp/wave-02/cost.json",
+        ".agents/automation/solo/batch-report.md",
+        ".agents/automation/solo/batch-tokenomics.html",
+        ".agents/automation/solo/batch-tokenomics.md",
+        ".agents/automation/solo/cost.json",
+        ".agents/automation/tokonly/cost.json",
+        ".agents/telemetry/out.md",
+        "__events__/0.stdout",
+        "__events__/10.stdout",
+        "__events__/11.stdout",
+        "__events__/4.stdout",
+        "__events__/5.stdout",
+        "__events__/6.stdout",
+        "__events__/8.stdout",
+        "__events__/9.stdout"
+      ]
+    },
+    "before-report-unknowns": {
+      "reason": "O1 reader half for Repro E: line un1 (tokens null, activeMin null) is counted, not zeroed. team-report totals, byPerson/Week/Host/Intent and the session role carry unmeasured tokens 1 and activeMin 1 beside the measured sums; batch-cost totals, lead and byRole carry the same counts.",
+      "changed": [
+        "__events__/0.stdout",
+        "__events__/1.stdout"
+      ]
+    },
+    "cov-dispatch-batch": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d); roles and stages whose dispatches reported no usage (empty, workflow-subagent, gate, other) read tokens and tok null, and the batch reports print \"n unmeasured\" beside those sums and keep the rows. The live `work-scope status` view (events 6 and 7) prints \"— tok\" for the two dispatches whose tokens are null (workflow-subagent, empty) and its \"so far\" total sums only the measured units, appending \"(2 unmeasured)\" (Plan 4 final review, ledger 86; O1), where the reference printed 0.",
+      "changed": [
+        ".agents/automation/cov-d/batch-report.md",
+        ".agents/automation/cov-d/batch-tokenomics.html",
+        ".agents/automation/cov-d/batch-tokenomics.md",
+        ".agents/automation/cov-d/cost.json",
+        "__events__/6.stdout",
+        "__events__/7.stdout"
+      ]
+    },
+    "cov-team-report-batches": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), in the four batch cost.json files and the --json streams (events 4 and 10). No sum in these batches is unmeasured, so every count is 0 and the renders are unchanged.",
+      "changed": [
+        ".agents/automation/bt-empty/cost.json",
+        ".agents/automation/bt-gate/cost.json",
+        ".agents/automation/bt-neg/cost.json",
+        ".agents/automation/bt-ovf/cost.json",
+        ".agents/automation/bt-quiet/cost.json",
+        ".agents/automation/bt-sized/cost.json",
+        "__events__/10.stdout",
+        "__events__/4.stdout"
+      ]
+    },
+    "cov-team-report-rollup": {
+      "reason": "Every period-report bucket (totals, by person/week/host/intent/role) gains the unmeasured counts; the role of the null-token dispatch reads tokens null with its count, and the per-case rows embed cost.json direct buckets with counts (case 1 tokens null).",
+      "changed": [
+        "__events__/0.stdout",
+        "__events__/1.stdout",
+        "__events__/12.stdout",
+        "__events__/13.stdout",
+        "__events__/14.stdout",
+        "__events__/15.stdout",
+        "__events__/16.stdout",
+        "__events__/17.stdout",
+        "__events__/18.stdout",
+        "__events__/2.stdout",
+        "__events__/3.stdout"
+      ]
+    },
+    "cov-batch-cost-edges": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d); lines without activeMin / turns / toolCalls / toolErrors are counted as unmeasured, so gb-edge totals and lead and the gb-priced / gb-sized roles read those sums as null instead of 0. The gb-priced's provisional live parent is null and unmeasured, not a zero quad (Codex B2-07). The gb-edge cases loaded.activeMin and stats.loadedActiveMin are null too, since neither their direct share nor the overhead was measured; loaded.unmeasured carries the counts.",
+      "changed": [
+        ".agents/automation/gb-edge/cost.json",
+        ".agents/automation/gb-empty/cost.json",
+        ".agents/automation/gb-priced/cost.json",
+        ".agents/automation/gb-sized/cost.json",
+        "__events__/1.stdout"
+      ]
+    },
+    "seed-receipts-waves": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), in both wave cost.json files and the batch-cost stdout. Every unit is measured, so each count is 0 and every sum is unchanged.",
+      "changed": [
+        ".agents/automation/camp/wave-01/cost.json",
+        ".agents/automation/camp/wave-02/cost.json",
+        "__events__/0.stdout"
+      ]
+    },
+    "seed-receipts-shared-id": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), in both group cost.json files. Every unit is measured, so each count is 0 and every sum is unchanged.",
+      "changed": [
+        ".agents/automation/camp/grp-a/cost.json",
+        ".agents/automation/camp/grp-b/cost.json"
+      ]
+    },
+    "foreign-settings": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), in both foreign-vocabulary cost.json files (engine-only case). Every unit is measured, so each count is 0.",
+      "changed": [
+        ".agents/stories/sp1/cost.json",
+        ".agents/stories/sp2/cost.json"
+      ]
+    },
+    "foreign-null-extension": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), with no extension loaded (engine-only case). The provisional live parent is not measured yet, so it is null and counted unmeasured (tokens, turns, tool counters: Codex B2-07); every other unit is measured.",
+      "changed": [
+        ".agents/automation/fb/batch-report.html",
+        ".agents/automation/fb/batch-report.md",
+        ".agents/automation/fb/batch-tokenomics.html",
+        ".agents/automation/fb/batch-tokenomics.md",
+        ".agents/automation/fb/cost.json",
+        ".agents/telemetry/automation/export/runs.json"
+      ]
+    },
+    "cov-work-scope-close-faults": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), in the five cost.json files the closes write. Every unit is measured, so each count is 0 and the sums are unchanged.",
+      "changed": [
+        ".agents/automation/c1/w/cost.json",
+        ".agents/automation/c2/w/cost.json",
+        ".agents/automation/fb1/cost.json",
+        ".agents/automation/fb2/cost.json",
+        ".agents/automation/fb3/cost.json"
+      ]
+    },
+    "before-dispatch-two-groups": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), in both wave cost.json files. Every unit is measured, so each count is 0; the shared-allocation before-behaviour is unchanged.",
+      "changed": [
+        ".agents/automation/camp/a/cost.json",
+        ".agents/automation/camp/b/cost.json"
+      ]
+    },
+    "before-export-anon-batch": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), in b1/cost.json. Every unit is measured, so each count is 0; the export rows and the anonymised submission are unchanged.",
+      "changed": [
+        ".agents/automation/b1/cost.json"
+      ]
+    },
+    "before-ids-substring": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), in g1/cost.json; every count is 0. The file is also declared by exact-ids, so the combination is an interaction declaration.",
+      "changed": [
+        ".agents/automation/g1/cost.json"
+      ]
+    },
+    "before-ratio-manifest": {
+      "reason": "Every period-report bucket of the --json stream (totals, by person/week/host/intent/role) gains the unmeasured counts object; both lines are fully measured, so each count is 0 and every ratio is unchanged.",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    },
+    "before-report-windows": {
+      "reason": "Every period-report bucket of the --json stream (totals, by person/week/host/intent/role) gains the unmeasured counts object; every windowed line is measured, so each count is 0 and the ratios are unchanged.",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    },
+    "cov-capture-dispatch-edges": {
+      "reason": "The Copilot sub-agent event with no data writes its live record with activeMin, toolCalls and toolErrors null instead of 0: subagent.completed exposes no error count, and durationMs / totalToolCalls are absent.",
+      "changed": [
+        ".agents/telemetry/automation/live/cpx.jsonl"
+      ]
+    },
+    "cov-capture-pricing": {
+      "reason": "The folded live record agent-gone carries no toolCalls or toolErrors, so the folded entry writes them as null instead of 0. The ledger is also declared by fold-flags; the combination is an interaction declaration.",
+      "changed": [
+        ".agents/telemetry/automation/usage-corpus.jsonl"
+      ]
+    },
+    "cov-export-cli": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), in the four cost.json files the export reconstructs from. Every unit is measured, so each count is 0 and the export rows are unchanged.",
+      "changed": [
+        ".agents/automation/b1/cost.json",
+        ".agents/automation/b2/cost.json",
+        ".agents/automation/b3/cost.json",
+        ".agents/automation/b4/cost.json"
+      ]
+    },
+    "cov-export-submission-edges": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), in s1/cost.json. The cost.json units are all measured, so each count is 0. The submission's hand-accumulated rows are not (B2-06): a row whose tokens / turns / dollars are null contributes nothing to the aggregate and is counted, so submission.md renders `— (n unpriced)` / `— (n unmeasured)` for a total no row measured and a partial total beside its count (`1 / 2 / 0 / 4 (1 unmeasured)`), never a zero.",
+      "changed": [
+        ".agents/automation/s1/cost.json",
+        ".agents/telemetry/automation/export/datasets/UNSET-factory-id/submission.md",
+        "plain/.agents/telemetry/automation/export/datasets/fx-plain/submission.md"
+      ]
+    },
+    "fault-batch-cost-empty-repo": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), in gb-nr/cost.json and the batch-cost stdout of the group with no sessions; with nothing to count, every count is 0 and every sum stays 0.",
+      "changed": [
+        ".agents/automation/gb-nr/cost.json",
+        "__events__/1.stdout"
+      ]
+    },
+    "fault-batch-cost-sizing-locked": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), in sz/cost.json written despite the locked sizing history. Every unit is measured, so each count is 0.",
+      "changed": [
+        ".agents/automation/sz/cost.json"
+      ]
+    },
+    "fault-batch-cost-unreadable": {
+      "reason": "Every cost.json bucket of gb-live gains the unmeasured counts object (Q8d); its ledger line f1 carries no activeMin, turns, toolCalls or toolErrors, so the totals, lead and session role read those sums null beside a count of 1 instead of 0, and the case loaded.activeMin and stats.loadedActiveMin are null (nothing in them was measured) with loaded.unmeasured beside.",
+      "changed": [
+        ".agents/automation/gb-live/cost.json"
+      ]
+    },
+    "fault-gate-fold-symlink": {
+      "reason": "every cost.json bucket (totals, cases[].direct, overhead lead/stages/byStage, byRole, rework) gains the unmeasured counts object (Q8d), in fs1/cost.json. Every unit is measured, so each count is 0 and the gate-run fold is unchanged.",
+      "changed": [
+        ".agents/automation/fs1/cost.json"
+      ]
+    },
+    "before-ratio-revisions": {
+      "reason": "The period report --json stream of the new before-case gains the per-bucket unmeasured counts (all zero: every quantity is measured) in its totals, breakdowns and embedded cost.json rows, like every other --json period stream.",
+      "changed": [
+        "__events__/0.stdout"
+      ]
+    }
+  }
+}

@@ -1,0 +1,91 @@
+# Tokenomics — team usage report
+
+Generated: 2026-10-05T09:03:00.000Z
+
+## Totals
+
+- Sessions: 8 (claude 5, copilot 2, copilot-vscode 1)  ·  people: 2
+- Cost (real figures only): $16.50 from 6 priced session(s) (ccusage-metered ×5, copilot-billed ×1)  ·  ⚠️ 2 session(s) tokens-only (no real dollar — never estimated)
+- Tokens (incl. sub-agents): total 336,160  ·  in 5,100, out 22,500, cache-read 291,500, cache-write 17,060
+- Real work: 27,600 tokens (in+out)  ·  cache hit rate: 92.9%
+- Time: 8.0h active  ·  16.0h wall  ·  80 turns  ·  96 tool calls (8 err)
+- Case ids named in sessions: 6 distinct (sessions-per-case in the --json `byCase`; top: S-1, S-2, W1-1, S-3, T-1)
+- By declared intent: automation $5.00 (2)  ·  undeclared $10.00 (5)  ·  docs $1.50 (1)
+
+## Cases (from the pipeline's own receipts)
+
+- Examined: 8 unique case(s) across 5 report(s)  ·  **delivered (automated): 6**
+- Outcomes: delivered 4  ·  defect-found 1  ·  not-started 1  ·  blocked 1  ·  automated 1
+- Per delivered case: $2.75  ·  80 active min  ·  **automation-intent spend only: $0.83**  ·  per case examined: $2.06
+  (spend in the window ÷ delivered cases in the receipts — align the window to the batch for a per-batch figure)
+
+## By batch
+
+| batch | cases | delivered | total | per delivered | active | gate | drift |
+|---|---|---|---|---|---|---|---|
+| camp/wave-01 | 2 | 1 | $1.85 | $1.85 | 0.5h | green | — |
+| camp/wave-02 | 1 | 1 | $1.50 | $1.50 | 1.0h | — | — |
+| solo | 4 | 3 | $2.80 | $0.93 | 1.0h | red | ⚠️ |
+| tokonly | 1 | 1 | n/a | n/a | 1.0h | — | — |
+
+## Per case — every batch's cost.json rows (delivered first)
+
+- Delivered-case loaded cost: avg $0.99 · median $0.93 · min $0.56 · max $1.50 (n=5)
+- Delivered-case loaded time: avg 30m · median 15m · min 15m · max 60m (n=6)
+  (loaded = direct measured work + an even share of the batch overhead — an allocation, labelled as such)
+
+| case | batch | outcome | direct | loaded | active (loaded) |
+|---|---|---|---|---|---|
+| W2-1 | camp/wave-02 | automated | $0.90 | $1.50 | 60m |
+| S-2 | solo | defect-found | $0.80 | $1.06 | 15m |
+| W1-1 | camp/wave-01 | delivered | $0.50 | $0.93 | 15m |
+| S-1 | solo | delivered | $0.65 | $0.91 | 15m |
+| S-3 | solo | delivered | $0.30 | $0.56 | 15m |
+| T-1 | tokonly | delivered | n/a | n/a | 60m |
+| W1-2 | camp/wave-01 | blocked | $0.50 | $0.93 | 15m |
+| S-4 | solo | — | n/a | $0.26 | 15m |
+
+## By person
+
+| person | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| alice | $14.50 | 4 | 820/19,700 | 4.0h | 48 (4) |
+| bob | $2.00 | 4 | 4,280/2,800 | 4.0h | 48 (4) |
+
+## By role
+
+| role | cost | units | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| analyst | (session-grain) | 1 | 100/9,000 | — | 4 (0) |
+| (interactive session) | (session-grain) | 5 | 900/8,000 | 5.0h | 60 (5) |
+| implementer | (session-grain) | 5 | 350/3,000 | — | 20 (0) |
+| lead | (session-grain) | 1 | 100/2,000 | 1.0h | 12 (1) |
+| reviewer | (session-grain) | 2 | 30/300 | — | 8 (0) |
+| triage | (session-grain) | 1 | 10/100 | — | 4 (0) |
+| helper | (session-grain) | 2 | 10/100 | — | 8 (0) |
+| tester | (session-grain) | 4 | 3,600/0 | 2.0h | 32 (2) |
+
+_— = not allocated at this grain: a dispatch-only role has no parent-session minutes (its dispatch minutes are in the next table)._
+
+## Dispatch minutes by role
+
+_Measured per dispatch. Dispatches overlap their parent session and each other, so these minutes are not part of any total; the by-role table gives each parent role its full session minutes (spec 5.4)._
+
+| role | dispatches | active |
+|---|---|---|
+| analyst | 1 | 5m |
+| helper | 2 | 10m |
+| implementer | 5 | 25m |
+| reviewer | 2 | 10m |
+| tester | 2 | 10m |
+| triage | 1 | 5m |
+
+## By week
+
+| week | cost | sessions | tokens (in/out) | active | tools (err) |
+|---|---|---|---|---|---|
+| 2026-W31 | $9.00 | 1 | 100/2,000 | 1.0h | 12 (1) |
+| 2026-W40 | $7.00 | 6 | 4,900/18,500 | 6.0h | 72 (6) |
+| unknown | $0.50 | 1 | 100/2,000 | 1.0h | 12 (1) |
+
+_Dollars are session-grain (one figure per session, real sources only), so the role table reports tokens/time — sub-agent roles included. Fork/resume caveat: a forked session replays its parent's records; its ledger line can double-count the replayed tokens._

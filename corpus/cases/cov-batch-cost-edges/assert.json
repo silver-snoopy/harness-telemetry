@@ -1,0 +1,105 @@
+{
+  "fileFacts": [
+    {
+      "file": ".agents/automation/gb-edge/cost.json",
+      "path": "/records/gateDrift/recorded",
+      "equals": "red"
+    },
+    {
+      "file": ".agents/automation/gb-edge/cost.json",
+      "path": "/records/gateDrift/at",
+      "equals": null
+    },
+    {
+      "file": ".agents/automation/gb-edge/cost.json",
+      "path": "/records/declaredOutcomes/G-1",
+      "equals": "blocked"
+    },
+    {
+      "file": ".agents/automation/gb-edge/cost.json",
+      "path": "/records/outcomeDrift",
+      "equals": [
+        {
+          "id": "G-1",
+          "receipt": "delivered",
+          "declared": "blocked"
+        }
+      ]
+    },
+    {
+      "file": ".agents/automation/gb-edge/cost.json",
+      "path": "/records/gateRuns/latest/at",
+      "equals": null
+    },
+    {
+      "file": ".agents/automation/gb-edge/cost.json",
+      "path": "/records/gateRuns/latest/consecutiveGreen",
+      "equals": 0
+    },
+    {
+      "file": ".agents/automation/gb-priced/cost.json",
+      "path": "/sources/liveSessions",
+      "equals": 1
+    },
+    {
+      "file": ".agents/automation/gb-edge/cost.json",
+      "path": "/totals/tokensAttribution",
+      "equals": "none"
+    },
+    {
+      "file": ".agents/automation/gb-edge/cost.json",
+      "path": "/cases/1/id",
+      "absent": true
+    },
+    {
+      "file": ".agents/automation/gb-priced/cost.json",
+      "path": "/cases/0/loaded/costUsd",
+      "equals": 0.5
+    },
+    {
+      "file": ".agents/automation/gb-priced/cost.json",
+      "path": "/byRole/unknown/dispatches",
+      "equals": 1
+    },
+    {
+      "file": ".agents/automation/gb-empty/cost.json",
+      "path": "/cases",
+      "equals": []
+    },
+    {
+      "file": ".agents/automation/gb-sized/cost.json",
+      "path": "/cases/0/sizing/flag",
+      "equals": "above-p90"
+    },
+    {
+      "file": ".agents/automation/gb-sized/cost.json",
+      "path": "/cases/0/sizing/tokPercentile",
+      "equals": 100
+    },
+    {
+      "file": ".agents/automation/gb-sized/cost.json",
+      "path": "/cases/0/sizing/sp",
+      "equals": null
+    },
+    {
+      "file": ".agents/automation/gb-sized/cost.json",
+      "path": "/cases/1/sizing/minPercentile",
+      "equals": null
+    },
+    {
+      "file": ".agents/automation/gb-sized/cost.json",
+      "path": "/cases/2/sizing/flag",
+      "equals": "above-p90"
+    },
+    {
+      "file": ".agents/automation/gb-sized/cost.json",
+      "path": "/cases/2/sizing/tokPercentile",
+      "equals": null
+    },
+    {
+      "file": ".agents/automation/gb-sized/cost.json",
+      "path": "/cases/3/sizing/note",
+      "equals": "insufficient Z-class history (n=0 < 5) — no deviation verdict"
+    }
+  ]
+}

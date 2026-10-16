@@ -1,0 +1,466 @@
+{
+  "scripts/install-hooks.mjs:path-automation:49b7228942": {
+    "kind": "ta-default",
+    "reason": "controller ruling R13 (Plan 5 Task 7 fix 1): a fresh settings.json prefers the reference-era `automation/` module directory when several store directories hold a ledger, so an existing TA store keeps being read; only used when no settings file and no --dir exist"
+  },
+  "scripts/install-hooks.mjs:env-var:8867e0b17d": {
+    "kind": "env-var",
+    "reason": "probe (B3 R25): installCopilot names each command's event in its env (TOKENOMICS_HOOK_EVENT, the engine's own variable) so sessionStart and sessionEnd sharing the sweep command stay attributable"
+  },
+  "hooks/otel-sink.mjs:env-var:340c7465a4": {
+    "kind": "env-var",
+    "reason": "engine-config env.* read (B0 assigns every TOKENOMICS_* variable to engine-config env, ENGINE-B1 \"env\"); the name is the engine's own knob, not TA wording"
+  },
+  "hooks/scope-hook.mjs:qa-wording:6a90ad520a": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "hooks/scope-hook.mjs:qa-wording:ede727517f": {
+    "kind": "not-lifted",
+    "reason": "ENGINE-B1 vocabulary.item \"Not lifted\" (kept verbatim, assignment note \"flag kept verbatim under TA config\"): the `--batch <slug> --cases <ID,…>` usage text names CLI flags (reference id scope-hook qa-wording:c8ba160736; the line gained `${hostFlag(host)}`, scope-resolution review round 1)"
+  },
+  "hooks/scope-hook.mjs:qa-wording:82e6531c9a": {
+    "kind": "not-lifted",
+    "reason": "the `--batch` / `--cases` CLI flags are kept verbatim under TA config (ENGINE-B1 vocabulary.item \"Not lifted\", reference id scope-hook qa-wording:c8ba160736 / work-scope qa-wording:9e10233a19); the rendered words on the line are lifted"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:5292570540": {
+    "kind": "false-positive",
+    "reason": "case-id-miner category fires on the miner identifiers; the regex sources come from settings.ids (ENGINE-B1 ids.patterns) — extractCaseIds is the reference-compatible wrapper over TA_DEFAULTS for the copied unit tests"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:cff97bb6b5": {
+    "kind": "false-positive",
+    "reason": "case-id-miner category fires on the miner identifiers; the regex sources come from settings.ids (ENGINE-B1 ids.patterns) — extractCaseIds is the reference-compatible wrapper over TA_DEFAULTS for the copied unit tests"
+  },
+  "hooks/telemetry-capture.mjs:case-id-miner:970df90985": {
+    "kind": "false-positive",
+    "reason": "case-id-miner category fires on the miner identifiers; the regex sources come from settings.ids (ENGINE-B1 ids.patterns) — extractCaseIds is the reference-compatible wrapper over TA_DEFAULTS for the copied unit tests"
+  },
+  "hooks/telemetry-capture.mjs:env-var:2a6b7e6489": {
+    "kind": "env-var",
+    "reason": "engine-config env.* read (B0 assigns every TOKENOMICS_* variable to engine-config env, ENGINE-B1 \"env\"); the name is the engine's own knob, not TA wording"
+  },
+  "hooks/telemetry-capture.mjs:env-var:7c67e137e5": {
+    "kind": "env-var",
+    "reason": "engine-config env.* read (B0 assigns every TOKENOMICS_* variable to engine-config env, ENGINE-B1 \"env\"); the name is the engine's own knob, not TA wording"
+  },
+  "hooks/telemetry-capture.mjs:env-var:536d58bacb": {
+    "kind": "env-var",
+    "reason": "engine-config env.* read (B0 assigns every TOKENOMICS_* variable to engine-config env, ENGINE-B1 \"env\"); the name is the engine's own knob, not TA wording"
+  },
+  "hooks/telemetry-capture.mjs:env-var:f376acf2f6": {
+    "kind": "env-var",
+    "reason": "engine-config env.* read (B0 assigns every TOKENOMICS_* variable to engine-config env, ENGINE-B1 \"env\"); the name is the engine's own knob, not TA wording"
+  },
+  "hooks/telemetry-capture.mjs:env-var:29ffff3293": {
+    "kind": "env-var",
+    "reason": "engine-config env.* read (B0 assigns every TOKENOMICS_* variable to engine-config env, ENGINE-B1 \"env\"); the name is the engine's own knob, not TA wording"
+  },
+  "hooks/telemetry-capture.mjs:env-var:016d3cabea": {
+    "kind": "env-var",
+    "reason": "engine-config env.* read (B0 assigns every TOKENOMICS_* variable to engine-config env, ENGINE-B1 \"env\"); the name is the engine's own knob, not TA wording"
+  },
+  "hooks/telemetry-capture.mjs:env-var:95c0e2ffbb": {
+    "kind": "env-var",
+    "reason": "engine-config env.* read (B0 assigns every TOKENOMICS_* variable to engine-config env, ENGINE-B1 \"env\"); the name is the engine's own knob, not TA wording"
+  },
+  "hooks/telemetry-capture.mjs:env-var:aa71b7783e": {
+    "kind": "env-var",
+    "reason": "engine-config env.* read (B0 assigns every TOKENOMICS_* variable to engine-config env, ENGINE-B1 \"env\"); the name is the engine's own knob, not TA wording; the line passes the repo to ensureSink so the sink gates on that repo's activation (Plan 5 Task 4, D-ACT)"
+  },
+  "hooks/telemetry-capture.mjs:env-var:93a6838389": {
+    "kind": "env-var",
+    "reason": "engine-config env.* read (B0 assigns every TOKENOMICS_* variable to engine-config env, ENGINE-B1 \"env\"); the name is the engine's own knob, not TA wording"
+  },
+  "hooks/telemetry-capture.mjs:env-var:bbd52c9dd1": {
+    "kind": "env-var",
+    "reason": "engine-config env.* read (B0 assigns every TOKENOMICS_* variable to engine-config env, ENGINE-B1 \"env\"); the name is the engine's own knob, not TA wording"
+  },
+  "scripts/batch-cost.mjs:receipt-reader:9675824890": {
+    "kind": "false-positive",
+    "reason": "loadReceipts is the engine's receipt walk; its root and file name come from settings.receipts (ENGINE-B1 receipts.root / receipts.file) — only the function name matches"
+  },
+  "scripts/batch-cost.mjs:receipt-reader:8c6b00ef7c": {
+    "kind": "not-lifted",
+    "reason": "receipt walk skips `_*` / dot dirs — structural receipt-tree layout, recorded \"(not lifted)\" under ENGINE-B1 receipts.root (reference id receipt-reader:8c6b00ef7c)"
+  },
+  "scripts/batch-cost.mjs:stage-words:1c5ab07353": {
+    "kind": "extension-call",
+    "reason": "classify() is the engine's dispatch classifier that delegates the stage decision to hook(ext, 'classifyDispatch') (default 'direct'); only the identifier `classify(` matches"
+  },
+  "scripts/batch-cost.mjs:qa-wording:c9b26b7b87": {
+    "kind": "extension-call",
+    "reason": "extension call site: the TA behaviour is delegated through hook(ext, …) with an engine default; the scanner matches the generic phase/variable names on the line, no TA literal remains"
+  },
+  "scripts/batch-cost.mjs:stage-words:58c5579a1d": {
+    "kind": "extension-call",
+    "reason": "call of the delegating classify(…, ext, { repo, settings }); only the identifier `classify(` matches"
+  },
+  "scripts/batch-cost.mjs:qa-wording:d3a0f04fe1": {
+    "kind": "extension-call",
+    "reason": "extension call site: the TA behaviour is delegated through hook(ext, …) with an engine default; the scanner matches the generic phase/variable names on the line, no TA literal remains"
+  },
+  "scripts/batch-cost.mjs:qa-wording:134cc18cfa": {
+    "kind": "extension-call",
+    "reason": "extension call site: the TA behaviour is delegated through hook(ext, …) with an engine default; the scanner matches the generic phase/variable names on the line, no TA literal remains"
+  },
+  "scripts/batch-cost.mjs:sizing:e0d0882714": {
+    "kind": "extension-call",
+    "reason": "extension call site: the TA behaviour is delegated through hook(ext, …) with an engine default; the scanner matches the generic phase/variable names on the line, no TA literal remains"
+  },
+  "scripts/batch-cost.mjs:sizing:02541671cf": {
+    "kind": "extension-call",
+    "reason": "spreads the enrichGroup `sizing` phase result (engine default {}) at the reference key position; the variable name `sizing` matches"
+  },
+  "scripts/build-tokenomics-export.mjs:receipt-reader:b33ee16a2b": {
+    "kind": "false-positive",
+    "reason": "import of the settings-driven loadReceipts; only the function name matches the receipt-reader category"
+  },
+  "scripts/build-tokenomics-export.mjs:receipt-reader:4df0970d3a": {
+    "kind": "false-positive",
+    "reason": "call of the settings-driven loadReceipts(repo, {}, settings) for the anon-complete scrub set; root and file come from settings.receipts, only the function name matches"
+  },
+  "scripts/batch-cost.mjs:receipt-reader:cd1099db79": {
+    "kind": "false-positive",
+    "reason": "call of the settings-driven loadReceipts(repo, …, settings); only the function name matches the receipt-reader category"
+  },
+  "scripts/batch-cost.mjs:receipt-reader:e3879ded92": {
+    "kind": "false-positive",
+    "reason": "call of the settings-driven loadReceipts(repo, …, settings); only the function name matches the receipt-reader category"
+  },
+  "scripts/batch-cost.mjs:qa-wording:8d46022733": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:1ad30e00be": {
+    "kind": "false-positive",
+    "reason": "SEGMENT_DOMAIN_KEYS names the domain keys the engine keeps out of the segment unless exportRow/the profile supplies them (ENGINE-B1 exportRow, null-extension default); it is the removal list, not TA output"
+  },
+  "scripts/build-tokenomics-export.mjs:export-qa:68d15f5812": {
+    "kind": "extension-call",
+    "reason": "exportRow `item` phase with the engine default fromProfile(profile, ['work_item_level']) — the dataset key is the engine's schema field, filled only when the profile sets it"
+  },
+  "scripts/build-tokenomics-export.mjs:qa-wording:35eed29042": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:receipt-reader:8c6b00ef7c": {
+    "kind": "not-lifted",
+    "reason": "receipt walk skips `_*` / dot dirs — structural receipt-tree layout, recorded \"(not lifted)\" under ENGINE-B1 receipts.root (reference id receipt-reader:8c6b00ef7c)"
+  },
+  "scripts/team-report.mjs:delivered-vocab:59eb40cdad": {
+    "kind": "not-lifted",
+    "reason": "ENGINE-B1 receipts.deliveredOutcomes \"(not lifted)\": the gate-record fold's default outcome 'not-started' (reference team-report :151)"
+  },
+  "scripts/team-report.mjs:case-id-miner:e5d043d43d": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:qa-wording:9db7b2a1a9": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:path-automation:9f6cfdb559": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:delivered-vocab:ed5c8fa217": {
+    "kind": "not-lifted",
+    "reason": "by-group table header: group/item words lifted; the generic column word 'delivered' is engine vocabulary (the reference id team-report qa-wording:422ceee8db family, ENGINE-B1 vocabulary.delivered)"
+  },
+  "scripts/team-report.mjs:qa-wording:b926ef0fb8": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:qa-wording:d1cdf89567": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:qa-wording:2da86ff5ee": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:qa-wording:5bfe665c5c": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:qa-wording:1892033f8b": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:qa-wording:9850ab5ee4": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:qa-wording:3a978f4aba": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:path-automation:3cde8cc946": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:qa-wording:422ceee8db": {
+    "kind": "not-lifted",
+    "reason": "ENGINE-B1 vocabulary.delivered \"Not lifted\": statCell('delivered / examined', …) renders the generic engine words (reference team-report :753)"
+  },
+  "scripts/team-report.mjs:delivered-vocab:fd86ac8889": {
+    "kind": "not-lifted",
+    "reason": "HTML twin of the by-group table header: group/item words lifted; the generic column word 'delivered' is engine vocabulary (ENGINE-B1 vocabulary.delivered)"
+  },
+  "scripts/team-report.mjs:qa-wording:adc06afdb3": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/work-scope.mjs:qa-wording:12141a8180": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/work-scope.mjs:qa-wording:b88b4ac884": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/work-scope.mjs:qa-wording:9e10233a19": {
+    "kind": "not-lifted",
+    "reason": "ENGINE-B1 vocabulary.item \"Not lifted\": the `--cases` CLI flag / scope field name, kept verbatim under TA config"
+  },
+  "scripts/work-scope.mjs:qa-wording:dc60199ff0": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "scripts/work-scope.mjs:qa-wording:b6be272ff9": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `scope.batch`, `caseIds`, `byBatch`, `automationOnlyCostUsd`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings"
+  },
+  "engine/config.mjs:path-automation:b34b4492c7": {
+    "kind": "ta-default",
+    "reason": "TA_DEFAULTS.dir: the 'automation' telemetry subfolder copied from the reference literal join(repo, '.agents', 'telemetry', 'automation', …) (hooks/telemetry-capture.mjs:68 and the other 25 ENGINE-B1 \"dir\" sites); the only place the TA value lives, a settings file overrides it"
+  },
+  "engine/config.mjs:path-automation:ddb96d98d2": {
+    "kind": "ta-default",
+    "reason": "TA_DEFAULTS.receipts.root '.agents/automation': copied from the reference receipt root join(repo, '.agents', 'automation') (hooks/scope-hook.mjs:87, ENGINE-B1 receipts.root); TA default value, replaceable via settings"
+  },
+  "engine/config.mjs:delivered-vocab:ddb96d98d2": {
+    "kind": "ta-default",
+    "reason": "TA_DEFAULTS.receipts.deliveredOutcomes: the outcome list copied verbatim from reference DELIVERED_OUTCOMES = ['delivered', 'defect-found', 'automated', 'merged-sanctioned-red'] (scripts/team-report.mjs:29, ENGINE-B1 receipts.deliveredOutcomes)"
+  },
+  "engine/config.mjs:receipt-reader:ddb96d98d2": {
+    "kind": "ta-default",
+    "reason": "TA_DEFAULTS.receipts.file 'report.json': copied from the reference receipt file name join(root, …, 'report.json') (hooks/scope-hook.mjs:88, ENGINE-B1 receipts.file); readers take it from settings.receipts.file"
+  },
+  "engine/config.mjs:path-automation:d0b7bf9700": {
+    "kind": "ta-default",
+    "reason": "TA_DEFAULTS.intents.default 'automation': copied from the reference fallback intent ?? prev.intent ?? 'automation' (scripts/work-scope.mjs:61, ENGINE-B1 intents.default); engine code reads settings.intents.default"
+  },
+  "engine/config.mjs:path-automation:dbcfe37bdd": {
+    "kind": "ta-default",
+    "reason": "B1_DEFAULTS.ratioIntents ['automation'] (the shared b1Literal; TA_DEFAULTS drops it since B2 closed, D1/O8): copied from the reference ratio intent byIntent.get('automation') (scripts/team-report.mjs:246) and INTENTS[0] (hooks/scope-hook.mjs:46), ENGINE-B1 ratioIntents"
+  },
+  "engine/config.mjs:case-id-miner:fb213fe1ed": {
+    "kind": "ta-default",
+    "reason": "TA_DEFAULTS.ids.patterns: the regex source copied from reference CASE_ID_RE = /\\b[A-Z][A-Z0-9]{1,9}-[A-Z]?\\d{1,6}\\b(?!-\\d)/g (hooks/telemetry-capture.mjs:207, ENGINE-B1 ids.patterns); the engine miner compiles whatever settings.ids.patterns holds"
+  },
+  "engine/config.mjs:qa-wording:f6ec596361": {
+    "kind": "ta-default",
+    "reason": "TA_DEFAULTS.vocabulary: item 'case' / group 'batch' replace the reference's literal case/batch wording (ENGINE-B1 vocabulary.item, vocabulary.group) and delivered 'delivered (automated)' copies scripts/team-report.mjs:288 (vocabulary.delivered); renderers read words(settings)"
+  },
+  "engine/config.mjs:export-qa:5f1803df6f": {
+    "kind": "ta-default",
+    "reason": "TA_DEFAULTS.paths.factoryProfile 'factory-profile.json': copied from the reference export profile path join(repo, '.agents', 'telemetry', 'automation', 'factory-profile.json') (scripts/build-tokenomics-export.mjs:259, ENGINE-B1 paths)"
+  },
+  "engine/config.mjs:path-automation:9943521a19": {
+    "kind": "ta-default",
+    "reason": "TA_DEFAULTS.extension './extensions/test-automation.mjs': no reference literal — it names the module the TA hooks were lifted into (ENGINE-B1 Task 10), so an absent settings file reproduces the reference; a settings file must set extension explicitly (path or null)"
+  },
+  "engine/extension.mjs:qa-wording:f946380732": {
+    "kind": "extension-call",
+    "reason": "HOOK_CALLS entries: 'classifyDispatch:case-init' is the documented extension phase name (ENGINE-B1 \"Extension API\" table, which a test keeps equal to this list), an API identifier used in the hook trace — not rendered TA wording"
+  },
+  "engine/extension.mjs:qa-wording:96deac76ec": {
+    "kind": "extension-call",
+    "reason": "HOOK_CALLS entries: 'classifyDispatch:case-out' is the documented extension phase name (ENGINE-B1 \"Extension API\" table, kept equal to this list by a test), an API identifier in the hook trace — not rendered TA wording"
+  },
+  "engine/extension.mjs:sizing:c715e41f17": {
+    "kind": "extension-call",
+    "reason": "HOOK_CALLS entries: 'enrichGroup:sizing' is the documented extension phase name (ENGINE-B1 \"Extension API\" table, kept equal to this list by a test); the sizing behaviour itself lives in extensions/test-automation.mjs"
+  },
+  "engine/extension.mjs:qa-wording:c715e41f17": {
+    "kind": "extension-call",
+    "reason": "HOOK_CALLS entries: 'enrichGroup:case' is the documented extension phase name (ENGINE-B1 \"Extension API\" table, kept equal to this list by a test), an API identifier in the hook trace — not rendered TA wording"
+  },
+  "engine/migrations.mjs:env-var:da6d6f00d4": {
+    "kind": "env-var",
+    "reason": "the B2 migration switch read (spec 18.5): TOKENOMICS_MIGRATIONS is the harness and B4 rescue lever (unset = landed, `none` = the B1 extraction), not a production per-migration setting"
+  },
+  "engine/migrations.mjs:env-var:2daa310910": {
+    "kind": "env-var",
+    "reason": "the B2 migration switch's named rejection of an unknown id: the error text names the TOKENOMICS_MIGRATIONS harness/rescue variable so a bad value fails loudly instead of running the default"
+  },
+  "scripts/team-report.mjs:delivered-vocab:cdad79be29": {
+    "kind": "not-lifted",
+    "reason": "ENGINE-B1 receipts.deliveredOutcomes \"(not lifted)\": the report-windows receipt rows keep the reference's default outcome 'not-started' for a row without one (reference team-report :151)"
+  },
+  "scripts/team-report.mjs:receipt-reader:7cde180dc9": {
+    "kind": "false-positive",
+    "reason": "report-windows (map D1, owner Q11b): matches the `findings` identifier (the `manifest-archive-missing` reader findings) or the receipt-file count `reports`, not a receipt path or the TA receipt's findings field"
+  },
+  "scripts/team-report.mjs:receipt-reader:e93fb30b68": {
+    "kind": "false-positive",
+    "reason": "report-windows (map D1, owner Q11b): matches the `findings` identifier (the `manifest-archive-missing` reader findings) or the receipt-file count `reports`, not a receipt path or the TA receipt's findings field"
+  },
+  "scripts/team-report.mjs:receipt-reader:91cbc24030": {
+    "kind": "false-positive",
+    "reason": "report-windows (map D1, owner Q11b): matches the `findings` identifier (the `manifest-archive-missing` reader findings) or the receipt-file count `reports`, not a receipt path or the TA receipt's findings field"
+  },
+  "scripts/team-report.mjs:receipt-reader:dd78b747d8": {
+    "kind": "false-positive",
+    "reason": "report-windows (map D1, owner Q11b): matches the `findings` identifier (the `manifest-archive-missing` reader findings) or the receipt-file count `reports`, not a receipt path or the TA receipt's findings field"
+  },
+  "scripts/team-report.mjs:qa-wording:92b22a062f": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `cases.unwindowed`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings (report-windows, map item 8)"
+  },
+  "scripts/team-report.mjs:qa-wording:0a11266200": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`.cases`, `cases.unwindowed`) or already-lifted `${w.*}` / settings wording; every rendered word on the line comes from settings (report-windows, map item 8)"
+  },
+  "engine/version.mjs:env-var:ba1ffbeaa3": {
+    "kind": "env-var",
+    "reason": "the engine version pin (B2 item 11 writer, owner Q14): TOKENOMICS_ENGINE_VERSION_PIN overrides tokenomics/ENGINE.json's engine version in the writer stamp; the replay harness sets it on every event so a release bump never churns the goldens"
+  },
+  "scripts/work-scope.mjs:qa-wording:0c81e66a2f": {
+    "kind": "false-positive",
+    "reason": "matches only the ledger line's `capturedAt` / `scope` / `cases` property names in the restamped line's key loop (B2 item 11 restamp); nothing on the line is rendered wording"
+  },
+  "scripts/work-scope.mjs:qa-wording:d20c635703": {
+    "kind": "false-positive",
+    "reason": "matches only the ledger line's `cases` / `scope` property names in the restamped line's key order (B2 item 11 restamp); nothing on the line is rendered wording"
+  },
+  "scripts/team-report.mjs:receipt-reader:eb9d50dddd": {
+    "kind": "false-positive",
+    "reason": "report-windows (map D1, owner Q11b): matches the `findings` identifier (the `manifest-archive-missing` reader findings) or the receipt-file count `reports`, not a receipt path or the TA receipt's findings field; the line also renders the report-conflicts callouts (item 22); the unverified callout reads through unverifiedText (Plan 4 final review, ledger 146)"
+  },
+  "scripts/team-report.mjs:qa-wording:eb9d50dddd": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`rep.cases?.conflicts`, the receipt conflict count of report-conflicts, item 22) or already-lifted `${w.*}` wording (receiptConflictsText renders `w.item`); every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:qa-wording:3bfe00f882": {
+    "kind": "false-positive",
+    "reason": "matches only identifiers/properties (`rep.cases?.conflicts`, the receipt conflict count of report-conflicts, item 22) or already-lifted `${w.*}` wording (receiptConflictsText renders `w.item`); every rendered word on the line comes from settings"
+  },
+  "scripts/team-report.mjs:receipt-reader:c29d9b9951": {
+    "kind": "false-positive",
+    "reason": "Codex B2-05 (map D1, owner Q11b): matches the cost object's `findings` identifier (an unverified stamped receipt's `manifest-archive-missing` reader finding, from `receiptDelivery`), not a receipt path or the TA receipt's findings field; the rendered words come from `${w.*}` settings wording"
+  },
+  "scripts/team-report.mjs:receipt-reader:2ea37c537e": {
+    "kind": "false-positive",
+    "reason": "Codex B2-05 (map D1, owner Q11b): matches the cost object's `findings` identifier (an unverified stamped receipt's `manifest-archive-missing` reader finding, from `receiptDelivery`), not a receipt path or the TA receipt's findings field"
+  },
+  "scripts/team-report.mjs:receipt-reader:a0eea37fef": {
+    "kind": "false-positive",
+    "reason": "Codex B2-05 (map D1, owner Q11b): matches the cost object's `findings` identifier (an unverified stamped receipt's `manifest-archive-missing` reader finding, from `receiptDelivery`), not a receipt path or the TA receipt's findings field"
+  },
+  "scripts/team-report.mjs:receipt-reader:08dc91d52d": {
+    "kind": "false-positive",
+    "reason": "Codex B2-05 (map D1, owner Q11b): matches the cost object's `findings` identifier (an unverified stamped receipt's `manifest-archive-missing` reader finding, from `receiptDelivery`), not a receipt path or the TA receipt's findings field"
+  },
+  "scripts/build-tokenomics-export.mjs:receipt-reader:044ef77915": {
+    "kind": "false-positive",
+    "reason": "Plan 4 final review M3 (map D1, owner Q11b): matches the cost object's `findings` identifier (an unverified stamped receipt's `manifest-archive-missing` reader finding, from `receiptDelivery`) carried into the export row's `engineNotes.findings`, not a receipt path or the TA receipt's findings field"
+  },
+  "scripts/build-tokenomics-export.mjs:receipt-reader:8cb720d632": {
+    "kind": "false-positive",
+    "reason": "Plan 4 final review M3 (map D1, owner Q11b): matches the cost object's `findings` identifier (an unverified stamped receipt's `manifest-archive-missing` reader finding, from `receiptDelivery`) carried into the export row's `engineNotes.findings`, not a receipt path or the TA receipt's findings field"
+  },
+  "scripts/team-report.mjs:receipt-reader:0766ee4ace": {
+    "kind": "false-positive",
+    "reason": "Plan 4 final review (ledger 146, map D1, owner Q11b): matches the report-level `findings` identifier (the reader findings `manifest-revision-unknown` / `manifest-archive-missing`), which picks the unverified callout's words; not a receipt path or the TA receipt's findings field"
+  },
+  "engine/activation.mjs:env-var:22374aec9d": {
+    "kind": "env-var",
+    "reason": "activation gate (Plan 5 Task 4 fix 1, D-ACT, owner Q3, ruling R11): whether TOKENOMICS_MIGRATIONS is set: non-empty after trimming, the enabledMigrations rule (empty or whitespace-only is unset); used by activationState (the refused state) and entryPointsOn; the engine's own knob named, not TA wording"
+  },
+  "engine/activation.mjs:env-var:687e56abb0": {
+    "kind": "env-var",
+    "reason": "activation gate (Plan 5 Task 4, D-ACT, owner Q3): an installed copy refuses TOKENOMICS_MIGRATIONS set to any non-empty value (the production switch set is {}); the engine's own knob named, not TA wording; the refused state's reason string"
+  },
+  "engine/migrations.mjs:env-var:2c4eac3a9b": {
+    "kind": "env-var",
+    "reason": "production switch enforcement (Plan 5 Task 4 fix 1, owner Q3, ruling R12, spec §18.5): the refusal message enabledMigrations throws in an installed copy, and the activation gate's refused stderr line (activation.mjs imports it); names the engine's own knob, not TA wording"
+  },
+  "scripts/doctor.mjs:env-var:4c22c68280": {
+    "kind": "env-var",
+    "reason": "doctor (Plan 5 Task 9, spec §14.2, ruling R11): the `switches` check names the engine's own TOKENOMICS_MIGRATIONS knob (an installed copy must not have it set; empty counts as unset); reads the value"
+  },
+  "scripts/doctor.mjs:env-var:159f2d999a": {
+    "kind": "env-var",
+    "reason": "doctor (Plan 5 Task 9, spec §14.2, ruling R11): the `switches` check names the engine's own TOKENOMICS_MIGRATIONS knob (an installed copy must not have it set; empty counts as unset); the ok line's message"
+  },
+  "engine/config.mjs:env-var:1f475cfa4b": {
+    "kind": "env-var",
+    "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): telemetryDir honours the engine's own TOKENOMICS_STATE_DIR (the probe's temp state: ledger, scopes and markers resolve under it); unset or empty is the repo path, unchanged (diff-impl differing 0)"
+  },
+  "engine/config.mjs:env-var:f2df99f5cf": {
+    "kind": "env-var",
+    "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): the TOKENOMICS_STATE_DIR branch of telemetryDir: <state>/telemetry/<dir>"
+  },
+  "engine/probe.mjs:env-var:d67c7a909d": {
+    "kind": "env-var",
+    "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): TOKENOMICS_PROBE_CLAUDE_BIN, the engine's own override of the claude CLI path (tests use a fake host; owner decision 2026-10-14)"
+  },
+  "engine/probe.mjs:env-var:797fd59873": {
+    "kind": "env-var",
+    "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): TOKENOMICS_PROBE_COPILOT_BIN, the engine's own override of the copilot CLI path (tests use a fake host; owner decision 2026-10-14)"
+  },
+  "engine/probe.mjs:env-var:4d8de11b62": {
+    "kind": "env-var",
+    "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): recursion guard: a probe never triggers another probe while TOKENOMICS_PROBE is set"
+  },
+  "engine/probe.mjs:env-var:0f78f5b562": {
+    "kind": "env-var",
+    "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): the probe session's environment: TOKENOMICS_PROBE, TOKENOMICS_STATE_DIR, and the engine's existing NO_SYNC / NO_CCUSAGE / NO_SINK knobs"
+  },
+  "engine/probe.mjs:env-var:a9cdee48a1": {
+    "kind": "env-var",
+    "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): `probing` reads the engine's own TOKENOMICS_PROBE nonce (32 hex, else ignored) and TOKENOMICS_STATE_DIR: a hook records a fired line only inside a probe"
+  },
+  "engine/probe.mjs:env-var:829ed3f042": {
+    "kind": "env-var",
+    "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): the fired record reads the engine's own TOKENOMICS_STATE_DIR (the fired log lives at <state>/probe/<nonce>.jsonl)"
+  },
+  "engine/probe.mjs:env-var:f5bc90a5d8": {
+    "kind": "env-var",
+    "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): the fired log is named by the engine's own TOKENOMICS_PROBE nonce (validated by `probing` first)"
+  },
+  "engine/probe.mjs:env-var:9b92a096b9": {
+    "kind": "env-var",
+    "reason": "probe (B3 R25): the fired record's event falls back to the engine's own TOKENOMICS_HOOK_EVENT, which installCopilot writes into each wired command's env (the Copilot CLI payload names no event)"
+  },
+  "hooks/telemetry-capture.mjs:env-var:d37a2637e9": {
+    "kind": "env-var",
+    "reason": "probe session skip (B3 final review I3, R17): outside a probe (the engine's own TOKENOMICS_PROBE unset) the capture writes no line for a session whose first prompt is the probe's"
+  },
+  "scripts/doctor.mjs:env-var:5e37cbb98e": {
+    "kind": "env-var",
+    "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): doctor --probe recursion guard: exits 2 while TOKENOMICS_PROBE is set"
+  },
+  "scripts/doctor.mjs:env-var:fd3bb82025": {
+    "kind": "env-var",
+    "reason": "probe (Plan 5 Task 10, D-PROBE, spec §14.9): the recursion guard's stderr line names TOKENOMICS_PROBE"
+  },
+  "scripts/doctor.mjs:env-var:52849efdb9": {
+    "kind": "env-var",
+    "reason": "doctor (Plan 5 Task 9, spec §14.2, rulings R11/R12; B3 final review M1/M2): the `switches` check names the engine's own TOKENOMICS_MIGRATIONS knob (an installed copy must not have it set; empty or whitespace-only counts as unset); switchSet reads the value (set = non-empty after trim)"
+  },
+  "scripts/doctor.mjs:env-var:eb5aed7601": {
+    "kind": "env-var",
+    "reason": "doctor (Plan 5 Task 9, spec §14.2, rulings R11/R12; B3 final review M1/M2): the `switches` check names the engine's own TOKENOMICS_MIGRATIONS knob (an installed copy must not have it set; empty or whitespace-only counts as unset); withoutSwitch drops the variable so settings are judged without it (the refusal is reported by switches/activation, not by a settings throw)"
+  },
+  "scripts/doctor.mjs:env-var:e21430edb2": {
+    "kind": "env-var",
+    "reason": "doctor (Plan 5 Task 9, spec §14.2, rulings R11/R12; B3 final review M1/M2): the `switches` check names the engine's own TOKENOMICS_MIGRATIONS knob (an installed copy must not have it set; empty or whitespace-only counts as unset); effectiveEnv drops an empty or whitespace-only value"
+  },
+  "scripts/doctor.mjs:env-var:4972208a92": {
+    "kind": "env-var",
+    "reason": "doctor (Plan 5 Task 9, spec §14.2, rulings R11/R12; B3 final review M1/M2): the `switches` check names the engine's own TOKENOMICS_MIGRATIONS knob (an installed copy must not have it set; empty or whitespace-only counts as unset); the fail line when the variable is set for an installed copy"
+  }
+}
