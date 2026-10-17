@@ -85,3 +85,24 @@ test('runReceiptCommand: the given env reaches the command; cwd is the repo; chi
   assert.equal(r.receipts[0].source.endsWith(repo.split('/').pop()), true);
   assert.doesNotMatch(JSON.stringify(r), /CHILD-STDERR/);
 });
+
+test('R16: safeReason names an adapter failure line of the fixed shape; anything else is never shown; readReceipts unchanged', () => {
+  const repo = dir();
+  const fails = (stderr, code = 2) => [process.execPath, '-e', `process.stderr.write(${JSON.stringify(stderr)}); process.exit(${code})`];
+  const r = runReceiptCommand(repo, settingsFor(fails('jira: skipped 1 invalid ids\njira: config (url)\n')), { env: process.env });
+  assert.equal(r.safeReason, 'command failed: exit 2 — jira: config (url)');
+  assert.equal(r.reason, 'command failed: exit 2');
+  assert.deepEqual(r.findings, [f('unverified', 'receipts-unavailable', 'command failed: exit 2')]);
+  assert.equal(runReceiptCommand(repo, settingsFor(fails('azure-devops: http (500)\n', 1)), { env: process.env }).safeReason, 'command failed: exit 1 — azure-devops: http (500)');
+  for (const bad of ['Error: /home/PRIVATE_PERSON/x failed', 'jira: auth (token=PRIVATE/abc)', 'jira: config (url)\nstack at /PRIVATE_PERSON', 'JIRA: config (url)', `jira: http (${'x'.repeat(61)})`]) {
+    const x = runReceiptCommand(repo, settingsFor(fails(bad)), { env: process.env });
+    assert.equal(x.safeReason, 'command failed: exit 2', bad);
+  }
+  // a signal-killed child: the safe line names the signal; reason (and the finding) stay as they were
+  const k = runReceiptCommand(repo, settingsFor([process.execPath, '-e', "process.kill(process.pid, 'SIGTERM')"]), { env: process.env });
+  assert.equal(k.safeReason, 'command failed: signal SIGTERM');
+  assert.equal(k.reason, 'command failed: exit null');
+  // readReceipts output is byte for byte what it was
+  const rr = readReceipts({ repo, manifest: cmdManifest, runReceipts: true, settings: settingsFor(fails('jira: config (url)\n')) });
+  assert.deepEqual(rr, { receipts: [], findings: [f('unverified', 'receipts-unavailable', 'command failed: exit 2')], available: false });
+});

@@ -35,14 +35,24 @@ function parseEnvelope(text, schemas) {
   return errs.length ? { reason: `malformed output: ${errs[0].path} ${errs[0].message}` } : { doc };
 }
 const incomplete = () => finding('unverified', 'receipts-incomplete', {}, 'adapter reported complete:false');
+// The adapters' one failure line, `<adapter>: <class> (<code>)` (adapters/common.mjs reportFailure). Only a last
+// stderr line of exactly this shape is ever shown, and only in safeReason (R16).
+const ADAPTER_LINE = /^[a-z-]+: [a-z]+ \([A-Za-z0-9 _.,-]{1,60}\)$/;
+const adapterLine = (stderr) => {
+  const last = typeof stderr === 'string' ? stderr.split(/\r?\n/).filter((l) => l.trim()).pop() : undefined;
+  return last !== undefined && ADAPTER_LINE.test(last) ? last : null;
+};
 
 /**
  * Run `settings.receipts.command` (spec §5.6, Plan 7 D-RECEIPTS) and read its envelope:
  * `{available, complete, receipts, findings, reason, safeReason}`. `complete` is `doc.complete === true`; `reason` is
  * `'not configured'`, `'command failed: exit N'`, `'command failed: <error>'`, `'malformed output: <path> <msg>'`, or
  * null when available. `safeReason` is `reason` with a spawn error named by its code only
- * (`'command failed: ENOENT'`): an error message carries the command path, which reports must not print. Spawned shell-free in `repo` with `env`, `receipts.timeoutSec` (default 60) and the output cap;
- * the child's stderr is never forwarded.
+ * (`'command failed: ENOENT'`): an error message carries the command path, which reports must not print. A child
+ * killed by a signal reads `'command failed: signal SIGTERM'` there; and when the failed child's last stderr line is an
+ * adapter failure line (`<adapter>: <class> (<code>)`, strictly matched) it is appended:
+ * `'command failed: exit 2 — jira: config (url)'`. Spawned shell-free in `repo` with `env`, `receipts.timeoutSec`
+ * (default 60) and the output cap; the child's stderr is captured, never forwarded, and never in `reason` or findings.
  */
 export function runReceiptCommand(repo, settings, { env } = {}) {
   const findings = [];
@@ -57,7 +67,10 @@ export function runReceiptCommand(repo, settings, { env } = {}) {
   if (r.status !== 0 || r.error) {
     const reason = `command failed: ${r.error?.message ?? `exit ${r.status}`}`;
     findings.push(finding('unverified', 'receipts-unavailable', {}, reason));
-    return unavailable(reason, r.error ? `command failed: ${r.error.code ?? 'error'}` : reason);
+    if (r.error) return unavailable(reason, `command failed: ${r.error.code ?? 'error'}`);
+    const how = r.status === null && r.signal ? `signal ${r.signal}` : `exit ${r.status}`;
+    const line = adapterLine(r.stderr);
+    return unavailable(reason, `command failed: ${how}${line ? ` — ${line}` : ''}`);
   }
   const { doc, reason } = parseEnvelope(r.stdout, loadSchemas());
   if (reason) { findings.push(finding('unverified', 'receipts-unavailable', {}, reason)); return unavailable(reason); }

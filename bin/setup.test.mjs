@@ -310,3 +310,53 @@ test('setup: an existing settings file gets the tracker and receipts JSON printe
   assert.match(r.stdout, /"\.claude\/skills\/tokenomics\/adapters\/jira\.mjs"/);
   assert.match(r.stdout, /--update-manifest/);
 });
+
+// ---- R16: what a receipts tracker still needs ----
+test('R16: an auto-detected Jira without a url prints the url and the credentials still needed', () => {
+  const w = jiraWorld();
+  const r = setup(w, BASE);
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  assert.deepEqual(JSON.parse(readFileSync(settingsOf(w), 'utf8')).tracker, { kind: 'jira' });
+  assert.match(r.stdout, /receipts from jira still need: the tracker url \(--tracker-url https:\/\/…\) .*; JIRA_EMAIL, JIRA_API_TOKEN in the environment/);
+  // credentials already in the environment are not asked for; a url given asks for nothing more
+  const v = jiraWorld();
+  const q = spawnSync(process.execPath, [CLI, 'setup', ...BASE, '--tracker-url', 'https://acme.atlassian.net'], { cwd: v.repo, env: { ...v.env, JIRA_EMAIL: 'x', JIRA_API_TOKEN: 'y' }, encoding: 'utf8', timeout: 180000 });
+  assert.equal(q.status, 0, q.stdout + q.stderr);
+  assert.doesNotMatch(q.stdout, /still need/);
+});
+
+test('R16: --tracker-url without --tracker applies to the detected receipts tracker; nothing detected is still an error', () => {
+  const w = jiraWorld();
+  const r = setup(w, [...BASE, '--tracker-url', 'https://acme.atlassian.net']);
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  assert.deepEqual(JSON.parse(readFileSync(settingsOf(w), 'utf8')).tracker, { kind: 'jira', url: 'https://acme.atlassian.net' });
+  assert.match(r.stdout, /still need: JIRA_EMAIL, JIRA_API_TOKEN in the environment/);
+  assert.doesNotMatch(r.stdout, /tracker url/);
+  const none = setup(world(), [...BASE, '--tracker-url', 'https://acme.atlassian.net']);
+  assert.equal(none.status, 2);
+  assert.match(none.stderr, /--tracker-url requires --tracker/);
+});
+
+test('R16: a Jira url outside *.atlassian.net is Server/DC (tracker.server true, JIRA_PAT); github needs no url', () => {
+  const w = world();
+  const r = setup(w, [...BASE, '--tracker', 'jira', '--tracker-keys', 'PAY', '--tracker-url', 'https://jira.example.com/jira']);
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  assert.deepEqual(JSON.parse(readFileSync(settingsOf(w), 'utf8')).tracker, { kind: 'jira', url: 'https://jira.example.com/jira', server: true });
+  assert.match(r.stdout, /still need: JIRA_PAT in the environment/);
+  const c = world();
+  assert.equal(setup(c, [...BASE, ...T]).status, 0);
+  assert.equal(JSON.parse(readFileSync(settingsOf(c), 'utf8')).tracker.server, undefined);
+  const g = world();
+  const q = setup(g, [...BASE, '--tracker', 'github']);
+  assert.equal(q.status, 0, q.stdout + q.stderr);
+  assert.doesNotMatch(q.stdout, /still need/);
+  // ado on an Azure DevOps remote takes its organization from the remote: only the credential is asked for
+  const a = world();
+  a.g('remote', 'add', 'origin', 'https://dev.azure.com/acme/proj/_git/app');
+  const z = setup(a, BASE);
+  assert.equal(z.status, 0, z.stdout + z.stderr);
+  assert.match(z.stdout, /receipts from ado still need: AZURE_DEVOPS_EXT_PAT \(or az login\) in the environment/);
+  const b = world();
+  const y = setup(b, [...BASE, '--tracker', 'ado']);
+  assert.match(y.stdout, /receipts from ado still need: the tracker url/);
+});

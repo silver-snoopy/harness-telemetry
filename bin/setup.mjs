@@ -18,7 +18,8 @@ export const SETUP_USAGE = `usage: harness-telemetry setup [--repo <dir>] [--hos
   --repo-hooks   wire Copilot CLI in the repo's .github/hooks/ instead of at user level (~/.copilot/hooks/)
   --tracker      the work-item tracker whose ids to mine (default: inferred from the remote and the history)
   --tracker-keys the Jira project keys, comma separated (with --tracker jira; default: the keys the history shows)
-  --tracker-url  the tracker's https address for the receipt adapter (with --tracker)
+  --tracker-url  the tracker's https address for the receipt adapter (for --tracker, else the detected tracker);
+                 a Jira address outside *.atlassian.net is Jira Server/Data Center
   --tracker-project  the tracker project for the receipt adapter (with --tracker)
   --no-tracker   write no work-item id rules`;
 
@@ -86,10 +87,7 @@ async function planTrackers(args, opt, repo, env) {
   const url = opt('--tracker-url');
   const project = opt('--tracker-project');
   if (args.includes('--no-tracker')) return flag || keyList || url || project ? { error: '--no-tracker cannot be combined with --tracker, --tracker-keys, --tracker-url or --tracker-project' } : none;
-  if (!flag) {
-    if (url) return { error: '--tracker-url requires --tracker' };
-    if (project) return { error: '--tracker-project requires --tracker' };
-  }
+  if (!flag && project) return { error: '--tracker-project requires --tracker' };
   if (url) {
     let u = null;
     try { u = new URL(url); } catch { /* reported below */ }
@@ -108,8 +106,31 @@ async function planTrackers(args, opt, repo, env) {
     trackers = [{ tracker: chosen, why: 'chosen with --tracker', ...(chosen === 'jira' ? { keys } : {}) }];
     receipts = chosen;
   }
-  const tracker = receipts ? { kind: receipts, ...(url ? { url } : {}), ...(project ? { project } : {}) } : null;
-  try { return { trackers, receipts, tracker, rules: rulesFor(trackers, found.host) }; } catch (e) { return { error: e.message }; }
+  // R16: --tracker-url alone applies to the detected receipts tracker
+  if (url && !receipts) return { error: '--tracker-url requires --tracker: no tracker was detected to apply it to' };
+  // a Jira site outside Atlassian Cloud is Server/Data Center (the adapter's Bearer PAT path)
+  const server = receipts === 'jira' && url && !/^[a-z0-9][a-z0-9-]*\.atlassian\.net$/.test(new URL(url).hostname.toLowerCase());
+  const tracker = receipts ? { kind: receipts, ...(url ? { url } : {}), ...(project ? { project } : {}), ...(server ? { server: true } : {}) } : null;
+  try { return { trackers, receipts, tracker, host: found.host, rules: rulesFor(trackers, found.host) }; } catch (e) { return { error: e.message }; }
+}
+
+/**
+ * What the receipt adapter still needs before it can run (R16), or null: the tracker url (Jira always; Azure DevOps
+ * unless the origin is an Azure DevOps remote, whose organization it reads) and the credential env vars not yet set.
+ * Names only, never a value.
+ */
+export function stillNeeded(tracker, host, env) {
+  if (!tracker || tracker.kind === 'github') return null;
+  const need = [];
+  if (!tracker.url && (tracker.kind === 'jira' || host !== 'ado')) need.push('the tracker url (--tracker-url https://…) — re-run setup with it, or set tracker.url in .agents/tokenomics/settings.json');
+  if (tracker.kind === 'ado') {
+    if (!env.AZURE_DEVOPS_EXT_PAT) need.push('AZURE_DEVOPS_EXT_PAT (or az login) in the environment');
+  } else {
+    const names = tracker.server ? ['JIRA_PAT'] : ['JIRA_EMAIL', 'JIRA_API_TOKEN'];
+    const unset = names.filter((k) => !env[k]);
+    if (unset.length) need.push(`${unset.join(', ')} in the environment`);
+  }
+  return need.length ? need.join('; ') : null;
 }
 
 export async function runSetup(args, { packageRoot, from, out = (s) => process.stdout.write(s), err = (s) => process.stderr.write(s), env = process.env } = {}) {
@@ -181,6 +202,8 @@ export async function runSetup(args, { packageRoot, from, out = (s) => process.s
     const note = fresh ? '' : ' — detected (not applied)';
     for (const t of plan.trackers) out(`  tracker: ${t.tracker} (${t.why})${note}\n`);
     if (plan.receipts) out(`  receipts from ${plan.receipts}${note}\n`);
+    const need = stillNeeded(plan.tracker, plan.host, env);
+    if (need) out(`  receipts from ${plan.receipts} still need: ${need}\n`);
     if (!fresh) {
       const known = hasRules(settingsFile);
       const add = { ...(known ? {} : { ids: { rules: plan.rules } }), ...(plan.tracker ? { tracker: plan.tracker, receipts } : {}) };
