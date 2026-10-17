@@ -72,7 +72,7 @@ test('inventory CLI exit code: 0 on the engine, 1 on an engine copy with a plant
   assert.match(ok.stderr, /engine sites \d+, unlisted 0, stale 0, invalid 0, overcount 0, undercount 0/);
   const copy = () => {
     const dir = mkdtempSync(join(tmpdir(), 'ht-inv-'));
-    for (const d of ['engine', 'hooks', 'scripts']) cpSync(join(ENGINE, d), join(dir, d), { recursive: true });
+    for (const d of ['adapters', 'engine', 'hooks', 'scripts']) cpSync(join(ENGINE, d), join(dir, d), { recursive: true });
     return dir;
   };
   const run = (dir) => spawnSync(process.execPath, [cli, '--engine-root', dir], { encoding: 'utf8' });

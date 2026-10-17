@@ -510,5 +510,13 @@
   "scripts/delivery-report.mjs:delivered-vocab:8919aa4218": {
     "kind": "not-lifted",
     "reason": "Plan 7 Task 4 (D-RECEIPTS): by-sprint table header; the generic column word 'delivered' is engine vocabulary (ENGINE-B1 vocabulary.delivered), as in team-report's by-group header"
+  },
+  "adapters/common.mjs:env-var:43bc288978": {
+    "kind": "env-var",
+    "reason": "Plan 7 Task 5 (D-ADAPTERS): TOKENOMICS_TRACKER_BASE_URL is the engine-owned test lever that points an adapter at a loopback fixture server; baseUrl() still refuses anything but https or loopback http"
+  },
+  "adapters/github.mjs:delivered-vocab:2c532971a9": {
+    "kind": "not-lifted",
+    "reason": "Plan 7 Task 5 (D-ADAPTERS): the GitHub adapter's receipt outcome 'delivered' is the engine's receipt vocabulary (ENGINE-B1 receipts.deliveredOutcomes default), emitted for a COMPLETED closed Issue"
   }
 }
