@@ -212,13 +212,16 @@ const rowKey = (it) => (it.pr !== null && it.pr !== undefined ? String(it.pr) : 
  *    `{pr, mergedAt, ids[], sessions, shared, costUsd, priced, tokensOnly, activeMin, tokens}` — never a branch. Every
  *    merged item has a row, spend or not. A line goes by branch to the first PR on its branch merged at or after the
  *    line ended (or to `unmerged` when it ended after the last), else by id to each of the n PRs naming one of its
- *    tickets (1/n), else to `unattributed.prs`.
+ *    tickets (1/n). A line matching no PR is in progress (`unmerged`) when it names a ticket or sits on a branch other
+ *    than `base`; only a ticketless line on `base` (or on no branch) goes to `unattributed.prs`. With no `base` given,
+ *    only a ticketless, branchless line is unattributed.
+ *  - `opts.base`: the base branch name (`defaultBranch(repo).name`), e.g. `'main'`.
  *  - `unattributed: {tickets, prs}` and `unmerged` are buckets of the row counters.
  *  - `totals: {sessions, costUsd, priced, tokensOnly, activeMin, mergedPrs, ticketsWithSpend}`, from the lines once.
  *  - `trace: {tickets, prs, totals, conserved}`: the two view sums beside `totals.costUsd`, conserved to 1e-9.
  * A line with an unreadable `endedAt` goes to the first merge on its branch.
  */
-export function joinDelivery(lines, items) {
+export function joinDelivery(lines, items, { base = null } = {}) {
   const prs = {};
   const byBranch = new Map();
   const naming = new Map(); // ticket id → row keys of the items naming it
@@ -273,6 +276,7 @@ export function joinDelivery(lines, items) {
     }
     const keys = [...new Set(ts.flatMap((id) => [...(naming.get(id)?.keys() ?? [])]))];
     if (keys.length) for (const k of keys) addTo(prs[k], l, 1 / keys.length);
+    else if (ts.length || (l.branch && l.branch !== base)) addTo(unmerged, l, 1); // in progress (R4)
     else addTo(unattributed.prs, l, 1);
   }
   totals.ticketsWithSpend = Object.keys(tickets).length;

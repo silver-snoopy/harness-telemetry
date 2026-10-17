@@ -184,7 +184,7 @@ test('(d) conservation: even ticket splits, reused branches, unmerged and unattr
     line({ costUsd: 3, cases: ['jira:PAY-9'], branch: 'b', endedAt: '2026-03-05T00:00:00Z' }),
     line({ costUsd: 2, cases: [], branch: 'main' }),
   ];
-  const j = joinDelivery(lines, items);
+  const j = joinDelivery(lines, items, { base: 'main' });
   const pay1 = j.tickets['jira:PAY-1'];
   const web2 = j.tickets['jira:WEB-2'];
   close(pay1.costUsd, 5); close(web2.costUsd, 5);
@@ -234,6 +234,28 @@ test('(e) a branchless squash naming the ticket gets the line by id, split acros
   assert.deepEqual(Object.keys(mb.prs), [`merge:${'a'.repeat(12)}`]);
   assert.equal(mb.prs[`merge:${'a'.repeat(12)}`].pr, null);
   close(mb.prs[`merge:${'a'.repeat(12)}`].costUsd, 1);
+});
+
+test('R4: no PR match is in progress (unmerged) unless the line is ticketless on the base branch or branchless', () => {
+  const items = [item({ pr: 1, branch: 'b', ids: ['jira:PAY-1'] })];
+  const lines = [
+    line({ costUsd: 1, cases: [], branch: 'feat/never-merged' }),
+    line({ costUsd: 2, cases: [], branch: 'main' }),
+    line({ costUsd: 4, cases: ['jira:PAY-7'], branch: 'main' }),
+    line({ costUsd: 8, cases: [] }),
+  ];
+  const j = joinDelivery(lines, items, { base: 'main' });
+  close(j.unmerged.costUsd, 1 + 4);
+  assert.equal(j.unmerged.sessions, 2);
+  close(j.unattributed.prs.costUsd, 2 + 8);
+  assert.equal(j.unattributed.prs.sessions, 2);
+  assert.equal(j.trace.conserved, true);
+  close(j.trace.prs, 15);
+  // Without a base, only a branchless ticketless line is unattributed; the ticketless line on main is unmerged.
+  const k = joinDelivery(lines, items);
+  close(k.unmerged.costUsd, 1 + 2 + 4);
+  close(k.unattributed.prs.costUsd, 8);
+  assert.equal(k.trace.conserved, true);
 });
 
 test('(f) privacy: PR rows carry no branch', () => {

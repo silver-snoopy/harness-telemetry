@@ -66,24 +66,42 @@ export function startServer(routesModule, { dir } = {}) {
   const logPath = join(d, 'requests.jsonl');
   const child = spawn(process.execPath, [SERVER, resolve(routesModule), logPath], { stdio: ['ignore', 'pipe', 'pipe'] });
   const exited = new Promise((res) => child.once('exit', res));
+  const stop = async () => { if (child.exitCode === null && child.signalCode === null) child.kill(); await exited; };
   return new Promise((res, rej) => {
     let buf = '';
     let err = '';
-    child.stderr.on('data', (c) => { err += c; });
-    child.once('error', rej);
-    child.once('exit', (code) => rej(new Error(`server exited early (${code}): ${err.trim()}`)));
-    child.stdout.on('data', (c) => {
+    let settled = false;
+    const onData = (c) => {
       buf += c;
       const nl = buf.indexOf('\n');
       if (nl < 0) return;
-      const { port } = JSON.parse(buf.slice(0, nl));
+      settle();
+      let port;
+      try { ({ port } = JSON.parse(buf.slice(0, nl))); } catch { port = undefined; }
+      if (!Number.isInteger(port)) { stop().then(() => rej(new Error(`server: bad ready line ${JSON.stringify(buf.slice(0, nl).slice(0, 80))}`))); return; }
       res({
         url: `http://127.0.0.1:${port}`,
         logPath,
         log: () => (existsSync(logPath) ? readFileSync(logPath, 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)) : []),
-        stop: async () => { if (child.exitCode === null && child.signalCode === null) child.kill(); await exited; },
+        stop,
       });
-    });
+    };
+    const onExit = (code, signal) => { if (settle()) rej(new Error(`server exited before ready (${code ?? signal}): ${err.trim().split('\n')[0] ?? ''}`)); };
+    const onError = (e) => { if (settle()) { stop().then(() => rej(e)); } };
+    // Settle once: after the ready line (or a failure) no handler runs again.
+    function settle() {
+      if (settled) return false;
+      settled = true;
+      child.stdout.off('data', onData);
+      child.off('exit', onExit);
+      child.off('error', onError);
+      child.stdout.resume();
+      return true;
+    }
+    child.stderr.on('data', (c) => { if (!settled) err += c; });
+    child.on('error', onError);
+    child.on('exit', onExit);
+    child.stdout.on('data', onData);
   });
 }
 

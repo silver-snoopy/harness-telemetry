@@ -7,7 +7,7 @@
     "engine/checkpoint.mjs": "sha256:bb5131498f411b9268da97e55a5e5d6d816302bb15443f004883bd96dba6d7fc",
     "engine/config.mjs": "sha256:8939342786217a110b94f55e5a0a2502d777ff37492f1f8b66f12dc6cffc3d95",
     "engine/copilot-user-hooks.mjs": "sha256:c362a259027947e76557b524822813923f36a85c0c1569927899fec3a982f0fd",
-    "engine/delivery.mjs": "sha256:27514eaef3cfa0e89fdbfad00ae54777c43a786b1466f4541b87a66cfbbf69d8",
+    "engine/delivery.mjs": "sha256:81ff89a603fdbf889adcfe44b2efb865feccf7a2740f6a1062772589c0639617",
     "engine/entry.mjs": "sha256:9e8c3791515d8b01f2c57e2087b38c3136755e91ddf701f8ebf26b60f4a295a2",
     "engine/extension.mjs": "sha256:7e0b4603d8814cb2ba7b0850bda6f4f7309caf437a5e3949d604500d8eddb29a",
     "engine/install-copy.mjs": "sha256:f087790237b389f3d7fd79108bc0b8ec19b4de1813cbcfe29da34d94e56d5cbb",

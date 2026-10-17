@@ -42,6 +42,15 @@ test('startServer runs the routes in a child process, logs requests, and stops',
   await assert.rejects(post(srv.url, '/', '{}'));
 });
 
+test('startServer rejects cleanly on a bad first stdout line and on an early child exit', async () => {
+  const noisy = join(tmp, 'noisy.mjs');
+  writeFileSync(noisy, "process.stdout.write('not json\\n');\nexport default () => ({ status: 200, json: {} });\n");
+  await assert.rejects(startServer(noisy, { dir: tmp }), /server: bad ready line/);
+  const broken = join(tmp, 'broken.mjs');
+  writeFileSync(broken, "throw new Error('boom');\n");
+  await assert.rejects(startServer(broken, { dir: tmp }), /server exited before ready/);
+});
+
 test('assertNoSentinels finds raw and base64 credential forms and private markers', () => {
   assert.doesNotThrow(() => assertNoSentinels(['clean', { a: 1 }]));
   assert.throws(() => assertNoSentinels(['ok', `x ${SENTINEL.PAT} y`]), /input 1/);
