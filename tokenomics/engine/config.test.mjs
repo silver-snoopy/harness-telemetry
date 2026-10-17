@@ -238,3 +238,33 @@ test('effectiveReportsLocation: explicit value, else tree for no file or test-au
   assert.equal(e({ extension: './ext/mine.mjs' }, true), 'telemetry');
   assert.equal(e({ extension: './extensions/test-automation.mjs' }, true), 'tree');
 });
+
+test('ids.rules validation names the rule index (Plan 7)', () => {
+  const bad = (rule, re) => {
+    const r = repo();
+    mkdirSync(join(r, '.agents/tokenomics'), { recursive: true });
+    writeFileSync(join(r, '.agents/tokenomics/settings.json'), JSON.stringify({ extension: null, ids: { rules: [{ pattern: '(a)', normalize: 'x:$1' }, rule] } }));
+    assert.throws(() => loadSettings(r), (e) => e.message.includes('ids.rules[1]') && re.test(e.message), JSON.stringify(rule));
+  };
+  bad({ pattern: '(', normalize: 'x:$1' }, /pattern/);
+  bad({ pattern: '(a)', flags: 'g', normalize: 'x:$1' }, /flags/);
+  bad({ pattern: '(a)(b)', normalize: 'gh:$3' }, /\$3/);
+  bad({ pattern: '(a)', normalize: 'gh:$10' }, /\$1-\$9/);
+  bad({ pattern: '(a)', normalize: 'gh:$0' }, /\$1-\$9/);
+  bad({ pattern: '(a)', normalize: '$1' }, /normalize/);
+  bad({ pattern: '(a)', normalize: 'x:$1', source: 'x' }, /source/);
+  const r = repo();
+  mkdirSync(join(r, '.agents/tokenomics'), { recursive: true });
+  writeFileSync(join(r, '.agents/tokenomics/settings.json'), JSON.stringify({ extension: null, ids: { rules: 'no' } }));
+  assert.throws(() => loadSettings(r), /ids\.rules must be an array/);
+});
+
+test('idRules: absent → empty; compiled and cached per ids; prefixes derived', () => {
+  assert.deepEqual(config.idRules(TA_DEFAULTS).rules, []);
+  const s = { ...TA_DEFAULTS, ids: { ...TA_DEFAULTS.ids, rules: [{ pattern: '#(\\d+)', normalize: 'gh:$1' }, { pattern: 'B(\\d+)', normalize: 'ado:$1', source: 'branch' }] } };
+  const a = config.idRules(s);
+  assert.equal(a, config.idRules(s));
+  assert.deepEqual([...a.prefixes].sort(), ['ado', 'gh']);
+  assert.deepEqual(a.rules.map((x) => x.source), ['any', 'branch']);
+  assert.ok(a.rules[0].re.global);
+});

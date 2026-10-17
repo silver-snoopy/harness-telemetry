@@ -31,9 +31,13 @@
     "kind": "false-positive",
     "reason": "case-id-miner category fires on the miner identifiers; the regex sources come from settings.ids (ENGINE-B1 ids.patterns) — extractCaseIds is the reference-compatible wrapper over TA_DEFAULTS for the copied unit tests"
   },
-  "hooks/telemetry-capture.mjs:case-id-miner:970df90985": {
+  "hooks/telemetry-capture.mjs:case-id-miner:8d52740e4d": {
     "kind": "false-positive",
     "reason": "case-id-miner category fires on the miner identifiers; the regex sources come from settings.ids (ENGINE-B1 ids.patterns) — extractCaseIds is the reference-compatible wrapper over TA_DEFAULTS for the copied unit tests"
+  },
+  "engine/trackers.mjs:case-id-miner:aa57de41bb": {
+    "kind": "false-positive",
+    "reason": "case-id-miner category fires on the KEY regex constant; it validates Jira project keys supplied by the user for the tracker presets (Plan 7) — a shape check, not a hard-wired id pattern"
   },
   "hooks/telemetry-capture.mjs:env-var:2a6b7e6489": {
     "kind": "env-var",

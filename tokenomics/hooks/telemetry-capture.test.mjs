@@ -1833,3 +1833,29 @@ test('reports-location: live page names are injective (a/b and a-b stay distinct
   assert.equal(new Set(paths).size, paths.length);
   for (const p of paths) assert.ok(!p.includes(join('automation', 'reports') + '/'), p);
 });
+
+// Plan 7 task 1: ids.rules reach the final ledger line on every host path.
+test('ids.rules: normalised cases land on the Claude, Copilot CLI and VS Code ledger lines', async () => {
+  const { presetRules } = await import('../engine/trackers.mjs');
+  const { TA_DEFAULTS } = await import('../engine/config.mjs');
+  const settings = { ...TA_DEFAULTS, ids: { ...TA_DEFAULTS.ids, rules: [...presetRules('jira', { keys: ['PAY'] }), ...presetRules('github')] } };
+  // Claude: the full capture, including the second mining pass over already-mined ids.
+  const repo = tmp(); const proj = tmp();
+  const transcript = join(proj, 'sess-rules.jsonl');
+  writeFileSync(transcript, jsonl([
+    { type: 'user', message: { role: 'user', content: 'do PAY-1 (#7)' }, timestamp: '2026-07-30T10:00:00Z' },
+    { type: 'assistant', gitBranch: 'main', timestamp: '2026-07-30T10:01:00Z', message: { id: 'r1', model: 'claude-sonnet-5', usage: { input_tokens: 10, output_tokens: 5 }, content: [] } },
+  ]));
+  const c = captureClaudeSession(repo, transcript, 'sess-rules', { config: CFG, user: 'tester', settings });
+  assert.deepEqual(c.cases, ['gh:7', 'jira:PAY-1']);
+  // Copilot CLI: a fixture whose user message names the ids.
+  const dir = tmp(); const events = join(dir, 'events.jsonl');
+  writeFileSync(events, jsonl(copilotEvents({ cwd: repo }).map((e) => (e.type === 'user.message' ? { ...e, data: { text: 'do PAY-1 (#7)' } } : e))));
+  const cp = captureCopilotSession(repo, events, 'cop-rules', { config: { ...CFG, capturePrompts: true }, user: 'tester', settings });
+  assert.deepEqual(cp.cases, ['gh:7', 'jira:PAY-1']);
+  // VS Code: the oplog's custom title carries the ids (its mined texts are the title and request messages).
+  const f = join(tmp(), 'chat-r.jsonl');
+  writeFileSync(f, vscodeOplog().replace('CALCRATE-44 - automate', 'PAY-1 (#7) - automate'));
+  const v = captureVsCodeSession(repo, f, 'chat-r', { config: CFG, user: 'tester', settings });
+  assert.ok(v.cases.includes('jira:PAY-1'), JSON.stringify(v.cases));
+});

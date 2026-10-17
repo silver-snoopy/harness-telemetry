@@ -36,7 +36,7 @@ import { homedir, tmpdir, userInfo } from 'node:os';
 import { join, basename, dirname, sep } from 'node:path';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 import { execFileSync, spawn } from 'node:child_process';
-import { loadSettings, telemetryDir, liveReportPath, TA_DEFAULTS, idPatterns } from '../engine/config.mjs';
+import { loadSettings, telemetryDir, liveReportPath, TA_DEFAULTS, idPatterns, idRules } from '../engine/config.mjs';
 import { hook, loadExtension } from '../engine/extension.mjs';
 import { migrationOn } from '../engine/migrations.mjs';
 import { byName } from '../engine/order.mjs';
@@ -263,18 +263,52 @@ function timeStats(stampsMs) {
 // another dash-digit segment. Under TA settings that pattern is ids.patterns[0] (engine/config.mjs).
 const idMiners = new WeakMap(); // settings.ids → { res: compiled patterns, stop: Set(stoplist) }
 /** Mine candidate ids from free text with the configured `ids` patterns (spec §14.4). */
-export function mineIds(settings, texts) {
+export function mineIds(settings, texts, opts = {}) {
   if (!idMiners.has(settings.ids)) idMiners.set(settings.ids, { res: idPatterns(settings), stop: new Set(settings.ids.stoplist) });
   const { res, stop } = idMiners.get(settings.ids);
-  const out = new Set();
+  const { rules, prefixes } = idRules(settings);
+  if (!rules.length) {
+    const out = new Set();
+    for (const t of texts) {
+      if (typeof t !== 'string' || !t) continue;
+      for (const re of res) {
+        for (const m of t.match(re) ?? []) {
+          if (stop.has(m.split('-')[0])) continue;
+          out.add(m);
+          if (out.size >= settings.ids.max) return [...out].sort();
+        }
+      }
+    }
+    return [...out].sort();
+  }
+  // Rules present (Plan 7 D-RULES): pass-through of normalised ids, rule matches, then legacy matches that do not
+  // overlap a rule match; `max` caps the union.
+  const passRe = new RegExp(`^(?:${[...prefixes].join('|')}):\\S+$`);
+  const out = new Set(); const full = () => out.size >= settings.ids.max;
+  const add = (id) => { out.add(id); return full(); };
+  const ruleHits = (t, rs) => {
+    const spans = [];
+    for (const r of rs) for (const m of t.matchAll(r.re)) {
+      if (stop.has(m[0].split('-')[0])) continue;
+      const id = r.normalize.replace(/\$([1-9])/g, (_, i) => m[+i] ?? '');
+      if (/:$|::/.test(id)) continue;
+      spans.push([m.index, m.index + m[0].length, id]);
+    }
+    return spans;
+  };
+  if (typeof opts.branch === 'string' && opts.branch) {
+    for (const [, , id] of ruleHits(opts.branch, rules.filter((r) => r.source === 'branch'))) if (add(id)) return [...out].sort();
+  }
   for (const t of texts) {
     if (typeof t !== 'string' || !t) continue;
-    for (const re of res) {
-      for (const m of t.match(re) ?? []) {
-        if (stop.has(m.split('-')[0])) continue;
-        out.add(m);
-        if (out.size >= settings.ids.max) return [...out].sort();
-      }
+    if (passRe.test(t)) { if (add(t)) return [...out].sort(); continue; }
+    const spans = ruleHits(t, rules.filter((r) => r.source !== 'branch'));
+    for (const [, , id] of spans) if (add(id)) return [...out].sort();
+    for (const re of res) for (const m of t.matchAll(re)) {
+      const s = m.index, e = s + m[0].length;
+      if (spans.some(([a, b]) => s < b && a < e)) continue;
+      if (stop.has(m[0].split('-')[0])) continue;
+      if (add(m[0])) return [...out].sort();
     }
   }
   return [...out].sort();
@@ -400,7 +434,7 @@ export function parseClaudeTranscript(records, { capturePrompts = false, sidecha
   // the dispatch prompt — the one surface that names the unit's case ids when
   // the label window missed them. On a parent transcript it duplicates a
   // caseText; extractCaseIds dedupes.
-  const caseIds = mineIds(settings, [branch, firstText, ...caseTexts]);
+  const caseIds = mineIds(settings, [branch, firstText, ...caseTexts], { branch });
   return { role, branch, firstText, turns, toolCalls, toolErrors, skills, dispatched, prompts, caseIds, tokens, tokensByModel, usageSeen, models, ...timeStats(stamps) };
 }
 
@@ -1122,7 +1156,7 @@ export function captureCopilotSession(repo, eventsPath, sessionId, { config, use
     ...(ci ? { tokensBasis: 'inclusive' } : {}),
     ...((() => { const att = nu && tokens === null ? attributionOf({ tokens, subagents: subs, ...(ci ? { tokensBasis: 'inclusive' } : {}) }) : undefined; return att ? { tokensAttribution: att } : {}; })()),
     costUsd: usd, costSource: usd != null ? 'copilot-nano-aiu' : 'none',
-    cases: [...new Set([...mineIds(settings, [branch, ...caseTexts]), ...(scope?.cases ?? [])])].sort(),
+    cases: [...new Set([...mineIds(settings, [branch, ...caseTexts], { branch }), ...(scope?.cases ?? [])])].sort(),
     ...(scope ? { scope: scopeForLine(scope) } : {}),
     subagents: subs, // per-dispatch (n:1) with label — same shape as the Claude path
     skills: [...skills].sort(), dispatches: dispatched.length,

@@ -77,10 +77,29 @@ function checkSettings(s, rules) {
   }
   if (!Number.isInteger(max) || max < 1) throw invalid('ids.max must be a positive integer');
   if (!Array.isArray(stoplist) || !stoplist.every((x) => typeof x === 'string')) throw invalid('ids.stoplist must be an array of strings');
+  if (s.ids.rules !== undefined) checkIdRules(s.ids.rules);
   if (!isWord(s.vocabulary?.item) || !isWord(s.vocabulary?.group)) throw invalid('vocabulary.item and vocabulary.group must be non-empty strings');
   if (!isWord(s.vocabulary.delivered)) throw invalid('vocabulary.delivered must be a non-empty string');
   if (s.extension !== null && !isWord(s.extension)) throw invalid('extension must be a module path string or null');
   return s;
+}
+
+/** Validate `ids.rules` (Plan 7 D-RULES): load time only, never in a hook. Errors name the rule's index. */
+function checkIdRules(rules) {
+  if (!Array.isArray(rules)) throw invalid('ids.rules must be an array');
+  rules.forEach((r, i) => {
+    const at = `ids.rules[${i}]`;
+    if (!isObj(r)) throw invalid(`${at} must be an object`);
+    if (typeof r.pattern !== 'string') throw invalid(`${at}.pattern must be a string`);
+    const flags = r.flags ?? '';
+    if (typeof flags !== 'string' || flags.includes('g')) throw invalid(`${at}.flags must be a string without 'g' (the miner adds it), got ${JSON.stringify(flags)}`);
+    try { new RegExp(r.pattern, `${flags}g`); } catch (e) { throw invalid(`${at}.pattern ${JSON.stringify(r.pattern)}: ${e.message}`); }
+    if (typeof r.normalize !== 'string' || !/^[a-z][a-z0-9]*:/.test(r.normalize)) throw invalid(`${at}.normalize must be a string starting with a lowercase prefix and ':' (e.g. 'gh:$1')`);
+    const groups = new RegExp(`${r.pattern}|`, flags).exec('').length - 1;
+    if (/\$(?![1-9](?!\d))/.test(r.normalize)) throw invalid(`${at}.normalize may use only the placeholders $1-$9, got ${JSON.stringify(r.normalize)}`);
+    for (const m of r.normalize.matchAll(/\$([1-9])/g)) if (+m[1] > groups) throw invalid(`${at}.normalize uses $${m[1]} but the pattern has ${groups} capture group(s)`);
+    if (r.source !== undefined && r.source !== 'any' && r.source !== 'branch') throw invalid(`${at}.source must be 'any' or 'branch', got ${JSON.stringify(r.source)}`);
+  });
 }
 
 // Every entry point loads settings, so a bad migration variable fails here instead of silently running the default.
@@ -146,6 +165,21 @@ export function liveReportPath(repo, s, batch) {
 
 /** The miner's regexes, built from the configured sources (always global). */
 export const idPatterns = (s) => s.ids.patterns.map((src) => new RegExp(src, `${s.ids.flags ?? ''}g`));
+
+const ruleCache = new WeakMap(); // settings.ids → compiled rules
+const EMPTY_RULES = Object.freeze({ rules: Object.freeze([]), prefixes: new Set() });
+/** The compiled `ids.rules` (Plan 7): `{rules: [{re, normalize, source}], prefixes}`, cached per `settings.ids`. */
+export function idRules(s) {
+  const ids = s.ids;
+  if (!Array.isArray(ids?.rules) || !ids.rules.length) return EMPTY_RULES;
+  let c = ruleCache.get(ids);
+  if (!c) {
+    const rules = ids.rules.map((r) => ({ re: new RegExp(r.pattern, `${r.flags ?? ''}g`), normalize: r.normalize, source: r.source ?? 'any' }));
+    c = { rules, prefixes: new Set(rules.map((r) => r.normalize.match(/^([a-z][a-z0-9]*):/)[1])) };
+    ruleCache.set(ids, c);
+  }
+  return c;
+}
 
 const plural = (w) => (/(s|x|z|ch|sh)$/.test(w) ? `${w}es` : /[^aeiou]y$/.test(w) ? `${w.slice(0, -1)}ies` : `${w}s`);
 const cap = (w) => w.charAt(0).toUpperCase() + w.slice(1);
