@@ -14,13 +14,13 @@ export const PRESETS = Object.freeze({
     return [{ tracker: 'jira', pattern: `\\b(${ks.join('|')})-(\\d+)\\b(?!-\\d)`, normalize: 'jira:$1-$2' }];
   },
   github: ({ branchRule = false } = {}) => [
-    { tracker: 'github', pattern: '(?<![A-Za-z0-9&])#(\\d+)\\b', normalize: 'gh:$1' },
+    { tracker: 'github', pattern: '(?<![A-Za-z0-9&])#([1-9]\\d*)\\b', normalize: 'gh:$1' },
     { tracker: 'github', pattern: '\\bGH-(\\d+)\\b', normalize: 'gh:$1' },
-    ...(branchRule ? [{ tracker: 'github', pattern: '(?:^|/)(\\d+)-(?=[A-Za-z])', normalize: 'gh:$1', source: 'branch' }] : []),
+    ...(branchRule ? [{ tracker: 'github', pattern: '(?:^|/)(\\d+)-(?=[A-Za-z]{2})', normalize: 'gh:$1', source: 'branch' }] : []),
   ],
   ado: ({ branchRule = false } = {}) => [
     { tracker: 'ado', pattern: '(?<![A-Za-z0-9])AB#(\\d+)\\b', normalize: 'ado:$1' },
-    ...(branchRule ? [{ tracker: 'ado', pattern: '(?:^|/)(\\d{3,7})-(?=[A-Za-z])', normalize: 'ado:$1', source: 'branch' }] : []),
+    ...(branchRule ? [{ tracker: 'ado', pattern: '(?:^|/)(\\d{3,7})-(?=[A-Za-z]{2})', normalize: 'ado:$1', source: 'branch' }] : []),
   ],
 });
 
@@ -116,8 +116,10 @@ export function detectTrackers(repo, { env = process.env } = {}) {
     trackers.push({ tracker: 'ado', why: [host === 'ado' ? `${REMOTE_NAME.ado} remote` : null, abN ? `AB# in ${abN} of ${total} commits and branches` : null].filter(Boolean).join(', ') });
   }
 
+  // R15: a github host alone gives github only when no other tracker is found; beside Jira or Azure DevOps it needs #N
+  // in at least 3 documents (the host says where the code lives, not where the work items are)
   const hashN = nDocs(docs, /(?<![A-Za-z0-9&])#\d+/);
-  if (host === 'github') {
+  if (host === 'github' && (!trackers.length || hashN >= 3)) {
     trackers.push({ tracker: 'github', why: `${REMOTE_NAME.github} remote${hashN ? `, #N in ${hashN} of ${total} commits and branches` : ''}` });
   }
 

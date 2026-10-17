@@ -32,12 +32,20 @@ test('github preset with branch rule', () => {
   assert.deepEqual(mineIds(s, ['x'], { branch: 'release/2024-10' }), []);
   assert.deepEqual(mineIds(s, ['x'], { branch: 'hotfix/2026-01-x' }), []);
   assert.deepEqual(mineIds(s, ['see GH-9']), ['gh:9']);
+  // R15: no #0 or leading-zero ids; a branch rule needs two letters after the dash, so a date-like name mines nothing
+  for (const t of ['#0 x', 'see #07']) assert.deepEqual(mineIds(s, [t]), [], t);
+  assert.deepEqual(mineIds(s, ['x'], { branch: 'release/2026-q3' }), []);
+  assert.deepEqual(mineIds(s, ['x'], { branch: 'feat/57-x' }), []);
+  assert.deepEqual(mineIds(s, ['x'], { branch: '57-login' }), ['gh:57']);
+  assert.equal(presetRules('github')[0].pattern, '(?<![A-Za-z0-9&])#([1-9]\\d*)\\b');
 });
 
 test('ado preset with branch rule', () => {
   const s = withRules(presetRules('ado', { branchRule: true }));
   assert.deepEqual(mineIds(s, ['AB#12345 fix']), ['ado:12345']);
   assert.deepEqual(mineIds(s, ['x'], { branch: 'users/x/23456-fix' }), ['ado:23456']);
+  assert.deepEqual(mineIds(s, ['x'], { branch: 'release/2026-q3' }), [], 'R15: a date is not a work item');
+  assert.deepEqual(mineIds(s, ['x'], { branch: 'users/x/2345-v2' }), []);
 });
 
 test('inertness: rules absent and rules:[] give identical output; max caps the union', () => {
@@ -56,6 +64,8 @@ test('pass-through of already-normalised ids; mixed rules; multi-digit group', (
   const s = withRules([...presetRules('jira', { keys: ['PAY'] }), ...presetRules('github')]);
   assert.deepEqual(mineIds(s, ['gh:42', 'jira:PAY-12']), ['gh:42', 'jira:PAY-12']);
   assert.deepEqual(mineIds(s, ['PAY-1 (#7)']), ['gh:7', 'jira:PAY-1']);
+  // a legacy id beside a rule match in the same text survives; only the overlapping legacy match is dropped
+  assert.deepEqual(mineIds(s, ['PAY-1 and TC-9']), ['TC-9', 'jira:PAY-1']);
   const t = withRules([{ pattern: '(a)(b)?', normalize: 'x:$1$2' }]);
   assert.deepEqual(mineIds(t, ['a']), ['x:a']);
   const u = withRules([{ pattern: '(a)(b)', normalize: 'x:$2' }, { pattern: 'c(d)?', normalize: 'y:$1' }]);
@@ -132,10 +142,10 @@ test('detect ado: ado origin plus AB# commits names both; AB# on a github origin
   assert.deepEqual(d.trackers.map((t) => t.tracker), ['ado']);
   assert.match(d.trackers[0].why, /Azure DevOps remote/);
   assert.match(d.trackers[0].why, /AB# in 3 of \d+/);
+  // R15: beside another tracker, a github host alone adds no #N rules; AB# is not a #N document
   const g = repoWith({ origin: 'https://github.com/o/r.git', msgs: rep('AB#1 fix', 3) });
   const e = detectTrackers(g.repo, { env: g.env });
-  assert.deepEqual(e.trackers.map((t) => t.tracker).sort(), ['ado', 'github']);
-  assert.doesNotMatch(e.trackers.find((t) => t.tracker === 'github').why, /#N in/);
+  assert.deepEqual(e.trackers.map((t) => t.tracker), ['ado']);
   assert.equal(e.receipts, 'ado');
 });
 
@@ -145,6 +155,11 @@ test('detect jira and github: github host plus Jira keys; receipts from jira', (
   assert.deepEqual(d.trackers.map((t) => t.tracker), ['jira', 'github']);
   assert.match(d.trackers[1].why, /github\.com remote.*#N in 6 of \d+/);
   assert.equal(d.receipts, 'jira');
+  // R15: beside Jira, github needs #N in at least 3 documents, not the host alone
+  const two = repoWith({ origin: 'git@github.com:o/r.git', msgs: [...rep('PAY-1 thing', 5), 'fix #7', 'fix #8', 'x'] });
+  assert.deepEqual(detectTrackers(two.repo, { env: two.env }).trackers.map((t) => t.tracker), ['jira']);
+  const three = repoWith({ origin: 'git@github.com:o/r.git', msgs: [...rep('PAY-1 thing', 5), 'fix #7', 'fix #8', 'fix #9', 'x'] });
+  assert.deepEqual(detectTrackers(three.repo, { env: three.env }).trackers.map((t) => t.tracker), ['jira', 'github']);
 });
 
 test('detect: no history, no remote gives nothing; a bare github remote gives github; an unrelated remote gives nothing', () => {
