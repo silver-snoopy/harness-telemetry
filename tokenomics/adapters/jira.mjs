@@ -5,15 +5,18 @@
 //
 // Prints the spec §5.6 envelope for the keys (default: every `jira:` id in the repo's ledger). Settings:
 // `tracker: {kind:'jira', url:'https://<site>.atlassian.net', fields?:{points?, sprint?}, server?:false}`.
-//   Cloud   JIRA_EMAIL + JIRA_API_TOKEN (Basic): POST /rest/api/3/search/jql {jql, fields, maxResults, nextPageToken?};
-//           the same JQL is replayed with the returned token until `isLast`.
-//   Server  `server:true`, JIRA_PAT (Bearer): POST /rest/api/2/search {jql, fields, startAt, maxResults} until total.
+//   Cloud   JIRA_EMAIL + JIRA_API_TOKEN (Basic): POST /rest/api/3/issue/bulkfetch {issueIdsOrKeys (at most 100),
+//           fields}, one call per 100 keys. A key that does not exist or is not visible is simply not returned, and a
+//           retriable failure is listed in `issueErrors`; either is a missing key (complete:false), never a failed call.
+//   Server  `server:true`, JIRA_PAT (Bearer): POST /rest/api/2/search {jql, fields, startAt, maxResults,
+//           validateQuery:'warn'} until total; `warn` keeps one unknown key from failing the whole query.
+// `--max-pages` caps the number of requests either way.
 // Cloud credentials only go to https *.atlassian.net; Server/DC is self-hosted, so any https host named by the
 // settings url is allowed there. Either may go to a loopback test server named by --base-url /
 // TOKENOMICS_TRACKER_BASE_URL (http only for loopback).
 //
-// JQL is `key in (K1,K2,…)` over validated keys only (at most 100 per query); nothing else is ever interpolated, and
-// there is no unbounded fallback. Delivered = `status.statusCategory.key == 'done'`; `at` is `resolutiondate`, only
+// Server JQL is `key in (K1,K2,…)` over validated keys only (at most 100 per query); nothing else is ever
+// interpolated, and there is no unbounded fallback. Delivered = `status.statusCategory.key == 'done'`; `at` is `resolutiondate`, only
 // for a delivered issue and only when present.
 //
 // PRIVACY: only status category, issue type, resolution date and the two configured custom fields are requested and
@@ -52,7 +55,7 @@ export function endpointOf(settings, override) {
   if (u.username || u.password || u.protocol !== 'https:') throw config('url');
   const host = u.hostname.toLowerCase();
   if (!server && (u.port || !/^[a-z0-9][a-z0-9-]*\.atlassian\.net$/.test(host))) throw config('url');
-  const api = server ? 'rest/api/2/search' : 'rest/api/3/search/jql';
+  const api = server ? 'rest/api/2/search' : 'rest/api/3/issue/bulkfetch';
   const root = override === undefined
     ? baseUrl(server ? `https://${u.host}${u.pathname}` : `https://${host}`)
     : baseUrl(undefined, override);
@@ -121,19 +124,17 @@ export async function run({ ids, repo, baseUrl: cliBase, maxPages }) {
     if (!doc || typeof doc !== 'object' || !Array.isArray(doc.issues)) throw new AdapterFailure('parse', 'shape');
     return doc;
   };
-  // adds the requested, not yet seen issues of a page; returns how many were new
+  // adds the requested, not yet seen issues of a page (a moved issue answered under its new key is not requested)
   const take = (issues) => {
-    let fresh = 0;
-    for (const it of issues) if (it && typeof it.key === 'string' && requested.has(it.key) && !byKey.has(it.key)) { byKey.set(it.key, it.fields); fresh++; }
-    return fresh;
+    for (const it of issues) if (it && typeof it.key === 'string' && requested.has(it.key) && !byKey.has(it.key)) byKey.set(it.key, it.fields);
   };
   for (const chunk of batches(sel.ids, PER_QUERY)) {
-    const jql = `key in (${chunk.join(',')})`;
     if (ep.server) {
+      const jql = `key in (${chunk.join(',')})`;
       let startAt = 0;
       for (;;) {
         if (pages >= maxPages) { complete = false; break; }
-        const doc = await call({ jql, fields: list, startAt, maxResults: PER_QUERY });
+        const doc = await call({ jql, fields: list, startAt, maxResults: PER_QUERY, validateQuery: 'warn' });
         if (!Number.isInteger(doc.total) || doc.total < 0) throw new AdapterFailure('parse', 'shape');
         take(doc.issues);
         startAt += doc.issues.length;
@@ -141,19 +142,12 @@ export async function run({ ids, repo, baseUrl: cliBase, maxPages }) {
         if (!doc.issues.length) { complete = false; break; }
       }
     } else {
-      const tokens = new Set();
-      let token;
-      for (;;) {
-        if (pages >= maxPages) { complete = false; break; }
-        const doc = await call({ jql, fields: list, maxResults: PER_QUERY, ...(token === undefined ? {} : { nextPageToken: token }) });
-        const fresh = take(doc.issues);
-        const next = typeof doc.nextPageToken === 'string' && doc.nextPageToken ? doc.nextPageToken : undefined;
-        if (doc.isLast === true || next === undefined) break;
-        // a repeated token, or a page that added nothing, is no progress: stop rather than loop
-        if (tokens.has(next) || !fresh) { complete = false; break; }
-        tokens.add(next);
-        token = next;
-      }
+      if (pages >= maxPages) { complete = false; break; }
+      const doc = await call({ issueIdsOrKeys: chunk, fields: list });
+      // issueErrors name issues by id, not key: any entry means an issue of this chunk is not answered
+      if (doc.issueErrors !== undefined && !Array.isArray(doc.issueErrors)) throw new AdapterFailure('parse', 'shape');
+      if (doc.issueErrors?.length) complete = false;
+      take(doc.issues);
     }
   }
   for (const k of sel.ids) if (!byKey.has(k)) complete = false;

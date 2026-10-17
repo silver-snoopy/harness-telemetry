@@ -19,8 +19,10 @@ let n = 0;
 const outputs = [];
 const F = { state: 'System.State', type: 'System.WorkItemType', points: 'Microsoft.VSTS.Scheduling.StoryPoints', sprint: 'System.IterationPath', closed: 'Microsoft.VSTS.Common.ClosedDate' };
 
-// Routes source: items {id: fields}; `omit` ids are left out; `failCall` makes that (1-based) call answer 500 with a
-// body carrying the PAT sentinel; every item also carries a private title and person.
+// Routes source: items {id: fields}; `omit` ids are unknown to the server; `failCall` makes that (1-based) call answer
+// 500 with a body carrying the PAT sentinel; every item also carries a private title and person. Like the real API
+// (errorPolicy defaults to Fail), a batch naming an unknown id answers 404 unless the body says errorPolicy 'Omit',
+// which answers null in that id's place.
 const routesSource = ({ items = {}, omit = [], failCall = 0, all = false } = {}) => `
 let calls = 0;
 const items = ${JSON.stringify(items)};
@@ -28,8 +30,9 @@ const omit = ${JSON.stringify(omit)};
 export default (req, body) => {
   calls++;
   if (${failCall} && calls === ${failCall}) return { status: 500, json: { error: '${SENTINEL.PAT} ${Buffer.from(`:${SENTINEL.PAT}`).toString('base64')}' } };
-  const { ids } = JSON.parse(body);
-  const value = ids.filter((i) => !omit.includes(i)).map((id) => ({ id, rev: 3, url: 'https://x/PRIVATE_URL',
+  const { ids, errorPolicy } = JSON.parse(body);
+  if (errorPolicy !== 'Omit' && ids.some((i) => omit.includes(i))) return { status: 404, json: { message: 'TF401232: Work item does not exist' } };
+  const value = ids.map((id) => omit.includes(id) ? null : ({ id, rev: 3, url: 'https://x/PRIVATE_URL',
     fields: { ...(${all} ? { 'System.State': 'Done' } : {}), ...(items[id] ?? {}), 'System.Title': 'PRIVATE_TITLE', 'System.AssignedTo': { displayName: 'PRIVATE_PERSON' } } }));
   return { status: 200, json: { count: value.length, value } };
 };
@@ -96,7 +99,7 @@ test('field mapping: Done / Resolved / Closed(no date), sprint is the last path 
     const [q] = reqs(s);
     assert.equal(q.method, 'POST');
     assert.equal(q.path, '/acme/_apis/wit/workitemsbatch?api-version=7.1');
-    assert.deepEqual(q.json, { ids: [1, 2, 3, 4], fields: Object.values(F) });
+    assert.deepEqual(q.json, { ids: [1, 2, 3, 4], fields: Object.values(F), errorPolicy: 'Omit' });
     assert.equal(q.headers.authorization, `Basic ${Buffer.from(`:${SENTINEL.PAT}`).toString('base64')}`);
   } finally { await s.srv.stop(); }
 });
@@ -140,12 +143,14 @@ test('batching: 250 ids make two requests of 200 and 50; a missing id makes comp
     assert.equal(cases(r).length, 250);
     assert.equal(JSON.parse(r.stdout).complete, true);
   } finally { await s.srv.stop(); }
-  const m = await setup({ env: PAT, routes: { all: true, omit: [2] } });
+  // R12: one deleted or foreign id in a batch is a null entry (errorPolicy Omit), not a failed batch
+  const m = await setup({ env: PAT, routes: { all: true, omit: [2, 230] } });
   try {
-    const r = run(m, ['--ids', 'ado:1,ado:2,ado:3']);
+    const r = run(m, ['--ids', ['ado:1', 'ado:2', 'ado:3', ...ids.slice(200)].join(',')]);
     assert.equal(r.status, 0, r.stderr);
-    assert.deepEqual(cases(r).map((c) => c.id), ['ado:1', 'ado:3']);
+    assert.deepEqual(cases(r).map((c) => c.id), ['ado:1', 'ado:3', ...ids.slice(200).filter((i) => i !== 'ado:230')]);
     assert.equal(JSON.parse(r.stdout).complete, false);
+    assert.ok(reqs(m).every((q) => q.json.errorPolicy === 'Omit'));
   } finally { await m.srv.stop(); }
   const f = await setup({ env: PAT, routes: { all: true, failCall: 2 } });
   try {

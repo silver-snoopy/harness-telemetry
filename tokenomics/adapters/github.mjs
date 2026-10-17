@@ -29,8 +29,12 @@ const USAGE = 'usage: github.mjs [--ids gh:1,gh:2] [--repo <path>]';
 function repoOf(repo, settings) {
   let owner; let name;
   const project = settings?.tracker?.project;
-  if (typeof project === 'string' && project) [owner, name] = project.split('/');
-  else {
+  if (typeof project === 'string' && project) {
+    // exactly `owner/repo`: a configured project that is anything else is bad config (exit 2), never guessed at
+    const parts = project.split('/');
+    if (parts.length !== 2 || !NAME.test(parts[0]) || !NAME.test(parts[1])) throw new AdapterFailure('config', 'project', 2);
+    [owner, name] = parts;
+  } else {
     const r = spawnSync('git', ['remote', 'get-url', 'origin'], { cwd: repo, env: process.env, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 20000 });
     const p = r.status === 0 ? parseRemote(r.stdout.trim()) : { host: null };
     if (p.host === 'github') ({ owner, repo: name } = p);

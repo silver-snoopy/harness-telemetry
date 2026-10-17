@@ -151,6 +151,14 @@ test('settings.tracker.project (owner/repo) beats the origin', () => {
   const r = run(s, ['--ids', 'gh:2']);
   assert.equal(JSON.parse(r.stdout).receipts[0].group, 'gh:a/b');
   assert.match(s.calls()[0].argv.join(' '), /owner:"a",name:"b"/);
+  // exactly owner/repo: anything else is a config failure (exit 2), and gh is never asked
+  for (const project of ['a/b/c', 'a', 'a/', '/b']) {
+    const x = setup({ project });
+    const bad = run(x, ['--ids', 'gh:2']);
+    assert.equal(bad.status, 2, project);
+    assert.equal(bad.stderr.trimEnd(), 'github: config (project)');
+    assert.equal(x.calls().length, 0);
+  }
 });
 
 test('type is the first of bug/feature/enhancement among the labels; other labels never appear', () => {

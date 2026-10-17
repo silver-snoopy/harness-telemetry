@@ -4,7 +4,8 @@
 //   node azure-devops.mjs [--ids ado:1,ado:2] [--repo <path>] [--base-url <loopback url>]
 //
 // Prints the spec §5.6 envelope for the ids (default: every `ado:` id in the repo's ledger) from one POST per 200 ids to
-// `<org url>/_apis/wit/workitemsbatch?api-version=7.1`. Credentials: AZURE_DEVOPS_EXT_PAT (Basic `:PAT`), else the
+// `<org url>/_apis/wit/workitemsbatch?api-version=7.1` with `errorPolicy: 'Omit'`, so an id the server cannot return is
+// a null entry (missing, complete:false) instead of a failed batch. Credentials: AZURE_DEVOPS_EXT_PAT (Basic `:PAT`), else the
 // `az` login (`az account get-access-token`, stdout captured, used only in the Bearer header, never in argv). When a
 // PAT is set `az` is never called. The credential only goes to dev.azure.com or *.visualstudio.com over https, or to a
 // loopback test server named by --base-url / TOKENOMICS_TRACKER_BASE_URL.
@@ -127,9 +128,11 @@ export async function run({ ids, repo, baseUrl: cliBase }) {
   let complete = true;
   const fieldList = ['System.State', 'System.WorkItemType', cfg.fields.points, cfg.fields.sprint, 'Microsoft.VSTS.Common.ClosedDate'];
   for (const chunk of batches(sel.ids.map(Number), PER_CALL)) {
-    const doc = await httpJson(ep.url, { method: 'POST', headers: { authorization }, body: { ids: chunk, fields: fieldList } });
+    // errorPolicy 'Omit' (R12): the API's default, Fail, rejects the whole batch for one deleted, missing or foreign id;
+    // with Omit that id's entry is null, which is a missing item (complete:false) like any id left unanswered
+    const doc = await httpJson(ep.url, { method: 'POST', headers: { authorization }, body: { ids: chunk, fields: fieldList, errorPolicy: 'Omit' } });
     if (!doc || !Array.isArray(doc.value)) throw new AdapterFailure('parse', 'shape');
-    for (const item of doc.value) if (item && requested.has(item.id) && !byId.has(item.id)) byId.set(item.id, item.fields);
+    for (const item of doc.value) if (item && typeof item === 'object' && requested.has(item.id) && !byId.has(item.id)) byId.set(item.id, item.fields);
     for (const n of chunk) if (!byId.has(n)) complete = false;
   }
   const cases = [...byId.keys()].sort((a, b) => a - b).map((n) => projectCase(caseOf(n, byId.get(n), cfg)));
