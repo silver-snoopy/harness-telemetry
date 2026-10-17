@@ -98,6 +98,27 @@ Each is described below.
    - **Bound.** The wait is bounded (120 s by default); a hung CLI is killed and reported `not-fired`.
    - **Recursion.** A probe never starts another probe: inside a probe session, `--probe` exits 2.
 
+## Work-item trackers: delivery-report and the adapters
+
+`scripts/delivery-report.mjs [repo] [--since D] [--until D] [--prs auto|gh|az|none] [--receipts] [--json] [--out F]`
+reports cost per ticket and per merged PR. The ledger goes through the same read pipeline as `team-report` (dedup, then
+the window on `endedAt`); merged work comes from the local default branch's first-parent history (`--prs` adds `gh`/`az`
+data). A session touching `k` tickets gives each `1/k` of its cost, minutes and tokens; spend joins the merge that
+shipped it (by branch, else by ticket id, only to merges at or after the session ended); a session with no merge yet is
+in progress. `--receipts` runs `settings.receipts.command` (read-only, no shell, the §5.6 contract) and adds per-ticket
+status and cost per delivered ticket (`receipts.deliveredOutcomes`). Output never contains branch names, titles or
+people. Exit 2 is a usage error.
+
+`adapters/github.mjs`, `adapters/azure-devops.mjs` and `adapters/jira.mjs` are the shipped receipt adapters (integrity
+checked with the engine). Each takes `--ids <a,b>` (default: every ledger id with its prefix), `--repo <dir>`,
+`--base-url <u>` (or `TOKENOMICS_TRACKER_BASE_URL`; `http:` only for loopback) and `--max-pages N`, reads
+`settings.tracker` (`{kind, url?, project?, ...}`) and prints the envelope. Credentials come from the environment or the
+CLI login only: `gh auth login`; `AZURE_DEVOPS_EXT_PAT` or `az login`; `JIRA_EMAIL` + `JIRA_API_TOKEN` (Cloud) or
+`JIRA_PAT` (Server/DC). Azure DevOps credentials go only to `dev.azure.com` / `*.visualstudio.com`, Jira Cloud's only to
+`*.atlassian.net`. A failure is one stderr line `<adapter>: <class> (<code>)` with exit 1 and no body or token.
+`setup --tracker` writes `tracker` and `receipts.command` into fresh settings; a project that customises an adapter
+copies it to `.agents/tokenomics/glue/`.
+
 ## Activation
 
 `scripts/install-hooks.mjs --host <claude|copilot-cli|vscode>` runs these steps in order. If a step fails, the run

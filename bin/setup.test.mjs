@@ -12,6 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { detectHosts } from './setup.mjs';
 import { mineIds } from '../tokenomics/hooks/telemetry-capture.mjs';
 import { TA_DEFAULTS } from '../tokenomics/engine/config.mjs';
+import { sandboxEnv, startServer, assertNoSentinels, SENTINEL } from '../tokenomics/fixtures/trackers/harness.mjs';
 
 const CLI = fileURLToPath(new URL('./harness-telemetry.mjs', import.meta.url));
 const sandbox = mkdtempSync(join(tmpdir(), 'ht-setup-'));
@@ -181,7 +182,10 @@ test('setup: existing settings are never edited; the rules and the update comman
   const r = setup(w, BASE);
   assert.equal(r.status, 0, r.stdout + r.stderr);
   const after = JSON.parse(readFileSync(settingsOf(w), 'utf8'));
-  assert.equal(after.ids, undefined, 'no ids written');
+  // activation (a separate step) records targets in this file; setup itself adds no ids / tracker / receipts
+  assert.deepEqual(Object.keys(after).filter((k) => ['ids', 'tracker', 'receipts'].includes(k)), []);
+  assert.match(r.stdout, /tracker: jira .*detected \(not applied\)/);
+  assert.match(r.stdout, /receipts from jira — detected \(not applied\)/);
   assert.match(r.stdout, /settings already exist and are never edited by setup — add these rules/);
   assert.match(r.stdout, /"normalize": "jira:\$1-\$2"/);
   assert.match(r.stdout, /node \.claude\/skills\/tokenomics\/scripts\/install-hooks\.mjs --update-manifest/);
@@ -194,7 +198,7 @@ test('setup: existing settings that already carry ids.rules are left alone witho
   const r = setup(w, BASE);
   assert.equal(r.status, 0, r.stdout + r.stderr);
   assert.match(r.stdout, /already define ids\.rules/);
-  assert.doesNotMatch(r.stdout, /add these rules/);
+  assert.doesNotMatch(r.stdout, /"rules"/, 'no rules are offered again');
 });
 
 test('setup flags: --tracker/--tracker-keys override detection; --no-tracker writes no rules; a bad key exits 2 naming it', () => {
@@ -221,4 +225,88 @@ test('setup flags: --tracker/--tracker-keys override detection; --no-tracker wri
   assert.equal(setup(world(), [...BASE, '--tracker', 'jira']).status, 2, 'jira without keys given or detected');
   assert.equal(setup(bad, [...BASE, '--tracker', 'ado', '--no-tracker']).status, 2);
   assert.equal(setup(bad, [...BASE, '--tracker']).status, 2);
+});
+
+// ---- setup --tracker wires the receipt adapter (Plan 7, Task 8) ----
+const T = ['--tracker', 'jira', '--tracker-url', 'https://acme.atlassian.net', '--tracker-keys', 'PAY'];
+
+test('setup --tracker jira: settings carry tracker and receipts.command; doctor ok; delivery-report --receipts shows delivered', async () => {
+  const w = world();
+  const r = setup(w, [...BASE, ...T]);
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  assert.match(r.stdout, /ok\s+targets/);
+  assert.doesNotMatch(r.stdout, /not applied/);
+  const s = JSON.parse(readFileSync(settingsOf(w), 'utf8'));
+  assert.deepEqual(s.tracker, { kind: 'jira', url: 'https://acme.atlassian.net' });
+  assert.deepEqual(s.receipts.command, ['node', '.claude/skills/tokenomics/adapters/jira.mjs']);
+  assert.ok(s.receipts.deliveredOutcomes.includes('delivered'), 'the fresh receipts defaults are kept');
+  const tmp = fresh('e2e');
+  mkdirSync(join(tmp, 'home'), { recursive: true });
+  const routes = join(tmp, 'routes.mjs');
+  writeFileSync(routes, `export default () => ({ status: 200, json: { isLast: true, issues: [{ key: 'PAY-1', fields: { status: { name: 'Fin', statusCategory: { key: 'done' } }, issuetype: { name: 'Story' }, resolutiondate: '2026-10-02T10:00:00Z', summary: 'PRIVATE_TITLE' } }] } });\n`);
+  const srv = await startServer(routes, { dir: tmp });
+  try {
+    mkdirSync(join(w.repo, '.agents', 'telemetry', 'tokenomics'), { recursive: true });
+    writeFileSync(join(w.repo, '.agents', 'telemetry', 'tokenomics', 'usage-x.jsonl'), `${JSON.stringify({ v: 1, host: 'claude', id: 's1', capturedAt: '2026-10-02T00:00:00Z', endedAt: '2026-10-02T00:00:00Z', cases: ['jira:PAY-1'], costUsd: 2, activeMin: 5 })}\n`);
+    writeFileSync(join(tmp, 'gitconfig'), '[user]\n\tname = Tester\n\temail = tester@example.invalid\n');
+    // the real node (sandboxEnv puts its directory on PATH), dummy Jira credentials, the loopback server
+    const env = { ...sandboxEnv(tmp), JIRA_EMAIL: SENTINEL.EMAIL, JIRA_API_TOKEN: SENTINEL.TOKEN, TOKENOMICS_TRACKER_BASE_URL: srv.url };
+    const script = join(w.repo, '.claude', 'skills', 'tokenomics', 'scripts', 'delivery-report.mjs');
+    const d = spawnSync(process.execPath, [script, w.repo, '--prs', 'none', '--receipts', '--json'], { cwd: w.repo, env, encoding: 'utf8', timeout: 60000 });
+    assert.equal(d.status, 0, d.stdout + d.stderr);
+    assertNoSentinels([d.stdout, d.stderr]);
+    const doc = JSON.parse(d.stdout);
+    assert.equal(doc.receipts.status, 'available');
+    assert.equal(doc.receipts.tickets['jira:PAY-1'].status, 'delivered');
+    assert.ok(srv.log().length >= 1, 'the adapter reached the server');
+  } finally { await srv.stop(); }
+});
+
+test('setup --tracker github / ado name the adapter file; --host copilot-cli names the .github copy', () => {
+  const g = world();
+  assert.equal(setup(g, [...BASE, '--tracker', 'github']).status, 0);
+  assert.deepEqual(JSON.parse(readFileSync(settingsOf(g), 'utf8')).tracker, { kind: 'github' });
+  assert.deepEqual(JSON.parse(readFileSync(settingsOf(g), 'utf8')).receipts.command, ['node', '.claude/skills/tokenomics/adapters/github.mjs']);
+  const a = world();
+  const r = setup(a, ['--host', 'copilot-cli', '--no-git-hook', '--tracker', 'ado', '--tracker-url', 'https://dev.azure.com/acme', '--tracker-project', 'app']);
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  const s = JSON.parse(readFileSync(settingsOf(a), 'utf8'));
+  assert.deepEqual(s.tracker, { kind: 'ado', url: 'https://dev.azure.com/acme', project: 'app' });
+  assert.deepEqual(s.receipts.command, ['node', '.github/skills/tokenomics/adapters/azure-devops.mjs']);
+});
+
+test('setup --tracker-url / --tracker-project: need --tracker; the url must be https (exit 2 naming the flag); no tracker, no receipts command', () => {
+  const w = world();
+  const a = setup(w, [...BASE, '--tracker-url', 'https://acme.atlassian.net']);
+  assert.equal(a.status, 2);
+  assert.match(a.stderr, /--tracker-url requires --tracker/);
+  const b = setup(w, [...BASE, '--tracker-project', 'p']);
+  assert.equal(b.status, 2);
+  assert.match(b.stderr, /--tracker-project requires --tracker/);
+  const c = setup(w, [...BASE, '--tracker', 'jira', '--tracker-keys', 'PAY', '--tracker-url', 'http://acme.atlassian.net']);
+  assert.equal(c.status, 2);
+  assert.match(c.stderr, /--tracker-url must be https/);
+  assert.equal(existsSync(settingsOf(w)), false, 'nothing written on a usage error');
+  const n = world();
+  assert.equal(setup(n, [...BASE, '--no-tracker']).status, 0);
+  assert.equal(JSON.parse(readFileSync(settingsOf(n), 'utf8')).receipts.command, undefined);
+});
+
+test('setup --tracker jira with no keys given or detected exits 2', () => {
+  const r = setup(world(), [...BASE, '--tracker', 'jira', '--tracker-url', 'https://acme.atlassian.net']);
+  assert.equal(r.status, 2);
+  assert.match(r.stderr, /--tracker-keys/);
+});
+
+test('setup: an existing settings file gets the tracker and receipts JSON printed with the update command, byte-identical on disk', () => {
+  const w = world();
+  mkdirSync(join(w.repo, '.agents', 'tokenomics'), { recursive: true });
+  const body = '{"dir":"tokenomics","extension":null}\n';
+  writeFileSync(settingsOf(w), body);
+  const r = setup(w, [...BASE, ...T]);
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  assert.deepEqual(Object.keys(JSON.parse(readFileSync(settingsOf(w), 'utf8'))).filter((k) => ['ids', 'tracker', 'receipts'].includes(k)), []);
+  assert.match(r.stdout, /"kind": "jira"/);
+  assert.match(r.stdout, /"\.claude\/skills\/tokenomics\/adapters\/jira\.mjs"/);
+  assert.match(r.stdout, /--update-manifest/);
 });

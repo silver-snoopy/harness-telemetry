@@ -82,6 +82,11 @@ teammate runs the same command once on their own machine, which wires their Copi
 | `--no-git-hook` | Skip the post-commit fallback sweep. |
 | `--repo-hooks` | Wire Copilot CLI in `.github/hooks/` instead of at user level. |
 | `--repo <dir>` | Run on another directory instead of the current one. |
+| `--tracker jira\|github\|ado` | The work-item tracker whose ids to mine and whose adapter reads receipts. Default: inferred from the remote and the history. |
+| `--tracker-keys PAY,WEB` | The Jira project keys (default: the keys the history shows). Required with `--tracker jira` when the history shows none. |
+| `--tracker-url <https url>` | The tracker's address for the adapter, for example `https://acme.atlassian.net`. Needs `--tracker`; must be https. |
+| `--tracker-project <p>` | The tracker project for the adapter. Needs `--tracker`. |
+| `--no-tracker` | Write no work-item id rules and no receipt command. |
 
 ### Manual setup (what `setup` runs)
 
@@ -171,6 +176,73 @@ git commit -m "chore: add tokenomics telemetry"
 Add only the paths that exist for your hosts. Teammates who clone with `--recurse-submodules` are ready. Anyone else
 runs `git submodule update --init .agents/telemetry` once. Each teammate needs Node on the `PATH` their host uses,
 and with user-level Copilot hooks, runs step 2 for `copilot-cli` (or `setup`) once on their machine.
+
+## Work-item trackers
+
+`setup` can tie spend to the tickets and merged PRs of the tracker your team already uses. Nothing here needs another
+tool or a factory: it works on a legacy project with only git history and a ledger.
+
+**What setup writes.** On a project with no settings file yet, `setup` writes `ids.rules` (the id patterns for the
+tracker it detected from the `origin` remote and the last 300 commits and branches, or the one you named with
+`--tracker`). When it can name a receipts tracker (Jira if detected, else Azure DevOps, else GitHub, or the one you
+chose), it also writes `tracker` (`{kind, url?, project?}`) and `receipts.command`, which runs the matching adapter from
+the installed copy, for example `["node", ".claude/skills/tokenomics/adapters/jira.mjs"]` (`jira.mjs`, `github.mjs`
+or `azure-devops.mjs`; `.github/skills/...` for a Copilot-only project). Setup never edits an existing settings file:
+it prints the JSON to add and the `node <copy>/scripts/install-hooks.mjs --update-manifest` command, and labels what
+it found "detected (not applied)". These keys do not change the module manifest.
+
+```sh
+npx github:silver-snoopy/harness-telemetry setup --tracker jira --tracker-url https://acme.atlassian.net --tracker-keys PAY,WEB
+```
+
+**Credentials.** Adapters read them from the environment or the CLI's own login only, never from settings, and never
+pass them in a command line.
+
+| Tracker | Credentials | Sent to |
+|---|---|---|
+| GitHub | `gh auth login` (the adapter calls `gh api graphql`) | GitHub, through `gh` |
+| Azure DevOps | `AZURE_DEVOPS_EXT_PAT`, or else `az login` | `dev.azure.com` and `*.visualstudio.com` only |
+| Jira Cloud | `JIRA_EMAIL` and `JIRA_API_TOKEN` | `*.atlassian.net` only |
+| Jira Server / Data Center | `JIRA_PAT` (set `"server": true` in `tracker`) | any https host |
+
+The host restriction means a `tracker.url` that a repository controls cannot send your token elsewhere. On-premises
+Azure DevOps Server is therefore not supported yet. The adapters are read-only.
+
+**`delivery-report`.** Cost per ticket and per merged PR, from the ledger and the local git history:
+
+```sh
+node .claude/skills/tokenomics/scripts/delivery-report.mjs [repo] [--since D] [--until D] [--prs auto|gh|az|none] [--receipts] [--json] [--out F]
+```
+
+- Merged work is read from the first-parent history of the default branch (a local ref that is never fetched; the
+  report prints `base: <ref> (local, not fetched)` and `shallow history` when it applies). `--prs` adds merged-PR data
+  from `gh` or `az` (`auto` picks by the remote); `none` is git only.
+- `--receipts` runs the configured receipt command and adds the tracker's status per ticket, the cost per delivered
+  ticket, and tables by type and sprint. Without `--receipts` the tracker is never contacted.
+- Ids recorded before the rules existed, or by another pattern, do not join with prefixed ids: a raw `PAY-1` in an old
+  ledger line is not the same id as `jira:PAY-1`. The rules only affect lines captured after they are in place.
+
+**How cost is shared.** A session that touches several tickets splits its cost, active minutes and tokens evenly among
+them (one third each for three tickets); sessions touching one ticket count in full. Only priced lines (a numeric
+`costUsd`, including a measured 0) add dollars; the rest are counted as tokens-only. A session's spend belongs to the
+merge that shipped it, even when that merge is after `--until` (the window filters sessions, not merges). Follow-up work
+after a merge does not belong to it. A session with no merge yet, on a feature branch or naming tickets, shows as in
+progress; only work on the default branch that names no ticket is unattributed. Both views (by ticket, by PR) add up to
+the same total.
+
+**Privacy.** No branch names, titles, descriptions, people, comments or URLs appear in any output. Branches are used
+only to join sessions to merges. Adapters project each ticket onto a fixed set of fields (id, outcome, date, type,
+points, sprint name).
+
+**Known limits.**
+- A reverted PR still counts as merged; a squash commit ending in `(#N)` that was not a PR is counted.
+- A rebase merge with no PR data from `gh` or `az` is invisible.
+- A session joins by its single recorded branch (Claude's last branch, Copilot's start context).
+- GitHub: only an issue closed as completed counts as delivered; an older issue closed before GitHub recorded a reason
+  shows as `closed-unspecified` (add it to `receipts.deliveredOutcomes` if you want it counted).
+- Jira: an unfinished ticket's outcome is its status category (`new` or `indeterminate`), not its status name.
+- Azure DevOps: `Resolved` is not delivered by default; set `doneStates` in `tracker` to change it.
+- The cost per delivered ticket is a membership metric over split shares, not the spec's §5.5 ratio.
 
 ## Configure (optional)
 

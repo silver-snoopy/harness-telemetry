@@ -9,7 +9,8 @@ import { delimiter, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 export const SETUP_USAGE = `usage: harness-telemetry setup [--repo <dir>] [--host <claude,copilot-cli,vscode>] [--commit] [--probe]
-                              [--no-git-hook] [--repo-hooks] [--tracker <jira|github|ado>] [--tracker-keys <K1,K2>] [--no-tracker]
+                              [--no-git-hook] [--repo-hooks] [--tracker <jira|github|ado>] [--tracker-keys <K1,K2>]
+                              [--tracker-url <https-url>] [--tracker-project <p>] [--no-tracker]
   Detects the hosts (claude / copilot on PATH, .claude/, .github/ Copilot config) unless --host names them.
   --commit       commit the files teammates need (only those paths, nothing else you have staged)
   --probe        also run one short real host session per host to prove the hooks fire
@@ -17,11 +18,14 @@ export const SETUP_USAGE = `usage: harness-telemetry setup [--repo <dir>] [--hos
   --repo-hooks   wire Copilot CLI in the repo's .github/hooks/ instead of at user level (~/.copilot/hooks/)
   --tracker      the work-item tracker whose ids to mine (default: inferred from the remote and the history)
   --tracker-keys the Jira project keys, comma separated (with --tracker jira; default: the keys the history shows)
+  --tracker-url  the tracker's https address for the receipt adapter (with --tracker)
+  --tracker-project  the tracker project for the receipt adapter (with --tracker)
   --no-tracker   write no work-item id rules`;
 
 const HOST_ORDER = ['claude', 'copilot-cli', 'vscode'];
 const HOST_ALIASES = { copilot: 'copilot-cli' };
 const TARGET_OF = { claude: 'claude', 'copilot-cli': 'copilot', vscode: 'copilot' };
+const ADAPTER_FILE = { jira: 'jira.mjs', github: 'github.mjs', ado: 'azure-devops.mjs' };
 const COPY_OF = { claude: '.claude/skills/tokenomics', copilot: '.github/skills/tokenomics' };
 // What teammates need, as `git add` paths (only the ones with changes are named).
 const SHARED_PATHS = ['.claude/skills/tokenomics', '.github/skills/tokenomics', '.agents/tokenomics/settings.json',
@@ -79,7 +83,18 @@ async function planTrackers(args, opt, repo, env) {
   const none = { trackers: [], receipts: null, rules: [] };
   const flag = opt('--tracker');
   const keyList = opt('--tracker-keys');
-  if (args.includes('--no-tracker')) return flag || keyList ? { error: '--no-tracker cannot be combined with --tracker or --tracker-keys' } : none;
+  const url = opt('--tracker-url');
+  const project = opt('--tracker-project');
+  if (args.includes('--no-tracker')) return flag || keyList || url || project ? { error: '--no-tracker cannot be combined with --tracker, --tracker-keys, --tracker-url or --tracker-project' } : none;
+  if (!flag) {
+    if (url) return { error: '--tracker-url requires --tracker' };
+    if (project) return { error: '--tracker-project requires --tracker' };
+  }
+  if (url) {
+    let u = null;
+    try { u = new URL(url); } catch { /* reported below */ }
+    if (u?.protocol !== 'https:') return { error: `--tracker-url must be https (got '${url}')` };
+  }
   const { detectTrackers, rulesFor, PRESETS } = await import('../tokenomics/engine/trackers.mjs');
   const found = detectTrackers(repo, { env });
   let trackers = found.trackers;
@@ -93,16 +108,18 @@ async function planTrackers(args, opt, repo, env) {
     trackers = [{ tracker: chosen, why: 'chosen with --tracker', ...(chosen === 'jira' ? { keys } : {}) }];
     receipts = chosen;
   }
-  try { return { trackers, receipts, rules: rulesFor(trackers, found.host) }; } catch (e) { return { error: e.message }; }
+  const tracker = receipts ? { kind: receipts, ...(url ? { url } : {}), ...(project ? { project } : {}) } : null;
+  try { return { trackers, receipts, tracker, rules: rulesFor(trackers, found.host) }; } catch (e) { return { error: e.message }; }
 }
 
 export async function runSetup(args, { packageRoot, from, out = (s) => process.stdout.write(s), err = (s) => process.stderr.write(s), env = process.env } = {}) {
   if (args.includes('--help') || args.includes('-h')) { out(`${SETUP_USAGE}\n`); return 0; }
   const opt = (n) => { const i = args.indexOf(n); return i >= 0 ? args[i + 1] : undefined; };
-  for (const n of ['--repo', '--host', '--tracker', '--tracker-keys']) {
+  for (const n of ['--repo', '--host', '--tracker', '--tracker-keys', '--tracker-url', '--tracker-project']) {
     if (args.includes(n) && (!opt(n) || opt(n).startsWith('--'))) { err(`${n} needs a value\n${SETUP_USAGE}\n`); return 2; }
   }
-  const known = new Set(['--repo', '--host', '--commit', '--probe', '--no-git-hook', '--repo-hooks', '--tracker', '--tracker-keys', '--no-tracker', opt('--repo'), opt('--host'), opt('--tracker'), opt('--tracker-keys')]);
+  const known = new Set(['--repo', '--host', '--commit', '--probe', '--no-git-hook', '--repo-hooks', '--tracker', '--tracker-keys', '--tracker-url', '--tracker-project', '--no-tracker',
+    opt('--repo'), opt('--host'), opt('--tracker'), opt('--tracker-keys'), opt('--tracker-url'), opt('--tracker-project')]);
   const unknown = args.filter((a) => !known.has(a));
   if (unknown.length) { err(`unknown argument ${unknown[0]}\n${SETUP_USAGE}\n`); return 2; }
 
@@ -140,26 +157,37 @@ export async function runSetup(args, { packageRoot, from, out = (s) => process.s
     }
   }
 
-  // 1b. tracker rules into fresh settings, written by the installed copy's own helpers (so a legacy store keeps its
-  // module directory); an existing settings file is never edited
+  // 1b. tracker rules, tracker and receipts.command into fresh settings, written by the installed copy's own helpers
+  // (so a legacy store keeps its module directory); an existing settings file is never edited
   if (plan.rules.length) {
     const copy = COPY_OF[targets[0]];
-    for (const t of plan.trackers) out(`  tracker: ${t.tracker} (${t.why})\n`);
-    out(`  receipts from ${plan.receipts}\n`);
+    const receipts = plan.tracker ? { command: ['node', `${copy}/adapters/${ADAPTER_FILE[plan.tracker.kind]}`] } : null;
     const settingsFile = join(repo, '.agents', 'tokenomics', 'settings.json');
-    if (!existsSync(settingsFile)) {
+    const fresh = !existsSync(settingsFile);
+    if (fresh) {
       try {
         const ih = await import(pathToFileURL(join(repo, copy, 'scripts', 'install-hooks.mjs')).href);
         const base = ih.freshSettings({ dir: ih.defaultDir(repo).dir });
-        ih.saveSettings(repo, { ...base, ids: { ...base.ids, rules: plan.rules } });
+        ih.saveSettings(repo, {
+          ...base, ids: { ...base.ids, rules: plan.rules },
+          ...(plan.tracker ? { tracker: plan.tracker, receipts: { ...base.receipts, ...receipts } } : {}),
+        });
       } catch (e) {
         err(`harness-telemetry setup: could not write the tracker rules — ${String(e?.message ?? e).split('\n')[0]}\n`);
-        return e?.code === 2 ? 2 : 1;
+        return 1;
       }
-    } else if (hasRules(settingsFile)) {
-      out('  tracker rules: the existing settings already define ids.rules; left as they are\n');
-    } else {
-      out(`  tracker rules: settings already exist and are never edited by setup — add these rules to .agents/tokenomics/settings.json, then record them:\n${JSON.stringify({ ids: { rules: plan.rules } }, null, 2).replace(/^/gm, '    ')}\n    node ${copy}/scripts/install-hooks.mjs --update-manifest\n`);
+    }
+    // Reported only now, after the write succeeded; "detected (not applied)" when nothing was written.
+    const note = fresh ? '' : ' — detected (not applied)';
+    for (const t of plan.trackers) out(`  tracker: ${t.tracker} (${t.why})${note}\n`);
+    if (plan.receipts) out(`  receipts from ${plan.receipts}${note}\n`);
+    if (!fresh) {
+      const known = hasRules(settingsFile);
+      const add = { ...(known ? {} : { ids: { rules: plan.rules } }), ...(plan.tracker ? { tracker: plan.tracker, receipts } : {}) };
+      if (known) out('  tracker rules: the existing settings already define ids.rules; left as they are\n');
+      if (Object.keys(add).length) {
+        out(`  settings already exist and are never edited by setup — add these rules to .agents/tokenomics/settings.json (merge into any existing "receipts"), then record them:\n${JSON.stringify(add, null, 2).replace(/^/gm, '    ')}\n    node ${copy}/scripts/install-hooks.mjs --update-manifest\n`);
+      }
     }
   }
 

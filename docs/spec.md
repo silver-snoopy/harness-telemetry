@@ -496,6 +496,12 @@ boundary-spanning sessions.
   configured command; `--receipts-file <json>` feeds captured output for
   offline, reproducible checks.
 
+> **As implemented (Plan 7).** The shipped adapters print `{"schema":1,"complete":…,"receipts":[{"group","source",
+> "cases":[…]}]}` with each case an explicit projection `{id, outcome, at?, atSource?, type?, points?, sprint?}` (no
+> titles, people or URLs). `complete: false` is reported when a requested id is missing, a page cap is hit or the API
+> says it is truncated. Credentials come from the environment or the tracker CLI's login, never settings or argv. A
+> failure exits 1 with one `<adapter>: <class> (<code>)` line. `delivery-report --receipts` runs the command.
+
 ## 6. Hyperfactory export (profile `export`) — reserved
 
 The ai-hyperfactory tokenomics guide (schema 1.0) is the authority, but its
@@ -834,10 +840,22 @@ error. Declared scope ids and structured receipt/extension ids are kept
 Under TA configuration the reference miner (stoplist, caps) is reproduced
 exactly (B1).
 
+> **As implemented (Plan 7).** Id mining is configured by `ids.rules`, an array of `{tracker, pattern, flags, normalize,
+> source}` validated when settings load (never in a hook); absent or `[]` leaves the TA/B1 miner unchanged. The
+> top-level `ids.normalize` and `ids.mineFrom` shown above are superseded by the per-rule `normalize` and `source`
+> (`any`, `branch`). `setup` writes the rules (`--tracker`, `--tracker-keys`) and, with them, `tracker`
+> (`{kind: jira|github|ado, url?, project?}`) and `receipts.command` into fresh settings only; neither changes the
+> module manifest.
+
 ### 14.5 Glue — project-owned code
 
 Lives in the main tree under `.agents/tokenomics/glue/`, committed, written
 only by the porting skill or the project:
+
+> **As implemented (Plan 7).** Adapters for GitHub Issues, Azure DevOps Boards and Jira ship in the engine
+> (`adapters/github.mjs`, `azure-devops.mjs`, `jira.mjs`) and are named by `receipts.command` in the installed copy; a
+> project that needs different behaviour copies one into `glue/`. The `ado` and `jira` templates below are therefore
+> no longer "later".
 
 1. **Receipt adapter** — implements §5.6. Templates: `frontmatter-specs`,
    `report-json`, `github-issues`; `ado`, `jira` later. The adapter **persists
