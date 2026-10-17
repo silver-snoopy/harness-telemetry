@@ -212,7 +212,8 @@ const rowKey = (it) => (it.pr !== null && it.pr !== undefined ? String(it.pr) : 
  *    `{pr, mergedAt, ids[], sessions, shared, costUsd, priced, tokensOnly, activeMin, tokens}` — never a branch. Every
  *    merged item has a row, spend or not. A line goes by branch to the first PR on its branch merged at or after the
  *    line ended (or to `unmerged` when it ended after the last), else by id to each of the n PRs naming one of its
- *    tickets (1/n). A line matching no PR is in progress (`unmerged`) when it names a ticket or sits on a branch other
+ *    tickets and merged at or after the line ended (1/n; spend after a merge never belongs to it, as by branch; a
+ *    line without a readable `endedAt` matches every naming PR). A line matching no PR is in progress (`unmerged`) when it names a ticket or sits on a branch other
  *    than `base`; only a ticketless line on `base` (or on no branch) goes to `unattributed.prs`. With no `base` given,
  *    only a ticketless, branchless line is unattributed.
  *  - `opts.base`: the base branch name (`defaultBranch(repo).name`), e.g. `'main'`.
@@ -225,6 +226,7 @@ export function joinDelivery(lines, items, { base = null } = {}) {
   const prs = {};
   const byBranch = new Map();
   const naming = new Map(); // ticket id → row keys of the items naming it
+  const namingAt = new Map(); // ticket id → [{key, at ms}] per item naming it (rule 2's merge-time test)
   const sorted = [...items].sort((a, b) => num(instant(a.at)) - num(instant(b.at)));
   for (const it of sorted) {
     const key = rowKey(it);
@@ -236,6 +238,8 @@ export function joinDelivery(lines, items, { base = null } = {}) {
       byBranch.get(it.branch).push({ key, at: instant(it.at) });
     }
     for (const id of it.ids ?? []) {
+      if (!namingAt.has(id)) namingAt.set(id, []);
+      namingAt.get(id).push({ key, at: instant(it.at) });
       if (!naming.has(id)) naming.set(id, new Map());
       const m = naming.get(id);
       if (!m.has(key) || instant(it.at) < instant(m.get(key).at)) m.set(key, { pr: it.pr ?? null, at: it.at });
@@ -274,7 +278,9 @@ export function joinDelivery(lines, items, { base = null } = {}) {
       if (hit) addTo(prs[hit.key], l, 1); else addTo(unmerged, l, 1);
       continue;
     }
-    const keys = [...new Set(ts.flatMap((id) => [...(naming.get(id)?.keys() ?? [])]))];
+    // R7: by id, only a merge at or after the line ended shipped it (as by branch); no endedAt matches any.
+    const ended = instant(l.endedAt);
+    const keys = [...new Set(ts.flatMap((id) => (namingAt.get(id) ?? []).filter((x) => !Number.isFinite(ended) || x.at >= ended).map((x) => x.key)))];
     if (keys.length) for (const k of keys) addTo(prs[k], l, 1 / keys.length);
     else if (ts.length || (l.branch && l.branch !== base)) addTo(unmerged, l, 1); // in progress (R4)
     else addTo(unattributed.prs, l, 1);

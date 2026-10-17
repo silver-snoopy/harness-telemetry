@@ -301,17 +301,19 @@ test('(R5) the window filters lines only: in-window spend goes to the merge that
   settings(null);
   const args = ['--since', '2026-10-03', '--until', '2026-10-04', '--prs', 'none'];
   const j = JSON.parse(report([...args, '--json']).stdout);
-  // s8 (at since, PAY-1) goes by id to #7, merged 10-02 before the window; s9 goes by branch to #11, merged 10-05
-  assert.deepEqual(Object.keys(j.prs).sort(), ['11', '7'], 'PRs merged in the window plus PRs receiving its spend');
-  assert.deepEqual([j.prs['11'].sessions, j.prs['11'].costUsd, j.prs['7'].costUsd], [1, 1, 50]);
+  // s9 goes by branch to #11, merged 10-05 after the window; s8 (at since, PAY-1, no branch) ended after #7 merged
+  // (10-02), so #7 did not ship it (R7): it is in progress
+  assert.deepEqual(Object.keys(j.prs).sort(), ['11'], 'PRs merged in the window plus PRs receiving its spend');
+  assert.deepEqual([j.prs['11'].sessions, j.prs['11'].costUsd], [1, 1]);
   assert.match(j.prs['11'].mergedAt, /^2026-10-05T12:00:00/);
-  assert.deepEqual([j.unmerged.sessions, j.unmerged.costUsd], [0, 0]);
-  assert.equal(j.totals.mergedPrs, 2);
+  assert.deepEqual([j.unmerged.sessions, j.unmerged.costUsd], [1, 50]);
+  assert.equal(j.totals.mergedPrs, 1);
   assert.equal(j.trace.conserved, true);
   assert.deepEqual(j.tickets['jira:PAY-6'].prs, [11]);
   const md = report(args).stdout;
-  assert.deepEqual(table(md, 'By PR').slice(1), [['#7', 'jira:PAY-1', '$50.00', '1', '2026-10-02'], ['#11', 'jira:PAY-6', '$1.00', '1', '2026-10-05']]);
-  assert.match(md, /^- merged PRs: 2$/m);
+  assert.deepEqual(table(md, 'By PR').slice(1), [['#11', 'jira:PAY-6', '$1.00', '1', '2026-10-05']]);
+  assert.match(md, /^- merged PRs: 1$/m);
+  assert.match(md, /^- in progress \(unmerged\): \$50\.00 \(1 session\)$/m);
   assert.match(md, /merge that shipped it even when that merge lies outside the window/);
   assertNoSentinels([md]);
 });

@@ -222,7 +222,8 @@ test('(d) the brief scenario alone: one $10 line, two tickets, two PRs on one br
 });
 
 test('(e) a branchless squash naming the ticket gets the line by id, split across n such PRs', () => {
-  const items = [item({ pr: 9, ids: ['jira:PAY-3'] }), item({ pr: 5, ids: ['jira:PAY-3', 'jira:WEB-1'], commit: 'd'.repeat(40) })];
+  // merged after the line ended (R7: by id only a merge at or after endedAt shipped the line)
+  const items = [item({ pr: 9, ids: ['jira:PAY-3'], at: '2026-03-02T00:00:00Z' }), item({ pr: 5, ids: ['jira:PAY-3', 'jira:WEB-1'], commit: 'd'.repeat(40), at: '2026-03-02T00:00:00Z' })];
   const j = joinDelivery([line({ costUsd: 8, cases: ['jira:PAY-3'], branch: 'whatever' })], items);
   close(j.prs['9'].costUsd, 4); close(j.prs['5'].costUsd, 4);
   assert.equal(j.prs['9'].shared, 1);
@@ -234,6 +235,26 @@ test('(e) a branchless squash naming the ticket gets the line by id, split acros
   assert.deepEqual(Object.keys(mb.prs), [`merge:${'a'.repeat(12)}`]);
   assert.equal(mb.prs[`merge:${'a'.repeat(12)}`].pr, null);
   close(mb.prs[`merge:${'a'.repeat(12)}`].costUsd, 1);
+});
+
+test('R7: by id, a merge before the line ended never receives it; the line is in progress; no endedAt matches any', () => {
+  // PAY-1 merged on day 1 via squash (#5); a line naming it on a new branch ends on day 3 with no new merge.
+  const items = [item({ pr: 5, ids: ['jira:PAY-1'], at: '2026-03-01T12:00:00Z' })];
+  const late = line({ costUsd: 3, cases: ['jira:PAY-1'], branch: 'feat/PAY-1-again', startedAt: '2026-03-03T00:00:00Z', endedAt: '2026-03-03T01:00:00Z' });
+  const j = joinDelivery([late], items, { base: 'main' });
+  assert.deepEqual([j.prs['5'].sessions, j.prs['5'].costUsd], [0, 0]);
+  assert.deepEqual([j.unmerged.sessions, j.unmerged.costUsd], [1, 3]);
+  assert.equal(j.trace.conserved, true);
+  close(j.tickets['jira:PAY-1'].costUsd, 3);
+  // a merge at exactly endedAt still ships it; with several naming merges only the ones at or after endedAt share it
+  const at = joinDelivery([late], [...items, item({ pr: 6, ids: ['jira:PAY-1'], at: '2026-03-03T01:00:00Z', commit: 'e'.repeat(40) }),
+    item({ pr: 8, ids: ['jira:PAY-1'], at: '2026-03-04T00:00:00Z', commit: 'f'.repeat(40) })], { base: 'main' });
+  assert.deepEqual([at.prs['5'].costUsd, at.prs['6'].costUsd, at.prs['8'].costUsd, at.unmerged.sessions], [0, 1.5, 1.5, 0]);
+  assert.equal(at.trace.conserved, true);
+  // a line without a readable endedAt keeps matching any naming merge
+  const undated = joinDelivery([{ ...late, endedAt: undefined }], items, { base: 'main' });
+  close(undated.prs['5'].costUsd, 3);
+  assert.equal(undated.trace.conserved, true);
 });
 
 test('R4: no PR match is in progress (unmerged) unless the line is ticketless on the base branch or branchless', () => {

@@ -32,7 +32,7 @@ const NOTES = [
   'a squash commit with `(#N)` that was not a PR is counted',
   'a git-only rebase merge is invisible (PR enrichment with gh or az finds it)',
   "a session is joined by its single recorded branch (Claude's last gitBranch, Copilot's start context)",
-  'a line naming k tickets gives each 1/k of its cost and minutes; a line matched to n PRs by id gives each 1/n',
+  'a line naming k tickets gives each 1/k of its cost and minutes; a line matched by id goes to the n PRs naming its tickets that merged at or after it ended, 1/n each; spend after a merge never belongs to that merge',
   'tokens-only sessions carry no dollars; they are counted, never estimated',
   'ids are matched exactly: a ledger id written before ids.rules (`PAY-12`) and `jira:PAY-12` are different tickets',
   "the window is [since, until) on a session's endedAt; a session's spend goes to the merge that shipped it even when that merge lies outside the window (each PR row shows its merge date)",
