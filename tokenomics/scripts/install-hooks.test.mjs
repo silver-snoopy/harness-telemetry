@@ -274,6 +274,7 @@ test('migrateTelemetryLayout: moves flat-era files into automation/, merges dirs
 // spawned child. Git is isolated: a temp global config, no system config, file protocol only, no network.
 const ROOT = fileURLToPath(new URL('../..', import.meta.url));
 const SRC_ENGINE = JSON.parse(readFileSync(join(ROOT, 'tokenomics', 'ENGINE.json'), 'utf8')).engine;
+const NEXT_ENGINE = SRC_ENGINE.replace(/\d+$/, (n) => String(Number(n) + 1)); // a synthetic upgrade, whatever the version is
 
 const sandbox = (t, p) => {
   const d = mkdtempSync(join(tmpdir(), `tokenomics-act7-${p}-`));
@@ -512,22 +513,22 @@ test('activation (d): activating twice is a no-op the second time — identical 
   assert.equal(s.hooks.SessionEnd.length, 1, 'no duplicate host hooks');
 });
 
-test('activation (e): an interrupted upgrade, end to end — the inert copy captures nothing; activation checkpoints and records 0.4.1; the next sweep captures the missed session once', (t) => {
+test('activation (e): an interrupted upgrade, end to end — the inert copy captures nothing; activation checkpoints and records the next version; the next sweep captures the missed session once', (t) => {
   const ctx = consumerRepo(t);
   assert.equal(activateCli(ctx).status, 0);
-  installFrom(t, ctx.repo, ctx.env, { engine: '0.4.1' }); // a synthetic 0.4.1, copied over the active 0.4.0
+  installFrom(t, ctx.repo, ctx.env, { engine: NEXT_ENGINE }); // a synthetic next version, copied over the active one
   oldTranscript(ctx.env.TOKENOMICS_CLAUDE_ROOT, 'missed-1');
   const inert = run(ctx.skill, 'hooks/telemetry-capture.mjs', ['--sweep'], ctx);
   assert.equal(inert.status, 0);
-  assert.match(inert.stderr, /inactive — engine 0\.4\.1 copied but activation records engine 0\.4\.0/);
+  assert.ok(inert.stderr.includes(`inactive — engine ${NEXT_ENGINE} copied but activation records engine ${SRC_ENGINE}`), inert.stderr);
   assert.deepEqual(ledgerLines(ctx.repo), [], 'captures nothing');
   assert.ok(existsSync(join(ctx.env.TOKENOMICS_CLAUDE_ROOT, 'missed-1.jsonl')), 'the transcript stays in the store');
 
   const r = activateCli(ctx);
   assert.equal(r.status, 0, r.stderr);
-  assert.match(tagCommit(ctx, 'pre-engine-0.4.1'), /^[0-9a-f]{40}$/, 'checkpoint pre-engine-0.4.1');
-  assert.notEqual(tagCommit(ctx, 'pre-engine-0.4.1'), tagCommit(ctx, `pre-engine-${SRC_ENGINE}`));
-  assert.equal(settingsOf(ctx.repo).engine, '0.4.1');
+  assert.match(tagCommit(ctx, `pre-engine-${NEXT_ENGINE}`), /^[0-9a-f]{40}$/, 'checkpoint of the next version');
+  assert.notEqual(tagCommit(ctx, `pre-engine-${NEXT_ENGINE}`), tagCommit(ctx, `pre-engine-${SRC_ENGINE}`));
+  assert.equal(settingsOf(ctx.repo).engine, NEXT_ENGINE);
 
   for (let i = 0; i < 2; i++) {
     const s = run(ctx.skill, 'hooks/telemetry-capture.mjs', ['--sweep'], ctx);

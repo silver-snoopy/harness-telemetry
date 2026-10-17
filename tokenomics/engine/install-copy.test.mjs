@@ -59,7 +59,9 @@ test('(a)(b)(h) copy = baseline + ENGINE.json with installed; never activates; r
   assert.deepEqual(files, [...Object.keys(baseline.files), 'ENGINE.json'].sort());
   const eng = JSON.parse(readFileSync(join(dest, 'ENGINE.json'), 'utf8'));
   assert.equal(eng.installed.target, 'claude');
-  assert.equal(eng.installed.from, 'unknown');
+  // not a git checkout and no npm lockfile beside it: the package's own name@version (never 'unknown')
+  const meta = JSON.parse(readFileSync(join(REPO, 'package.json'), 'utf8'));
+  assert.equal(eng.installed.from, `${meta.name}@${meta.version}`);
   assert.match(eng.installed.at, /^\d{4}-\d\d-\d\dT/);
   assert.deepEqual(eng.files, baseline.files);
   // never activates: nothing but the skill dir exists in the repo

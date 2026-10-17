@@ -302,21 +302,23 @@ test('gate variant interrupted upgrade: a newer copy is inert until the document
   assert.equal(runDoc(ctx, 'claude', CMD.activate).status, 0);
   assertAllOk(runDoc(ctx, 'claude', CMD.doctor), 'doctor before the upgrade');
 
-  const upgrade = makePackage({ engine: '0.4.1' }); // the copy lands; activation is interrupted before it runs
+  const NOW = JSON.parse(readFileSync(join(ROOT, 'tokenomics', 'ENGINE.json'), 'utf8')).engine;
+  const NEXT = NOW.replace(/\d+$/, (n) => String(Number(n) + 1)); // a synthetic next version, whatever the current one is
+  const upgrade = makePackage({ engine: NEXT }); // the copy lands; activation is interrupted before it runs
   const copy = runDoc(ctx, 'claude', CMD.copy, { pkg: upgrade });
   assert.equal(copy.status, 0, copy.out);
   rmSync(upgrade, { recursive: true, force: true });
   const inert = runDoc(ctx, 'claude', CMD.doctor);
   assert.equal(inert.status, 1, inert.out);
   assert.match(inert.stdout, /^fail activation/m, inert.out);
-  assert.match(inert.stdout, /0\.4\.1/);
+  assert.ok(inert.stdout.includes(NEXT), inert.stdout);
   assert.equal(wiring(ctx).status, 0, 'LeRisque wiring is unaffected while the copy is inert');
 
   const act = runDoc(ctx, 'claude', CMD.activate);
   assert.equal(act.status, 0, act.out);
-  assert.equal(JSON.parse(readFileSync(join(ctx.repo, '.agents', 'tokenomics', 'settings.json'), 'utf8')).engine, '0.4.1');
+  assert.equal(JSON.parse(readFileSync(join(ctx.repo, '.agents', 'tokenomics', 'settings.json'), 'utf8')).engine, NEXT);
   const store = join(ctx.repo, '.agents', 'telemetry');
-  assert.deepEqual(gitOut(store, ctx.env, 'tag', '-l', 'pre-engine-*').trim().split('\n').sort(), ['pre-engine-0.4.0', 'pre-engine-0.4.1']);
+  assert.deepEqual(gitOut(store, ctx.env, 'tag', '-l', 'pre-engine-*').trim().split('\n').sort(), [`pre-engine-${NOW}`, `pre-engine-${NEXT}`].sort());
   assertAllOk(runDoc(ctx, 'claude', CMD.doctor), 'doctor after re-activation');
   const probe = runDoc(ctx, 'claude', CMD.probe);
   assert.equal(probe.status, 0, probe.out);

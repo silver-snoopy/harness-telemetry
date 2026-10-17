@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // harness-telemetry CLI — subcommands are registered by the modules that own them.
 import { spawnSync } from 'node:child_process';
-import { realpathSync } from 'node:fs';
+import { readFileSync, realpathSync } from 'node:fs';
+import { basename, dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { migrationOn } from '../tokenomics/engine/migrations.mjs';
 import { isMain, exitAfterDrain } from '../tokenomics/engine/entry.mjs';
@@ -66,7 +67,7 @@ COMMANDS.install = async (args, io) => {
   const { installCopy, InstallError } = await import('../tokenomics/engine/install-copy.mjs');
   const packageRoot = fileURLToPath(new URL('..', import.meta.url));
   try {
-    const r = installCopy({ packageRoot, repo: opt('--repo') ?? process.cwd(), target, skill, from: gitDescribe(packageRoot), force: args.includes('--force') });
+    const r = installCopy({ packageRoot, repo: opt('--repo') ?? process.cwd(), target, skill, from: provenance(packageRoot), force: args.includes('--force') });
     process.stdout.write(`${r.status}: ${r.dest} (${r.files} files); not activated (the install copy never activates, spec §14.2)\n`);
     return 0;
   } catch (e) {
@@ -79,8 +80,26 @@ COMMANDS.install = async (args, io) => {
 COMMANDS.setup = async (args) => {
   const { runSetup } = await import('./setup.mjs');
   const packageRoot = fileURLToPath(new URL('..', import.meta.url));
-  return runSetup(args, { packageRoot, from: gitDescribe(packageRoot) });
+  return runSetup(args, { packageRoot, from: provenance(packageRoot) });
 };
+
+/**
+ * Where an installed copy came from (ENGINE.json `installed.from`): `git describe` of a checkout; for an npm/npx
+ * install (`npx github:<owner>/<repo>`), the commit npm resolved, from the install's node_modules/.package-lock.json
+ * (`github:<owner>/<repo>#<sha7>`); else `<name>@<version>`. `unknown` only when the package itself is unreadable.
+ */
+export function provenance(packageRoot) {
+  const d = gitDescribe(packageRoot);
+  if (d !== 'unknown') return d;
+  let pkg;
+  try { pkg = JSON.parse(readFileSync(join(packageRoot, 'package.json'), 'utf8')); } catch { return 'unknown'; }
+  const nameAt = `${pkg.name}@${pkg.version}`;
+  let lock;
+  try { lock = JSON.parse(readFileSync(join(dirname(packageRoot), '.package-lock.json'), 'utf8')); } catch { return nameAt; }
+  const resolved = lock?.packages?.[`node_modules/${basename(packageRoot)}`]?.resolved ?? '';
+  const m = /github\.com[/:]([^/]+)\/([^/#]+?)(?:\.git)?#([0-9a-f]{7,40})$/.exec(resolved);
+  return m ? `github:${m[1]}/${m[2]}#${m[3].slice(0, 7)}` : nameAt;
+}
 
 function gitDescribe(packageRoot) {
   const git = (...a) => spawnSync('git', ['-C', packageRoot, ...a], { encoding: 'utf8' });
