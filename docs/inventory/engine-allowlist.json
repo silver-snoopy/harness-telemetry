@@ -494,5 +494,21 @@
   "hooks/copilot-user-hook.mjs:env-var:5d68734145": {
     "kind": "env-var",
     "reason": "the Copilot CLI user-level dispatcher (--user-hooks, readiness trial 2026-10-16): TOKENOMICS_AWAIT_MS, the engine's own test lever for the waiter's bound (default 60 s)"
+  },
+  "scripts/delivery-report.mjs:delivered-vocab:9f8f8abead": {
+    "kind": "not-lifted",
+    "reason": "Plan 7 Task 4 (D-RECEIPTS): the envelope receipt rows keep team-report's default outcome 'not-started' for a case without one (the same rule as team-report's report-windows receipt rows, reference team-report :151)"
+  },
+  "scripts/delivery-report.mjs:delivered-vocab:18c0784439": {
+    "kind": "not-lifted",
+    "reason": "Plan 7 Task 4 (D-RECEIPTS): the tracker status column's generic word 'delivered' for a winning outcome in settings.receipts.deliveredOutcomes; the outcome list itself comes from settings (engine vocabulary, ENGINE-B1 vocabulary.delivered)"
+  },
+  "scripts/delivery-report.mjs:delivered-vocab:642a22eed8": {
+    "kind": "not-lifted",
+    "reason": "Plan 7 Task 4 (D-RECEIPTS): by-type table header; the generic column word 'delivered' is engine vocabulary (ENGINE-B1 vocabulary.delivered), as in team-report's by-group header"
+  },
+  "scripts/delivery-report.mjs:delivered-vocab:8919aa4218": {
+    "kind": "not-lifted",
+    "reason": "Plan 7 Task 4 (D-RECEIPTS): by-sprint table header; the generic column word 'delivered' is engine vocabulary (ENGINE-B1 vocabulary.delivered), as in team-report's by-group header"
   }
 }

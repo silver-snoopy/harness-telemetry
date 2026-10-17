@@ -28,6 +28,42 @@ function fromFiles(repo, rc, mode, findings) {
   return out;
 }
 
+// Parse and validate a §5.6 envelope: `{doc}` or `{reason}` ('malformed output: <path> <msg>').
+function parseEnvelope(text, schemas) {
+  let doc; try { doc = JSON.parse(text); } catch { doc = null; }
+  const errs = doc ? validate(schemas['receipts-envelope.json'], doc, { schemas }) : [{ path: '$', message: 'not JSON' }];
+  return errs.length ? { reason: `malformed output: ${errs[0].path} ${errs[0].message}` } : { doc };
+}
+const incomplete = () => finding('unverified', 'receipts-incomplete', {}, 'adapter reported complete:false');
+
+/**
+ * Run `settings.receipts.command` (spec §5.6, Plan 7 D-RECEIPTS) and read its envelope:
+ * `{available, complete, receipts, findings, reason}`. `complete` is `doc.complete === true`; `reason` is
+ * `'not configured'`, `'command failed: exit N'`, `'command failed: <error>'`, `'malformed output: <path> <msg>'`, or
+ * null when available. Spawned shell-free in `repo` with `env`, `receipts.timeoutSec` (default 60) and the output cap;
+ * the child's stderr is never forwarded.
+ */
+export function runReceiptCommand(repo, settings, { env } = {}) {
+  const findings = [];
+  const unavailable = (reason) => ({ available: false, complete: false, receipts: [], findings, reason });
+  const cmd = settings?.receipts?.command;
+  if (!Array.isArray(cmd) || !cmd.length) {
+    findings.push(finding('error', 'receipts-unavailable', {}, 'no receipts.command in .agents/tokenomics/settings.json'));
+    return unavailable('not configured');
+  }
+  const r = spawnSync(cmd[0], cmd.slice(1), { cwd: repo, env, encoding: 'utf8', shell: false,
+    timeout: (settings.receipts.timeoutSec ?? 60) * 1000, maxBuffer: MAX_OUT });
+  if (r.status !== 0 || r.error) {
+    const reason = `command failed: ${r.error?.message ?? `exit ${r.status}`}`;
+    findings.push(finding('unverified', 'receipts-unavailable', {}, reason));
+    return unavailable(reason);
+  }
+  const { doc, reason } = parseEnvelope(r.stdout, loadSchemas());
+  if (reason) { findings.push(finding('unverified', 'receipts-unavailable', {}, reason)); return unavailable(reason); }
+  if (!doc.complete) findings.push(incomplete());
+  return { available: true, complete: doc.complete === true, receipts: doc.receipts, findings, reason: null };
+}
+
 export function readReceipts({ repo, manifest, mode = 'port', receiptsFile = null, runReceipts = false, settings = null }) {
   const rc = manifest?.receipts;
   const findings = [];
@@ -36,32 +72,19 @@ export function readReceipts({ repo, manifest, mode = 'port', receiptsFile = nul
     const receipts = fromFiles(repo, rc, mode, findings);
     return { receipts: receipts ?? [], findings, available: receipts !== null };
   }
-  const schemas = loadSchemas();
-  let text = null;
-  if (receiptsFile) text = readFileSync(receiptsFile, 'utf8');
-  else if (runReceipts) {
-    const cmd = settings?.receipts?.command;
-    if (!Array.isArray(cmd) || !cmd.length) {
-      findings.push(finding('error', 'receipts-unavailable', {}, 'no receipts.command in .agents/tokenomics/settings.json'));
-      return { receipts: [], findings, available: false };
-    }
-    const r = spawnSync(cmd[0], cmd.slice(1), { cwd: repo, encoding: 'utf8', shell: false,
-      timeout: (settings.receipts.timeoutSec ?? 60) * 1000, maxBuffer: MAX_OUT });
-    if (r.status !== 0 || r.error) {
-      findings.push(finding('unverified', 'receipts-unavailable', {}, `command failed: ${r.error?.message ?? `exit ${r.status}`}`));
-      return { receipts: [], findings, available: false };
-    }
-    text = r.stdout;
-  } else {
+  if (runReceipts && !receiptsFile) {
+    const r = runReceiptCommand(repo, settings, { env: process.env });
+    return { receipts: r.receipts, findings: r.findings, available: r.available };
+  }
+  if (!receiptsFile) {
     findings.push(finding('unverified', 'receipts-not-run', {}, 'command receipts need --run-receipts or --receipts-file'));
     return { receipts: [], findings, available: false };
   }
-  let doc; try { doc = JSON.parse(text); } catch { doc = null; }
-  const errs = doc ? validate(schemas['receipts-envelope.json'], doc, { schemas }) : [{ path: '$', message: 'not JSON' }];
-  if (errs.length) {
-    findings.push(finding('unverified', 'receipts-unavailable', {}, `malformed output: ${errs[0].path} ${errs[0].message}`));
+  const { doc, reason } = parseEnvelope(readFileSync(receiptsFile, 'utf8'), loadSchemas());
+  if (reason) {
+    findings.push(finding('unverified', 'receipts-unavailable', {}, reason));
     return { receipts: [], findings, available: false };
   }
-  if (!doc.complete) findings.push(finding('unverified', 'receipts-incomplete', {}, 'adapter reported complete:false'));
+  if (!doc.complete) findings.push(incomplete());
   return { receipts: doc.receipts, findings, available: true };
 }
