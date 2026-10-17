@@ -518,5 +518,13 @@
   "adapters/github.mjs:delivered-vocab:2c532971a9": {
     "kind": "not-lifted",
     "reason": "Plan 7 Task 5 (D-ADAPTERS): the GitHub adapter's receipt outcome 'delivered' is the engine's receipt vocabulary (ENGINE-B1 receipts.deliveredOutcomes default), emitted for a COMPLETED closed Issue"
+  },
+  "adapters/azure-devops.mjs:delivered-vocab:44dd4fd735": {
+    "kind": "not-lifted",
+    "reason": "Plan 7 Task 6 (D-ADAPTERS): the Azure DevOps adapter's receipt outcome 'delivered' is the engine's receipt vocabulary (ENGINE-B1 receipts.deliveredOutcomes default), emitted for a work item in a done state"
+  },
+  "adapters/azure-devops.mjs:delivered-vocab:22a3ad06d1": {
+    "kind": "not-lifted",
+    "reason": "Plan 7 Task 6 (D-ADAPTERS): the Azure DevOps adapter's receipt outcome 'delivered' is the engine's receipt vocabulary (ENGINE-B1 receipts.deliveredOutcomes default), emitted for a work item in a done state; the guard keeps ClosedDate evidence to delivered items only"
   }
 }

@@ -3,8 +3,9 @@
   "extensionApi": 2,
   "files": {
     "SKILL.md": "sha256:0ca67afd55b3c913701a5a6dc2fc1961e8c005d5f82e0a906cfe3c915bee28f5",
-    "adapters/common.mjs": "sha256:f64985c3f21ad667a7387dab7b1c23b23d24be6d2f67634d7221322f5fd4695c",
-    "adapters/github.mjs": "sha256:72236f5b8213dd1a886be7a5d721535657aee74b53c670e0ec606e87156ac995",
+    "adapters/azure-devops.mjs": "sha256:84c5c2ad9d8d57537f5837c559d6f251da2333b129840164816060aecda8f6ca",
+    "adapters/common.mjs": "sha256:c82974a601b031f61032b1cf1a62fc65f82c558e587b9674ce0636009878a075",
+    "adapters/github.mjs": "sha256:6aaa9e7d90a1a26cad1c9d422ca0d75f0ffdf801ed043c6ab8cab71953257571",
     "engine/activation.mjs": "sha256:b33279232908649a1c5394cdbd1932b32f178594cfe1d32b2ba950fed38e69da",
     "engine/checkpoint.mjs": "sha256:bb5131498f411b9268da97e55a5e5d6d816302bb15443f004883bd96dba6d7fc",
     "engine/config.mjs": "sha256:8939342786217a110b94f55e5a0a2502d777ff37492f1f8b66f12dc6cffc3d95",

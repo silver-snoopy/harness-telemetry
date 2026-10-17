@@ -15,7 +15,7 @@ import { pathToFileURL } from 'node:url';
 import { loadSettings } from '../engine/config.mjs';
 import { parseRemote } from '../engine/trackers.mjs';
 import { isMain, exitAfterDrain } from '../engine/entry.mjs';
-import { CREDENTIAL_ENV, AdapterFailure, parseArgs, selectIds, idsFromLedger, envelope, projectCase, reportFailure, batches } from './common.mjs';
+import { scrubbedEnv, AdapterFailure, parseArgs, selectIds, idsFromLedger, envelope, projectCase, reportFailure, batches } from './common.mjs';
 
 const ADAPTER = 'github';
 const PREFIX = 'gh:';
@@ -47,7 +47,7 @@ const queryOf = ({ owner, name }, nums) =>
 // answers null with a NOT_FOUND error on its own alias, which is `missing`. Any other error, or no GraphQL JSON, fails.
 function ask(repoRef, nums) {
   // least privilege: the Jira/ADO credentials never reach gh
-  const env = Object.fromEntries(Object.entries(process.env).filter(([k]) => !CREDENTIAL_ENV.includes(k)));
+  const env = scrubbedEnv();
   const r = spawnSync('gh', ['api', 'graphql', '-f', `query=${queryOf(repoRef, nums)}`], { env, encoding: 'utf8', timeout: 30000, maxBuffer: 1 << 26 });
   if (r.error) {
     const code = r.error.code;

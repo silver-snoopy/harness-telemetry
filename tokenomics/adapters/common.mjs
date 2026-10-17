@@ -148,3 +148,6 @@ export async function httpJson(url, { method = 'GET', headers = {}, body, timeou
   try { text = await res.text(); } catch (e) { throw new AdapterFailure(e?.name === 'TimeoutError' ? 'timeout' : 'network', e?.name === 'TimeoutError' ? 'timeout' : 'body'); }
   try { return JSON.parse(text); } catch { throw new AdapterFailure('parse', 'json'); }
 }
+
+/** `process.env` without the tracker credentials: the environment for any child an adapter spawns (least privilege). */
+export const scrubbedEnv = () => Object.fromEntries(Object.entries(process.env).filter(([k]) => !CREDENTIAL_ENV.includes(k)));
