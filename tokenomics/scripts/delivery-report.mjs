@@ -35,8 +35,13 @@ const NOTES = [
   'a line naming k tickets gives each 1/k of its cost and minutes; a line matched to n PRs by id gives each 1/n',
   'tokens-only sessions carry no dollars; they are counted, never estimated',
   'ids are matched exactly: a ledger id written before ids.rules (`PAY-12`) and `jira:PAY-12` are different tickets',
-  'the window is [since, until) on a session\'s endedAt and on a merge\'s time; tracker status is the current state, unwindowed',
+  "the window is [since, until) on a session's endedAt; a session's spend goes to the merge that shipped it even when that merge lies outside the window (each PR row shows its merge date)",
+  'merged PRs and By PR list the PRs merged in the window plus any PR receiving spend from the window',
+  'tracker status is the current (winning) receipt state, not windowed',
+  `a delivered ticket whose sessions are all tokens-only counts in the cost-per-delivered denominator at $0`,
+  'per-row costs are rounded to the cent, so printed cells may differ from the total by a cent',
 ];
+const TOKENS_ONLY_NOTE = (n) => `note: a delivered ticket whose sessions are all tokens-only counts in the denominator at $0 (${n} here)`;
 
 // --- receipts (D-RECEIPTS) ---------------------------------------------------------------------------------------
 const shortStr = (v) => (typeof v === 'string' && v ? v.slice(0, 64) : null);
@@ -61,9 +66,11 @@ function receiptRows(receipts) {
 }
 
 /** The tracker view over the joined tickets: per ticket status, by type, by sprint, and the membership metric. */
-function trackerView(run, join, deliveredOutcomes) {
-  if (!run) return null;
-  const base = { status: run.available ? 'available' : run.reason === 'not configured' ? 'not configured' : 'unavailable', reason: run.reason, complete: run.complete };
+// One shape per state, with or without --receipts: {status, reason, complete} (plus the view when available).
+// `reason` is the runner's sanitized one: a spawn error names its code, never the command path.
+function trackerView(run, join, deliveredOutcomes, configured) {
+  if (!run) return configured ? { status: 'not run', reason: null, complete: false } : { status: 'not configured', reason: 'not configured', complete: false };
+  const base = { status: run.available ? 'available' : run.reason === 'not configured' ? 'not configured' : 'unavailable', reason: run.safeReason, complete: run.complete };
   if (!run.available) return base;
   const { win, conflicts } = receiptWinners(receiptRows(run.receipts));
   const conflicted = new Set(conflicts.map((c) => c.id));
@@ -72,6 +79,7 @@ function trackerView(run, join, deliveredOutcomes) {
   const bySprint = new Map();
   let delivered = 0;
   let deliveredCost = 0;
+  let tokensOnlyDelivered = 0;
   const add = (m, k, cost) => { const b = m.get(k) ?? { delivered: 0, costUsd: 0 }; b.delivered++; b.costUsd += cost; m.set(k, b); };
   for (const id of Object.keys(join.tickets).sort()) {
     const w = win.get(id);
@@ -84,13 +92,14 @@ function trackerView(run, join, deliveredOutcomes) {
     const cost = join.tickets[id].costUsd;
     delivered++;
     deliveredCost += cost;
+    if (join.tickets[id].priced === 0) tokensOnlyDelivered++;
     add(byType, w.type, cost);
     add(bySprint, w.sprint, cost);
   }
   const rows = (m, key) => [...m].map(([k, b]) => ({ [key]: k, delivered: b.delivered, costUsd: b.costUsd }))
     .sort((a, z) => z.costUsd - a.costUsd || String(a[key] ?? '').localeCompare(String(z[key] ?? '')));
   return {
-    ...base, conflicts: conflicted.size, delivered, deliveredCostUsd: deliveredCost,
+    ...base, conflicts: conflicted.size, delivered, deliveredCostUsd: deliveredCost, tokensOnlyDelivered,
     costPerDelivered: delivered ? deliveredCost / delivered : null, metric: METRIC_LABEL,
     tickets, byType: rows(byType, 'type'), bySprint: rows(bySprint, 'sprint'),
   };
@@ -101,10 +110,11 @@ const bucketOut = (b) => ({ sessions: b.sessions, shared: b.shared, costUsd: b.c
 const ticketOut = (t) => ({ ...bucketOut(t), firstAt: t.firstAt, lastAt: t.lastAt, prs: [...t.prs], mergedAt: t.mergedAt });
 const prOut = (p) => ({ pr: p.pr, mergedAt: p.mergedAt, ids: [...p.ids], ...bucketOut(p) });
 const mapOut = (o, f) => Object.fromEntries(Object.keys(o).sort().map((k) => [k, f(o[k])]));
-const trackerOut = (v) => (v === null ? null : {
+const trackerOut = (v) => ({
   status: v.status, reason: v.reason, complete: v.complete,
   ...(v.status === 'available' ? {
-    conflicts: v.conflicts, delivered: v.delivered, deliveredCostUsd: v.deliveredCostUsd, costPerDelivered: v.costPerDelivered, metric: v.metric,
+    conflicts: v.conflicts, delivered: v.delivered, deliveredCostUsd: v.deliveredCostUsd, tokensOnlyDelivered: v.tokensOnlyDelivered,
+    costPerDelivered: v.costPerDelivered, metric: v.metric,
     tickets: mapOut(v.tickets, (t) => ({ status: t.status, outcome: t.outcome, type: t.type, points: t.points, sprint: t.sprint })),
     byType: v.byType.map((r) => ({ type: r.type, delivered: r.delivered, costUsd: r.costUsd })),
     bySprint: v.bySprint.map((r) => ({ sprint: r.sprint, delivered: r.delivered, costUsd: r.costUsd })),
@@ -122,7 +132,7 @@ function toJson(m) {
     totals: { sessions: m.join.totals.sessions, costUsd: m.join.totals.costUsd, priced: m.join.totals.priced, tokensOnly: m.join.totals.tokensOnly,
       activeMin: m.join.totals.activeMin, mergedPrs: m.join.totals.mergedPrs, ticketsWithSpend: m.join.totals.ticketsWithSpend },
     trace: { tickets: m.join.trace.tickets, prs: m.join.trace.prs, totals: m.join.trace.totals, conserved: m.join.trace.conserved },
-    receipts: m.tracker === null ? { status: m.configured ? 'not run' : 'not configured' } : trackerOut(m.tracker),
+    receipts: trackerOut(m.tracker),
   };
 }
 
@@ -139,7 +149,7 @@ const tableMd = (head, rows) => [`| ${head.join(' | ')} |`, `|${head.map(() => '
 
 function trackerLine(m) {
   const v = m.tracker;
-  if (v === null) return m.configured ? 'tracker: configured, not run (pass --receipts)' : `tracker: ${NOT_CONFIGURED}`;
+  if (v.status === 'not run') return 'tracker: configured, not run (pass --receipts)';
   if (v.status === 'not configured') return `tracker: ${NOT_CONFIGURED}`;
   if (v.status === 'unavailable') return `tracker: unavailable (${v.reason})`;
   return `tracker: available${v.complete ? '' : ` ${PARTIAL}`}`;
@@ -168,7 +178,8 @@ function toMarkdown(m) {
     `- in progress (unmerged): ${bucketText(join.unmerged)}`);
   if (v) {
     out.push(`- delivered tickets: ${v.delivered}`);
-    out.push('', `cost per delivered ticket: ${v.costPerDelivered === null ? 'n/a (0 delivered)' : `${usd(v.costPerDelivered)} over ${v.delivered} delivered`} — ${METRIC_LABEL}${m.tracker.complete ? '' : ` ${PARTIAL}`}`);
+    out.push('', `cost per delivered ticket: ${v.costPerDelivered === null ? 'n/a (0 delivered)' : `${usd(v.costPerDelivered)} over ${v.delivered} delivered`} — ${METRIC_LABEL}${m.tracker.complete ? '' : ` ${PARTIAL}`}`,
+      TOKENS_ONLY_NOTE(v.tokensOnlyDelivered));
   }
 
   const ids = Object.keys(join.tickets).sort((a, z) => join.tickets[z].costUsd - join.tickets[a].costUsd || (a < z ? -1 : a > z ? 1 : 0));
@@ -231,8 +242,12 @@ export async function main(argv = process.argv.slice(2)) {
 
   const base = defaultBranch(repo);
   const work = mergedWork(repo, { settings, prs });
-  const items = work.items.filter((it) => win.inWindow(parseInstant(it.at)));
-  const join = joinDelivery(lines, items, { base: base.name });
+  // R5: the window filters lines only. Spend goes to the merge that shipped it, in the window or not; the PR view
+  // lists the PRs merged in the window plus any PR receiving spend from it (zero-spend rows carry no cost, so the
+  // trace is unchanged).
+  const joined = joinDelivery(lines, work.items, { base: base.name });
+  const shown = Object.fromEntries(Object.entries(joined.prs).filter(([, r]) => r.sessions > 0 || win.inWindow(parseInstant(r.mergedAt))));
+  const join = { ...joined, prs: shown, totals: { ...joined.totals, mergedPrs: Object.values(shown).filter((r) => r.pr !== null).length } };
   const configured = Array.isArray(settings.receipts?.command) && settings.receipts.command.length > 0;
   const run = flags.get('receipts') ? runReceiptCommand(repo, settings, { env: process.env }) : null;
 
@@ -241,7 +256,7 @@ export async function main(argv = process.argv.slice(2)) {
     base, work, join, configured,
     conflicts: { count: scoped.length, lines: scoped.reduce((a, c) => a + c.lines.length, 0), priced: scoped.reduce((a, c) => a + c.lines.filter(isPriced).length, 0) },
     undated: { sessions: undated.length, priced: undated.filter(isPriced).length },
-    tracker: trackerView(run, join, settings.receipts.deliveredOutcomes),
+    tracker: trackerView(run, join, settings.receipts.deliveredOutcomes, configured),
   };
   const output = flags.get('json') ? JSON.stringify(toJson(model), null, 2) : toMarkdown(model);
   if (flags.get('out')) writeFileSync(flags.get('out'), `${output}\n`);

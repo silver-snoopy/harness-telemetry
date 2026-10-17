@@ -38,14 +38,15 @@ const incomplete = () => finding('unverified', 'receipts-incomplete', {}, 'adapt
 
 /**
  * Run `settings.receipts.command` (spec §5.6, Plan 7 D-RECEIPTS) and read its envelope:
- * `{available, complete, receipts, findings, reason}`. `complete` is `doc.complete === true`; `reason` is
+ * `{available, complete, receipts, findings, reason, safeReason}`. `complete` is `doc.complete === true`; `reason` is
  * `'not configured'`, `'command failed: exit N'`, `'command failed: <error>'`, `'malformed output: <path> <msg>'`, or
- * null when available. Spawned shell-free in `repo` with `env`, `receipts.timeoutSec` (default 60) and the output cap;
+ * null when available. `safeReason` is `reason` with a spawn error named by its code only
+ * (`'command failed: ENOENT'`): an error message carries the command path, which reports must not print. Spawned shell-free in `repo` with `env`, `receipts.timeoutSec` (default 60) and the output cap;
  * the child's stderr is never forwarded.
  */
 export function runReceiptCommand(repo, settings, { env } = {}) {
   const findings = [];
-  const unavailable = (reason) => ({ available: false, complete: false, receipts: [], findings, reason });
+  const unavailable = (reason, safeReason = reason) => ({ available: false, complete: false, receipts: [], findings, reason, safeReason });
   const cmd = settings?.receipts?.command;
   if (!Array.isArray(cmd) || !cmd.length) {
     findings.push(finding('error', 'receipts-unavailable', {}, 'no receipts.command in .agents/tokenomics/settings.json'));
@@ -56,12 +57,12 @@ export function runReceiptCommand(repo, settings, { env } = {}) {
   if (r.status !== 0 || r.error) {
     const reason = `command failed: ${r.error?.message ?? `exit ${r.status}`}`;
     findings.push(finding('unverified', 'receipts-unavailable', {}, reason));
-    return unavailable(reason);
+    return unavailable(reason, r.error ? `command failed: ${r.error.code ?? 'error'}` : reason);
   }
   const { doc, reason } = parseEnvelope(r.stdout, loadSchemas());
   if (reason) { findings.push(finding('unverified', 'receipts-unavailable', {}, reason)); return unavailable(reason); }
   if (!doc.complete) findings.push(incomplete());
-  return { available: true, complete: doc.complete === true, receipts: doc.receipts, findings, reason: null };
+  return { available: true, complete: doc.complete === true, receipts: doc.receipts, findings, reason: null, safeReason: null };
 }
 
 export function readReceipts({ repo, manifest, mode = 'port', receiptsFile = null, runReceipts = false, settings = null }) {

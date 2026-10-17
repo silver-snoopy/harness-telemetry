@@ -55,16 +55,24 @@ test('readReceipts: the files branch is unchanged', () => {
 test('runReceiptCommand: complete, partial, failing, malformed and unconfigured results', () => {
   const repo = dir();
   const run = (command) => runReceiptCommand(repo, settingsFor(command), { env: process.env });
-  assert.deepEqual(run(print(ENVELOPE)), { available: true, complete: true, receipts: ENVELOPE.receipts, findings: [], reason: null });
+  assert.deepEqual(run(print(ENVELOPE)), { available: true, complete: true, receipts: ENVELOPE.receipts, findings: [], reason: null, safeReason: null });
   assert.deepEqual(run(print({ ...ENVELOPE, complete: false })), { available: true, complete: false, receipts: ENVELOPE.receipts,
-    findings: [f('unverified', 'receipts-incomplete', 'adapter reported complete:false')], reason: null });
+    findings: [f('unverified', 'receipts-incomplete', 'adapter reported complete:false')], reason: null, safeReason: null });
   assert.deepEqual(run([process.execPath, '-e', 'process.exit(1)']), { available: false, complete: false, receipts: [],
-    findings: [f('unverified', 'receipts-unavailable', 'command failed: exit 1')], reason: 'command failed: exit 1' });
+    findings: [f('unverified', 'receipts-unavailable', 'command failed: exit 1')], reason: 'command failed: exit 1', safeReason: 'command failed: exit 1' });
   assert.deepEqual(run(print('{"schema":2,"complete":true,"receipts":[]}')).reason, 'malformed output: $.schema expected const 1');
   assert.equal(run(print('nope')).reason, 'malformed output: $ not JSON');
-  assert.match(run([join(repo, 'no-such-command')]).reason, /^command failed: .*ENOENT/);
+  // a spawn error: `reason` (and the finding readReceipts reports) keep the error message; `safeReason` names the code only
+  const missing = run([join(repo, 'PRIVATE_PERSON', 'no-such-command')]);
+  assert.match(missing.reason, /^command failed: .*PRIVATE_PERSON.*ENOENT/);
+  assert.equal(missing.findings[0].message, missing.reason);
+  assert.equal(missing.safeReason, 'command failed: ENOENT');
+  const slow = runReceiptCommand(repo, { receipts: { command: [process.execPath, '-e', 'setTimeout(() => {}, 5000)'], timeoutSec: 0.2 } }, { env: process.env });
+  assert.equal(slow.safeReason, 'command failed: ETIMEDOUT');
+  assert.equal(readReceipts({ repo, manifest: cmdManifest, runReceipts: true, settings: settingsFor([join(repo, 'PRIVATE_PERSON', 'x')]) }).findings[0].message,
+    `command failed: spawnSync ${join(repo, 'PRIVATE_PERSON', 'x')} ENOENT`);
   const none = runReceiptCommand(repo, { receipts: {} }, { env: process.env });
-  assert.deepEqual([none.available, none.complete, none.reason], [false, false, 'not configured']);
+  assert.deepEqual([none.available, none.complete, none.reason, none.safeReason], [false, false, 'not configured', 'not configured']);
   assert.deepEqual(runReceiptCommand(repo, null, {}).reason, 'not configured');
 });
 

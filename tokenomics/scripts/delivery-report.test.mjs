@@ -42,6 +42,7 @@ mergeFrom('feat/PAY-5-old', 'Merge pull request #5 from o/feat/PAY-5-old', '2026
 mergeFrom('PRIVATE_BRANCH/PAY-1-x', 'Merge pull request #7 from o/PRIVATE_BRANCH/PAY-1-x', '2026-10-02T12:00:00Z');
 g(['commit', '-q', '--allow-empty', '-m', 'fix WEB-2 thing (#9)'], '2026-10-02T15:00:00Z');
 mergeFrom('feat/WEB-3', "Merge branch 'feat/WEB-3'", '2026-10-02T16:00:00Z');
+mergeFrom('feat/PAY-6-late', 'Merge pull request #11 from o/feat/PAY-6-late', '2026-10-05T12:00:00Z'); // after the 10-03 window
 
 const line = (o) => ({ v: 1, host: 'claude', capturedAt: o.endedAt, ...o });
 const LINES = [
@@ -55,6 +56,8 @@ const LINES = [
   line({ id: 's5', endedAt: '2026-10-02T13:00:00Z', cases: ['jira:PAY-1'], costUsd: 5 }),
   line({ id: 's7', endedAt: '2026-09-15T10:00:00Z', cases: ['jira:PAY-1'], costUsd: 100 }), // before the window
   line({ id: 's8', endedAt: '2026-10-03T00:00:00Z', cases: ['jira:PAY-1'], costUsd: 50 }), // at until: excluded
+  // in the 10-03 window, on a branch merged after it (R5: the spend goes to #11, not to unmerged)
+  line({ id: 's9', endedAt: '2026-10-03T05:00:00Z', branch: 'feat/PAY-6-late', cases: ['jira:PAY-6'], costUsd: 1 }),
 ];
 mkdirSync(join(repo, '.agents', 'telemetry', 'automation'), { recursive: true });
 writeFileSync(join(repo, '.agents', 'telemetry', 'automation', 'usage-x.jsonl'), `${LINES.map((l) => JSON.stringify(l)).join('\n')}\n`);
@@ -88,7 +91,9 @@ const ENVELOPE = {
 };
 const ROUTES = join(sandbox, 'routes.mjs');
 writeFileSync(ROUTES, `const ok = ${JSON.stringify(ENVELOPE)};
+const pay4 = { id: 'jira:PAY-4', outcome: 'delivered', at: '2026-10-02T17:00:00Z', type: 'Task' };
 export default (req) => req.url === '/partial' ? { json: { ...ok, complete: false } }
+  : req.url === '/tokens' ? { json: { ...ok, receipts: [{ ...ok.receipts[0], cases: [...ok.receipts[0].cases, pay4] }] } }
   : req.url === '/malformed' ? { json: { schema: 2, complete: true, receipts: [] } } : { json: ok };\n`);
 const FETCH = join(sandbox, 'fetch-receipts.mjs');
 writeFileSync(FETCH, "const r = await fetch(process.argv[2]); process.stdout.write(await r.text());\n");
@@ -173,11 +178,14 @@ test('(b) --json: the join plus base, PR source, coverage and receipts; window o
   // PR #5 merged 09-20 is outside the window; the merge with no PR number is keyed merge:<hex>
   assert.deepEqual(Object.keys(j.prs).filter((k) => !k.startsWith('merge:')).sort(), ['7', '9']);
   assert.equal(Object.keys(j.prs).length, 3);
-  assert.equal(j.receipts.status, 'not configured');
+  // one shape per receipts state, with or without --receipts
+  const NOT_CONFIGURED = { status: 'not configured', reason: 'not configured', complete: false };
+  assert.deepEqual(j.receipts, NOT_CONFIGURED);
+  assert.deepEqual(JSON.parse(report([...WINDOW, '--json', '--receipts']).stdout).receipts, NOT_CONFIGURED);
   // without the window flags, everything is in (since = the earliest endedAt), and #5 is back
   const all = JSON.parse(report(['--prs', 'none', '--json']).stdout);
   assert.ok('5' in all.prs);
-  assert.equal(all.totals.costUsd, 156);
+  assert.equal(all.totals.costUsd, 157);
   // a bad date is refused
   const bad = report(['--since', 'Oct 1']);
   assert.equal(bad.status, 2);
@@ -196,12 +204,19 @@ test('(c) --receipts: status columns, the later receipt wins, unknown ids, by ty
   assert.deepEqual(tickets.slice(1).map((x) => x.slice(6)), [['delivered', 'Story', '3', 'S1'], ['delivered', 'Bug', '1', '—'], ['unknown', '—', '—', '—']]);
   assert.deepEqual(table(md, 'By type').slice(1), [['Story', '1', '$3.50'], ['Bug', '1', '$1.50']]);
   assert.deepEqual(table(md, 'By sprint').slice(1), [['S1', '1', '$3.50'], ['—', '1', '$1.50']]);
-  assert.match(md, /^cost per delivered ticket: \$2\.50 over 2 delivered — membership metric \(split shares\), not the §5\.5 ratio$/m);
+  assert.match(md, /^cost per delivered ticket: \$2\.50 over 2 delivered — membership metric \(split shares\), not the §5\.5 ratio\nnote: a delivered ticket whose sessions are all tokens-only counts in the denominator at \$0 \(0 here\)$/m);
   const j = JSON.parse(report([...WINDOW, '--receipts', '--json']).stdout);
   assert.deepEqual(j.receipts.tickets['jira:PAY-1'], { status: 'delivered', outcome: 'delivered', type: 'Story', points: 3, sprint: 'S1' });
   assert.deepEqual(j.receipts.tickets['jira:WEB-2'], { status: 'delivered', outcome: 'delivered', type: 'Bug', points: 1, sprint: null });
   assert.deepEqual(j.receipts.tickets['jira:PAY-4'], { status: 'unknown', outcome: null, type: null, points: null, sprint: null });
   assert.deepEqual([j.receipts.status, j.receipts.complete, j.receipts.delivered, j.receipts.costPerDelivered], ['available', true, 2, 2.5]);
+  // a delivered ticket that is entirely tokens-only counts at $0 in the denominator, and the report says so
+  settings(fetchCmd('/tokens'));
+  const tk = report([...WINDOW, '--receipts']).stdout;
+  assert.match(tk, /^cost per delivered ticket: \$1\.67 over 3 delivered — /m);
+  assert.match(tk, /^note: a delivered ticket whose sessions are all tokens-only counts in the denominator at \$0 \(1 here\)$/m);
+  assert.match(tk.slice(tk.indexOf('## Notes')), /tokens-only counts in the cost-per-delivered denominator at \$0/);
+  assert.match(tk.slice(tk.indexOf('## Notes')), /rounded to the cent/);
 });
 
 test('(c) --receipts: partial, failing, malformed, unconfigured, and not run without the flag', () => {
@@ -214,9 +229,17 @@ test('(c) --receipts: partial, failing, malformed, unconfigured, and not run wit
   const f = report([...WINDOW, '--receipts']);
   assert.equal(f.status, 0, f.stderr);
   assert.match(f.stdout, /^tracker: unavailable \(command failed: exit 1\)$/m);
-  assert.doesNotMatch(f.stdout, /delivered|## By type|## By sprint|cost per delivered/);
+  assert.doesNotMatch(f.stdout, /^cost per delivered ticket:|^- delivered tickets|^note: a delivered|^## By type|^## By sprint|\| delivered \|/m);
   assert.match(f.stdout, /^- spend: \$6\.00 over 4 sessions$/m, 'the git-derived report stands');
   assert.deepEqual(table(f.stdout, 'By ticket')[0], ['ticket', 'sessions', 'cost', 'active min', 'PRs', 'state']);
+
+  // a spawn error prints its code only, never the command path (here under a sentinel directory)
+  settings([join(sandbox, 'PRIVATE_PERSON', 'no-such-bin')]);
+  const enoent = report([...WINDOW, '--receipts']);
+  const enoentJson = report([...WINDOW, '--receipts', '--json']);
+  assert.match(enoent.stdout, /^tracker: unavailable \(command failed: ENOENT\)$/m);
+  assert.deepEqual(JSON.parse(enoentJson.stdout).receipts, { status: 'unavailable', reason: 'command failed: ENOENT', complete: false });
+  assertNoSentinels([enoent.stdout, enoent.stderr, enoentJson.stdout, enoentJson.stderr]);
 
   settings(fetchCmd('/malformed'));
   assert.match(report([...WINDOW, '--receipts']).stdout, /^tracker: unavailable \(malformed output: \$\.schema expected const 1\)$/m);
@@ -271,5 +294,24 @@ test('(e) privacy: no title, person or branch in the Markdown, the JSON, the --o
   assert.equal(written, md.stdout);
   assert.match(json.stdout, /"sprint": "S1"/);
   assertNoSentinels([...outputs, written]);
-  assert.doesNotMatch([...outputs, written].join('\n'), /feat\/WEB-3|feat\/PAY-4-y|PAY-5-old/);
+  assert.doesNotMatch([...outputs, written].join('\n'), /feat\/WEB-3|feat\/PAY-4-y|PAY-5-old|PAY-6-late/);
+});
+
+test('(R5) the window filters lines only: in-window spend goes to the merge that shipped it, even after --until', () => {
+  settings(null);
+  const args = ['--since', '2026-10-03', '--until', '2026-10-04', '--prs', 'none'];
+  const j = JSON.parse(report([...args, '--json']).stdout);
+  // s8 (at since, PAY-1) goes by id to #7, merged 10-02 before the window; s9 goes by branch to #11, merged 10-05
+  assert.deepEqual(Object.keys(j.prs).sort(), ['11', '7'], 'PRs merged in the window plus PRs receiving its spend');
+  assert.deepEqual([j.prs['11'].sessions, j.prs['11'].costUsd, j.prs['7'].costUsd], [1, 1, 50]);
+  assert.match(j.prs['11'].mergedAt, /^2026-10-05T12:00:00/);
+  assert.deepEqual([j.unmerged.sessions, j.unmerged.costUsd], [0, 0]);
+  assert.equal(j.totals.mergedPrs, 2);
+  assert.equal(j.trace.conserved, true);
+  assert.deepEqual(j.tickets['jira:PAY-6'].prs, [11]);
+  const md = report(args).stdout;
+  assert.deepEqual(table(md, 'By PR').slice(1), [['#7', 'jira:PAY-1', '$50.00', '1', '2026-10-02'], ['#11', 'jira:PAY-6', '$1.00', '1', '2026-10-05']]);
+  assert.match(md, /^- merged PRs: 2$/m);
+  assert.match(md, /merge that shipped it even when that merge lies outside the window/);
+  assertNoSentinels([md]);
 });
