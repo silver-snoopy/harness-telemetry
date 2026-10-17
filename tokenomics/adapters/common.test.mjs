@@ -44,6 +44,21 @@ test('idsFromLedger reads every prefixed id through team-report loadLines (cases
   } finally { rmSync(d, { recursive: true, force: true }); }
 });
 
+test('R14: idsFromLedger reads unprefixed historical ids through ids.rules; without rules they are not ours', () => {
+  const d = mkdtempSync(join(tmpdir(), 'ht-cm-'));
+  try {
+    const L = (id, cases) => JSON.stringify({ v: 1, host: 'claude', id, endedAt: '2026-10-01T00:00:00Z', cases });
+    writeFileSync(join(d, 'usage-a.jsonl'), [L('a', ['PAY-1', 'TC-2']), L('b', ['jira:PAY-1', 'jira:PAY-3'])].join('\n'));
+    const base = loadSettings(d);
+    const ruled = { ...base, ids: { ...base.ids, rules: [{ tracker: 'jira', pattern: '\\b(PAY)-(\\d+)\\b', normalize: 'jira:$1-$2' }] } };
+    const re = /^[A-Z][A-Z0-9]+-[1-9]\d*$/;
+    assert.deepEqual(C.idsFromLedger(d, ruled, 'jira:', re), { ids: ['PAY-1', 'PAY-3'], invalid: 0 });
+    writeFileSync(join(d, 'usage-a.jsonl'), L('a', ['PAY-7']));
+    assert.deepEqual(C.idsFromLedger(d, ruled, 'jira:', re), { ids: ['PAY-7'], invalid: 0 });
+    assert.deepEqual(C.idsFromLedger(d, base, 'jira:', re), { ids: [], invalid: 0 });
+  } finally { rmSync(d, { recursive: true, force: true }); }
+});
+
 test('envelope: the §5.6 shape, schema-valid; no cases means no receipts', () => {
   const schemas = loadSchemas();
   const e = C.envelope('gh:o/r', 'github', [{ id: 'gh:1', outcome: 'open' }], false);

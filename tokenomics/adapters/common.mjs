@@ -5,6 +5,7 @@
 // `<adapter>: <class> (<status or code>)` that never carries a body, header, URL query, token or CLI stderr.
 import { resolve } from 'node:path';
 import { loadLines } from '../scripts/team-report.mjs';
+import { normalizeIds } from '../engine/delivery.mjs';
 
 /** The credential env names an adapter may read (never settings, never argv). Jira/ADO use them in Tasks 6 and 7. */
 export const CREDENTIAL_ENV = Object.freeze(['AZURE_DEVOPS_EXT_PAT', 'JIRA_EMAIL', 'JIRA_API_TOKEN', 'JIRA_PAT']);
@@ -66,12 +67,15 @@ export function selectIds(raw, prefix, re) {
   return { ids: [...ok].sort((a, b) => a.localeCompare(b, 'en', { numeric: true })), invalid: bad.size };
 }
 
-/** Every id carrying `prefix` in the repo's ledger (team-report's loadLines: `cases` or `scope.cases`), validated. */
+/**
+ * Every id carrying `prefix` in the repo's ledger (team-report's loadLines: `cases` or `scope.cases`), validated. Ids
+ * are read through `ids.rules` first (normalizeIds, R14), so a historical `PAY-1` counts as `jira:PAY-1`.
+ */
 export function idsFromLedger(repo, settings, prefix, re) {
   const named = new Set();
   for (const l of loadLines([repo], settings)) {
     const cs = Array.isArray(l.cases) ? l.cases : Array.isArray(l.scope?.cases) ? l.scope.cases : [];
-    for (const c of cs) if (typeof c === 'string' && c.startsWith(prefix)) named.add(c);
+    for (const c of normalizeIds(settings, cs)) if (typeof c === 'string' && c.startsWith(prefix)) named.add(c);
   }
   return selectIds([...named], prefix, re);
 }

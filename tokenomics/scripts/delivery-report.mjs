@@ -245,7 +245,7 @@ export async function main(argv = process.argv.slice(2)) {
   // R5: the window filters lines only. Spend goes to the merge that shipped it, in the window or not; the PR view
   // lists the PRs merged in the window plus any PR receiving spend from it (zero-spend rows carry no cost, so the
   // trace is unchanged).
-  const joined = joinDelivery(lines, work.items, { base: base.name });
+  const joined = joinDelivery(lines, work.items, { base: base.name, settings });
   const shown = Object.fromEntries(Object.entries(joined.prs).filter(([, r]) => r.sessions > 0 || win.inWindow(parseInstant(r.mergedAt))));
   const join = { ...joined, prs: shown, totals: { ...joined.totals, mergedPrs: Object.values(shown).filter((r) => r.pr !== null).length } };
   const configured = Array.isArray(settings.receipts?.command) && settings.receipts.command.length > 0;

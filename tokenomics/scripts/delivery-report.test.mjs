@@ -136,7 +136,7 @@ test('(a) Markdown: header, totals, by ticket, by PR and notes; ticket costs plu
   assert.match(md, /^- tickets with spend: 3$/m);
   assert.match(md, /^- unattributed \(no ticket\): \$1\.00 \(1 session\)$/m);
   assert.match(md, /^- unattributed \(no PR, on the base\): \$1\.00 \(1 session\)$/m);
-  assert.match(md, /^- in progress \(unmerged\): /m);
+  assert.match(md, /^- in progress \(unmerged\): \$0\.00 \(1 session, 1 tokens-only\)$/m);
 
   const tickets = table(md, 'By ticket');
   assert.deepEqual(tickets[0], ['ticket', 'sessions', 'cost', 'active min', 'PRs', 'state']);
@@ -233,6 +233,11 @@ test('(c) --receipts: partial, failing, malformed, unconfigured, and not run wit
   assert.match(f.stdout, /^- spend: \$6\.00 over 4 sessions$/m, 'the git-derived report stands');
   assert.deepEqual(table(f.stdout, 'By ticket')[0], ['ticket', 'sessions', 'cost', 'active min', 'PRs', 'state']);
 
+  // R16: the real Jira adapter with no tracker url says why, through its fixed failure line
+  settings([process.execPath, join(PACKAGE, 'tokenomics', 'adapters', 'jira.mjs')]);
+  const nourl = report([...WINDOW, '--receipts']);
+  assert.match(nourl.stdout, /^tracker: unavailable \(command failed: exit 2 — jira: config \(url\)\)$/m);
+
   // a spawn error prints its code only, never the command path (here under a sentinel directory)
   settings([join(sandbox, 'PRIVATE_PERSON', 'no-such-bin')]);
   const enoent = report([...WINDOW, '--receipts']);
@@ -316,4 +321,21 @@ test('(R5) the window filters lines only: in-window spend goes to the merge that
   assert.match(md, /^- in progress \(unmerged\): \$50\.00 \(1 session\)$/m);
   assert.match(md, /merge that shipped it even when that merge lies outside the window/);
   assertNoSentinels([md]);
+});
+
+test('(R14) a historical unprefixed ledger id joins the ruled ticket; the ledger file is never rewritten', () => {
+  settings(null);
+  const extra = join(repo, '.agents', 'telemetry', 'automation', 'usage-legacy.jsonl');
+  const text = `${JSON.stringify(line({ id: 's10', endedAt: '2026-10-02T09:30:00Z', cases: ['PAY-1', 'jira:PAY-1'], costUsd: 4 }))}\n`;
+  writeFileSync(extra, text);
+  try {
+    const r = report([...WINDOW, '--json']);
+    assert.equal(r.status, 0, r.stderr);
+    const j = JSON.parse(r.stdout);
+    assert.equal('PAY-1' in j.tickets, false);
+    assert.equal(j.tickets['jira:PAY-1'].sessions, 3);
+    assert.equal(j.tickets['jira:PAY-1'].costUsd, 7.5);
+    assert.equal(j.trace.conserved, true);
+    assert.equal(readFileSync(extra, 'utf8'), text);
+  } finally { rmSync(extra, { force: true }); }
 });

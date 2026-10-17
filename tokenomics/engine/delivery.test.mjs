@@ -4,10 +4,10 @@ import { mkdtempSync, mkdirSync, writeFileSync, rmSync, existsSync } from 'node:
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { defaultBranch, mergedWork, joinDelivery, isPriced } from './delivery.mjs';
+import { defaultBranch, mergedWork, joinDelivery, isPriced, normalizeIds } from './delivery.mjs';
 import { presetRules } from './trackers.mjs';
 import { TA_DEFAULTS } from './config.mjs';
-import { sandboxEnv, fakeCli, readArgv } from '../fixtures/trackers/harness.mjs';
+import { sandboxEnv, fakeCli, fakeBin, readArgv } from '../fixtures/trackers/harness.mjs';
 
 const settings = { ...TA_DEFAULTS, ids: { ...TA_DEFAULTS.ids, rules: presetRules('jira', { keys: ['PAY', 'WEB'] }) } };
 
@@ -285,4 +285,112 @@ test('(f) privacy: PR rows carry no branch', () => {
   for (const row of Object.values(j.prs)) assert.ok(!('branch' in row));
   assert.doesNotMatch(JSON.stringify(j.prs), /PRIVATE_BRANCH/);
   assert.doesNotMatch(JSON.stringify(j), /PRIVATE_BRANCH/);
+});
+
+test('R14: unprefixed ledger ids are read through ids.rules; historical PAY-1 and mined jira:PAY-1 are one ticket', () => {
+  const items = [item({ pr: 4, ids: ['jira:PAY-1'], at: '2026-03-02T00:00:00Z' })];
+  const lines = [
+    line({ costUsd: 6, cases: ['PAY-1'] }), // written before the rules existed
+    line({ costUsd: 4, cases: ['jira:PAY-1'] }),
+    line({ costUsd: 2, cases: ['NOPE-3'] }), // no rule matches: kept as it is
+  ];
+  const j = joinDelivery(lines, items, { base: 'main', settings });
+  assert.deepEqual(Object.keys(j.tickets).sort(), ['NOPE-3', 'jira:PAY-1']);
+  close(j.tickets['jira:PAY-1'].costUsd, 10);
+  assert.equal(j.tickets['jira:PAY-1'].sessions, 2);
+  close(j.prs['4'].costUsd, 10);
+  assert.equal(j.trace.conserved, true);
+  // no rules: ids are returned unchanged, so the historical id stays its own ticket
+  const raw = joinDelivery(lines, items, { base: 'main', settings: TA_DEFAULTS });
+  assert.deepEqual(Object.keys(raw.tickets).sort(), ['NOPE-3', 'PAY-1', 'jira:PAY-1']);
+  assert.deepEqual(Object.keys(joinDelivery(lines, items, { base: 'main' }).tickets).sort(), ['NOPE-3', 'PAY-1', 'jira:PAY-1']);
+});
+
+test('R14: a declared PAY-1 beside a mined jira:PAY-1 on one line is one ticket with the full cost', () => {
+  const j = joinDelivery([line({ costUsd: 9, cases: ['PAY-1', 'jira:PAY-1'] })], [], { base: 'main', settings });
+  assert.deepEqual(Object.keys(j.tickets), ['jira:PAY-1']);
+  close(j.tickets['jira:PAY-1'].costUsd, 9);
+  assert.equal(j.tickets['jira:PAY-1'].shared, 0);
+  assert.equal(j.trace.conserved, true);
+});
+
+test('normalizeIds: rule ids pass through, one rule match wins, none or several keep the id, deduped in order', () => {
+  const both = { ...TA_DEFAULTS, ids: { ...TA_DEFAULTS.ids, rules: [...presetRules('jira', { keys: ['PAY'] }), ...presetRules('github')] } };
+  assert.deepEqual(normalizeIds(both, ['PAY-1', 'gh:3', 'jira:PAY-1', 'TC-9', 'PAY-1 #4']), ['jira:PAY-1', 'gh:3', 'TC-9', 'PAY-1 #4']);
+  const ids = ['PAY-1', 'TC-9'];
+  assert.equal(normalizeIds(TA_DEFAULTS, ids), ids);
+});
+
+test('R15: a fork PR whose head branch is the base never takes the base branch lines by branch', () => {
+  const items = [
+    item({ pr: 50, branch: 'main', at: '2026-03-02T00:00:00Z', ids: ['jira:PAY-8'] }), // Merge pull request #50 from someone/main
+    item({ pr: 51, branch: 'feat/x', at: '2026-03-02T00:00:00Z', commit: 'e'.repeat(40) }),
+  ];
+  const lines = [
+    line({ costUsd: 2, cases: [], branch: 'main' }),
+    line({ costUsd: 3, cases: ['jira:PAY-8'], branch: 'main' }),
+    line({ costUsd: 5, cases: [], branch: 'feat/x' }),
+  ];
+  const j = joinDelivery(lines, items, { base: 'main' });
+  close(j.unattributed.prs.costUsd, 2); // ticketless on the base: unattributed, not #50
+  close(j.prs['50'].costUsd, 3); // still joins by id
+  close(j.prs['51'].costUsd, 5);
+  assert.equal(j.trace.conserved, true);
+});
+
+const REAL_GIT = spawnSync('sh', ['-c', 'command -v git'], { encoding: 'utf8' }).stdout.trim();
+// A git wrapper on the sandbox PATH: logs each argv, then runs the real git; `failFull` fails the full-history log.
+function wrapGit(r, { failFull = false } = {}) {
+  const log = join(r.tmp, 'git-argv.jsonl');
+  fakeBin(r.bin, 'git', `const { spawnSync } = require('child_process');
+const argv = process.argv.slice(2);
+require('fs').appendFileSync(${JSON.stringify(log)}, JSON.stringify(argv) + '\\n');
+if (${failFull} && argv[0] === 'log' && argv[1] === '--first-parent') process.exit(128);
+const x = spawnSync(${JSON.stringify(REAL_GIT)}, argv, { stdio: 'inherit' });
+process.exit(x.status ?? 1);`);
+  return () => readArgv(log);
+}
+
+test('R15: merge markers are stripped before mining; PR numbers are not tickets, #N in the text still is', () => {
+  const gh = { ...TA_DEFAULTS, ids: { ...TA_DEFAULTS.ids, rules: [...presetRules('github'), ...presetRules('ado')] } };
+  const r = makeRepo();
+  r.g('checkout', '-q', '-b', 'fork-work');
+  r.commit('w');
+  r.g('checkout', '-q', 'main');
+  r.commit('m');
+  r.g('merge', '-q', '--no-ff', 'fork-work', '-m', 'Merge pull request #12 from o/fork-work\n\nfixes #3');
+  r.commit('fix thing (#9)');
+  r.commit('fix #4 more (#10)');
+  r.commit('Merged PR 31: AB#5 done');
+  const w = mergedWork(r.repo, { settings: gh, prs: 'none', env: r.env });
+  assert.deepEqual(byPr(w.items, 12)[0].ids, ['gh:3']);
+  assert.deepEqual(byPr(w.items, 9)[0].ids, []);
+  assert.deepEqual(byPr(w.items, 10)[0].ids, ['gh:4']);
+  assert.deepEqual(byPr(w.items, 31)[0].ids, ['ado:5']);
+});
+
+test('enrichment reuses the parsed subject and body: no per-item git log', () => {
+  const r = makeRepo({ origin: 'https://github.com/o/r.git' });
+  const a = r.commit('add login (#9)');
+  const b = r.commit('add logout (#10)\n\nPAY-2 too');
+  fakeCli(r.bin, 'gh', { stdout: JSON.stringify([
+    { number: 9, headRefName: 'feat/PAY-3-x', mergedAt: '2026-01-01T00:00:00Z', mergeCommit: { oid: a } },
+    { number: 10, headRefName: 'feat/y', mergedAt: '2026-01-02T00:00:00Z', mergeCommit: { oid: b } },
+  ]) });
+  const calls = wrapGit(r);
+  const e = mergedWork(r.repo, { settings, prs: 'gh', env: r.env });
+  assert.deepEqual(byPr(e.items, 9)[0].ids, ['jira:PAY-3']);
+  assert.deepEqual(byPr(e.items, 10)[0].ids, ['jira:PAY-2']);
+  assert.deepEqual(calls().filter((x) => x[0] === 'log' && x[1] === '-1'), []);
+  // the kept text is internal: never an enumerable key of an item
+  assert.deepEqual(Object.keys(byPr(e.items, 9)[0]).sort(), ['at', 'branch', 'commit', 'ids', 'pr', 'source']);
+});
+
+test('a failed full-history git log is git-only and partial, never zero merges with complete coverage', () => {
+  const r = makeRepo({ origin: 'https://github.com/o/r.git' });
+  r.commit('add login (#9)');
+  wrapGit(r, { failFull: true });
+  const w = mergedWork(r.repo, { settings, prs: 'none', env: r.env });
+  assert.deepEqual([w.items, w.prs, w.coverage, w.reason], [[], 'git-only', 'partial (git log failed: exit 128)', 'git log failed: exit 128']);
+  assert.match(w.reason, /git log failed/);
 });

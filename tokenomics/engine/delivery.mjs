@@ -4,6 +4,7 @@
 // never appear in a PR row (D-PRIVACY). STDLIB ONLY.
 import { spawnSync } from 'node:child_process';
 import { mineIds } from '../hooks/telemetry-capture.mjs';
+import { idRules } from './config.mjs';
 import { parseRemote } from './trackers.mjs';
 
 const MAX_OUT = 1 << 28;
@@ -11,10 +12,12 @@ const GH_LIMIT = 2000;
 const AZ_TOP = 500;
 const AZ_PAGES = 10;
 
-// A failure-tolerant git call: `{ok, out}`; stderr is never read or forwarded.
+// A failure-tolerant git call: `{ok, out, code}`; `code` names a failure (`ETIMEDOUT`, `ENOBUFS`, `exit 128`). stderr is
+// never read or forwarded.
 function git(repo, args, env) {
   const r = spawnSync('git', args, { cwd: repo, env, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], timeout: 60000, maxBuffer: MAX_OUT });
-  return { ok: r.status === 0 && typeof r.stdout === 'string', out: typeof r.stdout === 'string' ? r.stdout : '' };
+  const ok = !r.error && r.status === 0 && typeof r.stdout === 'string';
+  return { ok, out: typeof r.stdout === 'string' ? r.stdout : '', code: ok ? null : r.error?.code ?? `exit ${r.status ?? r.signal}` };
 }
 
 // The base, with the full ref used internally (`refs/remotes/origin/main`) beside the short one the report prints.
@@ -46,7 +49,13 @@ const MERGE_BRANCH = /^Merge branch '([^']+)'/;
 const ADO = /^Merged PR (\d+):/;
 const SQUASH = /\(#(\d+)\)\s*$/;
 
-const idsOf = (settings, branch, subject, body) => mineIds(settings, [branch, subject, body].filter(Boolean), { branch });
+// R15: the merge markers' PR numbers are not tickets (`Merge pull request #12 from o/b`, `… (#12)`, `Merged PR 12:`),
+// so they are cut from the subject before it is mined; the rest of the subject, and the body, still are.
+const MARKERS = [/^Merge pull request #\d+ from \S+/, /\s*\(#\d+\)\s*$/, /^Merged PR \d+:/];
+const unmarked = (subject) => MARKERS.reduce((s, re) => s.replace(re, ''), subject ?? '').trim();
+const idsOf = (settings, branch, subject, body) => mineIds(settings, [branch, unmarked(subject), body].filter(Boolean), { branch });
+// An item's parsed subject and body, kept beside it for re-mining after enrichment and never part of the item itself.
+const textOf = new WeakMap();
 
 // One merge item from a first-parent commit, or null when the subject is not a merge marker its parentage allows.
 function toItem(commit, at, parents, subject, body, settings, baseName) {
@@ -61,7 +70,9 @@ function toItem(commit, at, parents, subject, body, settings, baseName) {
   } else if ((m = ADO.exec(subject))) pr = +m[1];
   else if (parents.length === 1 && (m = SQUASH.exec(subject))) pr = +m[1];
   else return null;
-  return { commit, at, pr, branch, ids: idsOf(settings, branch, subject, body), source: 'git' };
+  const item = { commit, at, pr, branch, ids: idsOf(settings, branch, subject, body), source: 'git' };
+  textOf.set(item, { subject, body });
+  return item;
 }
 
 // Run a listing CLI: `{rows}` or `{reason}`. The child's stderr is never read; the reason names only the failure class.
@@ -117,7 +128,10 @@ function azPrs(repo, remote, baseName, env) {
  *    merge marker, `'cli'` for a CLI PR whose merge commit is reachable from the base but which no git item names (a
  *    rebase merge). Enrichment fills a git item's missing `branch` from its PR, and its ids are then mined again.
  *  - `prs`: `'gh'`, `'az'`, or `'git-only'` with `reason` saying why (CLI off, absent, failing, or no matching remote).
- *  - `coverage`: `'complete'` or `'partial (<why>)'` (a CLI cap, shallow history).
+ *  - `coverage`: `'complete'` or `'partial (<why>)'` (a CLI cap, shallow history, `git log failed: <code>`). A failed
+ *    history read gives no items, `prs: 'git-only'` and that partial coverage, never zero merges read as complete.
+ *  - Ids are mined from the branch, the subject with its merge marker cut (R15: a PR number is not a ticket) and the
+ *    body.
  * `branch` is internal (joining only) and must never be printed.
  */
 export function mergedWork(repo, { settings, prs = 'auto', env = process.env } = {}) {
@@ -130,7 +144,10 @@ export function mergedWork(repo, { settings, prs = 'auto', env = process.env } =
   if (!b.full) return result([], 'git-only', 'no base branch (origin/HEAD, main or master)');
 
   const items = [];
-  const log = git(repo, ['log', '--first-parent', b.full, '--format=%H%x1f%cI%x1f%P%x1f%s%x1f%b%x1e'], env).out;
+  const full = git(repo, ['log', '--first-parent', b.full, '--format=%H%x1f%cI%x1f%P%x1f%s%x1f%b%x1e'], env);
+  // a failed history read (timeout, output cap) is not "no merges": say so, and skip the CLI it would be joined with
+  if (!full.ok) { partial.push(`git log failed: ${full.code}`); return result([], 'git-only', `git log failed: ${full.code}`); }
+  const log = full.out;
   for (const rec of log.split('\x1e')) {
     const f = rec.replace(/^\n/, '').split('\x1f');
     if (f.length < 5 || !f[0]) continue;
@@ -155,7 +172,7 @@ export function mergedWork(repo, { settings, prs = 'auto', env = process.env } =
     named.add(it.pr);
     const row = byNumber.get(it.pr);
     if (row?.branch && !it.branch) {
-      const { subject, body } = message(repo, it.commit, env);
+      const { subject, body } = textOf.get(it) ?? message(repo, it.commit, env);
       it.branch = row.branch;
       it.ids = idsOf(settings, it.branch, subject, body);
     }
@@ -197,7 +214,25 @@ function addTo(b, l, share) {
   b.tokens += lineTokens(l) * share;
 }
 
-const ticketsOf = (l) => [...new Set((Array.isArray(l.cases) ? l.cases : Array.isArray(l.scope?.cases) ? l.scope.cases : []).filter((c) => typeof c === 'string' && c))];
+/**
+ * Ledger ids read through `ids.rules` (R14), at read time only (the ledger is never rewritten): an id that carries a
+ * rule prefix (`jira:PAY-1`) is kept; any other is mined alone through the rules, and when that yields exactly one
+ * prefixed id (`PAY-1` → `jira:PAY-1`) that id replaces it; else it is kept as it is. Deduplicated in first-seen order.
+ * With no rules the input array is returned unchanged (the same array).
+ */
+export function normalizeIds(settings, ids) {
+  const { rules, prefixes } = settings?.ids ? idRules(settings) : { rules: [] };
+  if (!rules.length) return ids;
+  const known = new RegExp(`^(?:${[...prefixes].join('|')}):`);
+  return [...new Set(ids.map((id) => {
+    if (typeof id !== 'string' || known.test(id)) return id;
+    const hit = mineIds(settings, [id]).filter((x) => known.test(x));
+    return hit.length === 1 ? hit[0] : id;
+  }))];
+}
+
+const casesOf = (l) => (Array.isArray(l.cases) ? l.cases : Array.isArray(l.scope?.cases) ? l.scope.cases : []);
+const ticketsOf = (l, settings) => [...new Set(normalizeIds(settings, casesOf(l).filter((c) => typeof c === 'string' && c)))];
 // A PR-view row key: the PR number, or `merge:<12 hex>` for a merge commit without one (a `Merge branch` merge).
 const rowKey = (it) => (it.pr !== null && it.pr !== undefined ? String(it.pr) : `merge:${String(it.commit).slice(0, 12)}`);
 
@@ -217,12 +252,14 @@ const rowKey = (it) => (it.pr !== null && it.pr !== undefined ? String(it.pr) : 
  *    than `base`; only a ticketless line on `base` (or on no branch) goes to `unattributed.prs`. With no `base` given,
  *    only a ticketless, branchless line is unattributed.
  *  - `opts.base`: the base branch name (`defaultBranch(repo).name`), e.g. `'main'`.
+ *  - `opts.settings`: when given, a line's ids are read through its `ids.rules` (normalizeIds, R14) and deduplicated,
+ *    so a historical `PAY-1` and a mined `jira:PAY-1` are one ticket; without rules the ids are used as they are.
  *  - `unattributed: {tickets, prs}` and `unmerged` are buckets of the row counters.
  *  - `totals: {sessions, costUsd, priced, tokensOnly, activeMin, mergedPrs, ticketsWithSpend}`, from the lines once.
  *  - `trace: {tickets, prs, totals, conserved}`: the two view sums beside `totals.costUsd`, conserved to 1e-9.
  * A line with an unreadable `endedAt` goes to the first merge on its branch.
  */
-export function joinDelivery(lines, items, { base = null } = {}) {
+export function joinDelivery(lines, items, { base = null, settings = null } = {}) {
   const prs = {};
   const byBranch = new Map();
   const naming = new Map(); // ticket id → row keys of the items naming it
@@ -233,7 +270,9 @@ export function joinDelivery(lines, items, { base = null } = {}) {
     const row = prs[key] ??= { pr: it.pr ?? null, mergedAt: it.at ?? null, ids: [], ...bucket() };
     if (it.at && (!row.mergedAt || instant(it.at) < instant(row.mergedAt))) row.mergedAt = it.at;
     row.ids = [...new Set([...row.ids, ...(it.ids ?? [])])].sort();
-    if (it.branch) {
+    // R15: a head branch named like the base (a fork's `someone/main`) never joins by branch, else every line on the
+    // base would belong to that one PR
+    if (it.branch && it.branch !== base) {
       if (!byBranch.has(it.branch)) byBranch.set(it.branch, []);
       byBranch.get(it.branch).push({ key, at: instant(it.at) });
     }
@@ -256,7 +295,7 @@ export function joinDelivery(lines, items, { base = null } = {}) {
     if (isPriced(l)) { totals.costUsd += l.costUsd; totals.priced++; } else totals.tokensOnly++;
     totals.activeMin += num(l.activeMin);
 
-    const ts = ticketsOf(l);
+    const ts = ticketsOf(l, settings);
     if (!ts.length) addTo(unattributed.tickets, l, 1);
     for (const id of ts) {
       const named = [...(naming.get(id)?.values() ?? [])];
