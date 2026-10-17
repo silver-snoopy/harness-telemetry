@@ -115,7 +115,11 @@ checked with the engine). Each takes `--ids <a,b>` (default: every ledger id wit
 `settings.tracker` (`{kind, url?, project?, ...}`) and prints the envelope. Credentials come from the environment or the
 CLI login only: `gh auth login`; `AZURE_DEVOPS_EXT_PAT` or `az login`; `JIRA_EMAIL` + `JIRA_API_TOKEN` (Cloud) or
 `JIRA_PAT` (Server/DC). Azure DevOps credentials go only to `dev.azure.com` / `*.visualstudio.com`, Jira Cloud's only to
-`*.atlassian.net`. A failure is one stderr line `<adapter>: <class> (<code>)` with exit 1 and no body or token.
+`*.atlassian.net`. A missing, deleted or invisible id never fails a request (ADO `errorPolicy: 'Omit'`, Jira Cloud
+`/rest/api/3/issue/bulkfetch`, Jira Server/DC `validateQuery: 'warn'`); it is missing and the envelope says
+`complete:false`. A failure is one stderr line `<adapter>: <class> (<code>)` with exit 1 (2 for bad config) and no body
+or token; `delivery-report` shows that line in its tracker status. Unprefixed ledger ids are read through `ids.rules`
+(a historical `PAY-1` is `jira:PAY-1`), never rewritten.
 `setup --tracker` writes `tracker` and `receipts.command` into fresh settings; a project that customises an adapter
 copies it to `.agents/tokenomics/glue/`.
 

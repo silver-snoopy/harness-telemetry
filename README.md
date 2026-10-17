@@ -84,7 +84,7 @@ teammate runs the same command once on their own machine, which wires their Copi
 | `--repo <dir>` | Run on another directory instead of the current one. |
 | `--tracker jira\|github\|ado` | The work-item tracker whose ids to mine and whose adapter reads receipts. Default: inferred from the remote and the history. |
 | `--tracker-keys PAY,WEB` | The Jira project keys (default: the keys the history shows). Required with `--tracker jira` when the history shows none. |
-| `--tracker-url <https url>` | The tracker's address for the adapter, for example `https://acme.atlassian.net`. Needs `--tracker`; must be https. |
+| `--tracker-url <https url>` | The tracker's address for the adapter, for example `https://acme.atlassian.net`. Applies to `--tracker`, else to the detected tracker (an error when none is detected); must be https. A Jira address outside `*.atlassian.net` is Jira Server / Data Center (`"server": true`). |
 | `--tracker-project <p>` | The tracker project for the adapter. Needs `--tracker`. |
 | `--no-tracker` | Write no work-item id rules and no receipt command. |
 
@@ -189,7 +189,10 @@ chose), it also writes `tracker` (`{kind, url?, project?}`) and `receipts.comman
 the installed copy, for example `["node", ".claude/skills/tokenomics/adapters/jira.mjs"]` (`jira.mjs`, `github.mjs`
 or `azure-devops.mjs`; `.github/skills/...` for a Copilot-only project). Setup never edits an existing settings file:
 it prints the JSON to add and the `node <copy>/scripts/install-hooks.mjs --update-manifest` command, and labels what
-it found "detected (not applied)". These keys do not change the module manifest.
+it found "detected (not applied)". These keys do not change the module manifest. When the adapter still needs
+something, setup says so: `receipts from jira still need: the tracker url (--tracker-url https://…) …; JIRA_EMAIL,
+JIRA_API_TOKEN in the environment`. Jira always needs a url; Azure DevOps needs one unless `origin` is an Azure DevOps
+remote; GitHub needs none.
 
 ```sh
 npx github:silver-snoopy/harness-telemetry setup --tracker jira --tracker-url https://acme.atlassian.net --tracker-keys PAY,WEB
@@ -203,10 +206,14 @@ pass them in a command line.
 | GitHub | `gh auth login` (the adapter calls `gh api graphql`) | GitHub, through `gh` |
 | Azure DevOps | `AZURE_DEVOPS_EXT_PAT`, or else `az login` | `dev.azure.com` and `*.visualstudio.com` only |
 | Jira Cloud | `JIRA_EMAIL` and `JIRA_API_TOKEN` | `*.atlassian.net` only |
-| Jira Server / Data Center | `JIRA_PAT` (set `"server": true` in `tracker`) | any https host |
+| Jira Server / Data Center | `JIRA_PAT` (`"server": true` in `tracker`; setup sets it for a url outside `*.atlassian.net`) | any https host |
 
 The host restriction means a `tracker.url` that a repository controls cannot send your token elsewhere. On-premises
-Azure DevOps Server is therefore not supported yet. The adapters are read-only.
+Azure DevOps Server is therefore not supported yet. The adapters are read-only. One deleted, moved or invisible id never
+fails a whole request: Azure DevOps batches ask with `errorPolicy: 'Omit'`, Jira Cloud uses the bulk fetch endpoint
+(`/rest/api/3/issue/bulkfetch`, 100 keys per call) and Jira Server / Data Center searches with `validateQuery: 'warn'`.
+Such an id is reported missing and the receipts are marked incomplete. When an adapter fails, `delivery-report` shows
+its one failure line, for example `tracker: unavailable (command failed: exit 2 — jira: config (url))`.
 
 **`delivery-report`.** Cost per ticket and per merged PR, from the ledger and the local git history:
 
@@ -218,9 +225,14 @@ node .claude/skills/tokenomics/scripts/delivery-report.mjs [repo] [--since D] [-
   report prints `base: <ref> (local, not fetched)` and `shallow history` when it applies). `--prs` adds merged-PR data
   from `gh` or `az` (`auto` picks by the remote); `none` is git only.
 - `--receipts` runs the configured receipt command and adds the tracker's status per ticket, the cost per delivered
-  ticket, and tables by type and sprint. Without `--receipts` the tracker is never contacted.
-- Ids recorded before the rules existed, or by another pattern, do not join with prefixed ids: a raw `PAY-1` in an old
-  ledger line is not the same id as `jira:PAY-1`. The rules only affect lines captured after they are in place.
+  ticket, and tables by type and sprint. Without `--receipts` the receipt adapter never runs; `--prs auto` (the
+  default) and `--prs gh|az` still ask `gh` or `az` for merged PRs, and `--prs none` keeps the report to local git.
+- Ids recorded before the rules existed are read through them: an old ledger line's raw `PAY-1` counts as `jira:PAY-1`
+  when the rules turn it into exactly that one id, and a line naming both is one ticket. The ledger itself is never
+  rewritten, and without rules ids are used as written.
+- A merge marker's PR number is not a ticket: `Merge pull request #12 from …`, a trailing `(#12)` and `Merged PR 12:`
+  are cut from the subject before ids are mined from it. A PR whose head branch has the base's name (a fork's `main`)
+  never takes the base branch's sessions by branch.
 
 **How cost is shared.** A session that touches several tickets splits its cost, active minutes and tokens evenly among
 them (one third each for three tickets); sessions touching one ticket count in full. Only priced lines (a numeric

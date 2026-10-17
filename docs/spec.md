@@ -844,8 +844,13 @@ exactly (B1).
 > source}` validated when settings load (never in a hook); absent or `[]` leaves the TA/B1 miner unchanged. The
 > top-level `ids.normalize` and `ids.mineFrom` shown above are superseded by the per-rule `normalize` and `source`
 > (`any`, `branch`). `setup` writes the rules (`--tracker`, `--tracker-keys`) and, with them, `tracker`
-> (`{kind: jira|github|ado, url?, project?}`) and `receipts.command` into fresh settings only; neither changes the
-> module manifest.
+> (`{kind: jira|github|ado, url?, project?, server?}`) and `receipts.command` into fresh settings only; neither changes
+> the module manifest. A Jira url outside `*.atlassian.net` writes `server: true`; when the url or a credential is
+> still missing, setup prints what is needed. Rules never rewrite the ledger: readers (the delivery join, the
+> adapters' ledger ids) read an unprefixed id through the rules, and when it alone yields exactly one prefixed id
+> (`PAY-1` → `jira:PAY-1`) use that, deduplicated; with no rules ids are read as written. When another tracker is
+> detected, the GitHub `#N` rules are added only if `#N` appears in at least 3 documents; the presets' `#N` rule takes
+> no `#0` or leading zero, and branch rules need two letters after the dash (`feat/57-login`, not `release/2026-q3`).
 
 ### 14.5 Glue — project-owned code
 
@@ -855,7 +860,11 @@ only by the porting skill or the project:
 > **As implemented (Plan 7).** Adapters for GitHub Issues, Azure DevOps Boards and Jira ship in the engine
 > (`adapters/github.mjs`, `azure-devops.mjs`, `jira.mjs`) and are named by `receipts.command` in the installed copy; a
 > project that needs different behaviour copies one into `glue/`. The `ado` and `jira` templates below are therefore
-> no longer "later".
+> no longer "later". Azure DevOps batches send `errorPolicy: 'Omit'` (a deleted or foreign id is a null entry, so
+> missing, not a failed batch); Jira Cloud reads `POST /rest/api/3/issue/bulkfetch` (100 keys per call; a key not
+> returned, or listed in `issueErrors`, is missing) and Server/DC `/rest/api/2/search` with `validateQuery: 'warn'`.
+> Either way a missing id makes `complete:false`. A failed command's `safeReason` carries the adapter's last stderr line
+> only when it has the fixed `<adapter>: <class> (<code>)` shape.
 
 1. **Receipt adapter** — implements §5.6. Templates: `frontmatter-specs`,
    `report-json`, `github-issues`; `ado`, `jira` later. The adapter **persists
