@@ -15,11 +15,12 @@ import { pathToFileURL } from 'node:url';
 import { loadSettings } from '../engine/config.mjs';
 import { parseRemote } from '../engine/trackers.mjs';
 import { isMain, exitAfterDrain } from '../engine/entry.mjs';
-import { AdapterFailure, parseArgs, selectIds, idsFromLedger, envelope, projectCase, reportFailure, batches } from './common.mjs';
+import { CREDENTIAL_ENV, AdapterFailure, parseArgs, selectIds, idsFromLedger, envelope, projectCase, reportFailure, batches } from './common.mjs';
 
 const ADAPTER = 'github';
 const PREFIX = 'gh:';
-const ID = /^\d{1,9}$/;
+// no leading zeros: `gh:007` and `gh:7` must not be two aliases for one number
+const ID = /^[1-9]\d{0,8}$/;
 const NAME = /^[A-Za-z0-9._-]{1,100}$/;
 const TYPES = ['bug', 'feature', 'enhancement'];
 const PER_CALL = 100;
@@ -41,26 +42,31 @@ function repoOf(repo, settings) {
 const queryOf = ({ owner, name }, nums) =>
   `query{repository(owner:"${owner}",name:"${name}"){${nums.map((n) => `i${n}:issueOrPullRequest(number:${n}){__typename ... on Issue{state stateReason closedAt labels(first:20){nodes{name}}}}`).join(' ')}}}`;
 
-// One gh call. Returns {data: repository object, notFound: Set of alias keys GitHub reported NOT_FOUND}.
+// One gh call. Returns the repository object. Real gh exits 1 whenever the response has `errors` (partial data
+// included) and still prints the JSON body, so a nonzero exit is judged by that body: a number GitHub cannot resolve
+// answers null with a NOT_FOUND error on its own alias, which is `missing`. Any other error, or no GraphQL JSON, fails.
 function ask(repoRef, nums) {
-  const r = spawnSync('gh', ['api', 'graphql', '-f', `query=${queryOf(repoRef, nums)}`], { env: process.env, encoding: 'utf8', timeout: 30000, maxBuffer: 1 << 26 });
-  if (r.error) throw new AdapterFailure(r.error.code === 'ENOENT' ? 'cli' : r.error.code === 'ETIMEDOUT' ? 'timeout' : 'cli', r.error.code === 'ENOENT' ? 'missing' : r.error.code === 'ETIMEDOUT' ? 'timeout' : 'spawn');
+  // least privilege: the Jira/ADO credentials never reach gh
+  const env = Object.fromEntries(Object.entries(process.env).filter(([k]) => !CREDENTIAL_ENV.includes(k)));
+  const r = spawnSync('gh', ['api', 'graphql', '-f', `query=${queryOf(repoRef, nums)}`], { env, encoding: 'utf8', timeout: 30000, maxBuffer: 1 << 26 });
+  if (r.error) {
+    const code = r.error.code;
+    throw new AdapterFailure(code === 'ETIMEDOUT' ? 'timeout' : 'cli', code === 'ENOENT' ? 'missing' : code === 'ETIMEDOUT' ? 'timeout' : 'spawn');
+  }
   if (r.status === 4) throw new AdapterFailure('auth', 4);
-  if (r.status !== 0) throw new AdapterFailure('cli', Number.isInteger(r.status) ? r.status : 'signal');
   let doc;
-  try { doc = JSON.parse(r.stdout); } catch { throw new AdapterFailure('parse', 'json'); }
-  const repository = doc?.data?.repository;
-  const errors = doc?.errors;
-  const notFound = new Set();
+  try { doc = JSON.parse(r.stdout); } catch { doc = undefined; }
+  const isGraphql = doc !== null && typeof doc === 'object' && !Array.isArray(doc) && ('data' in doc || 'errors' in doc);
+  if (r.status !== 0 && !isGraphql) throw new AdapterFailure('cli', Number.isInteger(r.status) ? r.status : 'signal');
+  if (!isGraphql) throw new AdapterFailure('parse', 'json');
+  const repository = doc.data?.repository;
+  const errors = doc.errors;
   if (errors !== undefined) {
-    // A number GitHub cannot resolve answers null with a NOT_FOUND error on its alias: that is `missing`. Any other
-    // error (or one that is not about a null alias of this repository) fails the run.
     const clean = Array.isArray(errors) && errors.length > 0 && repository && typeof repository === 'object'
       && errors.every((e) => e && e.type === 'NOT_FOUND' && Array.isArray(e.path) && e.path[0] === 'repository'
         && typeof e.path[1] === 'string' && repository[e.path[1]] === null);
     if (!clean) throw new AdapterFailure('graphql', 'errors');
-    for (const e of errors) notFound.add(e.path[1]);
-  }
+  } else if (r.status !== 0) throw new AdapterFailure('cli', Number.isInteger(r.status) ? r.status : 'signal');
   if (!repository || typeof repository !== 'object') throw new AdapterFailure('graphql', 'shape');
   return repository;
 }

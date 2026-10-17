@@ -80,6 +80,34 @@ test('NOT_FOUND errors on null aliases are missing, not a failure; any other err
   assert.equal(JSON.parse(r.stdout).complete, false);
 });
 
+test('partial-error branches: garbage on exit 1, NOT_FOUND on a non-null alias, a mixed error set all fail cleanly', () => {
+  for (const mode of ['garbage', 'extra', 'mixed']) {
+    const r = run(setup({ gh: { mode } }), ['--ids', 'gh:2,gh:6']);
+    assert.equal(r.status, 1, `${mode}: ${r.stderr}`);
+    assert.equal(r.stdout, '');
+    assert.match(r.stderr.trimEnd(), mode === 'garbage' ? /^github: cli \(1\)$/ : /^github: graphql \(errors\)$/);
+    assertNoSentinels([r.stderr]);
+  }
+});
+
+test('leading zeros are invalid ids: gh:007 never aliases gh:7', () => {
+  const s = setup({ ids: ['gh:007', 'gh:2', 'gh:0'] });
+  const r = run(s);
+  assert.deepEqual(cases(r).map((c) => c.id), ['gh:2']);
+  assert.match(r.stderr, /skipped 2 invalid ids/);
+  assert.deepEqual(s.calls()[0].aliases, [2]);
+});
+
+test('Jira/ADO credentials are not passed to gh', () => {
+  const s = setup({ gh: { dumpEnv: true } });
+  s.env.JIRA_API_TOKEN = 'SENTINEL-TOKEN-7f3a'; s.env.AZURE_DEVOPS_EXT_PAT = 'SENTINEL-PAT-7f3a';
+  const r = run(s, ['--ids', 'gh:2']);
+  assert.equal(r.status, 0, r.stderr);
+  const seen = s.calls()[0].envKeys;
+  assert.ok(Array.isArray(seen) && seen.includes('PATH'));
+  assert.ok(!seen.includes('JIRA_API_TOKEN') && !seen.includes('AZURE_DEVOPS_EXT_PAT'));
+});
+
 test('ids default to every gh: id in the ledger; an invalid id is skipped and counted on stderr', () => {
   const s = setup({ ids: ['gh:2', 'gh:1', 'jira:PAY-1', 'gh:abc', 'gh:2', 'gh:1234567890'] });
   const r = run(s);

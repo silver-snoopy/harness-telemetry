@@ -3,17 +3,17 @@
 // the way GitHub does for `repository { i<N>: issueOrPullRequest(number: N) { __typename … on Issue { … } } }`, and
 // REFUSES (exit 3) a query that is not that shape: a PR-shaped `issue(number:)` lookup must not validate.
 //   cfg.nodes  {[n]: node|null}   what each number resolves to (absent = null)
-//   cfg.mode   'ok' | 'unauth' (exit 4) | 'errors' (HTTP 200 + errors[]) | 'notfound' (NOT_FOUND errors per null alias)
+//   cfg.mode   'garbage' (exit 1, not JSON) | 'extra' (NOT_FOUND on a non-null alias) | 'mixed' (NOT_FOUND plus FORBIDDEN, data present) | 'ok' | 'unauth' (exit 4) | 'errors' (HTTP 200 + errors[]) | 'notfound' (NOT_FOUND errors per null alias)
 //   cfg.log    path: appended one JSON line per call {argv, aliases}
 // Every answer also carries PRIVATE_TITLE / PRIVATE_PERSON so a leak is caught by assertNoSentinels.
-export function fakeGhSource({ nodes = {}, mode = 'ok', log } = {}) {
+export function fakeGhSource({ nodes = {}, mode = 'ok', log, dumpEnv = false } = {}) {
   return `
 const fs = require('fs');
-const cfg = ${JSON.stringify({ nodes, mode, log })};
+const cfg = ${JSON.stringify({ nodes, mode, log, dumpEnv })};
 const argv = process.argv.slice(2);
 const q = (argv.find((a) => a.startsWith('query=')) || '').slice(6);
 const aliases = [...q.matchAll(/\\bi(\\d+):issueOrPullRequest\\(number:(\\d+)\\)/g)].map((m) => Number(m[2]));
-if (cfg.log) fs.appendFileSync(cfg.log, JSON.stringify({ argv, aliases }) + '\\n');
+if (cfg.log) fs.appendFileSync(cfg.log, JSON.stringify(Object.assign({ argv, aliases }, cfg.dumpEnv ? { envKeys: Object.keys(process.env) } : {})) + '\\n');
 if (cfg.mode === 'unauth') { process.stderr.write('gh: To get started with GitHub CLI, please run: gh auth login PRIVATE_PERSON\\n'); process.exit(4); }
 const shapeOk = argv[0] === 'api' && argv[1] === 'graphql' && q.includes('issueOrPullRequest') && q.includes('__typename')
   && /\\.\\.\\. on Issue\\s*\\{[^}]*stateReason/.test(q) && !/\\bissue\\(number/.test(q) && aliases.length > 0;
@@ -23,9 +23,16 @@ const repository = {}; const errors = [];
 aliases.forEach((n, i) => {
   const node = cfg.nodes[n] === undefined ? null : cfg.nodes[n];
   repository['i' + n] = node;
-  if (node === null && cfg.mode === 'notfound') errors.push({ type: 'NOT_FOUND', path: ['repository', 'i' + n], message: 'Could not resolve PRIVATE_TITLE' });
+  if (node === null && (cfg.mode === 'notfound' || cfg.mode === 'mixed')) errors.push({ type: 'NOT_FOUND', path: ['repository', 'i' + n], message: 'Could not resolve PRIVATE_TITLE' });
 });
+if (cfg.mode === 'garbage') { process.stdout.write('PRIVATE_TITLE not json'); process.exit(1); }
+if (cfg.mode === 'extra') {
+  const k = Object.keys(repository)[0];
+  errors.push({ type: 'NOT_FOUND', path: ['repository', k], message: 'x' }); // NOT_FOUND on an alias that is NOT null
+}
+if (cfg.mode === 'mixed') errors.push({ type: 'FORBIDDEN', path: ['repository'], message: 'PRIVATE_TITLE' });
 process.stdout.write(JSON.stringify(Object.assign({ data: { repository } }, errors.length ? { errors } : {})));
+process.exit(errors.length ? 1 : 0); // real gh exits 1 whenever the response has errors
 `;
 }
 
