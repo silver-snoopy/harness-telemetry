@@ -211,7 +211,7 @@ pass them in a command line.
 The host restriction means a `tracker.url` that a repository controls cannot send your token elsewhere. On-premises
 Azure DevOps Server is therefore not supported yet. The adapters are read-only. One deleted, moved or invisible id never
 fails a whole request: Azure DevOps batches ask with `errorPolicy: 'Omit'`, Jira Cloud uses the bulk fetch endpoint
-(`/rest/api/3/issue/bulkfetch`, 100 keys per call) and Jira Server / Data Center searches with `validateQuery: 'warn'`.
+(`/rest/api/3/issue/bulkfetch`, 100 keys per call) and Jira Server / Data Center searches with `validateQuery: false`.
 Such an id is reported missing and the receipts are marked incomplete. When an adapter fails, `delivery-report` shows
 its one failure line, for example `tracker: unavailable (command failed: exit 2 — jira: config (url))`.
 

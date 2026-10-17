@@ -150,7 +150,7 @@ test('detect ado: ado origin plus AB# commits names both; AB# on a github origin
 });
 
 test('detect jira and github: github host plus Jira keys; receipts from jira', () => {
-  const { repo, env } = repoWith({ origin: 'git@github.com:o/r.git', msgs: [...rep('PAY-1 thing (#7)', 6), 'x'] });
+  const { repo, env } = repoWith({ origin: 'git@github.com:o/r.git', msgs: [...rep('PAY-1 thing, fixes #7', 6), 'x'] });
   const d = detectTrackers(repo, { env });
   assert.deepEqual(d.trackers.map((t) => t.tracker), ['jira', 'github']);
   assert.match(d.trackers[1].why, /github\.com remote.*#N in 6 of \d+/);
@@ -160,6 +160,17 @@ test('detect jira and github: github host plus Jira keys; receipts from jira', (
   assert.deepEqual(detectTrackers(two.repo, { env: two.env }).trackers.map((t) => t.tracker), ['jira']);
   const three = repoWith({ origin: 'git@github.com:o/r.git', msgs: [...rep('PAY-1 thing', 5), 'fix #7', 'fix #8', 'fix #9', 'x'] });
   assert.deepEqual(detectTrackers(three.repo, { env: three.env }).trackers.map((t) => t.tracker), ['jira', 'github']);
+});
+
+test('R15: PR numbers in merge subjects are not #N documents; a Jira history on a GitHub remote stays jira only', () => {
+  const names = (m) => { const r = repoWith({ origin: 'git@github.com:o/r.git', msgs: [...rep('PAY-1 thing', 5), ...m, 'x'] }); return detectTrackers(r.repo, { env: r.env }).trackers.map((t) => t.tracker); };
+  assert.deepEqual(names(['feat a (#11)', 'feat b (#12)', 'feat c (#13)', 'feat d (#14)']), ['jira']);
+  assert.deepEqual(names(['Merge pull request #21 from o/b1', 'Merge pull request #22 from o/b2', 'Merge pull request #23 from o/b3']), ['jira']);
+  assert.deepEqual(names(['Merged PR 31: a', 'Merged PR 32: b', 'Merged PR 33: c']), ['jira']);
+  // the marker is cut from the subject line, also when a body follows
+  assert.deepEqual(names(['feat a (#11)\n\nbody text', 'feat b (#12)\n\nbody', 'feat c (#13)\n\nbody']), ['jira']);
+  assert.deepEqual(names(['fix #7', 'fix #8', 'fix #9']), ['jira', 'github']);
+  assert.deepEqual(names(['fix #7 (#11)', 'fix #8 (#12)', 'fix #9 (#13)']), ['jira', 'github']);
 });
 
 test('detect: no history, no remote gives nothing; a bare github remote gives github; an unrelated remote gives nothing', () => {

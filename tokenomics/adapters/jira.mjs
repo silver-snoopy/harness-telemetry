@@ -9,7 +9,8 @@
 //           fields}, one call per 100 keys. A key that does not exist or is not visible is simply not returned, and a
 //           retriable failure is listed in `issueErrors`; either is a missing key (complete:false), never a failed call.
 //   Server  `server:true`, JIRA_PAT (Bearer): POST /rest/api/2/search {jql, fields, startAt, maxResults,
-//           validateQuery:'warn'} until total; `warn` keeps one unknown key from failing the whole query.
+//           validateQuery:false} until total; the DC API types it as a boolean, and `false` keeps one unknown key from failing
+//           the whole query (the unknown key is just not returned).
 // `--max-pages` caps the number of requests either way.
 // Cloud credentials only go to https *.atlassian.net; Server/DC is self-hosted, so any https host named by the
 // settings url is allowed there. Either may go to a loopback test server named by --base-url /
@@ -134,7 +135,7 @@ export async function run({ ids, repo, baseUrl: cliBase, maxPages }) {
       let startAt = 0;
       for (;;) {
         if (pages >= maxPages) { complete = false; break; }
-        const doc = await call({ jql, fields: list, startAt, maxResults: PER_QUERY, validateQuery: 'warn' });
+        const doc = await call({ jql, fields: list, startAt, maxResults: PER_QUERY, validateQuery: false });
         if (!Number.isInteger(doc.total) || doc.total < 0) throw new AdapterFailure('parse', 'shape');
         take(doc.issues);
         startAt += doc.issues.length;

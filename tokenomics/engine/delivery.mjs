@@ -5,7 +5,7 @@
 import { spawnSync } from 'node:child_process';
 import { mineIds } from '../hooks/telemetry-capture.mjs';
 import { idRules } from './config.mjs';
-import { parseRemote } from './trackers.mjs';
+import { parseRemote, unmarked } from './trackers.mjs';
 
 const MAX_OUT = 1 << 28;
 const GH_LIMIT = 2000;
@@ -51,8 +51,6 @@ const SQUASH = /\(#(\d+)\)\s*$/;
 
 // R15: the merge markers' PR numbers are not tickets (`Merge pull request #12 from o/b`, `… (#12)`, `Merged PR 12:`),
 // so they are cut from the subject before it is mined; the rest of the subject, and the body, still are.
-const MARKERS = [/^Merge pull request #\d+ from \S+/, /\s*\(#\d+\)\s*$/, /^Merged PR \d+:/];
-const unmarked = (subject) => MARKERS.reduce((s, re) => s.replace(re, ''), subject ?? '').trim();
 const idsOf = (settings, branch, subject, body) => mineIds(settings, [branch, unmarked(subject), body].filter(Boolean), { branch });
 // An item's parsed subject and body, kept beside it for re-mining after enrichment and never part of the item itself.
 const textOf = new WeakMap();

@@ -37,7 +37,7 @@ function parseEnvelope(text, schemas) {
 const incomplete = () => finding('unverified', 'receipts-incomplete', {}, 'adapter reported complete:false');
 // The adapters' one failure line, `<adapter>: <class> (<code>)` (adapters/common.mjs reportFailure). Only a last
 // stderr line of exactly this shape is ever shown, and only in safeReason (R16).
-const ADAPTER_LINE = /^[a-z-]+: [a-z]+ \([A-Za-z0-9 _.,-]{1,60}\)$/;
+const ADAPTER_LINE = /^(?:github|azure-devops|jira): [a-z]+ \([A-Za-z0-9 _.,-]{1,40}\)$/;
 const adapterLine = (stderr) => {
   const last = typeof stderr === 'string' ? stderr.split(/\r?\n/).filter((l) => l.trim()).pop() : undefined;
   return last !== undefined && ADAPTER_LINE.test(last) ? last : null;

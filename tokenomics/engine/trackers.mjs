@@ -77,6 +77,10 @@ function gitOut(repo, args, env) {
 }
 
 const REMOTE_NAME = { github: 'github.com', ado: 'Azure DevOps' };
+// Merge-subject markers that carry a PR number, not a work item: `Merge pull request #N from …`, a trailing `(#N)`
+// (squash), `Merged PR N:`. Shared with the delivery join (R15).
+export const MARKERS = [/^Merge pull request #\d+ from \S+/, /\s*\(#\d+\)\s*$/, /^Merged PR \d+:/];
+export const unmarked = (subject) => MARKERS.reduce((s, re) => s.replace(re, ''), subject ?? '').trim();
 const nDocs = (docs, re) => docs.filter((d) => re.test(d)).length;
 
 /**
@@ -118,7 +122,7 @@ export function detectTrackers(repo, { env = process.env } = {}) {
 
   // R15: a github host alone gives github only when no other tracker is found; beside Jira or Azure DevOps it needs #N
   // in at least 3 documents (the host says where the code lives, not where the work items are)
-  const hashN = nDocs(docs, /(?<![A-Za-z0-9&])#\d+/);
+  const hashN = nDocs(docs.map((d) => { const i = d.indexOf('\n'); return i < 0 ? unmarked(d) : `${unmarked(d.slice(0, i))}${d.slice(i)}`; }), /(?<![A-Za-z0-9&])#\d+/);
   if (host === 'github' && (!trackers.length || hashN >= 3)) {
     trackers.push({ tracker: 'github', why: `${REMOTE_NAME.github} remote${hashN ? `, #N in ${hashN} of ${total} commits and branches` : ''}` });
   }

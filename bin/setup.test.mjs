@@ -126,7 +126,7 @@ const settingsOf = (w) => join(w.repo, '.agents', 'tokenomics', 'settings.json')
 const commits = (w, msgs) => { for (const m of msgs) w.g('commit', '-q', '--allow-empty', '-m', m); };
 const jiraWorld = (origin = null) => {
   const w = world();
-  commits(w, [...Array(6).fill('PAY-1 pay thing (#7)'), ...Array(5).fill('WEB-2 web thing'), 'SHA-256 bump']);
+  commits(w, [...Array(6).fill('PAY-1 pay thing, fixes #7'), ...Array(5).fill('WEB-2 web thing'), 'SHA-256 bump']);
   if (origin) w.g('remote', 'add', 'origin', origin);
   return w;
 };

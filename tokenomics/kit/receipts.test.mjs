@@ -94,7 +94,11 @@ test('R16: safeReason names an adapter failure line of the fixed shape; anything
   assert.equal(r.reason, 'command failed: exit 2');
   assert.deepEqual(r.findings, [f('unverified', 'receipts-unavailable', 'command failed: exit 2')]);
   assert.equal(runReceiptCommand(repo, settingsFor(fails('azure-devops: http (500)\n', 1)), { env: process.env }).safeReason, 'command failed: exit 1 — azure-devops: http (500)');
-  for (const bad of ['Error: /home/PRIVATE_PERSON/x failed', 'jira: auth (token=PRIVATE/abc)', 'jira: config (url)\nstack at /PRIVATE_PERSON', 'JIRA: config (url)', `jira: http (${'x'.repeat(61)})`]) {
+  // every shipped adapter's real failure lines (codes up to 40 chars) still read
+  for (const l of ['jira: auth (set JIRA_EMAIL and JIRA_API_TOKEN)', 'jira: auth (set JIRA_PAT)', 'azure-devops: auth (set AZURE_DEVOPS_EXT_PAT or run az login)', 'github: http (404)', 'github: graphql (errors)']) {
+    assert.equal(runReceiptCommand(repo, settingsFor(fails(`${l}\n`)), { env: process.env }).safeReason, `command failed: exit 2 — ${l}`, l);
+  }
+  for (const bad of ['Error: /home/PRIVATE_PERSON/x failed', 'jira: auth (token=PRIVATE/abc)', 'jira: config (url)\nstack at /PRIVATE_PERSON', 'JIRA: config (url)', `jira: http (${'x'.repeat(41)})`, `x: auth (${'a'.repeat(41)})`, 'custom: auth (abc)', `x: auth (${'a'.repeat(45)})`]) {
     const x = runReceiptCommand(repo, settingsFor(fails(bad)), { env: process.env });
     assert.equal(x.safeReason, 'command failed: exit 2', bad);
   }

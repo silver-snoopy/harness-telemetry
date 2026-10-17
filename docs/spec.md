@@ -862,7 +862,7 @@ only by the porting skill or the project:
 > project that needs different behaviour copies one into `glue/`. The `ado` and `jira` templates below are therefore
 > no longer "later". Azure DevOps batches send `errorPolicy: 'Omit'` (a deleted or foreign id is a null entry, so
 > missing, not a failed batch); Jira Cloud reads `POST /rest/api/3/issue/bulkfetch` (100 keys per call; a key not
-> returned, or listed in `issueErrors`, is missing) and Server/DC `/rest/api/2/search` with `validateQuery: 'warn'`.
+> returned, or listed in `issueErrors`, is missing) and Server/DC `/rest/api/2/search` with `validateQuery: false`.
 > Either way a missing id makes `complete:false`. A failed command's `safeReason` carries the adapter's last stderr line
 > only when it has the fixed `<adapter>: <class> (<code>)` shape.
 

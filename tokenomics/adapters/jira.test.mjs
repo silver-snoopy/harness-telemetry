@@ -27,7 +27,8 @@ const done = (resolutiondate = null, extra = {}) => ({ status: { name: 'Fin', st
 // invisible); `extra` adds unrequested keys; `issueErrors` keys come back in Cloud's issueErrors list (by issue id).
 // Cloud is POST /rest/api/3/issue/bulkfetch {issueIdsOrKeys, fields}: unknown keys are simply not returned, more than
 // 100 keys is a 400. Server/DC is /rest/api/2/search with startAt/total paging (`pageSize`, `total`); like Jira's
-// strict JQL validation, a `key in (...)` naming an unknown key is a 400 unless the body says validateQuery 'warn'.
+// strict JQL validation, a `key in (...)` naming an unknown key is a 400 unless the body says validateQuery false. As on Data Center, validateQuery is a boolean: any
+// other type is a 400.
 const routesSource = ({ items = {}, omit = [], extra = [], issueErrors = [], pageSize = 0, total } = {}) => `
 const items = ${JSON.stringify(items)};
 const omit = ${JSON.stringify(omit)};
@@ -45,7 +46,8 @@ export default (req, body) => {
   }
   if (req.url === '/rest/api/2/search') {
     const named = /\\(([^)]*)\\)/.exec(b.jql)[1].split(',');
-    if (b.validateQuery !== 'warn' && named.some((k) => omit.includes(k))) return { status: 400, json: { errorMessages: ["An issue with key 'X' does not exist"] } };
+    if (b.validateQuery !== undefined && typeof b.validateQuery !== 'boolean') return { status: 400, json: { errorMessages: ['validateQuery must be a boolean'] } };
+    if (b.validateQuery !== false && named.some((k) => omit.includes(k))) return { status: 400, json: { errorMessages: ["An issue with key 'X' does not exist"] } };
     const all = named.filter((k) => !omit.includes(k)).map(mk);
     const t = ${total === undefined ? 'all.length' : total};
     const page = all.slice(b.startAt, b.startAt + ${pageSize || 100});
@@ -142,7 +144,7 @@ test('cloud: configured custom fields are requested and projected; the sprint is
   }
 });
 
-test('server/DC: /rest/api/2/search with Bearer PAT and validateQuery warn, startAt paging until total', async () => {
+test('server/DC: /rest/api/2/search with Bearer PAT and validateQuery false, startAt paging until total', async () => {
   const s = await setup({ env: PAT, tracker: SERVER, routes: { pageSize: 40 } });
   try {
     const r = run(s, ['--ids', jiraIds(keyList(1, 90))]);
@@ -150,7 +152,7 @@ test('server/DC: /rest/api/2/search with Bearer PAT and validateQuery warn, star
     const q = reqs(s);
     assert.deepEqual(q.map((x) => x.json.startAt), [0, 40, 80]);
     assert.equal(q[0].path, '/rest/api/2/search');
-    assert.deepEqual(q[0].json, { jql: `key in (${keyList(1, 90).join(',')})`, fields: ['status', 'issuetype', 'resolutiondate'], startAt: 0, maxResults: 100, validateQuery: 'warn' });
+    assert.deepEqual(q[0].json, { jql: `key in (${keyList(1, 90).join(',')})`, fields: ['status', 'issuetype', 'resolutiondate'], startAt: 0, maxResults: 100, validateQuery: false });
     assert.equal(q[0].headers.authorization, `Bearer ${SENTINEL.PAT}`);
     assert.equal(cases(r).length, 90);
     const doc = JSON.parse(r.stdout);
@@ -204,7 +206,7 @@ test('R13: one unknown, invisible or erroring key never fails the batch; it is m
     const r = run(ok, ['--ids', jiraIds(keyList(1, 3))]);
     assert.equal(JSON.parse(r.stdout).complete, true);
   } finally { await ok.srv.stop(); }
-  // Server/DC: strict JQL validation would 400 on the unknown key; validateQuery warn answers the rest
+  // Server/DC: strict JQL validation would 400 on the unknown key; validateQuery false answers the rest
   const dc = await setup({ env: PAT, tracker: SERVER, routes: { omit: ['PAY-2'] } });
   try {
     const r = run(dc, ['--ids', jiraIds(keyList(1, 3))]);
