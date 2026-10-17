@@ -526,5 +526,17 @@
   "adapters/azure-devops.mjs:delivered-vocab:22a3ad06d1": {
     "kind": "not-lifted",
     "reason": "Plan 7 Task 6 (D-ADAPTERS): the Azure DevOps adapter's receipt outcome 'delivered' is the engine's receipt vocabulary (ENGINE-B1 receipts.deliveredOutcomes default), emitted for a work item in a done state; the guard keeps ClosedDate evidence to delivered items only"
+  },
+  "adapters/jira.mjs:case-id-miner:37ca631e11": {
+    "kind": "false-positive",
+    "reason": "Plan 7 Task 7 (D-ADAPTERS): this validates a Jira key read from a ledger id or --ids before it may enter the JQL; it is not a miner of case ids from text (injection guard, no leading-zero issue numbers)"
+  },
+  "adapters/jira.mjs:delivered-vocab:8f21a0ba75": {
+    "kind": "not-lifted",
+    "reason": "Plan 7 Task 7 (D-ADAPTERS): the Jira adapter's receipt outcome 'delivered' is the engine's receipt vocabulary (ENGINE-B1 receipts.deliveredOutcomes default), emitted for an issue whose status category is done"
+  },
+  "adapters/jira.mjs:delivered-vocab:aa51012262": {
+    "kind": "not-lifted",
+    "reason": "Plan 7 Task 7 (D-ADAPTERS): the Jira adapter's receipt outcome 'delivered' is the engine's receipt vocabulary (ENGINE-B1 receipts.deliveredOutcomes default); the guard keeps resolutiondate evidence to delivered issues only"
   }
 }

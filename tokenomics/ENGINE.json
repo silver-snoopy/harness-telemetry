@@ -6,6 +6,7 @@
     "adapters/azure-devops.mjs": "sha256:84c5c2ad9d8d57537f5837c559d6f251da2333b129840164816060aecda8f6ca",
     "adapters/common.mjs": "sha256:c82974a601b031f61032b1cf1a62fc65f82c558e587b9674ce0636009878a075",
     "adapters/github.mjs": "sha256:6aaa9e7d90a1a26cad1c9d422ca0d75f0ffdf801ed043c6ab8cab71953257571",
+    "adapters/jira.mjs": "sha256:9ddf6b3942ffeefd7177503bda423529b16159828860efe0d03002179b33cd63",
     "engine/activation.mjs": "sha256:b33279232908649a1c5394cdbd1932b32f178594cfe1d32b2ba950fed38e69da",
     "engine/checkpoint.mjs": "sha256:bb5131498f411b9268da97e55a5e5d6d816302bb15443f004883bd96dba6d7fc",
     "engine/config.mjs": "sha256:8939342786217a110b94f55e5a0a2502d777ff37492f1f8b66f12dc6cffc3d95",
