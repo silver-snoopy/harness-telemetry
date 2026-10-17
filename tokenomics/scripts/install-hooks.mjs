@@ -577,7 +577,7 @@ function writeJsonAtomic(path, obj) {
 }
 
 /** Write `doc` only when its serialisation differs from what is on disk (a re-run leaves the file untouched). */
-function saveSettings(repo, doc) {
+export function saveSettings(repo, doc) {
   const path = settingsPath(repo);
   const body = `${JSON.stringify(doc, null, 2)}\n`;
   if (existsSync(path) && readFileSync(path, 'utf8') === body) return false;

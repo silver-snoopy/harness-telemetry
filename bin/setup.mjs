@@ -4,16 +4,20 @@
 // the documented command, run as a child, so a re-run on a set-up project writes nothing new and says so. It never
 // passes --force: a locally modified engine copy stops it with the copy step's own reason. STDLIB ONLY.
 import { spawnSync } from 'node:child_process';
-import { existsSync, rmSync } from 'node:fs';
+import { existsSync, readFileSync, rmSync } from 'node:fs';
 import { delimiter, join, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 export const SETUP_USAGE = `usage: harness-telemetry setup [--repo <dir>] [--host <claude,copilot-cli,vscode>] [--commit] [--probe]
-                              [--no-git-hook] [--repo-hooks]
+                              [--no-git-hook] [--repo-hooks] [--tracker <jira|github|ado>] [--tracker-keys <K1,K2>] [--no-tracker]
   Detects the hosts (claude / copilot on PATH, .claude/, .github/ Copilot config) unless --host names them.
   --commit       commit the files teammates need (only those paths, nothing else you have staged)
   --probe        also run one short real host session per host to prove the hooks fire
   --no-git-hook  skip the git post-commit fallback sweep
-  --repo-hooks   wire Copilot CLI in the repo's .github/hooks/ instead of at user level (~/.copilot/hooks/)`;
+  --repo-hooks   wire Copilot CLI in the repo's .github/hooks/ instead of at user level (~/.copilot/hooks/)
+  --tracker      the work-item tracker whose ids to mine (default: inferred from the remote and the history)
+  --tracker-keys the Jira project keys, comma separated (with --tracker jira; default: the keys the history shows)
+  --no-tracker   write no work-item id rules`;
 
 const HOST_ORDER = ['claude', 'copilot-cli', 'vscode'];
 const HOST_ALIASES = { copilot: 'copilot-cli' };
@@ -66,13 +70,39 @@ export function commitShared(repo, paths, env = process.env) {
   }
 }
 
+function hasRules(file) {
+  try { const r = JSON.parse(readFileSync(file, 'utf8'))?.ids?.rules; return Array.isArray(r) && r.length > 0; } catch { return false; }
+}
+
+/** The trackers to write rules for: `{trackers, receipts, rules}`, or `{error}` for a bad flag (the caller exits 2). */
+async function planTrackers(args, opt, repo, env) {
+  const none = { trackers: [], receipts: null, rules: [] };
+  const flag = opt('--tracker');
+  const keyList = opt('--tracker-keys');
+  if (args.includes('--no-tracker')) return flag || keyList ? { error: '--no-tracker cannot be combined with --tracker or --tracker-keys' } : none;
+  const { detectTrackers, rulesFor, PRESETS } = await import('../tokenomics/engine/trackers.mjs');
+  const found = detectTrackers(repo, { env });
+  let trackers = found.trackers;
+  let receipts = found.receipts;
+  const chosen = flag ?? (keyList ? 'jira' : null);
+  if (chosen) {
+    if (!Object.hasOwn(PRESETS, chosen)) return { error: `unknown --tracker '${chosen}' — one of jira, github, ado` };
+    if (keyList && chosen !== 'jira') return { error: '--tracker-keys applies to --tracker jira only' };
+    const keys = keyList ? keyList.split(',').map((k) => k.trim()).filter(Boolean) : found.trackers.find((t) => t.tracker === 'jira')?.keys;
+    if (chosen === 'jira' && !keys?.length) return { error: '--tracker jira needs --tracker-keys (e.g. PAY,WEB): the history shows no project keys' };
+    trackers = [{ tracker: chosen, why: 'chosen with --tracker', ...(chosen === 'jira' ? { keys } : {}) }];
+    receipts = chosen;
+  }
+  try { return { trackers, receipts, rules: rulesFor(trackers, found.host) }; } catch (e) { return { error: e.message }; }
+}
+
 export async function runSetup(args, { packageRoot, from, out = (s) => process.stdout.write(s), err = (s) => process.stderr.write(s), env = process.env } = {}) {
   if (args.includes('--help') || args.includes('-h')) { out(`${SETUP_USAGE}\n`); return 0; }
   const opt = (n) => { const i = args.indexOf(n); return i >= 0 ? args[i + 1] : undefined; };
-  for (const n of ['--repo', '--host']) {
+  for (const n of ['--repo', '--host', '--tracker', '--tracker-keys']) {
     if (args.includes(n) && (!opt(n) || opt(n).startsWith('--'))) { err(`${n} needs a value\n${SETUP_USAGE}\n`); return 2; }
   }
-  const known = new Set(['--repo', '--host', '--commit', '--probe', '--no-git-hook', '--repo-hooks', opt('--repo'), opt('--host')]);
+  const known = new Set(['--repo', '--host', '--commit', '--probe', '--no-git-hook', '--repo-hooks', '--tracker', '--tracker-keys', '--no-tracker', opt('--repo'), opt('--host'), opt('--tracker'), opt('--tracker-keys')]);
   const unknown = args.filter((a) => !known.has(a));
   if (unknown.length) { err(`unknown argument ${unknown[0]}\n${SETUP_USAGE}\n`); return 2; }
 
@@ -80,6 +110,10 @@ export async function runSetup(args, { packageRoot, from, out = (s) => process.s
   const top = git(resolve(opt('--repo') ?? process.cwd()), 'rev-parse', '--show-toplevel');
   if (top.status !== 0) { err('harness-telemetry setup: not inside a git repository — run it from your project (or pass --repo)\n'); return 1; }
   const repo = top.stdout.trim();
+
+  // Work-item tracker rules (Plan 7): validated before anything is written.
+  const plan = await planTrackers(args, opt, repo, env);
+  if (plan.error) { err(`harness-telemetry setup: ${plan.error}\n${SETUP_USAGE}\n`); return 2; }
 
   let hosts;
   if (opt('--host')) {
@@ -103,6 +137,29 @@ export async function runSetup(args, { packageRoot, from, out = (s) => process.s
     } catch (e) {
       err(`harness-telemetry setup: the ${target} copy stopped — ${e instanceof InstallError ? e.message : String(e?.message ?? e).split('\n')[0]}\n`);
       return 1;
+    }
+  }
+
+  // 1b. tracker rules into fresh settings, written by the installed copy's own helpers (so a legacy store keeps its
+  // module directory); an existing settings file is never edited
+  if (plan.rules.length) {
+    const copy = COPY_OF[targets[0]];
+    for (const t of plan.trackers) out(`  tracker: ${t.tracker} (${t.why})\n`);
+    out(`  receipts from ${plan.receipts}\n`);
+    const settingsFile = join(repo, '.agents', 'tokenomics', 'settings.json');
+    if (!existsSync(settingsFile)) {
+      try {
+        const ih = await import(pathToFileURL(join(repo, copy, 'scripts', 'install-hooks.mjs')).href);
+        const base = ih.freshSettings({ dir: ih.defaultDir(repo).dir });
+        ih.saveSettings(repo, { ...base, ids: { ...base.ids, rules: plan.rules } });
+      } catch (e) {
+        err(`harness-telemetry setup: could not write the tracker rules — ${String(e?.message ?? e).split('\n')[0]}\n`);
+        return e?.code === 2 ? 2 : 1;
+      }
+    } else if (hasRules(settingsFile)) {
+      out('  tracker rules: the existing settings already define ids.rules; left as they are\n');
+    } else {
+      out(`  tracker rules: settings already exist and are never edited by setup — add these rules to .agents/tokenomics/settings.json, then record them:\n${JSON.stringify({ ids: { rules: plan.rules } }, null, 2).replace(/^/gm, '    ')}\n    node ${copy}/scripts/install-hooks.mjs --update-manifest\n`);
     }
   }
 

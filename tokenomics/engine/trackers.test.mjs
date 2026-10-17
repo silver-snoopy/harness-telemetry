@@ -1,6 +1,11 @@
-import { test } from 'node:test';
+import { test, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { PRESETS, presetRules } from './trackers.mjs';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { PRESETS, presetRules, parseRemote, detectTrackers } from './trackers.mjs';
+import { sandboxEnv } from '../fixtures/trackers/harness.mjs';
 import { TA_DEFAULTS } from './config.mjs';
 import { mineIds } from '../hooks/telemetry-capture.mjs';
 
@@ -55,4 +60,102 @@ test('pass-through of already-normalised ids; mixed rules; multi-digit group', (
   assert.deepEqual(mineIds(t, ['a']), ['x:a']);
   const u = withRules([{ pattern: '(a)(b)', normalize: 'x:$2' }, { pattern: 'c(d)?', normalize: 'y:$1' }]);
   assert.deepEqual(mineIds(u, ['cc']), [], 'an empty group yields no id');
+});
+
+// ---- detection (Task 2) ----
+const sandbox = mkdtempSync(join(tmpdir(), 'ht-trk-'));
+after(() => rmSync(sandbox, { recursive: true, force: true, maxRetries: 10, retryDelay: 300 }));
+let n = 0;
+// A repo with `msgs` as commit subjects (after one 'init'), optional origin and extra branches. Document count =
+// commits + deduplicated branch names: 1 + msgs.length commits, plus 'main' and each branch.
+function repoWith({ msgs = [], origin = null, branches = [] } = {}) {
+  const tmp = join(sandbox, `r${n++}`);
+  mkdirSync(join(tmp, 'home'), { recursive: true });
+  writeFileSync(join(tmp, 'gitconfig'), '[init]\n\tdefaultBranch = main\n[user]\n\tname = T\n\temail = t@example.invalid\n');
+  const env = sandboxEnv(tmp, {});
+  const repo = join(tmp, 'p');
+  mkdirSync(repo);
+  const g = (...a) => { const r = spawnSync('git', a, { cwd: repo, env, encoding: 'utf8' }); assert.equal(r.status, 0, r.stderr); return r.stdout; };
+  g('init', '-q');
+  g('commit', '-q', '--allow-empty', '-m', 'init');
+  for (const m of msgs) g('commit', '-q', '--allow-empty', '-m', m);
+  for (const b of branches) g('branch', b);
+  if (origin) g('remote', 'add', 'origin', origin);
+  return { repo, env };
+}
+const rep = (m, k) => Array.from({ length: k }, () => m);
+
+test('parseRemote: github and ado in every url form; look-alikes give no host', () => {
+  for (const u of ['https://github.com/o/r.git', 'git@github.com:o/r.git', 'ssh://git@github.com/o/r']) {
+    assert.deepEqual(parseRemote(u), { host: 'github', owner: 'o', repo: 'r' }, u);
+  }
+  const ado = { host: 'ado', org: 'acme', project: 'proj', repo: 'app' };
+  assert.deepEqual(parseRemote('https://dev.azure.com/acme/proj/_git/app'), { ...ado, orgUrl: 'https://dev.azure.com/acme' });
+  assert.deepEqual(parseRemote('https://acme@dev.azure.com/acme/proj/_git/app'), { ...ado, orgUrl: 'https://dev.azure.com/acme' });
+  assert.deepEqual(parseRemote('git@ssh.dev.azure.com:v3/acme/proj/app'), { ...ado, orgUrl: 'https://dev.azure.com/acme' });
+  assert.deepEqual(parseRemote('https://acme.visualstudio.com/proj/_git/app'), { ...ado, orgUrl: 'https://acme.visualstudio.com' });
+  assert.deepEqual(parseRemote('acme@vs-ssh.visualstudio.com:v3/acme/proj/app'), { ...ado, orgUrl: 'https://acme.visualstudio.com' });
+  for (const u of ['https://github.com.evil.io/o/r', 'https://evil.io/github.com/o/r', 'git@notgithub.com:o/r', '', null, 'garbage']) {
+    assert.deepEqual(parseRemote(u), { host: null }, String(u));
+  }
+});
+
+test('detect jira: stoplisted and rare prefixes are dropped; keys by frequency', () => {
+  const { repo, env } = repoWith({ msgs: [...rep('PAY-1 pay thing', 8), ...rep('WEB-2 web thing', 6), ...rep('bump SHA-256', 6), ...rep('UTF-8 fix', 6), 'RUN-2026 notes'] });
+  const d = detectTrackers(repo, { env });
+  assert.equal(d.host, null);
+  assert.equal(d.trackers.length, 1);
+  assert.equal(d.trackers[0].tracker, 'jira');
+  assert.deepEqual(d.trackers[0].keys, ['PAY', 'WEB']);
+  assert.match(d.trackers[0].why, /14 of \d+/);
+  assert.equal(d.receipts, 'jira');
+});
+
+test('detect jira thresholds: 4 documents no; 5 of 60 (8%) no; 6 of 60 (10%) yes; one commit counts once', () => {
+  const jira = (r) => detectTrackers(r.repo, { env: r.env }).trackers.find((t) => t.tracker === 'jira');
+  assert.equal(jira(repoWith({ msgs: rep('PAY-1 x', 4) })), undefined, '4 documents');
+  // total documents = (1 init + msgs) commits + the 'main' branch = 60
+  assert.equal(jira(repoWith({ msgs: [...rep('PAY-1 x', 5), ...rep('filler', 53)] })), undefined, '5 of 60');
+  assert.deepEqual(jira(repoWith({ msgs: [...rep('PAY-1 x', 6), ...rep('filler', 52)] })).keys, ['PAY'], '6 of 60');
+  assert.equal(jira(repoWith({ msgs: [...rep('PAY-1 PAY-2 PAY-3 in one', 4), 'x'] })), undefined, 'one commit, one count');
+});
+
+test('detect jira counts branch names, deduplicated across local and origin copies', () => {
+  const { repo, env } = repoWith({ msgs: ['a', 'b', 'c', 'd'], branches: ['PAY-9-x'] });
+  assert.equal(detectTrackers(repo, { env }).trackers.length, 0, 'one branch document is below 5');
+});
+
+test('detect ado: ado origin plus AB# commits names both; AB# on a github origin is not a #N count', () => {
+  const a = repoWith({ origin: 'https://dev.azure.com/acme/proj/_git/app', msgs: rep('AB#1 fix', 3) });
+  const d = detectTrackers(a.repo, { env: a.env });
+  assert.equal(d.host, 'ado');
+  assert.deepEqual(d.trackers.map((t) => t.tracker), ['ado']);
+  assert.match(d.trackers[0].why, /Azure DevOps remote/);
+  assert.match(d.trackers[0].why, /AB# in 3 of \d+/);
+  const g = repoWith({ origin: 'https://github.com/o/r.git', msgs: rep('AB#1 fix', 3) });
+  const e = detectTrackers(g.repo, { env: g.env });
+  assert.deepEqual(e.trackers.map((t) => t.tracker).sort(), ['ado', 'github']);
+  assert.doesNotMatch(e.trackers.find((t) => t.tracker === 'github').why, /#N in/);
+  assert.equal(e.receipts, 'ado');
+});
+
+test('detect jira and github: github host plus Jira keys; receipts from jira', () => {
+  const { repo, env } = repoWith({ origin: 'git@github.com:o/r.git', msgs: [...rep('PAY-1 thing (#7)', 6), 'x'] });
+  const d = detectTrackers(repo, { env });
+  assert.deepEqual(d.trackers.map((t) => t.tracker), ['jira', 'github']);
+  assert.match(d.trackers[1].why, /github\.com remote.*#N in 6 of \d+/);
+  assert.equal(d.receipts, 'jira');
+});
+
+test('detect: no history, no remote gives nothing; a bare github remote gives github; an unrelated remote gives nothing', () => {
+  const none = repoWith();
+  assert.deepEqual(detectTrackers(none.repo, { env: none.env }), { trackers: [], host: null, receipts: null });
+  const gh = repoWith({ origin: 'https://github.com/o/r' });
+  assert.deepEqual(detectTrackers(gh.repo, { env: gh.env }).trackers.map((t) => t.tracker), ['github']);
+  const other = repoWith({ origin: 'https://git.example.invalid/o/r' });
+  assert.deepEqual(detectTrackers(other.repo, { env: other.env }).trackers, []);
+  const empty = join(sandbox, 'emptyrepo');
+  mkdirSync(empty);
+  spawnSync('git', ['init', '-q'], { cwd: empty, env: none.env });
+  assert.deepEqual(detectTrackers(empty, { env: none.env }), { trackers: [], host: null, receipts: null });
 });

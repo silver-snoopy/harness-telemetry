@@ -10,6 +10,8 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { detectHosts } from './setup.mjs';
+import { mineIds } from '../tokenomics/hooks/telemetry-capture.mjs';
+import { TA_DEFAULTS } from '../tokenomics/engine/config.mjs';
 
 const CLI = fileURLToPath(new URL('./harness-telemetry.mjs', import.meta.url));
 const sandbox = mkdtempSync(join(tmpdir(), 'ht-setup-'));
@@ -116,4 +118,107 @@ test('setup refuses clearly: no host found (2), not a git repository (1), an unk
   assert.equal(setup(w, ['--frobnicate']).status, 2);
   assert.equal(setup(w, ['--host']).status, 2);
   assert.match(setup(w, ['--help']).stdout, /usage: harness-telemetry setup/);
+});
+
+// ---- tracker inference (Plan 7, Task 2) ----
+const settingsOf = (w) => join(w.repo, '.agents', 'tokenomics', 'settings.json');
+const commits = (w, msgs) => { for (const m of msgs) w.g('commit', '-q', '--allow-empty', '-m', m); };
+const jiraWorld = (origin = null) => {
+  const w = world();
+  commits(w, [...Array(6).fill('PAY-1 pay thing (#7)'), ...Array(5).fill('WEB-2 web thing'), 'SHA-256 bump']);
+  if (origin) w.g('remote', 'add', 'origin', origin);
+  return w;
+};
+const BASE = ['--host', 'claude', '--no-git-hook'];
+
+test('setup: fresh settings carry the detected tracker rules; dir tokenomics, extension null; the output names tracker and why; doctor ok', () => {
+  const w = jiraWorld('https://github.com/o/r.git');
+  const r = setup(w, BASE);
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  assert.match(r.stdout, /tracker: jira \(PAY, WEB — 11 of \d+ commits and branches\)/);
+  assert.match(r.stdout, /tracker: github \(github\.com remote/);
+  assert.match(r.stdout, /receipts from jira/);
+  assert.match(r.stdout, /ok\s+targets/);
+  const s = JSON.parse(readFileSync(settingsOf(w), 'utf8'));
+  assert.equal(s.dir, 'tokenomics');
+  assert.equal(s.extension, null);
+  const jira = s.ids.rules.filter((x) => x.tracker === 'jira');
+  const gh = s.ids.rules.filter((x) => x.tracker === 'github');
+  assert.ok(jira.length && gh.length);
+  assert.ok(gh.some((x) => x.source === 'branch'), 'github carries the branch rule');
+  assert.ok(!jira.some((x) => x.source === 'branch'), 'jira never does');
+  assert.ok(!s.ids.rules.some((x) => x.tracker === 'ado'));
+  const mined = mineIds({ ...TA_DEFAULTS, ids: { ...TA_DEFAULTS.ids, rules: s.ids.rules } }, ['PAY-1 (#7)']);
+  assert.deepEqual(mined, ['gh:7', 'jira:PAY-1']);
+});
+
+test('setup: an ado remote gets the ado branch rule and no github rules', () => {
+  const w = world();
+  w.g('remote', 'add', 'origin', 'https://dev.azure.com/acme/proj/_git/app');
+  const r = setup(w, BASE);
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  const rules = JSON.parse(readFileSync(settingsOf(w), 'utf8')).ids.rules;
+  assert.deepEqual([...new Set(rules.map((x) => x.tracker))], ['ado']);
+  assert.ok(rules.some((x) => x.source === 'branch'));
+});
+
+test('setup: a legacy store keeps its module directory (P7-04)', () => {
+  const w = jiraWorld();
+  mkdirSync(join(w.repo, '.agents', 'telemetry', 'automation'), { recursive: true });
+  writeFileSync(join(w.repo, '.agents', 'telemetry', 'automation', 'usage-x.jsonl'), '');
+  const r = setup(w, BASE);
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  const s = JSON.parse(readFileSync(settingsOf(w), 'utf8'));
+  assert.equal(s.dir, 'automation');
+  assert.ok(s.ids.rules.length);
+});
+
+test('setup: existing settings are never edited; the rules and the update command are printed', () => {
+  const w = jiraWorld();
+  mkdirSync(join(w.repo, '.agents', 'tokenomics'), { recursive: true });
+  const body = '{"dir":"tokenomics","extension":null}\n';
+  writeFileSync(settingsOf(w), body);
+  const r = setup(w, BASE);
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  const after = JSON.parse(readFileSync(settingsOf(w), 'utf8'));
+  assert.equal(after.ids, undefined, 'no ids written');
+  assert.match(r.stdout, /settings already exist and are never edited by setup — add these rules/);
+  assert.match(r.stdout, /"normalize": "jira:\$1-\$2"/);
+  assert.match(r.stdout, /node \.claude\/skills\/tokenomics\/scripts\/install-hooks\.mjs --update-manifest/);
+});
+
+test('setup: existing settings that already carry ids.rules are left alone without noise', () => {
+  const w = jiraWorld();
+  mkdirSync(join(w.repo, '.agents', 'tokenomics'), { recursive: true });
+  writeFileSync(settingsOf(w), JSON.stringify({ dir: 'tokenomics', extension: null, ids: { rules: [{ pattern: '(a)', normalize: 'x:$1' }] } }));
+  const r = setup(w, BASE);
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  assert.match(r.stdout, /already define ids\.rules/);
+  assert.doesNotMatch(r.stdout, /add these rules/);
+});
+
+test('setup flags: --tracker/--tracker-keys override detection; --no-tracker writes no rules; a bad key exits 2 naming it', () => {
+  const o = jiraWorld();
+  const r = setup(o, [...BASE, '--tracker', 'jira', '--tracker-keys', 'ABC,XY1']);
+  assert.equal(r.status, 0, r.stdout + r.stderr);
+  const rules = JSON.parse(readFileSync(settingsOf(o), 'utf8')).ids.rules;
+  assert.deepEqual([...new Set(rules.map((x) => x.tracker))], ['jira']);
+  assert.match(rules[0].pattern, /ABC\|XY1/);
+  assert.doesNotMatch(rules[0].pattern, /PAY/);
+
+  const no = jiraWorld();
+  const q = setup(no, [...BASE, '--no-tracker']);
+  assert.equal(q.status, 0, q.stdout + q.stderr);
+  assert.equal(JSON.parse(readFileSync(settingsOf(no), 'utf8')).ids, undefined);
+  assert.doesNotMatch(q.stdout, /tracker:/);
+
+  const bad = jiraWorld();
+  const b = setup(bad, [...BASE, '--tracker', 'jira', '--tracker-keys', '12']);
+  assert.equal(b.status, 2);
+  assert.match(b.stderr, /'12'/);
+  assert.ok(!existsSync(join(bad.repo, '.agents')), 'nothing written');
+  assert.equal(setup(bad, [...BASE, '--tracker', 'trello']).status, 2);
+  assert.equal(setup(world(), [...BASE, '--tracker', 'jira']).status, 2, 'jira without keys given or detected');
+  assert.equal(setup(bad, [...BASE, '--tracker', 'ado', '--no-tracker']).status, 2);
+  assert.equal(setup(bad, [...BASE, '--tracker']).status, 2);
 });

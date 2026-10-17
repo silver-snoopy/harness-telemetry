@@ -39,6 +39,10 @@
     "kind": "false-positive",
     "reason": "case-id-miner category fires on the KEY regex constant; it validates Jira project keys supplied by the user for the tracker presets (Plan 7) — a shape check, not a hard-wired id pattern"
   },
+  "engine/trackers.mjs:case-id-miner:6569eabc0d": {
+    "kind": "false-positive",
+    "reason": "case-id-miner category fires on the detector's prefix scan; detectTrackers (Plan 7 D-DETECT) reads the project's own history to infer Jira keys at setup, and writes them into ids.rules — it mines nothing into the ledger and hard-wires no id pattern"
+  },
   "hooks/telemetry-capture.mjs:env-var:2a6b7e6489": {
     "kind": "env-var",
     "reason": "engine-config env.* read (B0 assigns every TOKENOMICS_* variable to engine-config env, ENGINE-B1 \"env\"); the name is the engine's own knob, not TA wording"
