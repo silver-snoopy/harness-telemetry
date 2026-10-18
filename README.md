@@ -9,7 +9,7 @@ spent against what was delivered.
 
 It works in any repository. It doesn't need sdlc-skills, has no npm dependencies, and runs on Node ≥ 18.19.
 
-> **Status:** release candidate (`v0.4.1-rc.1`, milestones R0–B3 of [`docs/spec.md`](docs/spec.md) §12).
+> **Status:** release candidate (`v0.5.0-rc.1`, milestones R0–B3 of [`docs/spec.md`](docs/spec.md) §12, plus work-item trackers).
 > - **Claude Code** and **Copilot CLI** capture are verified in real sessions: hooks fired, the ledger line and the
 >   billed cost landed, and a real Copilot task was captured live with no commit needed.
 > - **VS Code** sidebar capture is wired and tested against a fake host; verification against the real sidebar is
@@ -57,7 +57,7 @@ From the root of the project you want to track:
 npx github:silver-snoopy/harness-telemetry setup
 ```
 
-To pin a release, name its tag: `npx github:silver-snoopy/harness-telemetry#v0.4.1-rc.1 setup`. From a clone of
+To pin a release, name its tag: `npx github:silver-snoopy/harness-telemetry#v0.5.0-rc.1 setup`. From a clone of
 this repository, the same command is `node ../harness-telemetry/bin/harness-telemetry.mjs setup`.
 
 `setup` does everything in the manual steps below, in one run:

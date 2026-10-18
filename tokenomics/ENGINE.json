@@ -1,5 +1,5 @@
 {
-  "engine": "0.4.1",
+  "engine": "0.5.0",
   "extensionApi": 2,
   "files": {
     "SKILL.md": "sha256:63dce03fdf01d62947b21b80a78d729c3d4b927786f4af12ca3d6c29bf3cf488",

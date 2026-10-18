@@ -10,6 +10,11 @@ import { fileURLToPath } from 'node:url';
 import { buildManifest } from '../../scripts/engine-manifest.mjs';
 
 const REPO = join(fileURLToPath(new URL('.', import.meta.url)), '..', '..');
+// synthetic upgrade targets, whatever the current engine version is (never a literal to bump each release)
+const bumpPatch = (v, by) => v.replace(/\d+$/, (n) => String(Number(n) + by));
+const CURRENT = JSON.parse(readFileSync(join(REPO, 'tokenomics', 'ENGINE.json'), 'utf8')).engine;
+const NEXT = bumpPatch(CURRENT, 1);
+const NEXT2 = bumpPatch(CURRENT, 2);
 const tmp = (p) => mkdtempSync(join(tmpdir(), `tokenomics-icopy-${p}-`));
 
 let publishedList = null;
@@ -126,17 +131,17 @@ test('(f) upgrade replaces engine files only; local edits and strays refuse unle
   assert.equal(cli(pkg, ['install', 'tokenomics', '--target', 'claude', '--repo', repo]).status, 0);
   const glue = { '.agents/tokenomics/settings.json': '{"engine":"0.4.0"}\n', '.claude/settings.json': '{"hooks":{}}\n', '.claude/skills/other/x.md': 'x\n' };
   for (const [p, c] of Object.entries(glue)) { mkdirSync(dirname(join(repo, p)), { recursive: true }); writeFileSync(join(repo, p), c); }
-  bump(pkg, '0.4.1');
+  bump(pkg, NEXT);
   const r = cli(pkg, ['install', 'tokenomics', '--target', 'claude', '--repo', repo]);
   assert.equal(r.status, 0, r.stderr);
   assert.match(r.stdout, /^upgraded:/);
   const dest = join(repo, '.claude', 'skills', 'tokenomics');
-  assert.equal(JSON.parse(readFileSync(join(dest, 'ENGINE.json'), 'utf8')).engine, '0.4.1');
-  assert.match(readFileSync(join(dest, 'SKILL.md'), 'utf8'), /upgrade 0\.4\.1/);
+  assert.equal(JSON.parse(readFileSync(join(dest, 'ENGINE.json'), 'utf8')).engine, NEXT);
+  assert.match(readFileSync(join(dest, 'SKILL.md'), 'utf8'), new RegExp(`upgrade ${NEXT.replace(/\./g, "\\.")}`));
   for (const [p, c] of Object.entries(glue)) assert.equal(readFileSync(join(repo, p), 'utf8'), c, p);
   assert.deepEqual(readdirSync(join(repo, '.claude', 'skills')).sort(), ['other', 'tokenomics']);
 
-  bump(pkg, '0.4.2');
+  bump(pkg, NEXT2);
   writeFileSync(join(dest, 'engine', 'order.mjs'), '// local edit\n');
   writeFileSync(join(dest, 'stray.txt'), 'mine\n');
   const before = tree(dest);
@@ -149,7 +154,7 @@ test('(f) upgrade replaces engine files only; local edits and strays refuse unle
   const r3 = cli(pkg, ['install', 'tokenomics', '--target', 'claude', '--repo', repo, '--force']);
   assert.equal(r3.status, 0, r3.stderr);
   assert.ok(!existsSync(join(dest, 'stray.txt')));
-  assert.equal(JSON.parse(readFileSync(join(dest, 'ENGINE.json'), 'utf8')).engine, '0.4.2');
+  assert.equal(JSON.parse(readFileSync(join(dest, 'ENGINE.json'), 'utf8')).engine, NEXT2);
 });
 
 test('(g) re-copying the same version is unchanged and writes nothing', () => {
@@ -174,7 +179,7 @@ test('(M6) the upgrade swap leaves no skill-looking sibling; stale dot-prefixed 
   const skills = join(repo, '.claude', 'skills');
   // what a crash mid-swap would leave: each holds a SKILL.md a host could discover as a duplicate skill
   for (const n of ['.tokenomics.tmp-111', '.tokenomics.old-222']) { mkdirSync(join(skills, n), { recursive: true }); writeFileSync(join(skills, n, 'SKILL.md'), 'stale\n'); }
-  bump(pkg, '0.4.1');
+  bump(pkg, NEXT);
   const r = cli(pkg, ['install', 'tokenomics', '--target', 'claude', '--repo', repo]);
   assert.equal(r.status, 0, r.stderr);
   assert.deepEqual(readdirSync(skills).sort(), ['tokenomics'], 'no temp, aside or stale sibling remains');
@@ -189,7 +194,7 @@ test('(M7) a .DS_Store in the installed copy is ignored: an upgrade proceeds, a 
   const same = cli(pkg, ['install', 'tokenomics', '--target', 'claude', '--repo', repo]);
   assert.equal(same.status, 0, same.stderr);
   assert.match(same.stdout, /^unchanged:/);
-  bump(pkg, '0.4.1');
+  bump(pkg, NEXT);
   const up = cli(pkg, ['install', 'tokenomics', '--target', 'claude', '--repo', repo]);
   assert.equal(up.status, 0, up.stderr);
   assert.match(up.stdout, /^upgraded:/);
@@ -217,14 +222,14 @@ test('(T3-7) an upgrade re-stamps installed; a copy missing a listed file refuse
   assert.equal(cli(pkg, ['install', 'tokenomics', '--target', 'claude', '--repo', repo]).status, 0);
   const dest = join(repo, '.claude', 'skills', 'tokenomics');
   const first = JSON.parse(readFileSync(join(dest, 'ENGINE.json'), 'utf8')).installed;
-  bump(pkg, '0.4.1');
+  bump(pkg, NEXT);
   assert.equal(cli(pkg, ['install', 'tokenomics', '--target', 'claude', '--repo', repo]).status, 0);
   const second = JSON.parse(readFileSync(join(dest, 'ENGINE.json'), 'utf8')).installed;
   assert.equal(second.target, 'claude');
   assert.match(second.at, /^\d{4}-\d\d-\d\dT/);
   assert.ok(second.at >= first.at, 'installed.at is re-stamped, not carried over');
   rmSync(join(dest, 'engine', 'order.mjs'));
-  bump(pkg, '0.4.2');
+  bump(pkg, NEXT2);
   const r = cli(pkg, ['install', 'tokenomics', '--target', 'claude', '--repo', repo]);
   assert.equal(r.status, 1);
   assert.match(r.stderr, /engine\/order\.mjs: missing from the installed copy/);
