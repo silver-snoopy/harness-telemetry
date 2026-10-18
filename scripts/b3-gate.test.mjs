@@ -12,11 +12,11 @@ import { chmodSync, copyFileSync, cpSync, existsSync, mkdirSync, mkdtempSync, re
 import { tmpdir } from 'node:os';
 import { delimiter, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { buildToolsDir, HIDDEN_CLIS } from '../tokenomics/fixtures/trackers/harness.mjs';
 
 const ROOT = join(fileURLToPath(new URL('.', import.meta.url)), '..');
 const FIXTURE = join(ROOT, 'corpus', 'fixtures', 'lerisque');
 const FAKES = join(ROOT, 'tokenomics', 'fixtures', 'probe');
-const SYSTEM_PATH = ['/usr/bin', '/bin'];
 const WIRING = ['.claude/tests/_assert_hook_wiring.py'];
 const SKILL_REL = { claude: '.claude/skills/tokenomics', 'copilot-cli': '.github/skills/tokenomics' };
 
@@ -40,6 +40,8 @@ const gitconfig = join(sandbox, 'gitconfig');
 writeFileSync(gitconfig, '[init]\n\tdefaultBranch = main\n');
 const bin = join(sandbox, 'bin'); // node and the fake host CLIs; no real claude or copilot is reachable
 mkdirSync(bin);
+const SYSTEM_PATH = [buildToolsDir(sandbox)]; // node and the system tools, minus gh/az/claude/copilot
+for (const n of HIDDEN_CLIS) assert.ok(!existsSync(join(SYSTEM_PATH[0], n)), `a real ${n} would be reachable from the test PATH`);
 symlinkSync(process.execPath, join(bin, 'node'));
 for (const [name, fake] of [['claude', 'fake-claude.mjs'], ['copilot', 'fake-copilot.mjs']]) {
   writeFileSync(join(bin, name), `#!/bin/sh\nexec "${process.execPath}" "${join(FAKES, fake)}" "$@"\n`);

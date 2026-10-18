@@ -1,19 +1,47 @@
 // Test kit for the work-item tracker tests (Plan 7, D-TESTKIT). Test-only; excluded from ENGINE.json like the other
 // fixtures. STDLIB ONLY.
 import { spawn } from 'node:child_process';
-import { existsSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { dirname, join, resolve } from 'node:path';
+import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+/** CLIs a test must never reach for real, on any OS: GitHub's Ubuntu runners ship gh in /usr/bin. */
+export const HIDDEN_CLIS = Object.freeze(['gh', 'az', 'claude', 'copilot']);
+const SYSTEM_DIRS = ['/usr/bin', '/bin'];
+
 /**
- * A fresh, hermetic child environment: a new object, never a spread of process.env. PATH is the fake bin, the real
- * node's directory, and the system dirs. HOME, COPILOT_HOME and the tool config dirs live under `tmp`; git reads only
- * `tmp/gitconfig`. No credentials: tests that need them add dummy sentinel values themselves.
+ * Build `<parent>/tools`: a symlink `node` to `node` (default process.execPath) plus a symlink to every entry of
+ * `sources` (default /usr/bin and /bin; the first dir wins a duplicate name, so /bin -> /usr/bin adds nothing), except
+ * HIDDEN_CLIS. Returns the directory; the same directory is returned for the same parent and sources, built once.
+ */
+const toolsDirs = new Map();
+export function buildToolsDir(parent, { sources = SYSTEM_DIRS, node = process.execPath } = {}) {
+  const dir = join(parent, 'tools');
+  const key = `${dir}\0${sources.join('\0')}\0${node}`;
+  if (toolsDirs.has(key)) return dir;
+  mkdirSync(dir, { recursive: true });
+  const seen = new Set(HIDDEN_CLIS);
+  const link = (name, target) => { seen.add(name); symlinkSync(target, join(dir, name)); };
+  link('node', node);
+  for (const src of sources) {
+    let names;
+    try { names = readdirSync(src); } catch { continue; }
+    for (const name of names) if (!seen.has(name)) link(name, join(src, name));
+  }
+  toolsDirs.set(key, true);
+  return dir;
+}
+
+/**
+ * A fresh, hermetic child environment: a new object, never a spread of process.env. PATH is the fake bin, then a tools
+ * dir under `tmp` (node and the system tools, never gh/az/claude/copilot; see buildToolsDir). HOME, COPILOT_HOME and
+ * the tool config dirs live under `tmp`; git reads only `tmp/gitconfig`. No credentials: tests that need them add
+ * dummy sentinel values themselves.
  */
 export function sandboxEnv(tmp, { bin } = {}) {
   return {
-    PATH: [bin, dirname(process.execPath), '/usr/bin', '/bin'].filter(Boolean).join(':'),
+    PATH: [bin, buildToolsDir(tmp)].filter(Boolean).join(':'),
     HOME: join(tmp, 'home'),
     COPILOT_HOME: join(tmp, 'home', '.copilot'),
     XDG_CONFIG_HOME: join(tmp, 'xdg'),

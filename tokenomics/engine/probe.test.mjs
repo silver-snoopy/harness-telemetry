@@ -12,13 +12,13 @@ import { fileURLToPath } from 'node:url';
 import { installCopy } from './install-copy.mjs';
 import { installUserHooks } from './copilot-user-hooks.mjs';
 import { installClaude, installCopilot, installGitHook } from '../scripts/install-hooks.mjs';
+import { buildToolsDir, HIDDEN_CLIS } from '../fixtures/trackers/harness.mjs';
 
 const ROOT = join(fileURLToPath(new URL('.', import.meta.url)), '..', '..');
 const FAKES = join(ROOT, 'tokenomics', 'fixtures', 'probe');
 const VERSION = JSON.parse(readFileSync(join(ROOT, 'tokenomics', 'ENGINE.json'), 'utf8')).engine;
 const REL = { claude: '.claude/skills/tokenomics', 'copilot-cli': '.github/skills/tokenomics' };
 const TEL = '.agents/telemetry/tokenomics';
-const SYSTEM_PATH = ['/usr/bin', '/bin'];
 
 const sandbox = mkdtempSync(join(tmpdir(), 'ht-probe-'));
 process.on('exit', () => { unlock(sandbox); rmSync(sandbox, { recursive: true, force: true }); });
@@ -28,6 +28,8 @@ writeFileSync(gitconfig, '[user]\n\tuseConfigOnly = true\n[init]\n\tdefaultBranc
 // The bin directory: node, and the fakes under the host CLI names. No real host binary is reachable from PATH.
 const bin = join(sandbox, 'bin');
 mkdirSync(bin);
+const SYSTEM_PATH = [buildToolsDir(sandbox)]; // node and the system tools, minus gh/az/claude/copilot
+for (const n of HIDDEN_CLIS) assert.ok(!existsSync(join(SYSTEM_PATH[0], n)), `a real ${n} would be reachable from the test PATH`);
 symlinkSync(process.execPath, join(bin, 'node'));
 const wrapper = (name, fake) => { writeFileSync(join(bin, name), `#!/bin/sh\nexec "${process.execPath}" "${join(FAKES, fake)}" "$@"\n`); chmodSync(join(bin, name), 0o755); };
 wrapper('claude', 'fake-claude.mjs');

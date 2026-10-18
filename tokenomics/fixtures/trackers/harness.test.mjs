@@ -1,10 +1,10 @@
 import { test, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { request } from 'node:http';
-import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, readdirSync, existsSync, realpathSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { startServer, assertNoSentinels, SENTINEL, fakeCli, readArgv } from './harness.mjs';
+import { HIDDEN_CLIS, buildToolsDir, sandboxEnv, startServer, assertNoSentinels, SENTINEL, fakeCli, readArgv } from './harness.mjs';
 import { spawnSync } from 'node:child_process';
 
 const tmp = mkdtempSync(join(tmpdir(), 'ht-harness-'));
@@ -67,4 +67,32 @@ test('fakeCli records argv and answers', () => {
   assert.equal(r.status, 3);
   assert.equal(r.stdout, 'a+b');
   assert.deepEqual(readArgv(log), [['a', 'b']]);
+});
+
+test('buildToolsDir: git is linked, gh/az/claude/copilot never are; sandboxEnv PATH has no dir holding gh', () => {
+  const fakeSys = join(tmp, 'fake-sys');
+  const fakeBinDir = join(tmp, 'fake-bin');
+  mkdirSync(fakeSys, { recursive: true });
+  mkdirSync(fakeBinDir, { recursive: true });
+  for (const n of ['git', 'sh', ...HIDDEN_CLIS]) writeFileSync(join(fakeSys, n), '#!/bin/sh\nexit 0\n', { mode: 0o755 });
+  writeFileSync(join(fakeBinDir, 'git'), 'dup\n'); // a duplicate name in a later source is skipped, not an EEXIST
+  writeFileSync(join(fakeBinDir, 'ls'), '#!/bin/sh\nexit 0\n', { mode: 0o755 });
+  const parent = join(tmp, 'tools-parent');
+  const dir = buildToolsDir(parent, { sources: [fakeSys, join(tmp, 'no-such-dir'), fakeBinDir] });
+  assert.equal(dir, join(parent, 'tools'));
+  const names = readdirSync(dir).sort();
+  assert.deepEqual(names, ['git', 'ls', 'node', 'sh']);
+  assert.equal(realpathSync(join(dir, 'node')), realpathSync(process.execPath));
+  assert.equal(realpathSync(join(dir, 'git')), realpathSync(join(fakeSys, 'git')));
+  for (const n of HIDDEN_CLIS) assert.ok(!existsSync(join(dir, n)), `${n} hidden`);
+  assert.equal(buildToolsDir(parent, { sources: [fakeSys, join(tmp, 'no-such-dir'), fakeBinDir] }), dir, 'built once, reusable');
+
+  const t = join(tmp, 'env');
+  const env = sandboxEnv(t, { bin: join(t, 'bin') });
+  const entries = env.PATH.split(':');
+  assert.equal(entries[0], join(t, 'bin'));
+  for (const d of entries) for (const n of HIDDEN_CLIS) assert.ok(!existsSync(join(d, n)), `${n} found in ${d}`);
+  assert.ok(existsSync(join(entries[1], 'node')));
+  assert.equal(spawnSync('git', ['--version'], { env, encoding: 'utf8' }).status, 0, 'git resolves');
+  assert.deepEqual(sandboxEnv(t), { ...env, PATH: entries[1] }, 'no bin: tools dir only');
 });

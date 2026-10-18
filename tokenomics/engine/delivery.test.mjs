@@ -7,7 +7,7 @@ import { join } from 'node:path';
 import { defaultBranch, mergedWork, joinDelivery, isPriced, normalizeIds } from './delivery.mjs';
 import { presetRules } from './trackers.mjs';
 import { TA_DEFAULTS } from './config.mjs';
-import { sandboxEnv, fakeCli, fakeBin, readArgv } from '../fixtures/trackers/harness.mjs';
+import { sandboxEnv, buildToolsDir, fakeCli, fakeBin, readArgv } from '../fixtures/trackers/harness.mjs';
 
 const settings = { ...TA_DEFAULTS, ids: { ...TA_DEFAULTS.ids, rules: presetRules('jira', { keys: ['PAY', 'WEB'] }) } };
 
@@ -80,8 +80,8 @@ test('(a) a real two-parent merge gives pr and branch; a one-parent commit with 
 test('(b) squash only: git-only without gh; a fake gh fills the branch and the ids, with explicit selectors', () => {
   const r = makeRepo({ origin: 'https://github.com/o/r.git' });
   const sq = r.commit('add login (#9)');
-  // No gh at all: PATH without the node dir (git lives in /usr/bin), and nothing named gh on it.
-  const noGh = { ...r.env, PATH: [r.bin, '/usr/bin', '/bin'].join(':') };
+  // No gh at all: the fake bin (still empty) and the filtered tools dir (git, no gh), and nothing named gh on it.
+  const noGh = { ...r.env, PATH: [r.bin, buildToolsDir(r.tmp)].join(':') };
   for (const d of noGh.PATH.split(':')) assert.ok(!existsSync(join(d, 'gh')), `gh found in ${d}`);
   const w = mergedWork(r.repo, { settings, prs: 'auto', env: noGh });
   assert.equal(w.prs, 'git-only');

@@ -1,35 +1,37 @@
 // `harness-telemetry setup`, run as the CLI it is, in temp git repos. HOME (and so ~/.copilot) is a sandbox, git is
-// isolated, and PATH holds only git, /bin and a shim dir: a no-op `node` (the post-commit sweep a --commit starts must
+// isolated, and PATH holds only a shim dir and the filtered tools dir: a no-op `node` (the post-commit sweep a --commit starts must
 // not outlive the test) plus fake `claude` / `copilot` where a test detects them. setup runs its children with the
 // test's own node binary (process.execPath), never the PATH one.
 import { test, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, existsSync, rmSync, symlinkSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { tmpdir } from 'node:os';
-import { dirname, join } from 'node:path';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { detectHosts } from './setup.mjs';
 import { mineIds } from '../tokenomics/hooks/telemetry-capture.mjs';
 import { TA_DEFAULTS } from '../tokenomics/engine/config.mjs';
-import { sandboxEnv, startServer, assertNoSentinels, SENTINEL } from '../tokenomics/fixtures/trackers/harness.mjs';
+import { sandboxEnv, buildToolsDir, startServer, assertNoSentinels, SENTINEL } from '../tokenomics/fixtures/trackers/harness.mjs';
 
 const CLI = fileURLToPath(new URL('./harness-telemetry.mjs', import.meta.url));
 const sandbox = mkdtempSync(join(tmpdir(), 'ht-setup-'));
 after(() => rmSync(sandbox, { recursive: true, force: true, maxRetries: 10, retryDelay: 300 }));
 let n = 0;
 const fresh = (p) => { const d = join(sandbox, `${p}-${n++}`); mkdirSync(d, { recursive: true }); return d; };
-const GIT_DIR = dirname(spawnSync('sh', ['-c', 'command -v git'], { encoding: 'utf8' }).stdout.trim());
+const REAL_GIT = spawnSync('sh', ['-c', 'command -v git'], { encoding: 'utf8' }).stdout.trim();
 
 function world({ clis = [] } = {}) {
   const home = fresh('home');
   const shim = fresh('shim');
   writeFileSync(join(shim, 'node'), '#!/bin/sh\nexit 0\n', { mode: 0o755 });
   for (const c of clis) writeFileSync(join(shim, c), '#!/bin/sh\nexit 0\n', { mode: 0o755 });
+  const tools = buildToolsDir(home); // never a real gh/az/claude/copilot; git is linked in if it lives outside /usr/bin
+  if (!existsSync(join(tools, 'git'))) symlinkSync(REAL_GIT, join(tools, 'git'));
   const gitcfg = join(home, 'gitconfig');
   writeFileSync(gitcfg, '[init]\n\tdefaultBranch = main\n[user]\n\tname = Tester\n\temail = tester@example.invalid\n');
   const env = {
-    PATH: [shim, GIT_DIR, '/usr/bin', '/bin'].join(':'), HOME: home, TMPDIR: process.env.TMPDIR ?? tmpdir(),
+    PATH: [shim, tools].join(':'), HOME: home, TMPDIR: process.env.TMPDIR ?? tmpdir(),
     GIT_CONFIG_GLOBAL: gitcfg, GIT_CONFIG_NOSYSTEM: '1', GIT_ALLOW_PROTOCOL: 'file', GIT_TERMINAL_PROMPT: '0',
     TOKENOMICS_NO_CCUSAGE: '1', TOKENOMICS_NO_SYNC: '1', TOKENOMICS_NO_SINK: '1',
     TOKENOMICS_CLAUDE_ROOT: join(home, 'none'), TOKENOMICS_COPILOT_ROOT: join(home, 'none'), TOKENOMICS_VSCODE_ROOT: join(home, 'none'),
